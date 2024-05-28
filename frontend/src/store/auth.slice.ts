@@ -22,7 +22,7 @@ interface InitialState {
 const initialState: InitialState = {
   value: {
     token: '',
-    isAuth: true,
+    isAuth: false,
     username: '',
     uid: '',
     isModerator: false,
