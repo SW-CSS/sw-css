@@ -17,6 +17,7 @@ export const COLOR = {
 };
 
 export const FONT_STYLE = {
+  xs: '12px "Noto Sans KR", sans-serif',
   sm: '14px "Noto Sans KR", sans-serif',
   base: {
     normal: '400 16px "Noto Sans KR", sans-serif',
