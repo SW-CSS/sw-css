@@ -1,5 +1,5 @@
-/* eslint-disable @next/next/no-page-custom-font */
 import Header from '@/components/Header';
+import ReduxProvider from '@/store/provider';
 
 import type { Metadata } from 'next';
 import './globals.css';
@@ -17,8 +17,10 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => (
       <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet" />
     </head>
     <body style={{ margin: 0 }}>
-      <Header />
-      {children}
+      <ReduxProvider>
+        <Header />
+        {children}
+      </ReduxProvider>
     </body>
   </html>
 );
