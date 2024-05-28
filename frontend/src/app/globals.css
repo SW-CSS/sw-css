@@ -19,3 +19,7 @@ a {
   color: inherit;
   text-decoration: none;
 }
+
+::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
