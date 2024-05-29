@@ -4,7 +4,7 @@ import { COLOR } from '@/constants';
 
 import { HeaderAccordionProps } from '../HeaderAccordion';
 import {
-  HamburgerWarper,
+  HamburgerWrapper,
   HamburgerLogo,
   HamburgerLine,
   HamburgerContent,
@@ -28,7 +28,7 @@ const Hamburger = ({ open, handleOpen, headerBar }: HamburgerProps) => {
   };
 
   return (
-    <HamburgerWarper>
+    <HamburgerWrapper>
       <HamburgerLogo onClick={handleClose} style={{ left: `${open ? '-200px' : 0}` }}>
         <HamburgerLine
           style={{
@@ -65,7 +65,7 @@ const Hamburger = ({ open, handleOpen, headerBar }: HamburgerProps) => {
           </HamburgerContentLayout>
         ))}
       </HamburgerContent>
-    </HamburgerWarper>
+    </HamburgerWrapper>
   );
 };
 

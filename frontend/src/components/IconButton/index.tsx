@@ -13,7 +13,7 @@ export interface IconButtonProps {
   link: string;
 }
 
-const IconButtonWarper = styled(Link)`
+const IconButtonWrapper = styled(Link)`
   width: 60px;
   height: 50px;
   margin-right: 10px;
@@ -41,7 +41,7 @@ const IconButton = ({ icon, title, size, link }: IconButtonProps) => {
   });
 
   return (
-    <IconButtonWarper href={link}>
+    <IconButtonWrapper href={link}>
       {Icon}
       <span
         style={{
@@ -50,7 +50,7 @@ const IconButton = ({ icon, title, size, link }: IconButtonProps) => {
       >
         {title}
       </span>
-    </IconButtonWarper>
+    </IconButtonWrapper>
   );
 };
 

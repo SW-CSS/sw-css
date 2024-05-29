@@ -51,7 +51,7 @@ export const SidebarBackground = styled.div`
 `;
 
 /* start of HeaderAccordion 에서 사용되는 컴포넌트 */
-export const HeaderAccordionWarper = styled.div`
+export const HeaderAccordionWrapper = styled.div`
   position: relative;
   height: 76px;
   line-height: 76px;
@@ -100,7 +100,7 @@ export const Accordion = styled.div`
 /* end of HeaderAccordion 에서 사용되는 컴포넌트 */
 
 /* start of Hamburger 에서 사용되는 컴포넌트 */
-export const HamburgerWarper = styled.div`
+export const HamburgerWrapper = styled.div`
   width: 50px;
   height: 50px;
   position: relative;

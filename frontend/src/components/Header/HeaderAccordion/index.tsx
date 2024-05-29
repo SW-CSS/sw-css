@@ -1,4 +1,4 @@
-import { HeaderAccordionWarper, Linker, Accordion, AccordionLink } from '../style';
+import { HeaderAccordionWrapper, Linker, Accordion, AccordionLink } from '../style';
 
 export interface HeaderAccordionProps {
   title: string;
@@ -11,7 +11,7 @@ export interface HeaderAccordionProps {
 }
 
 const HeaderAccordion = ({ title, url, sub }: HeaderAccordionProps) => (
-  <HeaderAccordionWarper>
+  <HeaderAccordionWrapper>
     <Linker href={url}>{title}</Linker>
     <Accordion>
       {sub.map((item) => (
@@ -20,7 +20,7 @@ const HeaderAccordion = ({ title, url, sub }: HeaderAccordionProps) => (
         </AccordionLink>
       ))}
     </Accordion>
-  </HeaderAccordionWarper>
+  </HeaderAccordionWrapper>
 );
 
 export default HeaderAccordion;
