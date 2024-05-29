@@ -1,3 +1,5 @@
+/* eslint-disable @next/next/no-page-custom-font */
+import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 import ReduxProvider from '@/store/provider';
 
@@ -20,6 +22,7 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => (
       <ReduxProvider>
         <Header />
         {children}
+        <Footer />
       </ReduxProvider>
     </body>
   </html>
