@@ -40,7 +40,10 @@
           "caseInsensitive": true
         }
       }
-    ]
+    ],
+    "object-curly-newline": "off",
+    "react/jsx-one-expression-per-line": "off",
+    "no-param-reassign": "off"
   },
   "settings": {
     "import/resolver": {

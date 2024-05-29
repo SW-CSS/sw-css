@@ -1,7 +1,3 @@
-const Page = () => (
-  <main>
-    <h1>SW-CSS</h1>
-  </main>
-);
+const Page = () => <main style={{ width: '100vw', height: '200vh' }} />;
 
 export default Page;
