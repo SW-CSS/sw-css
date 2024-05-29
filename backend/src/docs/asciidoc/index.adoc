@@ -12,7 +12,18 @@ endif::[]
 
 == API 목록
 
-== `GET`: 팀원 목록 조회
+== `GET`: 단과대학 목록 조회
+
+.HTTP Request
+include::{snippets}/college-find/http-request.adoc[]
+
+.HTTP Response
+include::{snippets}/college-find/http-response.adoc[]
+
+.Response Body
+include::{snippets}/college-find/response-fields.adoc[]
+
+== `GET`: 학과 목록 조회
 
 .HTTP Request
 include::{snippets}/major-find/http-request.adoc[]
