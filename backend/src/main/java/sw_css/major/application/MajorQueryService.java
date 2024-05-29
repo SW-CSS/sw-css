@@ -4,6 +4,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import sw_css.major.application.dto.response.CollegeResponse;
 import sw_css.major.application.dto.response.MajorResponse;
 import sw_css.major.domain.repository.CollegeRepository;
 import sw_css.major.domain.repository.MajorRepository;
@@ -16,6 +17,10 @@ import sw_css.major.exception.MajorExceptionType;
 public class MajorQueryService {
     private final MajorRepository majorRepository;
     private final CollegeRepository collegeRepository;
+
+    public List<CollegeResponse> findColleges() {
+        return CollegeResponse.of(collegeRepository.findAll());
+    }
 
     public List<MajorResponse> findMajors(final Long collegeId) {
         validateCollegeExist(collegeId);
