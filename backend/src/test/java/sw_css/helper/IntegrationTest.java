@@ -12,7 +12,6 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 @SpringBootTest
 @Transactional
 @Sql(value = "/clean.sql", executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
-@Sql(value = "/data.sql", executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
 public abstract class IntegrationTest extends ApiTestHelper {
 
     @BeforeEach
