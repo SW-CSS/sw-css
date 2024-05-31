@@ -4,6 +4,8 @@ import Header from '@/components/Header';
 import ReduxProvider from '@/store/provider';
 import StyledComponentsRegistry from '@/theme/StyledComponentsRegistry';
 
+import { PageWrapper, PageLayout } from './styled';
+
 import type { Metadata } from 'next';
 
 import './globals.css';
@@ -24,7 +26,9 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => (
       <ReduxProvider>
         <StyledComponentsRegistry>
           <Header />
-          {children}
+          <PageWrapper>
+            <PageLayout>{children}</PageLayout>
+          </PageWrapper>
           <Footer />
         </StyledComponentsRegistry>
       </ReduxProvider>
