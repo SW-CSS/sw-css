@@ -67,6 +67,7 @@ create table milestone_category
 (
     id          bigint auto_increment primary key,
     name        varchar(255) not null,
+    group       varchar(255) not null,
     limit_score int          not null,
     created_at  datetime(6)
 );
@@ -82,5 +83,5 @@ create table milestone_history
     reject_reason varchar(255),
     count         int          not null,
     activated_at  datetime(6),
-    created_at    datetime(6)
+    created_at    date
 );
