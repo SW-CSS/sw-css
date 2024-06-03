@@ -8,7 +8,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -47,5 +47,5 @@ public class MilestoneHistory extends BaseEntity {
     private Integer count;
 
     @Column(updatable = false)
-    private LocalDateTime activatedAt;
+    private LocalDate activatedAt;
 }
