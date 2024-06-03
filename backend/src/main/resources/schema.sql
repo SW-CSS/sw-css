@@ -70,3 +70,17 @@ create table milestone_category
     limit_score int          not null,
     created_at  datetime(6)
 );
+
+create table milestone_history
+(
+    id            bigint auto_increment primary key,
+    milestone_id  bigint       not null,
+    student_id    int          not null,
+    description   varchar(255) not null,
+    file_url      varchar(255),
+    status        varchar(255) not null default 'PENDING',
+    reject_reason varchar(255),
+    count         int          not null,
+    activated_at  datetime(6),
+    created_at    datetime(6)
+);
