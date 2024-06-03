@@ -54,7 +54,7 @@ public class MajorApiDocsTest extends RestDocsTest {
     public void findMajors() throws Exception {
         // given
         final QueryParametersSnippet queryParameters = queryParameters(
-                parameterWithName("keyword").optional().description("검색 단어(option)")
+                parameterWithName("keyword").description("검색 단어(option)")
         );
 
         final ResponseFieldsSnippet responseFields = PayloadDocumentation.responseFields(
