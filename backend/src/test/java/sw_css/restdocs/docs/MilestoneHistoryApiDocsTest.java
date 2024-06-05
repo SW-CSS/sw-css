@@ -1,9 +1,12 @@
 package sw_css.restdocs.docs;
 
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
+import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -12,8 +15,10 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
+import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.restdocs.payload.RequestFieldsSnippet;
+import org.springframework.restdocs.request.PathParametersSnippet;
 import sw_css.milestone.api.MilestoneHistoryController;
 import sw_css.milestone.application.dto.request.MilestoneHistoryCreateRequest;
 import sw_css.restdocs.RestDocsTest;
@@ -45,5 +50,23 @@ public class MilestoneHistoryApiDocsTest extends RestDocsTest {
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isCreated())
                 .andDo(document("milestone-history-create", requestBodySnippet));
+    }
+
+    @Test
+    @DisplayName("[성공] 마일스톤 실적을 삭제할 수 있다.")
+    public void deleteMilestoneHistory() throws Exception {
+        // given
+        final PathParametersSnippet pathParameters = pathParameters(
+                parameterWithName("historyId").description("마일스톤 실적의 id")
+        );
+        final Long historyId = 1L;
+
+        // when
+        doNothing().when(milestoneHistoryCommandService).deleteMilestoneHistory(historyId);
+
+        // then
+        mockMvc.perform(RestDocumentationRequestBuilders.delete("/milestones/histories/{historyId}", historyId))
+                .andExpect(status().isNoContent())
+                .andDo(document("milestone-history-delete", pathParameters));
     }
 }
