@@ -16,6 +16,7 @@ import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import sw_css.helper.ApiTestHelper;
 import sw_css.major.application.MajorQueryService;
+import sw_css.milestone.application.MilestoneHistoryCommandService;
 
 @Import(RestDocsConfiguration.class)
 @ExtendWith(RestDocumentationExtension.class)
@@ -23,6 +24,9 @@ public abstract class RestDocsTest extends ApiTestHelper {
 
     @MockBean
     protected MajorQueryService majorQueryService;
+
+    @MockBean
+    protected MilestoneHistoryCommandService milestoneHistoryCommandService;
 
     @Autowired
     protected RestDocumentationResultHandler restDocs;

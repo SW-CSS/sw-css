@@ -18,7 +18,7 @@ public class MilestoneHistoryCommandService {
     private final MilestoneRepository milestoneRepository;
     private final MilestoneHistoryRepository milestoneHistoryRepository;
 
-    public void registerMilestoneHistory(final MilestoneHistoryCreateRequest request) {
+    public Long registerMilestoneHistory(final MilestoneHistoryCreateRequest request) {
         // TODO 요청으로 fileUrl 대신 파일을 받도록 수정
         final Milestone milestone =
                 milestoneRepository.findById(request.milestoneId())
@@ -27,6 +27,6 @@ public class MilestoneHistoryCommandService {
         final int studentId = 202055558;
         final MilestoneHistory newMilestoneHistory = new MilestoneHistory(milestone, studentId, request.description(),
                 request.fileUrl(), request.count(), request.activatedAt());
-        milestoneHistoryRepository.save(newMilestoneHistory);
+        return milestoneHistoryRepository.save(newMilestoneHistory).getId();
     }
 }

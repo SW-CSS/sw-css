@@ -12,7 +12,9 @@ endif::[]
 
 == API 목록
 
-== `GET`: 단과대학 목록 조회
+== 학과
+
+=== `GET`: 단과대학 목록 조회
 
 .HTTP Request
 include::{snippets}/college-find/http-request.adoc[]
@@ -23,7 +25,7 @@ include::{snippets}/college-find/http-response.adoc[]
 .Response Body
 include::{snippets}/college-find/response-fields.adoc[]
 
-== `GET`: 학과 목록 조회
+=== `GET`: 학과 목록 조회
 
 .HTTP Request
 include::{snippets}/major-find/http-request.adoc[]
@@ -36,3 +38,17 @@ include::{snippets}/major-find/http-response.adoc[]
 
 .Response Body
 include::{snippets}/major-find/response-fields.adoc[]
+
+== 마일스톤
+
+=== `POST` 마일스톤 실적 등록
+
+.HTTP Request
+include::{snippets}/milestone-history-create/http-request.adoc[]
+
+.Query Parameters
+include::{snippets}/milestone-history-create/request-fields.adoc[]
+
+.HTTP Response
+include::{snippets}/milestone-history-create/http-response.adoc[]
+
