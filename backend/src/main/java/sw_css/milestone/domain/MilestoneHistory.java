@@ -34,13 +34,13 @@ public class MilestoneHistory extends BaseEntity {
     @Column(nullable = false)
     private String description;
 
-    @Column(nullable = false)
+    @Column
     private String fileUrl;
 
     @Column(nullable = false)
     private MilestoneStatus status;
 
-    @Column(nullable = false)
+    @Column
     private String rejectReason;
 
     @Column(nullable = false)
@@ -48,4 +48,9 @@ public class MilestoneHistory extends BaseEntity {
 
     @Column(updatable = false)
     private LocalDate activatedAt;
+
+    public MilestoneHistory(final Milestone milestone, final Integer studentId, final String description,
+                            final String fileUrl, final Integer count, final LocalDate activatedAt) {
+        this(null, milestone, studentId, description, fileUrl, MilestoneStatus.PENDING, null, count, activatedAt);
+    }
 }
