@@ -24,7 +24,7 @@ public class MilestoneCategory extends BaseEntity {
     private String name;
 
     @Column(nullable = false)
-    private MilestoneGroup group;
+    private MilestoneGroup milestoneGroup;
 
     @Column(nullable = false)
     private Integer limitScore;

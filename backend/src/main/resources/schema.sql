@@ -5,6 +5,7 @@ drop table if exists sw_css.major;
 drop table if exists sw_css.college;
 drop table if exists sw_css.milestone;
 drop table if exists sw_css.milestone_category;
+drop table if exists sw_css.milestone_history;
 
 create table member
 (
@@ -65,11 +66,11 @@ create table milestone
 
 create table milestone_category
 (
-    id          bigint auto_increment primary key,
-    name        varchar(255) not null,
-    group       varchar(255) not null,
-    limit_score int          not null,
-    created_at  datetime(6)
+    id              bigint auto_increment primary key,
+    name            varchar(255) not null,
+    milestone_group varchar(255) not null,
+    limit_score     int          not null,
+    created_at      datetime(6)
 );
 
 create table milestone_history

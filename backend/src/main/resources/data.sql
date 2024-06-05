@@ -237,82 +237,82 @@ insert into major (college_id, name)
 values (15, '의생명융합공학부');
 
 /* 마일스톤 */
-insert into milestone_category (group, name, limit_score)
+insert into milestone_category (milestone_group, name, limit_score)
 values ('ACTIVITY', 'SW관련 창업', 100);
-insert into milestone_category (group, name, limit_score)
+insert into milestone_category (milestone_group, name, limit_score)
 values ('ACTIVITY', 'TOPCIT 응시(수준2 이상)', 60);
-insert into milestone_category (group, name, limit_score)
+insert into milestone_category (milestone_group, name, limit_score)
 values ('ACTIVITY', 'PCC 참가(PCCP Lv.1 이상)', 60);
-insert into milestone_category (group, name, limit_score)
+insert into milestone_category (milestone_group, name, limit_score)
 values ('ACTIVITY', 'SW관련 경진대회 및 공모전 수상', 60);
-insert into milestone_category (group, name, limit_score)
+insert into milestone_category (milestone_group, name, limit_score)
 values ('ACTIVITY', 'SW교육 참여', 100);
-insert into milestone_category (group, name, limit_score)
+insert into milestone_category (milestone_group, name, limit_score)
 values ('ACTIVITY', '오픈소스 SW활동', 50);
-insert into milestone_category (group, name, limit_score)
+insert into milestone_category (milestone_group, name, limit_score)
 values ('ACTIVITY', '현장실습(인턴십)', 80);
-insert into milestone_category (group, name, limit_score)
+insert into milestone_category (milestone_group, name, limit_score)
 values ('ACTIVITY', 'R&D 산학협력프로젝트 참여', 50);
-insert into milestone_category (group, name, limit_score)
+insert into milestone_category (milestone_group, name, limit_score)
 values ('ACTIVITY', 'SW관련 특허(등록/출원) SW등록, SW관련 논문', 40);
-insert into milestone_category (group, name, limit_score)
+insert into milestone_category (milestone_group, name, limit_score)
 values ('GLOBAL', '글로벌 행사 참여(창업 제외), 특허, 논문, 자격증, 인턴십, 교육, 경진대회', 120);
-insert into milestone_category (group, name, limit_score)
+insert into milestone_category (milestone_group, name, limit_score)
 values ('GLOBAL', '공인영어성적(TOEIC 기준 700점 이상 또는 G-TELP Level2 65점 이상)', 20);
-insert into milestone_category (group, name, limit_score)
+insert into milestone_category (milestone_group, name, limit_score)
 values ('GLOBAL', '전공 영어분반 수강(F 제외)', 40);
-insert into milestone_category (group, name, limit_score)
+insert into milestone_category (milestone_group, name, limit_score)
 values ('GLOBAL', 'SW관련 해외 MOOC 수강', 20);
-insert into milestone_category (group, name, limit_score)
+insert into milestone_category (milestone_group, name, limit_score)
 values ('COMMUNITY', 'SW가치확산 - SW관련 공공기관 봉사, 교육원 주관 SW 가치확산 활동', 50);
-insert into milestone_category (group, name, limit_score)
+insert into milestone_category (milestone_group, name, limit_score)
 values ('COMMUNITY', '경진대회 및 공모전 행사 참여', 60);
-insert into milestone_category (group, name, limit_score)
+insert into milestone_category (milestone_group, name, limit_score)
 values ('COMMUNITY', '튜터링/멘토링 활동', 30);
-insert into milestone_category (group, name, limit_score)
+insert into milestone_category (milestone_group, name, limit_score)
 values ('COMMUNITY', 'Edwith 부산대 SW강의 수강', 60);
 
-insert into 01milestone_work_detail (category_id, name, score, limit_count)
+insert into milestone (category_id, name, score, limit_count)
 values (1, '창업', 100, 1);
-insert into 01milestone_work_detail (category_id, name, score, limit_count)
+insert into milestone (category_id, name, score, limit_count)
 values (1, '교과', 20, 2);
-insert into 01milestone_work_detail (category_id, name, score, limit_count)
+insert into milestone (category_id, name, score, limit_count)
 values (1, '비교과', 20, 2);
-insert into 01milestone_work_detail (category_id, name, score, limit_count)
+insert into milestone (category_id, name, score, limit_count)
 values (2, '수준3 이상', 60, 0);
-insert into 01milestone_work_detail (category_id, name, score, limit_count)
+insert into milestone (category_id, name, score, limit_count)
 values (2, '수준2 이상', 50, 0);
-insert into 01milestone_work_detail (category_id, name, score, limit_count)
+insert into milestone (category_id, name, score, limit_count)
 values (3, 'PCCP Lv.3 이상', 60, 0);
-insert into 01milestone_work_detail (category_id, name, score, limit_count)
+insert into milestone (category_id, name, score, limit_count)
 values (3, 'PCCP Lv.1 이상', 50, 0);
-insert into 01milestone_work_detail (category_id, name, score, limit_count)
+insert into milestone (category_id, name, score, limit_count)
 values (4, 'SW관련 경진대회 및 공모전 수상', 20, 3);
-insert into 01milestone_work_detail (category_id, name, score, limit_count)
+insert into milestone (category_id, name, score, limit_count)
 values (5, 'SW교육 참여', 1, 100);
-insert into 01milestone_work_detail (category_id, name, score, limit_count)
+insert into milestone (category_id, name, score, limit_count)
 values (6, '컨트리뷰션', 50, 1);
-insert into 01milestone_work_detail (category_id, name, score, limit_count)
+insert into milestone (category_id, name, score, limit_count)
 values (6, '교과목수강', 10, 2);
-insert into 01milestone_work_detail (category_id, name, score, limit_count)
+insert into milestone (category_id, name, score, limit_count)
 values (7, '현장실습(인턴십)', 20, 4);
-insert into 01milestone_work_detail (category_id, name, score, limit_count)
+insert into milestone (category_id, name, score, limit_count)
 values (8, 'R&D 산학협력프로젝트 참여', 10, 5);
-insert into 01milestone_work_detail (category_id, name, score, limit_count)
+insert into milestone (category_id, name, score, limit_count)
 values (9, 'SW관련 특허(등록/출원) SW등록, SW관련 논문', 20, 2);
-insert into 01milestone_work_detail (category_id, name, score, limit_count)
+insert into milestone (category_id, name, score, limit_count)
 values (10, '글로벌 행사 참여(창업 제외), 특허, 논문, 자격증, 인턴십, 교육, 경진대회', 30, 4);
-insert into 01milestone_work_detail (category_id, name, score, limit_count)
+insert into milestone (category_id, name, score, limit_count)
 values (11, '공인영어성적(TOEIC 기준 700점 이상 또는 G-TELP Level2 65점 이상)', 20, 1);
-insert into 01milestone_work_detail (category_id, name, score, limit_count)
+insert into milestone (category_id, name, score, limit_count)
 values (12, '전공 영어분반 수강(F 제외)', 10, 4);
-insert into 01milestone_work_detail (category_id, name, score, limit_count)
+insert into milestone (category_id, name, score, limit_count)
 values (13, 'SW관련 해외 MOOC 수강', 10, 2);
-insert into 01milestone_work_detail (category_id, name, score, limit_count)
+insert into milestone (category_id, name, score, limit_count)
 values (14, 'SW가치확산 - SW관련 공공기관 봉사, 교육원 주관 SW 가치확산 활동', 10, 5);
-insert into 01milestone_work_detail (category_id, name, score, limit_count)
+insert into milestone (category_id, name, score, limit_count)
 values (15, '경진대회 및 공모전 행사 참여', 15, 4);
-insert into 01milestone_work_detail (category_id, name, score, limit_count)
+insert into milestone (category_id, name, score, limit_count)
 values (16, '튜터링/멘토링 활동', 10, 3);
-insert into 01milestone_work_detail (category_id, name, score, limit_count)
+insert into milestone (category_id, name, score, limit_count)
 values (17, 'Edwith 부산대 SW강의 수강', 15, 4);
