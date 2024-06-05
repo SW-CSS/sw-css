@@ -15,7 +15,7 @@ create table member
     password     varchar(255) not null,
     phone_number varchar(255) not null,
     is_deleted   boolean      not null,
-    created_at   datetime(6)
+    created_at   datetime(6)  not null default current_timestamp(6)
 );
 
 create table student_member
@@ -28,15 +28,15 @@ create table student_member
     double_major_id bigint       not null,
     career          varchar(255) not null,
     career_detail   varchar(255) not null,
-    created_at      datetime(6)
+    created_at      datetime(6)  not null default current_timestamp(6)
 );
 
 create table faculty_member
 (
     id         bigint auto_increment primary key,
-    faculty_id int    not null,
-    member_id  bigint not null,
-    created_at datetime(6)
+    faculty_id int         not null,
+    member_id  bigint      not null,
+    created_at datetime(6) not null default current_timestamp(6)
 );
 
 create table major
@@ -44,14 +44,14 @@ create table major
     id         bigint auto_increment primary key,
     college_id bigint       not null,
     name       varchar(255) not null,
-    created_at datetime(6)
+    created_at datetime(6)  not null default current_timestamp(6)
 );
 
 create table college
 (
     id         bigint auto_increment primary key,
     name       varchar(255) not null,
-    created_at datetime(6)
+    created_at datetime(6)  not null default current_timestamp(6)
 );
 
 create table milestone
@@ -61,7 +61,7 @@ create table milestone
     name        varchar(255) not null,
     score       int          not null,
     limit_count int          not null,
-    created_at  datetime(6)
+    created_at  datetime(6)  not null default current_timestamp(6)
 );
 
 create table milestone_category
@@ -70,7 +70,7 @@ create table milestone_category
     name            varchar(255) not null,
     milestone_group varchar(255) not null,
     limit_score     int          not null,
-    created_at      datetime(6)
+    created_at      datetime(6)  not null default current_timestamp(6)
 );
 
 create table milestone_history
@@ -83,6 +83,6 @@ create table milestone_history
     status        varchar(255) not null default 'PENDING',
     reject_reason varchar(255),
     count         int          not null,
-    activated_at  datetime(6),
-    created_at    date
+    activated_at  date,
+    created_at    datetime(6)  not null default current_timestamp(6)
 );
