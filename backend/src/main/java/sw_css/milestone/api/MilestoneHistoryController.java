@@ -4,6 +4,8 @@ import java.net.URI;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,5 +24,11 @@ public class MilestoneHistoryController {
     public ResponseEntity<Void> registerMilestoneHistory(@RequestBody final MilestoneHistoryCreateRequest request) {
         final Long registeredMilestoneHistoryId = milestoneHistoryCommandService.registerMilestoneHistory(request);
         return ResponseEntity.created(URI.create("/milestones/histories/" + registeredMilestoneHistoryId)).build();
+    }
+
+    @DeleteMapping("/{historyId}")
+    public ResponseEntity<Void> deleteMilestoneHistory(@PathVariable("historyId") final Long historyId) {
+        milestoneHistoryCommandService.deleteMilestoneHistory(historyId);
+        return ResponseEntity.noContent().build();
     }
 }

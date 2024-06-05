@@ -10,11 +10,14 @@ import sw_css.milestone.domain.repository.MilestoneHistoryRepository;
 import sw_css.milestone.domain.repository.MilestoneRepository;
 import sw_css.milestone.exception.MilestoneException;
 import sw_css.milestone.exception.MilestoneExceptionType;
+import sw_css.milestone.exception.MilestoneHistoryException;
+import sw_css.milestone.exception.MilestoneHistoryExceptionType;
 
 @Service
 @RequiredArgsConstructor
 @Transactional
 public class MilestoneHistoryCommandService {
+    // TODO 테스트 작성
     private final MilestoneRepository milestoneRepository;
     private final MilestoneHistoryRepository milestoneHistoryRepository;
 
@@ -28,5 +31,13 @@ public class MilestoneHistoryCommandService {
         final MilestoneHistory newMilestoneHistory = new MilestoneHistory(milestone, studentId, request.description(),
                 request.fileUrl(), request.count(), request.activatedAt());
         return milestoneHistoryRepository.save(newMilestoneHistory).getId();
+    }
+
+    public void deleteMilestoneHistory(final Long historyId) {
+        // TODO soft delete할지 hard delete할지 논의해보기
+        final MilestoneHistory history = milestoneHistoryRepository.findById(historyId)
+                .orElseThrow(
+                        () -> new MilestoneHistoryException(MilestoneHistoryExceptionType.NOT_FOUND_MILESTONE_HISTORY));
+        history.delete();
     }
 }

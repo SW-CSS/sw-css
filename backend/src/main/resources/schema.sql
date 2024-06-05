@@ -84,5 +84,6 @@ create table milestone_history
     reject_reason varchar(255),
     count         int          not null,
     activated_at  date,
+    is_deleted    boolean      not null,
     created_at    datetime(6)  not null default current_timestamp(6)
 );

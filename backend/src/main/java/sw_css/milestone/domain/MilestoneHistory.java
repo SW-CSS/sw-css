@@ -2,6 +2,8 @@ package sw_css.milestone.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -38,6 +40,7 @@ public class MilestoneHistory extends BaseEntity {
     private String fileUrl;
 
     @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
     private MilestoneStatus status;
 
     @Column
@@ -46,11 +49,19 @@ public class MilestoneHistory extends BaseEntity {
     @Column(nullable = false)
     private Integer count;
 
-    @Column(updatable = false)
+    @Column(nullable = false)
     private LocalDate activatedAt;
+
+    @Column(nullable = false)
+    private Boolean isDeleted;
 
     public MilestoneHistory(final Milestone milestone, final Integer studentId, final String description,
                             final String fileUrl, final Integer count, final LocalDate activatedAt) {
-        this(null, milestone, studentId, description, fileUrl, MilestoneStatus.PENDING, null, count, activatedAt);
+        this(null, milestone, studentId, description, fileUrl, MilestoneStatus.PENDING, null, count, activatedAt,
+                false);
+    }
+
+    public void delete() {
+        isDeleted = true;
     }
 }
