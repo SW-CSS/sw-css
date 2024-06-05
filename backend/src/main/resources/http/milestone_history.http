@@ -1,0 +1,12 @@
+POST http://localhost:8080/milestones/histories
+Content-Type: application/json
+
+{
+  "milestoneId": 1,
+  "description": "대회수상",
+  "fileUrl": "https://dfjlskfjd",
+  "count": 3,
+  "activatedAt": "2024-06-03"
+}
+
+###
