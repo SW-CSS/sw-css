@@ -4,7 +4,7 @@ import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
-import static org.springframework.restdocs.request.RequestDocumentation.queryParameters;
+import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -13,10 +13,11 @@ import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.restdocs.payload.PayloadDocumentation;
 import org.springframework.restdocs.payload.ResponseFieldsSnippet;
-import org.springframework.restdocs.request.QueryParametersSnippet;
+import org.springframework.restdocs.request.PathParametersSnippet;
 import sw_css.major.api.MajorController;
 import sw_css.major.application.dto.response.CollegeResponse;
 import sw_css.major.application.dto.response.MajorResponse;
@@ -44,7 +45,7 @@ public class MajorApiDocsTest extends RestDocsTest {
         when(majorQueryService.findColleges()).thenReturn(response);
 
         // then
-        mockMvc.perform(get("/college"))
+        mockMvc.perform(get("/colleges"))
                 .andExpect(status().isOk())
                 .andDo(document("college-find", responseFields));
     }
@@ -53,8 +54,8 @@ public class MajorApiDocsTest extends RestDocsTest {
     @DisplayName("[성공] 특정 단과대학의 학과 목록을 조회할 수 있다.")
     public void findMajors() throws Exception {
         // given
-        final QueryParametersSnippet queryParameters = queryParameters(
-                parameterWithName("keyword").description("검색 단어(option)")
+        final PathParametersSnippet pathParameters = pathParameters(
+                parameterWithName("collegeId").description("단과대학의 id")
         );
 
         final ResponseFieldsSnippet responseFields = PayloadDocumentation.responseFields(
@@ -68,12 +69,14 @@ public class MajorApiDocsTest extends RestDocsTest {
                 new MajorResponse(2L, "의생명공학부", LocalDateTime.parse("2024-01-01T00:00:00"))
         );
 
+        final Long collegeId = 1L;
+
         // when
-        when(majorQueryService.findMajors(1L)).thenReturn(response);
+        when(majorQueryService.findMajors(collegeId)).thenReturn(response);
 
         // then
-        mockMvc.perform(get("/college/1/major"))
+        mockMvc.perform(RestDocumentationRequestBuilders.get("/colleges/{collegeId}/majors", collegeId))
                 .andExpect(status().isOk())
-                .andDo(document("major-find", queryParameters, responseFields));
+                .andDo(document("major-find", pathParameters, responseFields));
     }
 }
