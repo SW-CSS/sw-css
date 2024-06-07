@@ -16,6 +16,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import sw_css.base.BaseEntity;
+import sw_css.milestone.exception.MilestoneHistoryException;
+import sw_css.milestone.exception.MilestoneHistoryExceptionType;
 
 @Entity
 @Getter
@@ -64,4 +66,20 @@ public class MilestoneHistory extends BaseEntity {
     public void delete() {
         isDeleted = true;
     }
+
+    public void approve() {
+        if (status != MilestoneStatus.PENDING) {
+            throw new MilestoneHistoryException(MilestoneHistoryExceptionType.ALREADY_PROCESSED);
+        }
+        status = MilestoneStatus.APPROVED;
+    }
+
+    public void reject(final String rejectReason) {
+        if (status != MilestoneStatus.PENDING) {
+            throw new MilestoneHistoryException(MilestoneHistoryExceptionType.ALREADY_PROCESSED);
+        }
+        status = MilestoneStatus.REJECTED;
+        this.rejectReason = rejectReason;
+    }
+
 }

@@ -21,6 +21,7 @@ import org.springframework.restdocs.payload.RequestFieldsSnippet;
 import org.springframework.restdocs.request.PathParametersSnippet;
 import sw_css.milestone.api.MilestoneHistoryController;
 import sw_css.milestone.application.dto.request.MilestoneHistoryCreateRequest;
+import sw_css.milestone.application.dto.request.MilestoneHistoryRejectRequest;
 import sw_css.restdocs.RestDocsTest;
 
 @WebMvcTest(MilestoneHistoryController.class)
@@ -68,5 +69,48 @@ public class MilestoneHistoryApiDocsTest extends RestDocsTest {
         mockMvc.perform(RestDocumentationRequestBuilders.delete("/milestones/histories/{historyId}", historyId))
                 .andExpect(status().isNoContent())
                 .andDo(document("milestone-history-delete", pathParameters));
+    }
+
+    @Test
+    @DisplayName("[성공] 마일스톤 실적을 승인할 수 있다.")
+    public void approveMilestoneHistory() throws Exception {
+        // given
+        final PathParametersSnippet pathParameters = pathParameters(
+                parameterWithName("historyId").description("마일스톤 실적의 id")
+        );
+        final Long historyId = 1L;
+
+        // when
+        doNothing().when(milestoneHistoryCommandService).approveMilestoneHistory(historyId);
+
+        // then
+        mockMvc.perform(RestDocumentationRequestBuilders.patch("/milestones/histories/{historyId}/approve", historyId))
+                .andExpect(status().isNoContent())
+                .andDo(document("milestone-history-approve", pathParameters));
+    }
+
+    @Test
+    @DisplayName("[성공] 마일스톤 실적을 반려할 수 있다.")
+    public void rejectMilestoneHistory() throws Exception {
+        // given
+        final PathParametersSnippet pathParameters = pathParameters(
+                parameterWithName("historyId").description("마일스톤 실적의 id")
+        );
+        final RequestFieldsSnippet requestBodySnippet = requestFields(
+                fieldWithPath("reason").type(JsonFieldType.STRING).description("마일스톤 실적 반려 사유")
+        );
+        final MilestoneHistoryRejectRequest request = new MilestoneHistoryRejectRequest("증빙자료 불충분");
+
+        final Long historyId = 1L;
+
+        // when
+        doNothing().when(milestoneHistoryCommandService).rejectMilestoneHistory(historyId, request);
+
+        // then
+        mockMvc.perform(RestDocumentationRequestBuilders.patch("/milestones/histories/{historyId}/reject", historyId)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
+                .andExpect(status().isNoContent())
+                .andDo(document("milestone-history-reject", pathParameters, requestBodySnippet));
     }
 }

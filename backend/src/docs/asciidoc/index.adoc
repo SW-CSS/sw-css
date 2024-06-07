@@ -63,3 +63,28 @@ include::{snippets}/milestone-history-delete/path-parameters.adoc[]
 .HTTP Response
 include::{snippets}/milestone-history-delete/http-response.adoc[]
 
+=== `PATCH` 마일스톤 실적 승인
+
+.HTTP Request
+include::{snippets}/milestone-history-approve/http-request.adoc[]
+
+.Path Parameters
+include::{snippets}/milestone-history-approve/path-parameters.adoc[]
+
+.HTTP Response
+include::{snippets}/milestone-history-approve/http-response.adoc[]
+
+=== `PATCH` 마일스톤 실적 반려
+
+.HTTP Request
+include::{snippets}/milestone-history-reject/http-request.adoc[]
+
+.Path Parameters
+include::{snippets}/milestone-history-reject/path-parameters.adoc[]
+
+.Request Body
+include::{snippets}/milestone-history-reject/request-fields.adoc[]
+
+.HTTP Response
+include::{snippets}/milestone-history-reject/http-response.adoc[]
+
