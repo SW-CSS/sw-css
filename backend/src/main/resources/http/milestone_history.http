@@ -12,3 +12,14 @@ Content-Type: application/json
 ###
 
 DELETE http://localhost:8080/milestones/histories/1
+
+###
+PATCH http://localhost:8080/admin/milestones/histories/1/approve
+
+###
+PATCH http://localhost:8080/admin/milestones/histories/2/reject
+Content-Type: application/json
+
+{
+  "reason": "증빙자료 불충분"
+}
