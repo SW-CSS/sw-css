@@ -34,7 +34,7 @@ public class MilestoneHistory extends BaseEntity {
     private Milestone milestone;
 
     @ManyToOne
-    @JoinColumn(name = "student_id", nullable = false)
+    @JoinColumn(name = "student_id")
     private StudentMember student;
 
     @Column(nullable = false)
