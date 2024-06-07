@@ -36,11 +36,11 @@ public class StudentMember extends BaseEntity {
     private Major major;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "minor_id", nullable = false)
+    @JoinColumn(name = "minor_id")
     private Major minor;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "double_major_id", nullable = false)
+    @JoinColumn(name = "double_major_id")
     private Major doubleMajor;
 
     @Column(nullable = false)

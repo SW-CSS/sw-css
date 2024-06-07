@@ -24,8 +24,8 @@ create table student_member
     student_id      int          not null,
     member_id       bigint       not null,
     major_id        bigint       not null,
-    minor_id        bigint       not null,
-    double_major_id bigint       not null,
+    minor_id        bigint,
+    double_major_id bigint,
     career          varchar(255) not null,
     career_detail   varchar(255) not null,
     created_at      datetime(6)  not null default current_timestamp(6)
