@@ -1,3 +1,7 @@
+GET http://localhost:8080/admin/milestones/histories
+
+###
+
 POST http://localhost:8080/milestones/histories
 Content-Type: application/json
 

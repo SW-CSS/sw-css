@@ -1,4 +1,4 @@
-package sw_css.admin.milestone.application.request;
+package sw_css.admin.milestone.application.dto.request;
 
 import jakarta.validation.constraints.NotBlank;
 

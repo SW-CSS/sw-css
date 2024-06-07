@@ -17,7 +17,7 @@ import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.restdocs.payload.RequestFieldsSnippet;
 import org.springframework.restdocs.request.PathParametersSnippet;
 import sw_css.admin.milestone.api.MilestoneHistoryAdminController;
-import sw_css.admin.milestone.application.request.MilestoneHistoryRejectRequest;
+import sw_css.admin.milestone.application.dto.request.MilestoneHistoryRejectRequest;
 import sw_css.restdocs.RestDocsTest;
 
 @WebMvcTest(MilestoneHistoryAdminController.class)

@@ -3,7 +3,7 @@ package sw_css.admin.milestone.application;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import sw_css.admin.milestone.application.request.MilestoneHistoryRejectRequest;
+import sw_css.admin.milestone.application.dto.request.MilestoneHistoryRejectRequest;
 import sw_css.milestone.domain.MilestoneHistory;
 import sw_css.milestone.domain.repository.MilestoneHistoryRepository;
 import sw_css.milestone.exception.MilestoneHistoryException;

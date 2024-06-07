@@ -16,6 +16,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import sw_css.base.BaseEntity;
+import sw_css.member.domain.StudentMember;
 import sw_css.milestone.exception.MilestoneHistoryException;
 import sw_css.milestone.exception.MilestoneHistoryExceptionType;
 
@@ -32,8 +33,9 @@ public class MilestoneHistory extends BaseEntity {
     @JoinColumn(name = "milestone_id", nullable = false)
     private Milestone milestone;
 
-    @Column(nullable = false)
-    private Integer studentId;
+    @ManyToOne
+    @JoinColumn(name = "student_id", nullable = false)
+    private StudentMember student;
 
     @Column(nullable = false)
     private String description;
@@ -57,9 +59,9 @@ public class MilestoneHistory extends BaseEntity {
     @Column(nullable = false)
     private Boolean isDeleted;
 
-    public MilestoneHistory(final Milestone milestone, final Integer studentId, final String description,
+    public MilestoneHistory(final Milestone milestone, final StudentMember student, final String description,
                             final String fileUrl, final Integer count, final LocalDate activatedAt) {
-        this(null, milestone, studentId, description, fileUrl, MilestoneStatus.PENDING, null, count, activatedAt,
+        this(null, milestone, student, description, fileUrl, MilestoneStatus.PENDING, null, count, activatedAt,
                 false);
     }
 

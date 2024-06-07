@@ -20,8 +20,7 @@ create table member
 
 create table student_member
 (
-    id              bigint auto_increment primary key,
-    student_id      int          not null,
+    id              bigint primary key,
     member_id       bigint       not null,
     major_id        bigint       not null,
     minor_id        bigint,
@@ -33,8 +32,7 @@ create table student_member
 
 create table faculty_member
 (
-    id         bigint auto_increment primary key,
-    faculty_id int         not null,
+    id         bigint primary key,
     member_id  bigint      not null,
     created_at datetime(6) not null default current_timestamp(6)
 );

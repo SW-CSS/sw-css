@@ -3,6 +3,10 @@ package sw_css.milestone.application;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import sw_css.member.domain.StudentMember;
+import sw_css.member.domain.repository.StudentMemberRepository;
+import sw_css.member.exception.MemberException;
+import sw_css.member.exception.MemberExceptionType;
 import sw_css.milestone.application.dto.request.MilestoneHistoryCreateRequest;
 import sw_css.milestone.domain.Milestone;
 import sw_css.milestone.domain.MilestoneHistory;
@@ -18,6 +22,7 @@ import sw_css.milestone.exception.MilestoneHistoryExceptionType;
 @Transactional
 public class MilestoneHistoryCommandService {
     // TODO 테스트 작성
+    private final StudentMemberRepository studentMemberRepository;
     private final MilestoneRepository milestoneRepository;
     private final MilestoneHistoryRepository milestoneHistoryRepository;
 
@@ -27,8 +32,10 @@ public class MilestoneHistoryCommandService {
                 milestoneRepository.findById(request.milestoneId())
                         .orElseThrow(() -> new MilestoneException(MilestoneExceptionType.NOT_FOUND_MILESTONE));
         // TODO 요청자의 학번을 불러오는 로직 추가
-        final int studentId = 202055558;
-        final MilestoneHistory newMilestoneHistory = new MilestoneHistory(milestone, studentId, request.description(),
+        final StudentMember student = studentMemberRepository.findById(202055558L).orElseThrow(
+                () -> new MemberException(MemberExceptionType.NOT_FOUND_STUDENT)
+        );
+        final MilestoneHistory newMilestoneHistory = new MilestoneHistory(milestone, student, request.description(),
                 request.fileUrl(), request.count(), request.activatedAt());
         return milestoneHistoryRepository.save(newMilestoneHistory).getId();
     }
