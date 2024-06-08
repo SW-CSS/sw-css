@@ -11,11 +11,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import sw_css.milestone.application.MilestoneHistoryCommandService;
 import sw_css.milestone.application.MilestoneHistoryQueryService;
 import sw_css.milestone.application.dto.request.MilestoneHistoryCreateRequest;
 import sw_css.milestone.application.dto.response.MilestoneHistoryOfStudentResponse;
+import sw_css.milestone.domain.MilestoneStatus;
 
 @Validated
 @RequestMapping("/milestones/histories")
@@ -42,7 +44,8 @@ public class MilestoneHistoryController {
     // TODO 학생 본인 혹은 관리자만 호출할 수 있도록 권한 설정
     @GetMapping("/members/{memberId}")
     public ResponseEntity<List<MilestoneHistoryOfStudentResponse>> findAllMilestoneHistories(
-            @PathVariable("memberId") final Long memberId) {
-        return ResponseEntity.ok(milestoneHistoryQueryService.findAllMilestoneHistories(memberId));
+            @PathVariable("memberId") final Long memberId,
+            @RequestParam(value = "filter", required = false) final MilestoneStatus filter) {
+        return ResponseEntity.ok(milestoneHistoryQueryService.findAllMilestoneHistories(memberId, filter));
     }
 }

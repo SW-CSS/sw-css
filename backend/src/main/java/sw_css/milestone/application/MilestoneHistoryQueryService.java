@@ -23,14 +23,27 @@ public class MilestoneHistoryQueryService {
     private final MilestoneHistoryRepository milestoneHistoryRepository;
 
     // TODO 페이지네이션
-    public List<MilestoneHistoryOfStudentResponse> findAllMilestoneHistories(final Long memberId) {
+    public List<MilestoneHistoryOfStudentResponse> findAllMilestoneHistories(final Long memberId,
+                                                                             final MilestoneStatus filter) {
         final StudentMember student = studentMemberRepository.findById(memberId)
                 .orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND_STUDENT));
         return MilestoneHistoryOfStudentResponse.from(
-                sortMilestoneHistories(milestoneHistoryRepository.findMilestoneHistoriesByStudent(student)));
+                generateMilestoneHistories(milestoneHistoryRepository.findMilestoneHistoriesByStudent(student),
+                        filter));
     }
 
-    private List<MilestoneHistory> sortMilestoneHistories(List<MilestoneHistory> milestoneHistories) {
+    private List<MilestoneHistory> generateMilestoneHistories(final List<MilestoneHistory> milestoneHistories,
+                                                              final MilestoneStatus filter) {
+        if (filter == MilestoneStatus.APPROVED) {
+            return milestoneHistories.stream()
+                    .filter(milestoneHistory -> milestoneHistory.getStatus() == MilestoneStatus.APPROVED)
+                    .sorted(Comparator.comparing(MilestoneHistory::getCreatedAt).reversed())
+                    .toList();
+        }
+        return sortAllMilestoneHistories(milestoneHistories);
+    }
+
+    private List<MilestoneHistory> sortAllMilestoneHistories(final List<MilestoneHistory> milestoneHistories) {
         final List<MilestoneHistory> processedMilestoneHistories = milestoneHistories.stream()
                 .filter(milestoneHistory -> milestoneHistory.getStatus() == MilestoneStatus.PENDING)
                 .sorted(Comparator.comparing(MilestoneHistory::getCreatedAt))

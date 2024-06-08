@@ -1,7 +1,7 @@
 GET http://localhost:8080/admin/milestones/histories
 
 ###
-GET http://localhost:8080/milestones/histories/members/202055558
+GET http://localhost:8080/milestones/histories/members/202055558?filter=APPROVED
 
 ###
 

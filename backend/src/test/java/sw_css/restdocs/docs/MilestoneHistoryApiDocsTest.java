@@ -8,6 +8,7 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.requestF
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
+import static org.springframework.restdocs.request.RequestDocumentation.queryParameters;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -22,6 +23,7 @@ import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.restdocs.payload.RequestFieldsSnippet;
 import org.springframework.restdocs.payload.ResponseFieldsSnippet;
 import org.springframework.restdocs.request.PathParametersSnippet;
+import org.springframework.restdocs.request.QueryParametersSnippet;
 import sw_css.major.domain.College;
 import sw_css.major.domain.Major;
 import sw_css.member.domain.Member;
@@ -91,6 +93,10 @@ public class MilestoneHistoryApiDocsTest extends RestDocsTest {
                 parameterWithName("memberId").description("학생의 학번(id)")
         );
 
+        final QueryParametersSnippet queryParameters = queryParameters(
+                parameterWithName("filter").optional().description("조회할 마일스톤 실적 내역의 필터링 설정(APPROVED)")
+        );
+
         final ResponseFieldsSnippet responseBodySnippet = responseFields(
                 fieldWithPath("[].id").type(JsonFieldType.NUMBER).description("마일스톤 실적 id"),
                 fieldWithPath("[].milestone.id").type(JsonFieldType.NUMBER).description("마일스톤 실적의 마일스톤 id"),
@@ -126,12 +132,12 @@ public class MilestoneHistoryApiDocsTest extends RestDocsTest {
         final Long memberId = 1L;
 
         //when
-        when(milestoneHistoryQueryService.findAllMilestoneHistories(memberId)).thenReturn(response);
+        when(milestoneHistoryQueryService.findAllMilestoneHistories(memberId, null)).thenReturn(response);
 
         //then
         mockMvc.perform(RestDocumentationRequestBuilders.get("/milestones/histories/members/{memberId}", memberId))
                 .andExpect(status().isOk())
-                .andDo(document("milestone-history-of-student-find-all", pathParameters,
+                .andDo(document("milestone-history-of-student-find-all", pathParameters, queryParameters,
                         responseBodySnippet));
 
     }

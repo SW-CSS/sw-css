@@ -71,6 +71,10 @@ include::{snippets}/milestone-history-of-student-find-all/http-request.adoc[]
 .Path Parameters
 include::{snippets}/milestone-history-of-student-find-all/path-parameters.adoc[]
 
+.Query Parameters
+include::{snippets}/milestone-history-of-student-find-all/query-parameters.adoc[]
+
+
 .HTTP Response
 include::{snippets}/milestone-history-of-student-find-all/http-response.adoc[]
 
