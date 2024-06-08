@@ -63,6 +63,20 @@ include::{snippets}/milestone-history-delete/path-parameters.adoc[]
 .HTTP Response
 include::{snippets}/milestone-history-delete/http-response.adoc[]
 
+=== `GET` 특정 학생의 마일스톤 실적 목록 조회
+
+.HTTP Request
+include::{snippets}/milestone-history-of-student-find-all/http-request.adoc[]
+
+.Path Parameters
+include::{snippets}/milestone-history-of-student-find-all/path-parameters.adoc[]
+
+.HTTP Response
+include::{snippets}/milestone-history-of-student-find-all/http-response.adoc[]
+
+.Response Body
+include::{snippets}/milestone-history-of-student-find-all/response-fields.adoc[]
+
 === `PATCH` 마일스톤 실적 승인
 
 .HTTP Request
@@ -88,3 +102,13 @@ include::{snippets}/milestone-history-reject/request-fields.adoc[]
 .HTTP Response
 include::{snippets}/milestone-history-reject/http-response.adoc[]
 
+=== `GET` 전체 마일스톤 실적 목록 조회
+
+.HTTP Request
+include::{snippets}/milestone-history-find-all/http-request.adoc[]
+
+.HTTP Response
+include::{snippets}/milestone-history-find-all/http-response.adoc[]
+
+.Response Body
+include::{snippets}/milestone-history-find-all/response-fields.adoc[]

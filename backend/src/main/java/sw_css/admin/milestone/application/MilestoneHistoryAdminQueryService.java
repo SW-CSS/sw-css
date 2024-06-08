@@ -18,7 +18,7 @@ public class MilestoneHistoryAdminQueryService {
     private final MilestoneHistoryRepository milestoneHistoryRepository;
 
     //TODO 페이지네이션
-    public List<MilestoneHistoryResponse> findAllMilestoneHistory() {
+    public List<MilestoneHistoryResponse> findAllMilestoneHistories() {
         final List<MilestoneHistory> milestoneHistories = milestoneHistoryRepository.findAll();
         return MilestoneHistoryResponse.from(sortMilestoneHistories(milestoneHistories));
     }

@@ -15,9 +15,11 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import sw_css.admin.milestone.application.MilestoneHistoryAdminCommandService;
+import sw_css.admin.milestone.application.MilestoneHistoryAdminQueryService;
 import sw_css.helper.ApiTestHelper;
 import sw_css.major.application.MajorQueryService;
 import sw_css.milestone.application.MilestoneHistoryCommandService;
+import sw_css.milestone.application.MilestoneHistoryQueryService;
 
 @Import(RestDocsConfiguration.class)
 @ExtendWith(RestDocumentationExtension.class)
@@ -30,7 +32,13 @@ public abstract class RestDocsTest extends ApiTestHelper {
     protected MilestoneHistoryCommandService milestoneHistoryCommandService;
 
     @MockBean
+    protected MilestoneHistoryQueryService milestoneHistoryQueryService;
+
+    @MockBean
     protected MilestoneHistoryAdminCommandService milestoneHistoryAdminCommandService;
+
+    @MockBean
+    protected MilestoneHistoryAdminQueryService milestoneHistoryAdminQueryService;
 
     @Autowired
     protected RestDocumentationResultHandler restDocs;

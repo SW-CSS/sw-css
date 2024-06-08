@@ -1,5 +1,6 @@
 package sw_css.admin.milestone.application.dto.response;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -17,7 +18,9 @@ public record MilestoneHistoryResponse(
         MilestoneStatus status,
         String rejectReason,
         int count,
+        @JsonFormat(pattern = "yyyy-MM-dd")
         LocalDate activatedAt,
+        @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
         LocalDateTime createdAt
 ) {
     public static List<MilestoneHistoryResponse> from(List<MilestoneHistory> milestoneHistories) {

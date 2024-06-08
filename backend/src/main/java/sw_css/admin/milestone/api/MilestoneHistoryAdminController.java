@@ -27,7 +27,7 @@ public class MilestoneHistoryAdminController {
 
     @GetMapping
     public ResponseEntity<List<MilestoneHistoryResponse>> findAllMilestoneHistory() {
-        return ResponseEntity.ok(milestoneHistoryAdminQueryService.findAllMilestoneHistory());
+        return ResponseEntity.ok(milestoneHistoryAdminQueryService.findAllMilestoneHistories());
     }
 
     @PatchMapping("/{historyId}/approve")
