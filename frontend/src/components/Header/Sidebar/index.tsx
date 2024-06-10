@@ -1,17 +1,17 @@
 import { useState } from 'react';
 
 import { COLOR } from '@/constants';
+import { HeaderInfo } from '@/types';
 
 import * as S from './styled';
-import { HeaderAccordionProps } from '../HeaderAccordion';
 
 export interface SidebarProps {
   open: boolean;
   handleOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  headerBar: HeaderAccordionProps[];
+  headerInfos: HeaderInfo[];
 }
 
-const Sidebar = ({ open, handleOpen, headerBar }: SidebarProps) => {
+const Sidebar = ({ open, handleOpen, headerInfos }: SidebarProps) => {
   const [currTab, setCurrTab] = useState<string>('');
 
   const handleClose = () => {
@@ -35,7 +35,7 @@ const Sidebar = ({ open, handleOpen, headerBar }: SidebarProps) => {
         />
       </S.HamburgerLogo>
       <S.SidebarContent style={{ left: `${open ? '-150px' : '50px'}` }}>
-        {headerBar.map((item) => (
+        {headerInfos.map((item) => (
           <S.SidebarContentLayout
             key={item.title}
             style={{ maxHeight: `${currTab === item.title ? '200px' : '42px'}` }}

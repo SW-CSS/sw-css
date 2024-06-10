@@ -1,16 +1,8 @@
+import { HeaderInfo } from '@/types';
+
 import { HeaderAccordionWrapper, Linker, Accordion, AccordionLink } from './styled';
 
-export interface HeaderAccordionProps {
-  title: string;
-  url: string;
-  sub: {
-    title: string;
-    url: string;
-    key: string;
-  }[];
-}
-
-const HeaderAccordion = ({ title, url, sub }: HeaderAccordionProps) => (
+const HeaderAccordion = ({ title, url, sub }: HeaderInfo) => (
   <HeaderAccordionWrapper>
     <Linker href={url}>{title}</Linker>
     <Accordion>
