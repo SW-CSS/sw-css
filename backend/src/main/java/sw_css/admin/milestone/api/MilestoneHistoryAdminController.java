@@ -1,5 +1,6 @@
 package sw_css.admin.milestone.api;
 
+import jakarta.validation.Valid;
 import java.net.URI;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -49,7 +50,7 @@ public class MilestoneHistoryAdminController {
 
     @PatchMapping("/{historyId}/reject")
     public ResponseEntity<Void> approveMilestoneHistory(@PathVariable("historyId") final Long historyId,
-                                                        @RequestBody final MilestoneHistoryRejectRequest request) {
+                                                        @RequestBody @Valid final MilestoneHistoryRejectRequest request) {
         milestoneHistoryAdminCommandService.rejectMilestoneHistory(historyId, request);
         return ResponseEntity.noContent().build();
     }

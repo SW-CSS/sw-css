@@ -10,7 +10,6 @@ public record MilestoneHistoryCreateRequest(
         Long milestoneId,
         @NotBlank(message = "활동 상세를 기재해주세요.")
         String description,
-        String fileUrl,
         @NotNull(message = "활동 횟수를 기재해주세요.")
         Integer count,
         @NotNull(message = "활동일을 기재해주세요")

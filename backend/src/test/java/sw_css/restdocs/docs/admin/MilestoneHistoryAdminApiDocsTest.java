@@ -124,15 +124,15 @@ public class MilestoneHistoryAdminApiDocsTest extends RestDocsTest {
                 new MilestoneHistoryWithStudentInfo(1L, milestone, student.getId(), student.getMember().getName(),
                         "창업했습니다.", "https://skfdlfjeklf.png",
                         MilestoneStatus.PENDING, null, 1, LocalDate.parse("2024-06-06"),
-                        LocalDateTime.parse("2024-06-05 00:00:00")),
+                        LocalDateTime.parse("2024-06-05T00:00:00")),
                 new MilestoneHistoryWithStudentInfo(1L, milestone, student.getId(), student.getMember().getName(),
                         "창업했습니다.", "https://skfdlfjeklf.png",
                         MilestoneStatus.PENDING, null, 1, LocalDate.parse("2024-06-06"),
-                        LocalDateTime.parse("2024-06-05 00:00:00")),
+                        LocalDateTime.parse("2024-06-05T00:00:00")),
                 new MilestoneHistoryWithStudentInfo(1L, milestone, student.getId(), student.getMember().getName(),
                         "창업했습니다.", "https://skfdlfjeklf.png",
                         MilestoneStatus.APPROVED, null, 1, LocalDate.parse("2024-06-06"),
-                        LocalDateTime.parse("2024-06-05 00:00:00"))
+                        LocalDateTime.parse("2024-06-05T00:00:00"))
         );
 
         final List<MilestoneHistoryResponse> response = MilestoneHistoryResponse.from(milestones);

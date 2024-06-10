@@ -47,7 +47,7 @@ include::{snippets}/major-find/response-fields.adoc[]
 include::{snippets}/milestone-history-create/http-request.adoc[]
 
 .Request Body
-include::{snippets}/milestone-history-create/request-fields.adoc[]
+include::{snippets}/milestone-history-create/request-parts.adoc[]
 
 .HTTP Response
 include::{snippets}/milestone-history-create/http-response.adoc[]
