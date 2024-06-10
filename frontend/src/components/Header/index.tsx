@@ -6,19 +6,34 @@ import { useState } from 'react';
 import { VscSignIn, VscSignOut, VscAccount } from 'react-icons/vsc';
 
 import { useAppSelector } from '@/hocks/redux';
-import { headerBar } from '@/mocks/Header';
+import { HeaderInfo } from '@/types';
 
-import Hamburger from './Hamburger';
 import HeaderAccordion from './HeaderAccordion';
-import {
-  HeaderWrapper,
-  HeaderDesktopLayout,
-  HeaderTabletLayout,
-  SignButton,
-  SignText,
-  SidebarBackground,
-} from './style';
+import Sidebar from './Sidebar';
+import * as S from './styled';
 import IconButton from '../IconButton';
+
+export const headerInfos: HeaderInfo[] = [
+  {
+    title: '마일스톤',
+    url: '/milestone',
+    sub: [{ title: '마일스톤이란?', url: '/milestone', key: '1_milestone' }],
+  },
+  {
+    title: '팀빌딩',
+    url: '/',
+    sub: [{ title: '팀빌딩', url: '/', key: '2_teamBuilding' }],
+  },
+  {
+    title: 'PNU 해커톤',
+    url: '/',
+    sub: [
+      { title: '진행중인 해커톤', url: '/', key: 'onGoingHackathon' },
+      { title: '창의융합SW해커톤', url: '/', key: 'SWHackathon' },
+      { title: 'SW문제 해결 경진대회', url: '/', key: 'problemContest' },
+    ],
+  },
+];
 
 const Header = () => {
   const [isSidebarOpen, setIsSideBarOpen] = useState<boolean>(false);
@@ -26,13 +41,13 @@ const Header = () => {
   const auth = useAppSelector((state) => state.auth.value);
 
   return (
-    <HeaderWrapper>
-      <HeaderDesktopLayout>
+    <S.HeaderWrapper>
+      <S.HeaderDesktopLayout>
         <Link href="/" style={{ width: 'fit-content' }}>
           <Image src="/svgs/SW_logo.svg" alt="SW_logo" width="160" height="50" priority={false} />
         </Link>
         <div style={{ display: 'flex', justifyContent: 'center', flexGrow: 1 }}>
-          {headerBar.map((item) => (
+          {headerInfos.map((item) => (
             <HeaderAccordion key={item.title} title={item.title} url={item.url} sub={item.sub} />
           ))}
         </div>
@@ -42,18 +57,18 @@ const Header = () => {
             <IconButton icon={<VscSignOut />} title="로그아웃" size="sm" link="/sign-out" />
           </>
         ) : (
-          <SignButton>
-            <SignText>
+          <S.SignButton>
+            <S.SignText>
               <Link href="/sign-in">로그인</Link> /<Link href="/sign-up">회원가입</Link>
-            </SignText>
-          </SignButton>
+            </S.SignText>
+          </S.SignButton>
         )}
-      </HeaderDesktopLayout>
-      <SidebarBackground
+      </S.HeaderDesktopLayout>
+      <S.SidebarBackground
         style={{ display: `${isSidebarOpen ? 'block' : 'none'}` }}
         onClick={() => setIsSideBarOpen(false)}
       />
-      <HeaderTabletLayout>
+      <S.HeaderTabletLayout>
         <Link href="/" style={{ width: 'fit-content', height: '50px', padding: '5px 10px' }}>
           <Image src="/svgs/SW_logo.svg" alt="SW_logo" width="125" height="40" priority={false} />
         </Link>
@@ -66,10 +81,10 @@ const Header = () => {
           ) : (
             <IconButton icon={<VscSignIn />} title="로그인" size="sm" link="/sign-in" />
           )}
-          <Hamburger open={isSidebarOpen} handleOpen={setIsSideBarOpen} headerBar={headerBar} />
+          <Sidebar open={isSidebarOpen} handleOpen={setIsSideBarOpen} headerInfos={headerInfos} />
         </div>
-      </HeaderTabletLayout>
-    </HeaderWrapper>
+      </S.HeaderTabletLayout>
+    </S.HeaderWrapper>
   );
 };
 export default Header;
