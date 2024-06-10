@@ -2,24 +2,16 @@ import { useState } from 'react';
 
 import { COLOR } from '@/constants';
 
+import * as S from './styled';
 import { HeaderAccordionProps } from '../HeaderAccordion';
-import {
-  HamburgerWrapper,
-  HamburgerLogo,
-  HamburgerLine,
-  HamburgerContent,
-  HamburgerContentLayout,
-  HamburgerContentTitle,
-  HamburgerContentSubTitle,
-} from '../style';
 
-export interface HamburgerProps {
+export interface SidebarProps {
   open: boolean;
   handleOpen: React.Dispatch<React.SetStateAction<boolean>>;
   headerBar: HeaderAccordionProps[];
 }
 
-const Hamburger = ({ open, handleOpen, headerBar }: HamburgerProps) => {
+const Sidebar = ({ open, handleOpen, headerBar }: SidebarProps) => {
   const [currTab, setCurrTab] = useState<string>('');
 
   const handleClose = () => {
@@ -28,27 +20,27 @@ const Hamburger = ({ open, handleOpen, headerBar }: HamburgerProps) => {
   };
 
   return (
-    <HamburgerWrapper>
-      <HamburgerLogo onClick={handleClose} style={{ left: `${open ? '-200px' : 0}` }}>
-        <HamburgerLine
+    <S.HamburgerWrapper>
+      <S.HamburgerLogo onClick={handleClose} style={{ left: `${open ? '-200px' : 0}` }}>
+        <S.HamburgerLine
           style={{
             transform: `${open ? 'translate(-50%, -50%) rotate(40deg)' : 'translate(-50%, calc(-50% - 12px))'}`,
           }}
         />
-        <HamburgerLine style={{ transform: 'translate(-50%, -50%)', display: `${open ? 'none' : 'block'}` }} />
-        <HamburgerLine
+        <S.HamburgerLine style={{ transform: 'translate(-50%, -50%)', display: `${open ? 'none' : 'block'}` }} />
+        <S.HamburgerLine
           style={{
             transform: `${open ? 'translate(-50%, -50%) rotate(-40deg)' : 'translate(-50%, calc(-50% + 12px))'}`,
           }}
         />
-      </HamburgerLogo>
-      <HamburgerContent style={{ left: `${open ? '-150px' : '50px'}` }}>
+      </S.HamburgerLogo>
+      <S.HamburgerContent style={{ left: `${open ? '-150px' : '50px'}` }}>
         {headerBar.map((item) => (
-          <HamburgerContentLayout
+          <S.HamburgerContentLayout
             key={item.title}
             style={{ maxHeight: `${currTab === item.title ? '200px' : '42px'}` }}
           >
-            <HamburgerContentTitle
+            <S.HamburgerContentTitle
               style={{
                 color: `${currTab === item.title ? 'white' : 'black'}`,
                 backgroundColor: `${currTab === item.title ? COLOR.malibu_dark : 'transparent'}`,
@@ -56,17 +48,17 @@ const Hamburger = ({ open, handleOpen, headerBar }: HamburgerProps) => {
               onClick={() => setCurrTab(item.title)}
             >
               {item.title}
-            </HamburgerContentTitle>
+            </S.HamburgerContentTitle>
             {item.sub.map((subItem) => (
-              <HamburgerContentSubTitle key={subItem.key} href={subItem.url} onClick={handleClose}>
+              <S.HamburgerContentSubTitle key={subItem.key} href={subItem.url} onClick={handleClose}>
                 {subItem.title}
-              </HamburgerContentSubTitle>
+              </S.HamburgerContentSubTitle>
             ))}
-          </HamburgerContentLayout>
+          </S.HamburgerContentLayout>
         ))}
-      </HamburgerContent>
-    </HamburgerWrapper>
+      </S.HamburgerContent>
+    </S.HamburgerWrapper>
   );
 };
 
-export default Hamburger;
+export default Sidebar;
