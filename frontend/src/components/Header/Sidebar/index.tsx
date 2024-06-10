@@ -20,7 +20,7 @@ const Sidebar = ({ open, handleOpen, headerBar }: SidebarProps) => {
   };
 
   return (
-    <S.HamburgerWrapper>
+    <S.SidebarWrapper>
       <S.HamburgerLogo onClick={handleClose} style={{ left: `${open ? '-200px' : 0}` }}>
         <S.HamburgerLine
           style={{
@@ -34,13 +34,13 @@ const Sidebar = ({ open, handleOpen, headerBar }: SidebarProps) => {
           }}
         />
       </S.HamburgerLogo>
-      <S.HamburgerContent style={{ left: `${open ? '-150px' : '50px'}` }}>
+      <S.SidebarContent style={{ left: `${open ? '-150px' : '50px'}` }}>
         {headerBar.map((item) => (
-          <S.HamburgerContentLayout
+          <S.SidebarContentLayout
             key={item.title}
             style={{ maxHeight: `${currTab === item.title ? '200px' : '42px'}` }}
           >
-            <S.HamburgerContentTitle
+            <S.SidebarContentTitle
               style={{
                 color: `${currTab === item.title ? 'white' : 'black'}`,
                 backgroundColor: `${currTab === item.title ? COLOR.malibu_dark : 'transparent'}`,
@@ -48,16 +48,16 @@ const Sidebar = ({ open, handleOpen, headerBar }: SidebarProps) => {
               onClick={() => setCurrTab(item.title)}
             >
               {item.title}
-            </S.HamburgerContentTitle>
+            </S.SidebarContentTitle>
             {item.sub.map((subItem) => (
-              <S.HamburgerContentSubTitle key={subItem.key} href={subItem.url} onClick={handleClose}>
+              <S.SidebarContentSubTitle key={subItem.key} href={subItem.url} onClick={handleClose}>
                 {subItem.title}
-              </S.HamburgerContentSubTitle>
+              </S.SidebarContentSubTitle>
             ))}
-          </S.HamburgerContentLayout>
+          </S.SidebarContentLayout>
         ))}
-      </S.HamburgerContent>
-    </S.HamburgerWrapper>
+      </S.SidebarContent>
+    </S.SidebarWrapper>
   );
 };
 

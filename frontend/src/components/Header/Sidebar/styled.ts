@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import { BORDER_RADIUS, COLOR, FONT_STYLE } from '@/constants';
 
-export const HamburgerWrapper = styled.div`
+export const SidebarWrapper = styled.div`
   width: 50px;
   height: 50px;
   position: relative;
@@ -27,7 +27,7 @@ export const HamburgerLine = styled.div`
   transition: transform 0.4s ease-in-out;
 `;
 
-export const HamburgerContent = styled.div`
+export const SidebarContent = styled.div`
   width: 200px;
   height: 100vh;
   font: ${FONT_STYLE.sm};
@@ -36,12 +36,12 @@ export const HamburgerContent = styled.div`
   transition: left 0.4s ease-in-out;
 `;
 
-export const HamburgerContentLayout = styled.div`
+export const SidebarContentLayout = styled.div`
   overflow: hidden;
   transition: max-height 0.4s ease-in-out;
 `;
 
-export const HamburgerContentTitle = styled.div`
+export const SidebarContentTitle = styled.div`
   padding: 10px 20px;
   border-bottom: 1px solid ${COLOR.border};
   cursor: default;
@@ -50,7 +50,7 @@ export const HamburgerContentTitle = styled.div`
   }
 `;
 
-export const HamburgerContentSubTitle = styled(Link)`
+export const SidebarContentSubTitle = styled(Link)`
   display: block;
   padding: 10px 30px;
   border-bottom: 1px solid ${COLOR.border};
