@@ -42,4 +42,8 @@ public class StudentMember extends BaseEntity {
 
     @Column(nullable = false)
     private String careerDetail;
+
+    public StudentMember(final Long id) {
+        this(id, null, null, null, null, null, null);
+    }
 }

@@ -1,5 +1,6 @@
 package sw_css.admin.milestone.api;
 
+import java.net.URI;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -7,9 +8,12 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import sw_css.admin.milestone.application.MilestoneHistoryAdminCommandService;
 import sw_css.admin.milestone.application.MilestoneHistoryAdminQueryService;
 import sw_css.admin.milestone.application.dto.request.MilestoneHistoryRejectRequest;
@@ -28,6 +32,13 @@ public class MilestoneHistoryAdminController {
     @GetMapping
     public ResponseEntity<List<MilestoneHistoryResponse>> findAllMilestoneHistory() {
         return ResponseEntity.ok(milestoneHistoryAdminQueryService.findAllMilestoneHistories());
+    }
+
+    @PostMapping
+    public ResponseEntity<Void> registerMilestoneHistoriesInBatches(
+            @RequestPart(value = "file") final MultipartFile file) {
+        milestoneHistoryAdminCommandService.registerMilestoneHistoriesInBatches(file);
+        return ResponseEntity.created(URI.create("/milestones/histories")).build();
     }
 
     @PatchMapping("/{historyId}/approve")

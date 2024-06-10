@@ -15,6 +15,7 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import sw_css.admin.milestone.domain.MilestoneHistoryExcelData;
 import sw_css.base.BaseEntity;
 import sw_css.member.domain.StudentMember;
 import sw_css.milestone.exception.MilestoneHistoryException;
@@ -84,4 +85,9 @@ public class MilestoneHistory extends BaseEntity {
         this.rejectReason = rejectReason;
     }
 
+    public static MilestoneHistory from(final MilestoneHistoryExcelData data, final Milestone milestone,
+                                        final StudentMember student) {
+        return new MilestoneHistory(milestone, student, data.getDescription(), null, data.getCount(),
+                data.getActivatedAt());
+    }
 }
