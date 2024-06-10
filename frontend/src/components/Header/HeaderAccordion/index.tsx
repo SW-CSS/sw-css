@@ -1,4 +1,4 @@
-import { HeaderAccordionWrapper, Linker, Accordion, AccordionLink } from '../style';
+import { HeaderAccordionWrapper, Linker, Accordion, AccordionLink } from './styled';
 
 export interface HeaderAccordionProps {
   title: string;
