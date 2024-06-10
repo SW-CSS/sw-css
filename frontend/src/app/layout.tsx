@@ -1,10 +1,8 @@
 /* eslint-disable @next/next/no-page-custom-font */
-import Footer from '@/components/Footer';
-import Header from '@/components/Header';
 import ReduxProvider from '@/store/provider';
 import StyledComponentsRegistry from '@/theme/StyledComponentsRegistry';
 
-import { PageWrapper, PageLayout } from './styled';
+import CustomLayout from './CustomLayout';
 
 import type { Metadata } from 'next';
 
@@ -25,11 +23,7 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => (
     <body style={{ margin: 0 }}>
       <ReduxProvider>
         <StyledComponentsRegistry>
-          <Header />
-          <PageWrapper>
-            <PageLayout>{children}</PageLayout>
-          </PageWrapper>
-          <Footer />
+          <CustomLayout>{children}</CustomLayout>
         </StyledComponentsRegistry>
       </ReduxProvider>
     </body>
