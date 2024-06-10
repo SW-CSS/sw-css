@@ -73,11 +73,11 @@ public class MilestoneHistoryCommandService {
         }
     }
 
-    // 파일도 함께 삭제
     public void deleteMilestoneHistory(final Long historyId) {
         final MilestoneHistory history = milestoneHistoryRepository.findById(historyId)
                 .orElseThrow(
                         () -> new MilestoneHistoryException(MilestoneHistoryExceptionType.NOT_FOUND_MILESTONE_HISTORY));
+
         history.delete();
     }
 }
