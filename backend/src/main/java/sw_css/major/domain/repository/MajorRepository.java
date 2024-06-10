@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import sw_css.major.domain.Major;
 
 public interface MajorRepository extends JpaRepository<Major, Long> {
-    List<Major> findByCollegeId(Long id);
+    List<Major> findByCollegeId(final Long id);
 }

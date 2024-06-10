@@ -12,7 +12,9 @@ endif::[]
 
 == API 목록
 
-== `GET`: 단과대학 목록 조회
+== 학과
+
+=== `GET`: 단과대학 목록 조회
 
 .HTTP Request
 include::{snippets}/college-find/http-request.adoc[]
@@ -23,16 +25,105 @@ include::{snippets}/college-find/http-response.adoc[]
 .Response Body
 include::{snippets}/college-find/response-fields.adoc[]
 
-== `GET`: 학과 목록 조회
+=== `GET`: 학과 목록 조회
 
 .HTTP Request
 include::{snippets}/major-find/http-request.adoc[]
 
-.Query Parameters
-include::{snippets}/major-find/query-parameters.adoc[]
+.Path Parameters
+include::{snippets}/major-find/path-parameters.adoc[]
 
 .HTTP Response
 include::{snippets}/major-find/http-response.adoc[]
 
 .Response Body
 include::{snippets}/major-find/response-fields.adoc[]
+
+== 마일스톤
+
+=== `POST` 마일스톤 실적 등록
+
+.HTTP Request
+include::{snippets}/milestone-history-create/http-request.adoc[]
+
+.Request Body
+include::{snippets}/milestone-history-create/request-parts.adoc[]
+
+.HTTP Response
+include::{snippets}/milestone-history-create/http-response.adoc[]
+
+=== `DELETE` 마일스톤 실적 삭제
+
+.HTTP Request
+include::{snippets}/milestone-history-delete/http-request.adoc[]
+
+.Path Parameters
+include::{snippets}/milestone-history-delete/path-parameters.adoc[]
+
+.HTTP Response
+include::{snippets}/milestone-history-delete/http-response.adoc[]
+
+=== `GET` 특정 학생의 마일스톤 실적 목록 조회
+
+.HTTP Request
+include::{snippets}/milestone-history-of-student-find-all/http-request.adoc[]
+
+.Path Parameters
+include::{snippets}/milestone-history-of-student-find-all/path-parameters.adoc[]
+
+.Query Parameters
+include::{snippets}/milestone-history-of-student-find-all/query-parameters.adoc[]
+
+
+.HTTP Response
+include::{snippets}/milestone-history-of-student-find-all/http-response.adoc[]
+
+.Response Body
+include::{snippets}/milestone-history-of-student-find-all/response-fields.adoc[]
+
+=== `PATCH` 마일스톤 실적 승인
+
+.HTTP Request
+include::{snippets}/milestone-history-approve/http-request.adoc[]
+
+.Path Parameters
+include::{snippets}/milestone-history-approve/path-parameters.adoc[]
+
+.HTTP Response
+include::{snippets}/milestone-history-approve/http-response.adoc[]
+
+=== `PATCH` 마일스톤 실적 반려
+
+.HTTP Request
+include::{snippets}/milestone-history-reject/http-request.adoc[]
+
+.Path Parameters
+include::{snippets}/milestone-history-reject/path-parameters.adoc[]
+
+.Request Body
+include::{snippets}/milestone-history-reject/request-fields.adoc[]
+
+.HTTP Response
+include::{snippets}/milestone-history-reject/http-response.adoc[]
+
+=== `GET` 전체 마일스톤 실적 목록 조회
+
+.HTTP Request
+include::{snippets}/milestone-history-find-all/http-request.adoc[]
+
+.HTTP Response
+include::{snippets}/milestone-history-find-all/http-response.adoc[]
+
+.Response Body
+include::{snippets}/milestone-history-find-all/response-fields.adoc[]
+
+=== `POST` 마일스톤 실적 일괄 등록
+
+.HTTP Request
+include::{snippets}/milestone-history-create-in-batch/http-request.adoc[]
+
+.Request Body
+include::{snippets}/milestone-history-create-in-batch/request-parts.adoc[]
+
+.HTTP Response
+include::{snippets}/milestone-history-create-in-batch/http-response.adoc[]

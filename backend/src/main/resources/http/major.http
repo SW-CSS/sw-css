@@ -1,0 +1,4 @@
+GET http://localhost:8080/colleges
+
+###
+GET http://localhost:8080/colleges/1/majors
