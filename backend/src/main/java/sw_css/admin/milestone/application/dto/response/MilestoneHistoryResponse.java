@@ -6,8 +6,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 import sw_css.member.application.dto.response.StudentMemberReferenceResponse;
 import sw_css.milestone.application.dto.response.MilestoneReferenceResponse;
-import sw_css.milestone.domain.MilestoneHistory;
 import sw_css.milestone.domain.MilestoneStatus;
+import sw_css.milestone.persistence.dto.MilestoneHistoryWithStudentInfo;
 
 public record MilestoneHistoryResponse(
         Long id,
@@ -23,19 +23,19 @@ public record MilestoneHistoryResponse(
         @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
         LocalDateTime createdAt
 ) {
-    public static List<MilestoneHistoryResponse> from(List<MilestoneHistory> milestoneHistories) {
+    public static List<MilestoneHistoryResponse> from(List<MilestoneHistoryWithStudentInfo> milestoneHistories) {
         return milestoneHistories.stream()
                 .map(milestoneHistory -> new MilestoneHistoryResponse(
-                        milestoneHistory.getId(),
-                        MilestoneReferenceResponse.from(milestoneHistory.getMilestone()),
-                        StudentMemberReferenceResponse.from(milestoneHistory.getStudent()),
-                        milestoneHistory.getDescription(),
-                        milestoneHistory.getFileUrl(),
-                        milestoneHistory.getStatus(),
-                        milestoneHistory.getRejectReason(),
-                        milestoneHistory.getCount(),
-                        milestoneHistory.getActivatedAt(),
-                        milestoneHistory.getCreatedAt()
+                        milestoneHistory.id(),
+                        MilestoneReferenceResponse.from(milestoneHistory.milestone()),
+                        StudentMemberReferenceResponse.of(milestoneHistory),
+                        milestoneHistory.description(),
+                        milestoneHistory.fileUrl(),
+                        milestoneHistory.status(),
+                        milestoneHistory.rejectReason(),
+                        milestoneHistory.count(),
+                        milestoneHistory.activatedAt(),
+                        milestoneHistory.createdAt()
                 ))
                 .toList();
     }

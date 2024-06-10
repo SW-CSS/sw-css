@@ -16,10 +16,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import sw_css.admin.milestone.application.dto.request.MilestoneHistoryRejectRequest;
 import sw_css.admin.milestone.domain.MilestoneHistoryExcelData;
-import sw_css.member.domain.StudentMember;
-import sw_css.member.domain.repository.StudentMemberRepository;
 import sw_css.milestone.domain.Milestone;
 import sw_css.milestone.domain.MilestoneHistory;
+import sw_css.milestone.domain.MilestoneStatus;
 import sw_css.milestone.domain.repository.MilestoneHistoryRepository;
 import sw_css.milestone.domain.repository.MilestoneRepository;
 import sw_css.milestone.exception.MilestoneException;
@@ -33,7 +32,6 @@ import sw_css.milestone.exception.MilestoneHistoryExceptionType;
 public class MilestoneHistoryAdminCommandService {
     // TODO 테스트 작성
     private final MilestoneRepository milestoneRepository;
-    private final StudentMemberRepository studentMemberRepository;
     private final MilestoneHistoryRepository milestoneHistoryRepository;
 
     public void registerMilestoneHistoriesInBatches(final MultipartFile file) {
@@ -59,9 +57,7 @@ public class MilestoneHistoryAdminCommandService {
                 .map(excelData -> {
                     final Milestone milestone = milestoneRepository.findById(excelData.getMilestoneId())
                             .orElseThrow(() -> new MilestoneException(MilestoneExceptionType.NOT_FOUND_MILESTONE));
-                    final StudentMember studentMember = studentMemberRepository.findById(excelData.getStudentId())
-                            .orElse(new StudentMember(excelData.getStudentId()));
-                    return MilestoneHistory.from(excelData, milestone, studentMember);
+                    return MilestoneHistory.of(excelData, milestone, MilestoneStatus.APPROVED);
                 }).toList();
         milestoneHistoryRepository.saveAll(milestoneHistories);
     }

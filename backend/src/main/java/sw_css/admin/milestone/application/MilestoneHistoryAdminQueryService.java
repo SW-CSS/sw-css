@@ -7,9 +7,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sw_css.admin.milestone.application.dto.response.MilestoneHistoryResponse;
-import sw_css.milestone.domain.MilestoneHistory;
 import sw_css.milestone.domain.MilestoneStatus;
 import sw_css.milestone.domain.repository.MilestoneHistoryRepository;
+import sw_css.milestone.persistence.dto.MilestoneHistoryWithStudentInfo;
 
 @Service
 @RequiredArgsConstructor
@@ -19,21 +19,22 @@ public class MilestoneHistoryAdminQueryService {
 
     //TODO 페이지네이션
     public List<MilestoneHistoryResponse> findAllMilestoneHistories() {
-        final List<MilestoneHistory> milestoneHistories = milestoneHistoryRepository.findAll();
+        final List<MilestoneHistoryWithStudentInfo> milestoneHistories = milestoneHistoryRepository.findAllMilestoneHistoriesWithStudentInfo();
         return MilestoneHistoryResponse.from(sortMilestoneHistories(milestoneHistories));
     }
 
-    private List<MilestoneHistory> sortMilestoneHistories(List<MilestoneHistory> milestoneHistories) {
-        final List<MilestoneHistory> processedMilestoneHistories = milestoneHistories.stream()
-                .filter(milestoneHistory -> milestoneHistory.getStatus() == MilestoneStatus.PENDING)
-                .sorted(Comparator.comparing(MilestoneHistory::getCreatedAt))
+    private List<MilestoneHistoryWithStudentInfo> sortMilestoneHistories(
+            List<MilestoneHistoryWithStudentInfo> milestoneHistories) {
+        final List<MilestoneHistoryWithStudentInfo> processedMilestoneHistories = milestoneHistories.stream()
+                .filter(milestoneHistory -> milestoneHistory.status() == MilestoneStatus.PENDING)
+                .sorted(Comparator.comparing(MilestoneHistoryWithStudentInfo::createdAt))
                 .toList();
-        final List<MilestoneHistory> unprocessedMilestoneHistories = milestoneHistories.stream()
-                .filter(milestoneHistory -> milestoneHistory.getStatus() != MilestoneStatus.PENDING)
-                .sorted(Comparator.comparing(MilestoneHistory::getCreatedAt).reversed())
+        final List<MilestoneHistoryWithStudentInfo> unprocessedMilestoneHistories = milestoneHistories.stream()
+                .filter(milestoneHistory -> milestoneHistory.status() != MilestoneStatus.PENDING)
+                .sorted(Comparator.comparing(MilestoneHistoryWithStudentInfo::createdAt).reversed())
                 .toList();
         return Stream.of(processedMilestoneHistories, unprocessedMilestoneHistories)
-                .flatMap(List<MilestoneHistory>::stream)
+                .flatMap(List<MilestoneHistoryWithStudentInfo>::stream)
                 .toList();
     }
 }

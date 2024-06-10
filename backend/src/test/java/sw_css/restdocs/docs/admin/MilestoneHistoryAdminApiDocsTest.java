@@ -11,6 +11,7 @@ import static org.springframework.restdocs.request.RequestDocumentation.pathPara
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -31,8 +32,8 @@ import sw_css.member.domain.StudentMember;
 import sw_css.milestone.domain.Milestone;
 import sw_css.milestone.domain.MilestoneCategory;
 import sw_css.milestone.domain.MilestoneGroup;
-import sw_css.milestone.domain.MilestoneHistory;
 import sw_css.milestone.domain.MilestoneStatus;
+import sw_css.milestone.persistence.dto.MilestoneHistoryWithStudentInfo;
 import sw_css.restdocs.RestDocsTest;
 
 @WebMvcTest(MilestoneHistoryAdminController.class)
@@ -113,13 +114,19 @@ public class MilestoneHistoryAdminApiDocsTest extends RestDocsTest {
         final StudentMember student = new StudentMember(202055558L,
                 new Member(1L, "abc@naver.com", "홍길동", "password", "010-0000-0000", false),
                 new Major(1L, new College(1L, "인문대학"), "사회학과"), null, null, "취업", "IT 사기업 개발자로 취업");
-        final List<MilestoneHistory> milestones = List.of(
-                new MilestoneHistory(1L, milestone, student, "창업했습니다.", "https://skfdlfjeklf.png",
-                        MilestoneStatus.PENDING, null, 1, LocalDate.parse("2024-06-06"), false),
-                new MilestoneHistory(1L, milestone, student, "창업했습니다.", "https://skfdlfjeklf.png",
-                        MilestoneStatus.PENDING, null, 1, LocalDate.parse("2024-06-06"), false),
-                new MilestoneHistory(1L, milestone, student, "창업했습니다.", "https://skfdlfjeklf.png",
-                        MilestoneStatus.APPROVED, null, 1, LocalDate.parse("2024-06-06"), false)
+        final List<MilestoneHistoryWithStudentInfo> milestones = List.of(
+                new MilestoneHistoryWithStudentInfo(1L, milestone, student.getId(), student.getMember().getName(),
+                        "창업했습니다.", "https://skfdlfjeklf.png",
+                        MilestoneStatus.PENDING, null, 1, LocalDate.parse("2024-06-06"),
+                        LocalDateTime.parse("2024-06-05 00:00:00")),
+                new MilestoneHistoryWithStudentInfo(1L, milestone, student.getId(), student.getMember().getName(),
+                        "창업했습니다.", "https://skfdlfjeklf.png",
+                        MilestoneStatus.PENDING, null, 1, LocalDate.parse("2024-06-06"),
+                        LocalDateTime.parse("2024-06-05 00:00:00")),
+                new MilestoneHistoryWithStudentInfo(1L, milestone, student.getId(), student.getMember().getName(),
+                        "창업했습니다.", "https://skfdlfjeklf.png",
+                        MilestoneStatus.APPROVED, null, 1, LocalDate.parse("2024-06-06"),
+                        LocalDateTime.parse("2024-06-05 00:00:00"))
         );
 
         final List<MilestoneHistoryResponse> response = MilestoneHistoryResponse.from(milestones);

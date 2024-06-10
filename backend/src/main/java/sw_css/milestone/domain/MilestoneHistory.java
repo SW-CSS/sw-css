@@ -34,9 +34,8 @@ public class MilestoneHistory extends BaseEntity {
     @JoinColumn(name = "milestone_id", nullable = false)
     private Milestone milestone;
 
-    @ManyToOne
-    @JoinColumn(name = "student_id")
-    private StudentMember student;
+    @Column(nullable = false)
+    private Long studentId;
 
     @Column(nullable = false)
     private String description;
@@ -62,7 +61,7 @@ public class MilestoneHistory extends BaseEntity {
 
     public MilestoneHistory(final Milestone milestone, final StudentMember student, final String description,
                             final String fileUrl, final Integer count, final LocalDate activatedAt) {
-        this(null, milestone, student, description, fileUrl, MilestoneStatus.PENDING, null, count, activatedAt,
+        this(null, milestone, student.getId(), description, fileUrl, MilestoneStatus.PENDING, null, count, activatedAt,
                 false);
     }
 
@@ -85,9 +84,10 @@ public class MilestoneHistory extends BaseEntity {
         this.rejectReason = rejectReason;
     }
 
-    public static MilestoneHistory from(final MilestoneHistoryExcelData data, final Milestone milestone,
-                                        final StudentMember student) {
-        return new MilestoneHistory(milestone, student, data.getDescription(), null, data.getCount(),
-                data.getActivatedAt());
+    public static MilestoneHistory of(final MilestoneHistoryExcelData data, final Milestone milestone,
+                                      final MilestoneStatus status) {
+        return new MilestoneHistory(null, milestone, data.getStudentId(), data.getDescription(), null, status, null,
+                data.getCount(),
+                data.getActivatedAt(), false);
     }
 }

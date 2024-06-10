@@ -6,7 +6,6 @@ import java.util.stream.Stream;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import sw_css.member.domain.StudentMember;
 import sw_css.member.domain.repository.StudentMemberRepository;
 import sw_css.member.exception.MemberException;
 import sw_css.member.exception.MemberExceptionType;
@@ -25,10 +24,11 @@ public class MilestoneHistoryQueryService {
     // TODO 페이지네이션
     public List<MilestoneHistoryOfStudentResponse> findAllMilestoneHistories(final Long memberId,
                                                                              final MilestoneStatus filter) {
-        final StudentMember student = studentMemberRepository.findById(memberId)
-                .orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND_STUDENT));
+        if (!studentMemberRepository.existsById(memberId)) {
+            throw new MemberException(MemberExceptionType.NOT_FOUND_STUDENT);
+        }
         return MilestoneHistoryOfStudentResponse.from(
-                generateMilestoneHistories(milestoneHistoryRepository.findMilestoneHistoriesByStudent(student),
+                generateMilestoneHistories(milestoneHistoryRepository.findMilestoneHistoriesByStudentId(memberId),
                         filter));
     }
 
