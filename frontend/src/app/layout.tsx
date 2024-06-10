@@ -2,8 +2,12 @@
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 import ReduxProvider from '@/store/provider';
+import StyledComponentsRegistry from '@/theme/StyledComponentsRegistry';
+
+import { PageWrapper, PageLayout } from './styled';
 
 import type { Metadata } from 'next';
+
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -20,9 +24,13 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => (
     </head>
     <body style={{ margin: 0 }}>
       <ReduxProvider>
-        <Header />
-        {children}
-        <Footer />
+        <StyledComponentsRegistry>
+          <Header />
+          <PageWrapper>
+            <PageLayout>{children}</PageLayout>
+          </PageWrapper>
+          <Footer />
+        </StyledComponentsRegistry>
       </ReduxProvider>
     </body>
   </html>
