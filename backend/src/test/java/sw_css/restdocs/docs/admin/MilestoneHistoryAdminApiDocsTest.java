@@ -1,13 +1,17 @@
 package sw_css.restdocs.docs.admin;
 
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.multipart;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.partWithName;
 import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
+import static org.springframework.restdocs.request.RequestDocumentation.requestParts;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.time.LocalDate;
@@ -17,11 +21,13 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.restdocs.payload.RequestFieldsSnippet;
 import org.springframework.restdocs.payload.ResponseFieldsSnippet;
 import org.springframework.restdocs.request.PathParametersSnippet;
+import org.springframework.restdocs.request.RequestPartsSnippet;
 import sw_css.admin.milestone.api.MilestoneHistoryAdminController;
 import sw_css.admin.milestone.application.dto.request.MilestoneHistoryRejectRequest;
 import sw_css.admin.milestone.application.dto.response.MilestoneHistoryResponse;
@@ -141,4 +147,28 @@ public class MilestoneHistoryAdminApiDocsTest extends RestDocsTest {
                 .andDo(document("milestone-history-find-all", responseBodySnippet));
 
     }
+
+    @Test
+    @DisplayName("엑셀 파일로 마일스톤 실적 내역을 일괄 등록할 수 있다.")
+    void registerMilestoneHistoriesInBatches() throws Exception {
+        //given
+        final RequestPartsSnippet requestPartsSnippet = requestParts(
+                partWithName("file").description("일괄 등록할 마일스톤 실적 정보가 담긴 엑셀 파일(.xls, .xlsx)")
+        );
+
+        final MockMultipartFile request = new MockMultipartFile("file", "test.xls", "multipart/form-data",
+                "example".getBytes());
+
+        // when
+        doNothing().when(milestoneHistoryAdminCommandService).registerMilestoneHistoriesInBatches(any());
+
+        // then
+        mockMvc.perform(multipart("/admin/milestones/histories").file(request)
+                        .contentType(MediaType.MULTIPART_FORM_DATA)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .characterEncoding("UTF-8"))
+                .andExpect(status().isCreated())
+                .andDo(document("milestone-history-create-in-batch", requestPartsSnippet));
+    }
+
 }

@@ -125,9 +125,9 @@ public class MilestoneHistoryApiDocsTest extends RestDocsTest {
                 new Major(1L, new College(1L, "인문대학"), "사회학과"), null, null, "취업", "IT 사기업 개발자로 취업");
 
         final List<MilestoneHistoryOfStudentResponse> response = MilestoneHistoryOfStudentResponse.from(
-                List.of(new MilestoneHistory(1L, milestone, student, "창업했습니다.", "https://skfdlfjeklf.png",
+                List.of(new MilestoneHistory(1L, milestone, student.getId(), "창업했습니다.", "https://skfdlfjeklf.png",
                                 MilestoneStatus.PENDING, null, 1, LocalDate.parse("2024-06-06"), false),
-                        new MilestoneHistory(1L, milestone, student, "창업했습니다.", "https://skfdlfjeklf.png",
+                        new MilestoneHistory(1L, milestone, student.getId(), "창업했습니다.", "https://skfdlfjeklf.png",
                                 MilestoneStatus.APPROVED, null, 1, LocalDate.parse("2024-06-06"), false)));
         final Long memberId = 1L;
 

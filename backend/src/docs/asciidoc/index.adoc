@@ -116,3 +116,14 @@ include::{snippets}/milestone-history-find-all/http-response.adoc[]
 
 .Response Body
 include::{snippets}/milestone-history-find-all/response-fields.adoc[]
+
+=== `POST` 마일스톤 실적 일괄 등록
+
+.HTTP Request
+include::{snippets}/milestone-history-create-in-batch/http-request.adoc[]
+
+.Request Body
+include::{snippets}/milestone-history-create-in-batch/request-parts.adoc[]
+
+.HTTP Response
+include::{snippets}/milestone-history-create-in-batch/http-response.adoc[]
