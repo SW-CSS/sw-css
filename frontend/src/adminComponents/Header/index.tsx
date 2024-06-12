@@ -1,14 +1,6 @@
-import * as S from './style';
+import { HeaderInfo } from '@/types';
 
-export interface HeaderInfo {
-  title: string;
-  url: string;
-  sub: {
-    title: string;
-    url: string;
-    key: string;
-  }[];
-}
+import * as S from './style';
 
 export const headerAdminInfos: HeaderInfo[] = [
   {
