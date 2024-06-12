@@ -48,10 +48,6 @@ public class MilestoneHistoryApiDocsTest extends RestDocsTest {
     public void registerMilestoneHistory() throws Exception {
         // given
         final RequestPartsSnippet requestPartsSnippet = requestParts(
-                //partWithName("milestoneId").description("마일스톤 ID"),
-                //partWithName("description").description("활동에 대한 설명"),
-                //partWithName("count").description("활동 횟수"),
-                //partWithName("activatedAt").description("활동 일자(yyyy-MM-dd)"),
                 partWithName("request").description(
                         "마일스톤 실적 정보(milestoneId-마일스톤 id, description - 활동에 대한 설명, count - 활동 횟수, activatedAt - 활동 일자(yyyy-MM-dd))"),
                 partWithName("file").description("증빙 자료 파일")
@@ -73,7 +69,7 @@ public class MilestoneHistoryApiDocsTest extends RestDocsTest {
                         .contentType(MediaType.MULTIPART_MIXED)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isCreated())
-                .andDo(document("milestone-history-create", requestPartsSnippet));
+                .andDo(document("milestone.http-history-create", requestPartsSnippet));
     }
 
     @Test
@@ -91,7 +87,7 @@ public class MilestoneHistoryApiDocsTest extends RestDocsTest {
         // then
         mockMvc.perform(RestDocumentationRequestBuilders.delete("/milestones/histories/{historyId}", historyId))
                 .andExpect(status().isNoContent())
-                .andDo(document("milestone-history-delete", pathParameters));
+                .andDo(document("milestone.http-history-delete", pathParameters));
     }
 
     @Test
@@ -108,13 +104,13 @@ public class MilestoneHistoryApiDocsTest extends RestDocsTest {
 
         final ResponseFieldsSnippet responseBodySnippet = responseFields(
                 fieldWithPath("[].id").type(JsonFieldType.NUMBER).description("마일스톤 실적 id"),
-                fieldWithPath("[].milestone.id").type(JsonFieldType.NUMBER).description("마일스톤 실적의 마일스톤 id"),
-                fieldWithPath("[].milestone.name").type(JsonFieldType.STRING).description("마일스톤 실적의 마일스톤 명칭"),
-                fieldWithPath("[].milestone.categoryName").type(JsonFieldType.STRING)
+                fieldWithPath("[].milestone.http.id").type(JsonFieldType.NUMBER).description("마일스톤 실적의 마일스톤 id"),
+                fieldWithPath("[].milestone.http.name").type(JsonFieldType.STRING).description("마일스톤 실적의 마일스톤 명칭"),
+                fieldWithPath("[].milestone.http.categoryName").type(JsonFieldType.STRING)
                         .description("마일스톤 실적의 마일스톤 카테고리 이름"),
-                fieldWithPath("[].milestone.categoryGroup").type(JsonFieldType.STRING)
+                fieldWithPath("[].milestone.http.categoryGroup").type(JsonFieldType.STRING)
                         .description("마일스톤 실적의 마일스톤 카테고리 유형"),
-                fieldWithPath("[].milestone.score").type(JsonFieldType.NUMBER).description("마일스톤 실적의 마일스톤 점수"),
+                fieldWithPath("[].milestone.http.score").type(JsonFieldType.NUMBER).description("마일스톤 실적의 마일스톤 점수"),
                 fieldWithPath("[].description").type(JsonFieldType.STRING).description("마일스톤 활동에 대한 설명"),
                 fieldWithPath("[].fileUrl").type(JsonFieldType.STRING)
                         .description("마일스톤 실적 등록 시 첨부된 파일 접근 url"),
@@ -128,7 +124,7 @@ public class MilestoneHistoryApiDocsTest extends RestDocsTest {
         );
 
         final Milestone milestone = new Milestone(1L, new MilestoneCategory(1L, "SW 관련 창업",
-                MilestoneGroup.ACTIVITY, 100), "창업", 100, 1);
+                MilestoneGroup.ACTIVITY, 100, null), "창업", 100, 1);
         final StudentMember student = new StudentMember(202055558L,
                 new Member(1L, "abc@naver.com", "홍길동", "password", "010-0000-0000", false),
                 new Major(1L, new College(1L, "인문대학"), "사회학과"), null, null, "취업", "IT 사기업 개발자로 취업");
@@ -146,7 +142,7 @@ public class MilestoneHistoryApiDocsTest extends RestDocsTest {
         //then
         mockMvc.perform(RestDocumentationRequestBuilders.get("/milestones/histories/members/{memberId}", memberId))
                 .andExpect(status().isOk())
-                .andDo(document("milestone-history-of-student-find-all", pathParameters, queryParameters,
+                .andDo(document("milestone.http-history-of-student-find-all", pathParameters, queryParameters,
                         responseBodySnippet));
 
     }
