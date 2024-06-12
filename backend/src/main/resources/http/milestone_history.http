@@ -1,0 +1,32 @@
+GET http://localhost:8080/admin/milestones/histories
+
+###
+GET http://localhost:8080/milestones/histories/members/202055558?filter=APPROVED
+
+###
+
+POST http://localhost:8080/milestones/histories
+Content-Type: application/json
+
+{
+  "milestoneId": 1,
+  "description": "대회수상",
+  "fileUrl": "https://dfjlskfjd",
+  "count": 3,
+  "activatedAt": "2024-06-03"
+}
+
+###
+
+DELETE http://localhost:8080/milestones/histories/1
+
+###
+PATCH http://localhost:8080/admin/milestones/histories/1/approve
+
+###
+PATCH http://localhost:8080/admin/milestones/histories/2/reject
+Content-Type: application/json
+
+{
+  "reason": "증빙자료 불충분"
+}

@@ -15,12 +15,8 @@
     "project": "./tsconfig.json"
   },
   "rules": {
-    "prettier/prettier": [
-      "error",
-      {
-        "endOfLine": "auto"
-      }
-    ],
+    "prettier/prettier": ["error", { "endOfLine": "auto" }],
+    "max-len": ["warn", { "code": 120 }],
     "react/react-in-jsx-scope": "off",
     "import/extensions": "off",
     "react/function-component-definition": [
