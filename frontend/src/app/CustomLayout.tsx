@@ -2,6 +2,7 @@
 
 import { usePathname } from 'next/navigation';
 
+import AdminHeader from '@/adminComponents/Header';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 
@@ -11,7 +12,12 @@ const CustomLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => 
   const pathname = usePathname();
 
   if (pathname.startsWith('/admin')) {
-    return <div>{children}</div>;
+    return (
+      <>
+        <AdminHeader />
+        {children}
+      </>
+    );
   }
   return (
     <>
