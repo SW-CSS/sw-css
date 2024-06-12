@@ -1,4 +1,6 @@
+/* eslint-disable import/no-extraneous-dependencies */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import cookie from 'react-cookies';
 
 export interface AuthState {
   token: string;
@@ -7,7 +9,7 @@ export interface AuthState {
   isModerator: boolean;
 }
 
-interface AuthSliceState extends AuthState {
+export interface AuthSliceState extends AuthState {
   token: string;
   isAuth: boolean; // 로그인되어 있는지.
   username: string;
@@ -33,18 +35,22 @@ export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    logOut: () => initialState,
-    logIn: (state, action: PayloadAction<AuthState>) => ({
-      value: {
+    signOut: (state) => {
+      state.value = initialState.value;
+      cookie.save('auth', JSON.stringify(state.value), {});
+    },
+    signIn: (state, action: PayloadAction<AuthState>) => {
+      state.value = {
         token: action.payload.token,
         isAuth: true,
         username: action.payload.username,
         uid: action.payload.uid,
         isModerator: action.payload.isModerator,
-      },
-    }),
+      };
+      cookie.save('auth', JSON.stringify(state.value), {});
+    },
   },
 });
 
-export const { logOut, logIn } = authSlice.actions;
+export const { signOut, signIn } = authSlice.actions;
 export default authSlice.reducer;
