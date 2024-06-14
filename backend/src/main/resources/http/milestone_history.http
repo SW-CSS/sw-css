@@ -4,6 +4,9 @@ GET http://localhost:8080/admin/milestones/histories
 GET http://localhost:8080/milestones/histories/members/202055558?filter=APPROVED
 
 ###
+GET http://localhost:8080/milestones/histories/scores/members/202055558?start_date=2024-06-05&end_date=2024-06-08
+
+###
 
 POST http://localhost:8080/milestones/histories
 Content-Type: application/json
@@ -11,7 +14,6 @@ Content-Type: application/json
 {
   "milestoneId": 1,
   "description": "대회수상",
-  "fileUrl": "https://dfjlskfjd",
   "count": 3,
   "activatedAt": "2024-06-03"
 }

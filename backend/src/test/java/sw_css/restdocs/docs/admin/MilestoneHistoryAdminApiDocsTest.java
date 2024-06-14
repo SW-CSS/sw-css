@@ -61,7 +61,7 @@ public class MilestoneHistoryAdminApiDocsTest extends RestDocsTest {
         mockMvc.perform(
                         RestDocumentationRequestBuilders.patch("/admin/milestones/histories/{historyId}/approve", historyId))
                 .andExpect(status().isNoContent())
-                .andDo(document("milestone.http-history-approve", pathParameters));
+                .andDo(document("milestone-history-approve", pathParameters));
     }
 
     @Test
@@ -87,7 +87,7 @@ public class MilestoneHistoryAdminApiDocsTest extends RestDocsTest {
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isNoContent())
-                .andDo(document("milestone.http-history-reject", pathParameters, requestBodySnippet));
+                .andDo(document("milestone-history-reject", pathParameters, requestBodySnippet));
     }
 
     @Test
@@ -96,13 +96,13 @@ public class MilestoneHistoryAdminApiDocsTest extends RestDocsTest {
         //given
         final ResponseFieldsSnippet responseBodySnippet = responseFields(
                 fieldWithPath("[].id").type(JsonFieldType.NUMBER).description("마일스톤 실적 id"),
-                fieldWithPath("[].milestone.http.id").type(JsonFieldType.NUMBER).description("마일스톤 실적의 마일스톤 id"),
-                fieldWithPath("[].milestone.http.name").type(JsonFieldType.STRING).description("마일스톤 실적의 마일스톤 명칭"),
-                fieldWithPath("[].milestone.http.categoryName").type(JsonFieldType.STRING)
+                fieldWithPath("[].milestone.id").type(JsonFieldType.NUMBER).description("마일스톤 실적의 마일스톤 id"),
+                fieldWithPath("[].milestone.name").type(JsonFieldType.STRING).description("마일스톤 실적의 마일스톤 명칭"),
+                fieldWithPath("[].milestone.categoryName").type(JsonFieldType.STRING)
                         .description("마일스톤 실적의 마일스톤 카테고리 이름"),
-                fieldWithPath("[].milestone.http.categoryGroup").type(JsonFieldType.STRING)
+                fieldWithPath("[].milestone.categoryGroup").type(JsonFieldType.STRING)
                         .description("마일스톤 실적의 마일스톤 카테고리 유형"),
-                fieldWithPath("[].milestone.http.score").type(JsonFieldType.NUMBER).description("마일스톤 실적의 마일스톤 점수"),
+                fieldWithPath("[].milestone.score").type(JsonFieldType.NUMBER).description("마일스톤 실적의 마일스톤 점수"),
                 fieldWithPath("[].student.id").type(JsonFieldType.NUMBER).description("실적을 등록한 학생의 id"),
                 fieldWithPath("[].student.name").type(JsonFieldType.STRING).description("실적을 등록한 학생의 이름"),
                 fieldWithPath("[].description").type(JsonFieldType.STRING).description("마일스톤 활동에 대한 설명"),
@@ -144,7 +144,7 @@ public class MilestoneHistoryAdminApiDocsTest extends RestDocsTest {
         mockMvc.perform(
                         RestDocumentationRequestBuilders.get("/admin/milestones/histories"))
                 .andExpect(status().isOk())
-                .andDo(document("milestone.http-history-find-all", responseBodySnippet));
+                .andDo(document("milestone-history-find-all", responseBodySnippet));
 
     }
 
@@ -168,7 +168,7 @@ public class MilestoneHistoryAdminApiDocsTest extends RestDocsTest {
                         .accept(MediaType.APPLICATION_JSON)
                         .characterEncoding("UTF-8"))
                 .andExpect(status().isCreated())
-                .andDo(document("milestone.http-history-create-in-batch", requestPartsSnippet));
+                .andDo(document("milestone-history-create-in-batch", requestPartsSnippet));
     }
 
 }

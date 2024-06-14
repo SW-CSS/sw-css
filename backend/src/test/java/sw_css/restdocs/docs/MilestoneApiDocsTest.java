@@ -54,7 +54,7 @@ public class MilestoneApiDocsTest extends RestDocsTest {
         //then
         mockMvc.perform(get("/milestones"))
                 .andExpect(status().isOk())
-                .andDo(document("milestone.http-find-all", responseBodySnippet));
+                .andDo(document("milestone-find-all", responseBodySnippet));
 
     }
 }
