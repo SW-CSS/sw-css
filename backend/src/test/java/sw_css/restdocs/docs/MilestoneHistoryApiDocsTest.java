@@ -33,7 +33,7 @@ import sw_css.member.domain.StudentMember;
 import sw_css.milestone.api.MilestoneHistoryController;
 import sw_css.milestone.application.dto.request.MilestoneHistoryCreateRequest;
 import sw_css.milestone.application.dto.response.MilestoneHistoryOfStudentResponse;
-import sw_css.milestone.application.dto.response.MilestoneScoreResponse;
+import sw_css.milestone.application.dto.response.MilestoneScoreOfStudentResponse;
 import sw_css.milestone.domain.Milestone;
 import sw_css.milestone.domain.MilestoneCategory;
 import sw_css.milestone.domain.MilestoneGroup;
@@ -168,10 +168,10 @@ public class MilestoneHistoryApiDocsTest extends RestDocsTest {
                 fieldWithPath("[].score").type(JsonFieldType.NUMBER).description("마일스톤 점수")
         );
 
-        final List<MilestoneScoreResponse> response = List.of(
-                MilestoneScoreResponse.of(new MilestoneCategory(1L, "SW 관련 창업",
+        final List<MilestoneScoreOfStudentResponse> response = List.of(
+                MilestoneScoreOfStudentResponse.of(new MilestoneCategory(1L, "SW 관련 창업",
                         MilestoneGroup.ACTIVITY, 100, null), 50),
-                MilestoneScoreResponse.of(new MilestoneCategory(2L, "TOPCIT",
+                MilestoneScoreOfStudentResponse.of(new MilestoneCategory(2L, "TOPCIT",
                         MilestoneGroup.ACTIVITY, 60, null), 0));
         final Long memberId = 1L;
         final String startDate = "2024-06-01";
@@ -187,7 +187,7 @@ public class MilestoneHistoryApiDocsTest extends RestDocsTest {
                                 .param("start_date", startDate)
                                 .param("end_date", endDate))
                 .andExpect(status().isOk())
-                .andDo(document("milestone-history-score-find-all", pathParameters, queryParameters,
+                .andDo(document("milestone-history-score-of-student-find-all", pathParameters, queryParameters,
                         responseBodySnippet));
     }
 }

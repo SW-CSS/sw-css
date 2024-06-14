@@ -1,17 +1,17 @@
-package sw_css.milestone.persistence.dto;
+package sw_css.admin.milestone.persistence;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import sw_css.member.domain.StudentMember;
 import sw_css.milestone.domain.Milestone;
 import sw_css.milestone.domain.MilestoneCategory;
 import sw_css.milestone.domain.MilestoneStatus;
 
-public record MilestoneHistoryWithStudentInfo(
-        Long id,
-        Milestone milestone,
+public record StudentAndMilestoneHistoryInfo(
+        Long studentId,
+        String studentName,
+        Long milestoneHistoryId,
         MilestoneCategory category,
-        StudentMember student,
+        Milestone milestone,
         String description,
         String fileUrl,
         MilestoneStatus status,

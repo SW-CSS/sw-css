@@ -28,7 +28,7 @@ public record MilestoneHistoryResponse(
                 .map(milestoneHistory -> new MilestoneHistoryResponse(
                         milestoneHistory.id(),
                         MilestoneReferenceResponse.from(milestoneHistory.milestone()),
-                        StudentMemberReferenceResponse.of(milestoneHistory),
+                        StudentMemberReferenceResponse.from(milestoneHistory.student()),
                         milestoneHistory.description(),
                         milestoneHistory.fileUrl(),
                         milestoneHistory.status(),

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
@@ -19,6 +20,7 @@ import sw_css.admin.milestone.application.MilestoneHistoryAdminCommandService;
 import sw_css.admin.milestone.application.MilestoneHistoryAdminQueryService;
 import sw_css.admin.milestone.application.dto.request.MilestoneHistoryRejectRequest;
 import sw_css.admin.milestone.application.dto.response.MilestoneHistoryResponse;
+import sw_css.admin.milestone.application.dto.response.MilestoneScoreResponse;
 
 @Validated
 @RequestMapping("/admin/milestones/histories")
@@ -53,5 +55,13 @@ public class MilestoneHistoryAdminController {
                                                         @RequestBody @Valid final MilestoneHistoryRejectRequest request) {
         milestoneHistoryAdminCommandService.rejectMilestoneHistory(historyId, request);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/scores")
+    public ResponseEntity<List<MilestoneScoreResponse>> findAllMilestoneHistoryScores(
+            @RequestParam(value = "start_date") final String startDate,
+            @RequestParam(value = "end_date") final String endDate) {
+        return ResponseEntity.ok(
+                milestoneHistoryAdminQueryService.findAllMilestoneHistoryScores(startDate, endDate));
     }
 }

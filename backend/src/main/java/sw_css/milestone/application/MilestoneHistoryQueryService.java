@@ -15,7 +15,7 @@ import sw_css.member.domain.repository.StudentMemberRepository;
 import sw_css.member.exception.MemberException;
 import sw_css.member.exception.MemberExceptionType;
 import sw_css.milestone.application.dto.response.MilestoneHistoryOfStudentResponse;
-import sw_css.milestone.application.dto.response.MilestoneScoreResponse;
+import sw_css.milestone.application.dto.response.MilestoneScoreOfStudentResponse;
 import sw_css.milestone.domain.MilestoneCategory;
 import sw_css.milestone.domain.MilestoneHistory;
 import sw_css.milestone.domain.MilestoneStatus;
@@ -67,8 +67,9 @@ public class MilestoneHistoryQueryService {
                 .toList();
     }
 
-    public List<MilestoneScoreResponse> findAllMilestoneHistoryScores(final Long memberId, final String startDate,
-                                                                      final String endDate) {
+    public List<MilestoneScoreOfStudentResponse> findAllMilestoneHistoryScores(final Long memberId,
+                                                                               final String startDate,
+                                                                               final String endDate) {
         if (!studentMemberRepository.existsById(memberId)) {
             throw new MemberException(MemberExceptionType.NOT_FOUND_STUDENT);
         }
@@ -76,7 +77,7 @@ public class MilestoneHistoryQueryService {
         final LocalDate parsedEndDate = parseDate(endDate);
         final List<MilestoneHistoryInfo> milestoneHistoryInfos = milestoneHistoryRepository.findAllMilestoneHistoriesInfoByStudentIdAndPeriod(
                 memberId, parsedStartDate, parsedEndDate);
-        Map<MilestoneCategory, List<MilestoneHistoryInfo>> groupedMilestoneHistoriesByCategory = milestoneHistoryInfos.stream()
+        final Map<MilestoneCategory, List<MilestoneHistoryInfo>> groupedMilestoneHistoriesByCategory = milestoneHistoryInfos.stream()
                 .collect(groupingBy((MilestoneHistoryInfo::category)));
         return groupedMilestoneHistoriesByCategory.entrySet()
                 .stream()
@@ -101,9 +102,9 @@ public class MilestoneHistoryQueryService {
                                         return score;
                                     }
                             ).mapToInt(score -> score).sum();
-                    return MilestoneScoreResponse.of(entry.getKey(),
+                    return MilestoneScoreOfStudentResponse.of(entry.getKey(),
                             Math.min(entry.getKey().getLimitScore(), totalScore));
-                }).sorted(Comparator.comparing(MilestoneScoreResponse::id))
+                }).sorted(Comparator.comparing(MilestoneScoreOfStudentResponse::id))
                 .toList();
     }
 

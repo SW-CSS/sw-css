@@ -19,7 +19,7 @@ import sw_css.milestone.application.MilestoneHistoryCommandService;
 import sw_css.milestone.application.MilestoneHistoryQueryService;
 import sw_css.milestone.application.dto.request.MilestoneHistoryCreateRequest;
 import sw_css.milestone.application.dto.response.MilestoneHistoryOfStudentResponse;
-import sw_css.milestone.application.dto.response.MilestoneScoreResponse;
+import sw_css.milestone.application.dto.response.MilestoneScoreOfStudentResponse;
 import sw_css.milestone.domain.MilestoneStatus;
 
 @Validated
@@ -58,7 +58,7 @@ public class MilestoneHistoryController {
 
     // TODO 학생 본인 혹은 관리자만 호출할 수 있도록 권한 설정
     @GetMapping("/scores/members/{memberId}")
-    public ResponseEntity<List<MilestoneScoreResponse>> findAllMilestoneHistoryScores(
+    public ResponseEntity<List<MilestoneScoreOfStudentResponse>> findAllMilestoneHistoryScores(
             @PathVariable("memberId") final Long memberId,
             @RequestParam(value = "start_date") final String startDate,
             @RequestParam(value = "end_date") final String endDate) {

@@ -12,11 +12,10 @@ public interface MilestoneHistoryRepository extends JpaRepository<MilestoneHisto
     List<MilestoneHistory> findMilestoneHistoriesByStudentId(final Long studentId);
 
     @Query("SELECT new sw_css.milestone.persistence.dto.MilestoneHistoryWithStudentInfo("
-            + "mh.id, m, mh.studentId, COALESCE(m2.name, ''), mh.description, mh.fileUrl, mh.status, mh.rejectReason, mh.count, mh.activatedAt, mh.createdAt) "
+            + "mh.id, m, m.category, sm, mh.description, mh.fileUrl, mh.status, mh.rejectReason, mh.count, mh.activatedAt, mh.createdAt) "
             + "FROM MilestoneHistory mh "
             + "JOIN mh.milestone m "
-            + "LEFT JOIN StudentMember sm on sm.id = mh.studentId "
-            + "LEFT JOIN sm.member m2")
+            + "LEFT JOIN StudentMember sm on sm.id = mh.studentId")
     List<MilestoneHistoryWithStudentInfo> findAllMilestoneHistoriesWithStudentInfo();
 
     @Query("SELECT new sw_css.milestone.persistence.dto.MilestoneHistoryInfo("
@@ -27,4 +26,13 @@ public interface MilestoneHistoryRepository extends JpaRepository<MilestoneHisto
     List<MilestoneHistoryInfo> findAllMilestoneHistoriesInfoByStudentIdAndPeriod(final Long studentId,
                                                                                  final LocalDate startDate,
                                                                                  final LocalDate endDate);
+
+    @Query("SELECT new sw_css.milestone.persistence.dto.MilestoneHistoryWithStudentInfo("
+            + "mh.id, m, mc, sm, mh.description, mh.fileUrl, mh.status, mh.rejectReason, mh.count, mh.activatedAt, mh.createdAt) "
+            + "FROM MilestoneCategory mc "
+            + "LEFT JOIN Milestone m on m.category=mc "
+            + "LEFT JOIN MilestoneHistory mh on mh.milestone=m "
+            + "LEFT JOIN StudentMember sm on sm.id=mh.studentId AND mh.activatedAt <= :endDate AND mh.activatedAt >= :startDate")
+    List<MilestoneHistoryWithStudentInfo> findAllMilestoneHistoriesWithStudentInfoByPeriod(final LocalDate startDate,
+                                                                                           final LocalDate endDate);
 }
