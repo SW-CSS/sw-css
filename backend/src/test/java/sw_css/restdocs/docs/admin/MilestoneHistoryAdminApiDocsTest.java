@@ -127,13 +127,16 @@ public class MilestoneHistoryAdminApiDocsTest extends RestDocsTest {
                 new Member(1L, "abc@naver.com", "홍길동", "password", "010-0000-0000", false),
                 new Major(1L, new College(1L, "인문대학"), "사회학과"), null, null, "취업", "IT 사기업 개발자로 취업");
         final List<MilestoneHistoryWithStudentInfo> milestones = List.of(
-                new MilestoneHistoryWithStudentInfo(1L, milestone, category, student, "창업했습니다.",
+                new MilestoneHistoryWithStudentInfo(1L, milestone, category,
+                        StudentMemberReferenceResponse.from(student), "창업했습니다.",
                         "https://skfdlfjeklf.png", MilestoneStatus.PENDING, null, 1, LocalDate.parse("2024-06-06"),
                         LocalDateTime.parse("2024-06-05T00:00:00")),
-                new MilestoneHistoryWithStudentInfo(2L, milestone, category, student, "창업했습니다.",
+                new MilestoneHistoryWithStudentInfo(2L, milestone, category,
+                        StudentMemberReferenceResponse.from(student), "창업했습니다.",
                         "https://skfdlfjeklf.png", MilestoneStatus.PENDING, null, 1, LocalDate.parse("2024-06-06"),
                         LocalDateTime.parse("2024-06-05T00:00:00")),
-                new MilestoneHistoryWithStudentInfo(3L, milestone, category, student, "창업했습니다.",
+                new MilestoneHistoryWithStudentInfo(3L, milestone, category,
+                        StudentMemberReferenceResponse.from(student), "창업했습니다.",
                         "https://skfdlfjeklf.png", MilestoneStatus.APPROVED, null, 1, LocalDate.parse("2024-06-06"),
                         LocalDateTime.parse("2024-06-05T00:00:00"))
         );

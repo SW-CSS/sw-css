@@ -12,10 +12,11 @@ public interface MilestoneHistoryRepository extends JpaRepository<MilestoneHisto
     List<MilestoneHistory> findMilestoneHistoriesByStudentId(final Long studentId);
 
     @Query("SELECT new sw_css.milestone.persistence.dto.MilestoneHistoryWithStudentInfo("
-            + "mh.id, m, m.category, sm, mh.description, mh.fileUrl, mh.status, mh.rejectReason, mh.count, mh.activatedAt, mh.createdAt) "
+            + "mh.id, m, m.category, mh.studentId, COALESCE(m2.name, ''), mh.description, mh.fileUrl, mh.status, mh.rejectReason, mh.count, mh.activatedAt, mh.createdAt) "
             + "FROM MilestoneHistory mh "
-            + "JOIN mh.milestone m "
-            + "LEFT JOIN StudentMember sm on sm.id = mh.studentId")
+            + "LEFT JOIN mh.milestone m "
+            + "LEFT JOIN StudentMember sm on sm.id = mh.studentId "
+            + "LEFT JOIN sm.member m2 ")
     List<MilestoneHistoryWithStudentInfo> findAllMilestoneHistoriesWithStudentInfo();
 
     @Query("SELECT new sw_css.milestone.persistence.dto.MilestoneHistoryInfo("
@@ -28,11 +29,16 @@ public interface MilestoneHistoryRepository extends JpaRepository<MilestoneHisto
                                                                                  final LocalDate endDate);
 
     @Query("SELECT new sw_css.milestone.persistence.dto.MilestoneHistoryWithStudentInfo("
-            + "mh.id, m, mc, sm, mh.description, mh.fileUrl, mh.status, mh.rejectReason, mh.count, mh.activatedAt, mh.createdAt) "
-            + "FROM MilestoneCategory mc "
-            + "LEFT JOIN Milestone m on m.category=mc "
-            + "LEFT JOIN MilestoneHistory mh on mh.milestone=m "
-            + "LEFT JOIN StudentMember sm on sm.id=mh.studentId AND mh.activatedAt <= :endDate AND mh.activatedAt >= :startDate")
+            + "mh.id, m, m.category, s2.studentId, s2.studentName, mh.description, mh.fileUrl, mh.status, mh.rejectReason, mh.count, mh.activatedAt, mh.createdAt) "
+            + "FROM (SELECT DISTINCT(COALESCE(mh.studentId, sm.id)) as studentId, COALESCE(m.name,'') as studentName FROM StudentMember sm "
+            + "LEFT JOIN MilestoneHistory mh on mh.studentId=sm.id "
+            + "LEFT JOIN sm.member m "
+            + "UNION "
+            + "SELECT DISTINCT(COALESCE(mh.studentId, sm.id)) as studentId, COALESCE(m.name,'') as studentName FROM StudentMember sm "
+            + "RIGHT JOIN MilestoneHistory mh on mh.studentId=sm.id "
+            + "LEFT JOIN sm.member m ) s2 "
+            + "CROSS JOIN Milestone m "
+            + "LEFT JOIN MilestoneHistory mh on m=mh.milestone and mh.studentId=s2.studentId and mh.activatedAt <= :endDate AND mh.activatedAt >= :startDate")
     List<MilestoneHistoryWithStudentInfo> findAllMilestoneHistoriesWithStudentInfoByPeriod(final LocalDate startDate,
                                                                                            final LocalDate endDate);
 }

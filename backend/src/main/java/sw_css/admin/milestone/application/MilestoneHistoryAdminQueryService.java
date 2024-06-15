@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 import sw_css.admin.milestone.application.dto.response.MilestoneHistoryResponse;
 import sw_css.admin.milestone.application.dto.response.MilestoneScoreResponse;
 import sw_css.member.application.dto.response.StudentMemberReferenceResponse;
-import sw_css.member.domain.StudentMember;
 import sw_css.milestone.application.dto.response.MilestoneScoreOfStudentResponse;
 import sw_css.milestone.domain.MilestoneStatus;
 import sw_css.milestone.domain.repository.MilestoneHistoryRepository;
@@ -54,7 +53,7 @@ public class MilestoneHistoryAdminQueryService {
         final LocalDate parsedEndDate = parseDate(endDate);
         final List<MilestoneHistoryWithStudentInfo> milestoneHistoryInfos = milestoneHistoryRepository.findAllMilestoneHistoriesWithStudentInfoByPeriod(
                 parsedStartDate, parsedEndDate);
-        final Map<StudentMember, List<MilestoneHistoryWithStudentInfo>> groupedMilestoneHistoriesByStudentId = milestoneHistoryInfos.stream()
+        final Map<StudentMemberReferenceResponse, List<MilestoneHistoryWithStudentInfo>> groupedMilestoneHistoriesByStudentId = milestoneHistoryInfos.stream()
                 .collect(groupingBy((MilestoneHistoryWithStudentInfo::student)));
         return groupedMilestoneHistoriesByStudentId.entrySet().stream()
                 .map(entry -> {
@@ -88,16 +87,16 @@ public class MilestoneHistoryAdminQueryService {
                                         Math.min(entry2.getKey().getLimitScore(), totalScore));
                             }).sorted(Comparator.comparing(MilestoneScoreOfStudentResponse::id))
                             .toList();
-                    return new MilestoneScoreResponse(StudentMemberReferenceResponse.from(entry.getKey()),
-                            milestoneScoreOfStudentResponses);
-                })
-                .sorted(Comparator.comparing(response ->
-                        -(response.milestoneScores().stream()
-                                .mapToInt(MilestoneScoreOfStudentResponse::score)
-                                .sum())
-                ))
-                .sorted().toList();
+                    return new MilestoneScoreResponse(entry.getKey(), milestoneScoreOfStudentResponses);
+                }).sorted(Comparator.comparing(this::calculateTotalScore).reversed())
+                .toList();
 
+    }
+
+    private int calculateTotalScore(final MilestoneScoreResponse response) {
+        return response.milestoneScores().stream()
+                .mapToInt(MilestoneScoreOfStudentResponse::score)
+                .sum();
     }
 
     private LocalDate parseDate(String startDate) {

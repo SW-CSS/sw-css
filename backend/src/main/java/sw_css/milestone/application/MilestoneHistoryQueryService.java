@@ -70,9 +70,6 @@ public class MilestoneHistoryQueryService {
     public List<MilestoneScoreOfStudentResponse> findAllMilestoneHistoryScores(final Long memberId,
                                                                                final String startDate,
                                                                                final String endDate) {
-        if (!studentMemberRepository.existsById(memberId)) {
-            throw new MemberException(MemberExceptionType.NOT_FOUND_STUDENT);
-        }
         final LocalDate parsedStartDate = parseDate(startDate);
         final LocalDate parsedEndDate = parseDate(endDate);
         final List<MilestoneHistoryInfo> milestoneHistoryInfos = milestoneHistoryRepository.findAllMilestoneHistoriesInfoByStudentIdAndPeriod(

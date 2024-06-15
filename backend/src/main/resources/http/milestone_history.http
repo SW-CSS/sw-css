@@ -1,10 +1,13 @@
 GET http://localhost:8080/admin/milestones/histories
 
 ###
-GET http://localhost:8080/milestones/histories/members/202055558?filter=APPROVED
+GET http://localhost:8080/milestones/histories/members/202055558
 
 ###
 GET http://localhost:8080/milestones/histories/scores/members/202055558?start_date=2024-06-05&end_date=2024-06-08
+
+###
+GET http://localhost:8080/admin/milestones/histories/scores?start_date=2024-06-05&end_date=2024-06-10
 
 ###
 
