@@ -28,6 +28,7 @@ public interface MilestoneHistoryRepository extends JpaRepository<MilestoneHisto
                                                                                  final LocalDate startDate,
                                                                                  final LocalDate endDate);
 
+    // GROUP BY로 최적화시킬 여지가 있음
     @Query("SELECT new sw_css.milestone.persistence.dto.MilestoneHistoryWithStudentInfo("
             + "mh.id, m, m.category, s2.studentId, s2.studentName, mh.description, mh.fileUrl, mh.status, mh.rejectReason, mh.count, mh.activatedAt, mh.createdAt) "
             + "FROM (SELECT DISTINCT(COALESCE(mh.studentId, sm.id)) as studentId, COALESCE(m.name,'') as studentName FROM StudentMember sm "
