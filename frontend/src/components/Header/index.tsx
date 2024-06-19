@@ -21,16 +21,16 @@ export const headerInfos: HeaderInfo[] = [
   },
   {
     title: '팀빌딩',
-    url: '/',
+    url: '/team-building',
     sub: [{ title: '팀빌딩', url: '/', key: '2_teamBuilding' }],
   },
   {
     title: 'PNU 해커톤',
-    url: '/',
+    url: '/hackathon',
     sub: [
-      { title: '진행중인 해커톤', url: '/', key: 'onGoingHackathon' },
-      { title: '창의융합SW해커톤', url: '/', key: 'SWHackathon' },
-      { title: 'SW문제 해결 경진대회', url: '/', key: 'problemContest' },
+      { title: '진행중인 해커톤', url: '/hackathon', key: 'onGoingHackathon' },
+      { title: '창의융합SW해커톤', url: '/hackathon/sw-hackathon', key: 'SWHackathon' },
+      { title: 'SW문제 해결 경진대회', url: '/hackathon/sw-contest', key: 'problemContest' },
     ],
   },
 ];
