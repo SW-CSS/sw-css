@@ -3,10 +3,12 @@
 import { usePathname } from 'next/navigation';
 
 import AdminHeader from '@/adminComponents/Header';
+import AdminSidebar from '@/adminComponents/Sidebar';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 
 import { PageWrapper, PageLayout } from './styled';
+import { COLOR } from '@/constants';
 
 const CustomLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   const pathname = usePathname();
@@ -15,7 +17,8 @@ const CustomLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => 
     return (
       <>
         <AdminHeader />
-        {children}
+        <AdminSidebar />
+        <div style={{ backgroundColor: `${COLOR.admin_sub_point_light}` }}>{children}</div>
       </>
     );
   }

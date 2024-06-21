@@ -48,4 +48,4 @@ export const BORDER_RADIUS = {
 };
 
 export const ADMIN_HEADER_HEIGHT = '55px';
-export const ADMIN_SIDEBAR_WIDTH = '200px';
+export const ADMIN_SIDEBAR_WIDTH = '220px';
