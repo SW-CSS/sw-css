@@ -1,9 +1,9 @@
 'use client';
 
+import Link from 'next/link';
 import styled from 'styled-components';
 
 import { ADMIN_HEADER_HEIGHT, ADMIN_SIDEBAR_WIDTH, COLOR, FONT_STYLE, RESPONSIVE_WIDTH } from '@/constants';
-import Link from 'next/link';
 
 export const HeaderWrapper = styled.div`
   position: fixed;

@@ -1,6 +1,7 @@
-import { ADMIN_HEADER_HEIGHT, ADMIN_SIDEBAR_WIDTH, COLOR } from '@/constants';
 import Link from 'next/link';
 import styled from 'styled-components';
+
+import { ADMIN_HEADER_HEIGHT, ADMIN_SIDEBAR_WIDTH, COLOR } from '@/constants';
 
 export const SidebarWrapper = styled.div`
   position: fixed;

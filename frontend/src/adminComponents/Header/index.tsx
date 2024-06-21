@@ -5,10 +5,10 @@ import { usePathname, useRouter } from 'next/navigation';
 
 import { AdminBlackButton, AdminGrayButton } from '@/app/admin/styled';
 import { BORDER_RADIUS, COLOR, FONT_STYLE } from '@/constants';
+import { useAppSelector } from '@/hocks/redux';
 import { HeaderInfo } from '@/types';
 
 import * as S from './styled';
-import { useAppSelector } from '@/hocks/redux';
 
 export const headerAdminInfos: HeaderInfo[] = [
   {
@@ -73,8 +73,9 @@ const Header = () => {
             <Image src="/svgs/SW_logo.svg" alt="SW_logo" width="120" height="40" priority={false} />
           </S.LogoLink>
           {headerAdminInfos.map((item) => {
-            if (pathname.includes(item.url))
+            if (pathname.includes(item.url)) {
               return <S.HeaderLinkerPoint href={item.url}>{item.title}</S.HeaderLinkerPoint>;
+            }
             return <S.HeaderLinker href={item.url}>{item.title}</S.HeaderLinker>;
           })}
         </div>

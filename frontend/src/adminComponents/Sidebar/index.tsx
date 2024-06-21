@@ -1,10 +1,10 @@
 'use client';
 
-import { headerAdminInfos } from '../Header';
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 import * as S from './styled';
+import { headerAdminInfos } from '../Header';
 
 const Sidebar = () => {
   const [currTab, setCurrTab] = useState<string>('');
