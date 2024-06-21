@@ -28,5 +28,5 @@ export const AdminBlackButton = styled(AdminButton)`
 export const AdminGrayButton = styled(AdminButton)`
   background-color: ${COLOR.admin_sub_point_light};
   border: 1px solid ${COLOR.admin_sub_point};
-  color: black;
+  color: ${COLOR.comment};
 `;
