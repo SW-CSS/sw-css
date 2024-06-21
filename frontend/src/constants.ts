@@ -14,6 +14,10 @@ export const COLOR = {
   malibu: '#8AA4FF',
   malibu_text: '#5773FF',
   malibu_dark: '#2F5DFF',
+  admin_point: '#095DB3',
+  admin_sub_point: '#404040',
+  admin_sub_point_light: '#F0F0F0',
+  admin_red: '#EF3D58',
 };
 
 export const FONT_STYLE = {
@@ -42,3 +46,6 @@ export const BORDER_RADIUS = {
   lg: '30px',
   full: '100%',
 };
+
+export const ADMIN_HEADER_HEIGHT = '55px';
+export const ADMIN_SIDEBAR_WIDTH = '200px';
