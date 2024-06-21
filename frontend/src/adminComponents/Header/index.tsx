@@ -1,6 +1,14 @@
+'use client';
+
+import Image from 'next/image';
+import { usePathname } from 'next/navigation';
+
+import { AdminBlackButton, AdminGrayButton } from '@/app/admin/styled';
+import { BORDER_RADIUS, COLOR, FONT_STYLE } from '@/constants';
 import { HeaderInfo } from '@/types';
 
-import * as S from './style';
+import * as S from './styled';
+import { useAppSelector } from '@/hocks/redux';
 
 export const headerAdminInfos: HeaderInfo[] = [
   {
@@ -43,10 +51,35 @@ export const headerAdminInfos: HeaderInfo[] = [
   },
 ];
 
-const Header = () => (
-  <S.HeaderWrapper>
-    <S.HeaderLayout />
-  </S.HeaderWrapper>
-);
+const Header = () => {
+  const pathname = usePathname();
+
+  const auth = useAppSelector((state) => state.auth).value;
+
+  return (
+    <S.HeaderWrapper>
+      <S.HeaderLayout>
+        <div style={{ display: 'flex' }}>
+          <S.LogoLink href="/">
+            <Image src="/svgs/SW_logo.svg" alt="SW_logo" width="120" height="40" priority={false} />
+          </S.LogoLink>
+          {headerAdminInfos.map((item) => {
+            if (pathname === item.url) return <S.HeaderLinkerPoint href={item.url}>{item.title}</S.HeaderLinkerPoint>;
+            return <S.HeaderLinker href={item.url}>{item.title}</S.HeaderLinker>;
+          })}
+        </div>
+        <div style={{ display: 'flex', gap: '10px' }}>
+          <span style={{ font: FONT_STYLE.xs, color: COLOR.comment, display: 'flex', alignItems: 'center' }}>
+            반갑습니다! <span style={{ color: COLOR.admin_point }}>{auth.username}</span>님
+          </span>
+          <AdminGrayButton style={{ font: FONT_STYLE.xs, border: 'none', borderRadius: BORDER_RADIUS.lg }}>
+            사이트 메인으로
+          </AdminGrayButton>
+          <AdminBlackButton style={{ font: FONT_STYLE.xs, borderRadius: BORDER_RADIUS.lg }}>로그아웃</AdminBlackButton>
+        </div>
+      </S.HeaderLayout>
+    </S.HeaderWrapper>
+  );
+};
 
 export default Header;
