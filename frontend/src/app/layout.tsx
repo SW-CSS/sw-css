@@ -1,7 +1,6 @@
 /* eslint-disable @next/next/no-page-custom-font */
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
-import SideBar from '@/components/SideBar';
 import ReduxProvider from '@/store/provider';
 import StyledComponentsRegistry from '@/theme/StyledComponentsRegistry';
 
@@ -28,7 +27,6 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => (
         <StyledComponentsRegistry>
           <Header />
           <PageWrapper>
-            <SideBar />
             <PageLayout>{children}</PageLayout>
           </PageWrapper>
           <Footer />

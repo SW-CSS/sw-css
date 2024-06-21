@@ -6,9 +6,9 @@ import { RESPONSIVE_WIDTH } from '@/constants';
 
 export const PageWrapper = styled.div`
   width: 100vw;
+  height: 100%;
   min-height: calc(100vh - 280px);
   margin-top: 80px;
-  display: flex;
 
   @media screen and (max-width: ${RESPONSIVE_WIDTH.desktop}) {
     min-height: calc(100vh - 255px);
@@ -18,7 +18,6 @@ export const PageWrapper = styled.div`
 `;
 
 export const PageLayout = styled.div`
-  max-width: 1200px;
-  margin: auto;
+  height: 100%;
   overflow: hidden;
 `;

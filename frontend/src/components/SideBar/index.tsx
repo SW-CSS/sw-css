@@ -1,13 +1,18 @@
 'use client';
 
-import {} from './styled';
 import { headerInfos } from '../Header';
 import { HeaderInfo, SubCategoryInfo } from '@/types';
-import { GetStaticProps } from 'next';
 import { usePathname } from 'next/navigation';
 import { useCallback, useEffect, useState } from 'react';
+import {
+  SidebarCategory,
+  SidebarCategoryDescription,
+  SidebarCategoryList,
+  SidebarCategoryTitle,
+  SidebarWrapper,
+} from './styled';
 
-const SideBar = () => {
+const Sidebar = () => {
   const pathname = usePathname();
   const [currentCategory, setCurrentCategory] = useState<HeaderInfo | null>();
   const [currentSubCategory, setCurrentSubCategory] = useState<SubCategoryInfo | null>();
@@ -31,11 +36,18 @@ const SideBar = () => {
   }, [pathname, findMatchPath]);
 
   return (
-    <>
-      <div>{currentCategory?.title}</div>
-      <div>{currentSubCategory?.title}</div>
-    </>
+    <SidebarWrapper>
+      <SidebarCategoryTitle>{currentCategory?.title}</SidebarCategoryTitle>
+      <SidebarCategoryDescription>{currentCategory?.description}</SidebarCategoryDescription>
+      <SidebarCategoryList>
+        {currentCategory?.sub.map((sub) => (
+          <SidebarCategory isCurrentCategory={sub.title === currentSubCategory?.title} key={sub.title} href={sub.url}>
+            {sub.title}
+          </SidebarCategory>
+        ))}
+      </SidebarCategoryList>
+    </SidebarWrapper>
   );
 };
 
-export default SideBar;
+export default Sidebar;

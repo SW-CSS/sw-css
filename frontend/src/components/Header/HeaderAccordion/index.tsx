@@ -2,7 +2,7 @@ import { HeaderInfo } from '@/types';
 
 import { HeaderAccordionWrapper, Linker, Accordion, AccordionLink } from './styled';
 
-const HeaderAccordion = ({ title, url, sub }: HeaderInfo) => (
+const HeaderAccordion = ({ title, url, sub, description }: HeaderInfo) => (
   <HeaderAccordionWrapper>
     <Linker href={url}>{title}</Linker>
     <Accordion>

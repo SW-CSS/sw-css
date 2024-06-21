@@ -9,11 +9,15 @@ export const RESPONSIVE_WIDTH = {
 export const COLOR = {
   comment: '#666666',
   border: '#EEEEEE',
+  white: '#FFFFFF',
+  gray_bg_light: '#F9F9F9',
   gray_bg: '#F2F2F2',
   malibu_light: '#E5EBFF',
   malibu: '#8AA4FF',
   malibu_text: '#5773FF',
   malibu_dark: '#2F5DFF',
+  black_text: '#333333',
+  mobile_sidebar: '#26325C',
 };
 
 export const FONT_STYLE = {
