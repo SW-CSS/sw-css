@@ -1,5 +1,5 @@
-// import withAuth from '@/adminComponents/PrivateRoute';
-
-const Page = () => <main style={{ width: '100%', height: '20px' }} />;
+const Page = () => {
+  return null;
+};
 
 export default Page;
