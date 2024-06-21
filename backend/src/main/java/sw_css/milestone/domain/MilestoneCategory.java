@@ -7,6 +7,8 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import java.util.List;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -31,4 +33,7 @@ public class MilestoneCategory extends BaseEntity {
 
     @Column(nullable = false)
     private Integer limitScore;
+
+    @OneToMany(mappedBy = "category")
+    private List<Milestone> milestones;
 }
