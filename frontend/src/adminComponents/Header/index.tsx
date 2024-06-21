@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 
 import { AdminBlackButton, AdminGrayButton } from '@/app/admin/styled';
 import { BORDER_RADIUS, COLOR, FONT_STYLE } from '@/constants';
@@ -53,18 +53,28 @@ export const headerAdminInfos: HeaderInfo[] = [
 
 const Header = () => {
   const pathname = usePathname();
+  const router = useRouter();
 
   const auth = useAppSelector((state) => state.auth).value;
+
+  const handleGoMainClick = () => {
+    router.push('/');
+  };
+
+  const handleSignOutClick = () => {
+    router.push('/sign-out');
+  };
 
   return (
     <S.HeaderWrapper>
       <S.HeaderLayout>
         <div style={{ display: 'flex' }}>
-          <S.LogoLink href="/">
+          <S.LogoLink href="/admin">
             <Image src="/svgs/SW_logo.svg" alt="SW_logo" width="120" height="40" priority={false} />
           </S.LogoLink>
           {headerAdminInfos.map((item) => {
-            if (pathname === item.url) return <S.HeaderLinkerPoint href={item.url}>{item.title}</S.HeaderLinkerPoint>;
+            if (pathname.includes(item.url))
+              return <S.HeaderLinkerPoint href={item.url}>{item.title}</S.HeaderLinkerPoint>;
             return <S.HeaderLinker href={item.url}>{item.title}</S.HeaderLinker>;
           })}
         </div>
@@ -72,10 +82,18 @@ const Header = () => {
           <span style={{ font: FONT_STYLE.xs, color: COLOR.comment, display: 'flex', alignItems: 'center' }}>
             반갑습니다! <span style={{ color: COLOR.admin_point }}>{auth.username}</span>님
           </span>
-          <AdminGrayButton style={{ font: FONT_STYLE.xs, border: 'none', borderRadius: BORDER_RADIUS.lg }}>
+          <AdminGrayButton
+            style={{ font: FONT_STYLE.xs, border: 'none', borderRadius: BORDER_RADIUS.lg }}
+            onClick={handleGoMainClick}
+          >
             사이트 메인으로
           </AdminGrayButton>
-          <AdminBlackButton style={{ font: FONT_STYLE.xs, borderRadius: BORDER_RADIUS.lg }}>로그아웃</AdminBlackButton>
+          <AdminBlackButton
+            style={{ font: FONT_STYLE.xs, borderRadius: BORDER_RADIUS.lg }}
+            onClick={handleSignOutClick}
+          >
+            로그아웃
+          </AdminBlackButton>
         </div>
       </S.HeaderLayout>
     </S.HeaderWrapper>

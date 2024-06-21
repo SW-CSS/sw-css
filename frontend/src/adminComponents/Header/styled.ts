@@ -8,7 +8,8 @@ import Link from 'next/link';
 export const HeaderWrapper = styled.div`
   position: fixed;
   width: 100vw;
-  border-bottom: 1px solid ${COLOR.border};
+  background: white;
+  border-bottom: 2px solid ${COLOR.admin_point};
   @media screen and (max-width: ${RESPONSIVE_WIDTH.desktop}) {
     width: ${RESPONSIVE_WIDTH.desktop};
   }
@@ -28,7 +29,7 @@ export const HeaderLinker = styled(Link)`
   display: flex;
   align-items: center;
   height: ${ADMIN_HEADER_HEIGHT};
-  padding: 0 25px;
+  padding: 0 20px;
   color: ${COLOR.comment};
   font: ${FONT_STYLE.base.normal};
   &:after {
