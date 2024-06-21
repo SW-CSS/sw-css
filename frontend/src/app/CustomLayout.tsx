@@ -2,13 +2,13 @@
 
 import { usePathname } from 'next/navigation';
 
+import AdminFooter from '@/adminComponents/Footer';
 import AdminHeader from '@/adminComponents/Header';
 import AdminSidebar from '@/adminComponents/Sidebar';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 
-import { PageWrapper, PageLayout } from './styled';
-import { COLOR } from '@/constants';
+import { PageWrapper, PageLayout, AdminPageWrapper, AdminPageLayout } from './styled';
 
 const CustomLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   const pathname = usePathname();
@@ -18,7 +18,10 @@ const CustomLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => 
       <>
         <AdminHeader />
         <AdminSidebar />
-        <div style={{ backgroundColor: `${COLOR.admin_sub_point_light}` }}>{children}</div>
+        <AdminPageWrapper>
+          <AdminPageLayout>{children}</AdminPageLayout>
+          <AdminFooter />
+        </AdminPageWrapper>
       </>
     );
   }

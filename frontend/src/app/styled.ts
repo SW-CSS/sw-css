@@ -2,7 +2,7 @@
 
 import styled from 'styled-components';
 
-import { RESPONSIVE_WIDTH } from '@/constants';
+import { ADMIN_HEADER_HEIGHT, ADMIN_SIDEBAR_WIDTH, COLOR, RESPONSIVE_WIDTH } from '@/constants';
 
 export const PageWrapper = styled.div`
   width: 100vw;
@@ -19,4 +19,15 @@ export const PageLayout = styled.div`
   max-width: 1200px;
   margin: auto;
   overflow: hidden;
+`;
+
+export const AdminPageWrapper = styled.div`
+  background-color: ${COLOR.admin_sub_point_light};
+  min-height: 100vh;
+  padding-top: ${ADMIN_HEADER_HEIGHT};
+  padding-left: ${ADMIN_SIDEBAR_WIDTH};
+`;
+
+export const AdminPageLayout = styled.div`
+  min-height: calc(100vh - ${ADMIN_HEADER_HEIGHT} - 42px);
 `;
