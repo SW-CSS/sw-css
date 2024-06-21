@@ -22,6 +22,10 @@ export const ContentWrapper = styled.div`
   min-height: calc(100vh - 280px);
   margin: auto;
   overflow: hidden;
+
+  @media screen and (max-width: ${RESPONSIVE_WIDTH.desktop}) {
+    background-color: ${COLOR.white};
+  }
 `;
 
 export const Content = styled.div`
