@@ -24,7 +24,7 @@ public class GlobalControllerAdvice {
         final BaseExceptionType type = e.exceptionType();
 
         if (type.httpStatus().is5xxServerError()) {
-            log.error("[ERROR] MESSAGE : {}, 로그 캡처와 함께 서버 개발자에게 연락주세요 : ", type.errorMessage(),
+            log.error("[ERROR] MESSAGE : {}, 에러가 발생한 상황에 대한 설명과 함께 소프트웨어 융합교육원에 연락주세요 : ", type.errorMessage(),
                     e);
             return new ResponseEntity<>(ExceptionResponse.from(e), HttpStatus.INTERNAL_SERVER_ERROR);
         }
@@ -69,7 +69,7 @@ public class GlobalControllerAdvice {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ExceptionResponse> handleException(final Exception exception) {
-        log.error("[ERROR] 로그 캡처와 함께 서버 개발자에게 연락주세요 : ", exception);
+        log.error("[ERROR] 에러가 발생한 상황에 대한 설명과 함께 소프트웨어 융합교육원에 연락주세요 : ", exception);
         return new ResponseEntity<>(
                 ExceptionResponse.from(exception),
                 HttpStatus.INTERNAL_SERVER_ERROR
