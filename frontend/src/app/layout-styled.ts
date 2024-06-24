@@ -17,7 +17,6 @@ export const PageWrapper = styled.div`
 `;
 
 export const PageLayout = styled.div`
-  max-width: 1200px;
   margin: auto;
   overflow: hidden;
 `;
