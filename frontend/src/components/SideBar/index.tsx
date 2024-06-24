@@ -6,15 +6,7 @@ import { useCallback, useEffect, useState } from 'react';
 
 import { headerInfos } from '../Header';
 import { HeaderInfo, SubCategoryInfo } from '@/types';
-import {
-  SidebarCategory,
-  SidebarCategoryDescription,
-  SidebarCategoryList,
-  SidebarCategoryTitle,
-  SidebarMobileButton,
-  SidebarMobileWrapper,
-  SidebarWrapper,
-} from './styled';
+import * as S from './styled';
 
 const Sidebar = () => {
   const pathname = usePathname();
@@ -38,36 +30,43 @@ const Sidebar = () => {
   useEffect(() => {
     setCurrentCategory(headerInfos.filter((headerInfo) => pathname.startsWith(headerInfo.url))[0]);
     setCurrentSubCategory(findMatchPath());
-    console.log(currentSubCategory);
   }, [pathname, findMatchPath]);
 
   return (
     <>
-      <SidebarWrapper>
-        <SidebarCategoryTitle>{currentCategory?.title}</SidebarCategoryTitle>
-        <SidebarCategoryDescription>{currentCategory?.description}</SidebarCategoryDescription>
-        <SidebarCategoryList isOpen={isOpenNavigationBar}>
+      <S.SidebarWrapper>
+        <S.SidebarCategoryTitle>{currentCategory?.title}</S.SidebarCategoryTitle>
+        <S.SidebarCategoryDescription>{currentCategory?.description}</S.SidebarCategoryDescription>
+        <S.SidebarCategoryList isOpen={isOpenNavigationBar}>
           {currentCategory?.sub.map((sub) => (
-            <SidebarCategory isCurrentCategory={sub.title === currentSubCategory?.title} key={sub.title} href={sub.url}>
+            <S.SidebarCategory
+              isCurrentCategory={sub.title === currentSubCategory?.title}
+              key={sub.title}
+              href={sub.url}
+            >
               {sub.title}
-            </SidebarCategory>
+            </S.SidebarCategory>
           ))}
-        </SidebarCategoryList>
-      </SidebarWrapper>
-      <SidebarMobileWrapper>
-        <SidebarMobileButton onClick={() => setIsOpenNavigationBar(!isOpenNavigationBar)}>
+        </S.SidebarCategoryList>
+      </S.SidebarWrapper>
+      <S.SidebarMobileWrapper>
+        <S.SidebarMobileButton onClick={() => setIsOpenNavigationBar((prev) => !prev)}>
           {currentSubCategory?.title}
           {isOpenNavigationBar ? <FaChevronUp color="white" /> : <FaChevronDown color="white" />}
-        </SidebarMobileButton>
+        </S.SidebarMobileButton>
 
-        <SidebarCategoryList isOpen={isOpenNavigationBar}>
+        <S.SidebarCategoryList isOpen={isOpenNavigationBar}>
           {currentCategory?.sub.map((sub) => (
-            <SidebarCategory isCurrentCategory={sub.title === currentSubCategory?.title} key={sub.title} href={sub.url}>
+            <S.SidebarCategory
+              isCurrentCategory={sub.title === currentSubCategory?.title}
+              key={sub.title}
+              href={sub.url}
+            >
               {sub.title}
-            </SidebarCategory>
+            </S.SidebarCategory>
           ))}
-        </SidebarCategoryList>
-      </SidebarMobileWrapper>
+        </S.SidebarCategoryList>
+      </S.SidebarMobileWrapper>
     </>
   );
 };

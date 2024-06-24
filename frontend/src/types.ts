@@ -1,7 +1,7 @@
 export interface HeaderInfo {
   title: string;
   url: string;
-  description: string;
+  description?: string;
   sub: SubCategoryInfo[];
 }
 

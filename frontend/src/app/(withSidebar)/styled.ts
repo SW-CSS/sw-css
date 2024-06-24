@@ -2,7 +2,7 @@
 
 import styled from 'styled-components';
 
-import { COLOR, RESPONSIVE_WIDTH } from '@/constants';
+import { COLOR, CONTENT_WIDTH, RESPONSIVE_WIDTH } from '@/constants';
 
 export const PageWithSidebarWrapper = styled.div`
   width: 100vw;
@@ -17,11 +17,8 @@ export const PageWithSidebarWrapper = styled.div`
 
 export const ContentWrapper = styled.div`
   background-color: ${COLOR.gray_bg_light};
-  width: 100%;
-  height: 100%;
+  flex-grow: 1;
   min-height: calc(100vh - 280px);
-  margin: auto;
-  overflow: hidden;
 
   @media screen and (max-width: ${RESPONSIVE_WIDTH.desktop}) {
     background-color: ${COLOR.white};
@@ -29,6 +26,7 @@ export const ContentWrapper = styled.div`
 `;
 
 export const Content = styled.div`
-  width: 970px;
+  width: ${CONTENT_WIDTH};
   padding: 20px;
+  overflow: hidden;
 `;

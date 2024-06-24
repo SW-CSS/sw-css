@@ -14,9 +14,7 @@ interface SidebarCategoryListProps {
 
 export const SidebarWrapper = styled.div`
   width: 290px;
-  height: 100%;
   min-height: calc(100vh - 280px);
-  display: block;
   padding: 40px 20px 0px 20px;
   border-right: 1px solid ${COLOR.border};
   background-color: ${COLOR.white};
@@ -42,17 +40,19 @@ export const SidebarCategoryList = styled.div<SidebarCategoryListProps>`
   display: flex;
   margin-top: 30px;
   flex-direction: column;
+  z-index: 1;
 
   @media screen and (max-width: ${RESPONSIVE_WIDTH.desktop}) {
-    transition: height 0.2s ease-in-out;
+    transition: all 0.6s ease-in-out;
     position: absolute;
     top: 45px;
     left: 0;
-    height: 0;
+    height: fit-content;
+    max-height: 0;
     overflow: hidden;
     margin-top: 0px;
     background-color: ${COLOR.gray_bg_light};
-    ${(props) => props.isOpen && `height: 123px;`}
+    ${(props) => props.isOpen && `max-height: 100vh;`}
   }
 `;
 
@@ -84,13 +84,12 @@ export const SidebarCategory = styled(Link)<SidebarCategoryProps>`
 `;
 
 export const SidebarMobileWrapper = styled.div`
-  display: none;
   width: 100%;
   height: inherit;
   position: relative;
 
-  @media screen and (max-width: ${RESPONSIVE_WIDTH.desktop}) {
-    display: block;
+  @media screen and (min-width: ${RESPONSIVE_WIDTH.desktop}) {
+    display: none;
   }
 `;
 

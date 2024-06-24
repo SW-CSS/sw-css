@@ -1,5 +1,7 @@
 export const MAX_WIDTH = '1200px';
 
+export const CONTENT_WIDTH = '970px';
+
 export const RESPONSIVE_WIDTH = {
   mobile: '480px',
   tablet: '768px',
