@@ -19,7 +19,7 @@ export const Linker = styled(Link)`
   padding: 0 40px;
   font: ${FONT_STYLE.lg.semibold};
   &:hover {
-    color: ${COLOR.malibu_dark};
+    color: ${COLOR.primary.dark};
   }
 `;
 
@@ -28,7 +28,7 @@ export const AccordionLink = styled(Link)`
   padding: 10px;
   border-bottom: 1px solid ${COLOR.border};
   &:hover {
-    color: ${COLOR.malibu_dark};
+    color: ${COLOR.primary.dark};
   }
 `;
 

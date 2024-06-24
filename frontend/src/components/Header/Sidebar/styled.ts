@@ -10,7 +10,7 @@ export const SidebarWrapper = styled.div`
 `;
 
 export const HamburgerLogo = styled.div`
-  background-color: ${COLOR.malibu};
+  background-color: ${COLOR.primary.main};
   width: 100%;
   height: 100%;
   position: absolute;
@@ -46,7 +46,7 @@ export const SidebarContentTitle = styled.div`
   border-bottom: 1px solid ${COLOR.border};
   cursor: default;
   &:hover {
-    color: ${COLOR.malibu};
+    color: ${COLOR.primary.main};
   }
 `;
 
@@ -54,10 +54,10 @@ export const SidebarContentSubTitle = styled(Link)`
   display: block;
   padding: 10px 30px;
   border-bottom: 1px solid ${COLOR.border};
-  background-color: ${COLOR.gray_bg};
+  background-color: ${COLOR.background.light};
   cursor: default;
   color: ${COLOR.comment};
   &:hover {
-    color: ${COLOR.malibu};
+    color: ${COLOR.primary.main};
   }
 `;

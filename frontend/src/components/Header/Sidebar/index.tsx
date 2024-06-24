@@ -1,14 +1,14 @@
 import { useState } from 'react';
 
 import { COLOR } from '@/constants';
-import { HeaderInfo } from '@/types';
+import { CategoryInfo } from '@/types';
 
 import * as S from './styled';
 
 export interface SidebarProps {
   open: boolean;
   handleOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  headerInfos: HeaderInfo[];
+  headerInfos: CategoryInfo[];
 }
 
 const Sidebar = ({ open, handleOpen, headerInfos }: SidebarProps) => {
@@ -43,7 +43,7 @@ const Sidebar = ({ open, handleOpen, headerInfos }: SidebarProps) => {
             <S.SidebarContentTitle
               style={{
                 color: `${currTab === item.title ? 'white' : 'black'}`,
-                backgroundColor: `${currTab === item.title ? COLOR.malibu_dark : 'transparent'}`,
+                backgroundColor: `${currTab === item.title ? COLOR.primary.dark : 'transparent'}`,
               }}
               onClick={() => setCurrTab(item.title)}
             >

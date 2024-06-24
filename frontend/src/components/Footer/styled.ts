@@ -12,7 +12,7 @@ export const FooterWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: ${COLOR.border};
+  background-color: ${COLOR.background.base};
 `;
 
 export const FooterLayout = styled.div`

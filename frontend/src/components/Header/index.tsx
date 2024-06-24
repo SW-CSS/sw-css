@@ -6,14 +6,14 @@ import { useState } from 'react';
 import { VscSignIn, VscSignOut, VscAccount } from 'react-icons/vsc';
 
 import { useAppSelector } from '@/hocks/redux';
-import { HeaderInfo } from '@/types';
+import { CategoryInfo } from '@/types';
 
 import HeaderAccordion from './HeaderAccordion';
 import Sidebar from './Sidebar';
 import * as S from './styled';
 import IconButton from '../IconButton';
 
-export const headerInfos: HeaderInfo[] = [
+export const headerInfos: CategoryInfo[] = [
   {
     title: '마일스톤',
     url: '/milestone',

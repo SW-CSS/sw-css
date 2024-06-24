@@ -1,4 +1,4 @@
-export interface HeaderInfo {
+export interface CategoryInfo {
   title: string;
   url: string;
   sub: {
