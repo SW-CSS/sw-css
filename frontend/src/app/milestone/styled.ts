@@ -7,6 +7,7 @@ import { BORDER_RADIUS, COLOR, FONT_STYLE, RESPONSIVE_WIDTH } from '@/constants'
 interface ResponsiveImageProps {
   maxHeight: string;
   maxWidth: string;
+  backgroundImage?: string;
 }
 
 export const ContentWrapper = styled.div`
@@ -54,6 +55,8 @@ export const InformationTitle = styled.div`
 export const ImageWrapper = styled.div<ResponsiveImageProps>`
   display: flex;
   justify-content: center;
+  ${({ backgroundImage }) => backgroundImage && `background-image: url(${backgroundImage});`}
+  background-position: center;
   img {
     position: relative !important;
     height: 100%;
