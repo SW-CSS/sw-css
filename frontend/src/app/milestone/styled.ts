@@ -1,7 +1,5 @@
 'use client';
 
-import Image from 'next/image';
-import Link from 'next/link';
 import styled from 'styled-components';
 
 import { BORDER_RADIUS, COLOR, FONT_STYLE, RESPONSIVE_WIDTH } from '@/constants';
