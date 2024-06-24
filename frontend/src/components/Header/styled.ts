@@ -7,6 +7,7 @@ import { MAX_WIDTH, RESPONSIVE_WIDTH, FONT_STYLE, COLOR, BORDER_RADIUS } from '@
 export const HeaderWrapper = styled.div`
   position: fixed;
   width: 100vw;
+  z-index: 1;
   border-bottom: 1px solid ${COLOR.border};
 `;
 
