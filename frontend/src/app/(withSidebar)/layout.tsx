@@ -3,7 +3,7 @@
 import Sidebar from '@/components/Sidebar';
 import { Content, ContentWrapper, PageWithSidebarWrapper } from './styled';
 
-const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => (
+const Layout = ({ children }: Readonly<{ children: React.ReactNode }>) => (
   <PageWithSidebarWrapper>
     <Sidebar />
     <ContentWrapper>
@@ -11,4 +11,4 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => (
     </ContentWrapper>
   </PageWithSidebarWrapper>
 );
-export default RootLayout;
+export default Layout;
