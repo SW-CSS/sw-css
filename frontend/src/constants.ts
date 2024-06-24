@@ -9,19 +9,9 @@ export const RESPONSIVE_WIDTH = {
 };
 
 export const COLOR = {
-<<<<<<< Feature/#24-카테고리별_하위경로에_대한_네비게이션바_제작
-  comment: '#666666',
-  border: '#EEEEEE',
   white: '#FFFFFF',
-  gray_bg_light: '#F9F9F9',
-  gray_bg: '#F2F2F2',
-  malibu_light: '#E5EBFF',
-  malibu: '#8AA4FF',
-  malibu_text: '#5773FF',
-  malibu_dark: '#2F5DFF',
   black_text: '#333333',
   mobile_sidebar: '#26325C',
-=======
   comment: '#898C96',
   border: '#EEEEF0',
   background: {
@@ -33,7 +23,6 @@ export const COLOR = {
     main: '#5773F1',
     dark: '#1A40EB',
   },
->>>>>>> main
 };
 
 export const FONT_STYLE = {

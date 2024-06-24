@@ -51,7 +51,7 @@ export const SidebarCategoryList = styled.div<SidebarCategoryListProps>`
     max-height: 0;
     overflow: hidden;
     margin-top: 0px;
-    background-color: ${COLOR.gray_bg_light};
+    background-color: ${COLOR.background.light};
     ${(props) => props.isOpen && `max-height: 100vh;`}
   }
 `;
@@ -78,7 +78,7 @@ export const SidebarCategory = styled(Link)<SidebarCategoryProps>`
     font: ${FONT_STYLE.sm};
     ${(props) =>
       props.isCurrentCategory &&
-      `color: ${COLOR.malibu_text};
+      `color: ${COLOR.primary.main};
         text-decoration: none;`};
   }
 `;

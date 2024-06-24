@@ -16,7 +16,7 @@ export const PageWithSidebarWrapper = styled.div`
 `;
 
 export const ContentWrapper = styled.div`
-  background-color: ${COLOR.gray_bg_light};
+  background-color: ${COLOR.background.light};
   flex-grow: 1;
   min-height: calc(100vh - 280px);
 

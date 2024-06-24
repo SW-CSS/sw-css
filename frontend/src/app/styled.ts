@@ -2,7 +2,6 @@
 
 import styled from 'styled-components';
 
-import { ADMIN_HEADER_HEIGHT, ADMIN_SIDEBAR_WIDTH, COLOR } from '@/adminConstants';
 import { RESPONSIVE_WIDTH } from '@/constants';
 
 export const MainPageWrapper = styled.div`
@@ -31,11 +30,6 @@ export const FlexContentWrapper = styled(ContentWrapper)`
   }
 `;
 
-<<<<<<< Feature/#24-카테고리별_하위경로에_대한_네비게이션바_제작
-export const PageLayout = styled.div`
-  overflow: hidden;
-=======
 export const AnnouncementContent = styled(ContentWrapper)`
   flex-grow: 1;
->>>>>>> main
 `;

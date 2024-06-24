@@ -5,12 +5,12 @@ import { usePathname } from 'next/navigation';
 import { useCallback, useEffect, useState } from 'react';
 
 import { headerInfos } from '../Header';
-import { HeaderInfo, SubCategoryInfo } from '@/types';
+import { CategoryInfo, SubCategoryInfo } from '@/types';
 import * as S from './styled';
 
 const Sidebar = () => {
   const pathname = usePathname();
-  const [currentCategory, setCurrentCategory] = useState<HeaderInfo | null>();
+  const [currentCategory, setCurrentCategory] = useState<CategoryInfo | null>();
   const [currentSubCategory, setCurrentSubCategory] = useState<SubCategoryInfo | null>();
   const [isOpenNavigationBar, setIsOpenNavigationBar] = useState<boolean>(false);
 
