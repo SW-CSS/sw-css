@@ -23,7 +23,7 @@ export const FlexWrapper = styled.div`
   }
 `;
 
-export const FlexContentWrapper = styled(ContentWrapper)`
+export const MilestoneWrapper = styled(ContentWrapper)`
   width: 800px;
   @media screen and (max-width: ${RESPONSIVE_WIDTH.desktop}) {
     width: 100%;
