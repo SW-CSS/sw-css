@@ -1,6 +1,4 @@
-'use client';
-
-import { usePathname } from 'next/navigation';
+import { headers } from 'next/headers';
 
 import AdminFooter from '@/adminComponents/Footer';
 import AdminHeader from '@/adminComponents/Header';
@@ -11,9 +9,10 @@ import Header from '@/components/Header';
 import { PageWrapper, PageLayout, AdminPageWrapper, AdminPageLayout } from './styled';
 
 const CustomLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
-  const pathname = usePathname();
+  const headersList = headers();
+  const headerPathname = headersList.get('x-pathname') || '';
 
-  if (pathname.startsWith('/admin')) {
+  if (headerPathname.startsWith('/admin')) {
     return (
       <>
         <AdminHeader />
