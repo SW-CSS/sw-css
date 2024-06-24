@@ -1,7 +1,5 @@
 import { ContentWrapper } from './styled';
 
-const Page = () => {
-  return <ContentWrapper>aaa</ContentWrapper>;
-};
+const Page = () => <ContentWrapper>aaa</ContentWrapper>;
 
 export default Page;

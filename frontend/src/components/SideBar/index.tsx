@@ -1,12 +1,13 @@
 'use client';
 
-import { FaChevronUp, FaChevronDown } from 'react-icons/fa6';
 import { usePathname } from 'next/navigation';
 import { useCallback, useEffect, useState } from 'react';
+import { FaChevronUp, FaChevronDown } from 'react-icons/fa6';
 
-import { headerInfos } from '../Header';
 import { CategoryInfo, SubCategoryInfo } from '@/types';
+
 import * as S from './styled';
+import { headerInfos } from '../Header';
 
 const Sidebar = () => {
   const pathname = usePathname();

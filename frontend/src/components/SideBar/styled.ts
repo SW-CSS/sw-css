@@ -1,8 +1,13 @@
+/* eslint-disable implicit-arrow-linebreak */
+/* eslint-disable @typescript-eslint/indent */
+/* eslint-disable operator-linebreak */
+
 'use client';
 
-import styled from 'styled-components';
-import { COLOR, FONT_STYLE, RESPONSIVE_WIDTH } from '@/constants';
 import Link from 'next/link';
+import styled from 'styled-components';
+
+import { COLOR, FONT_STYLE, RESPONSIVE_WIDTH } from '@/constants';
 
 interface SidebarCategoryProps {
   isCurrentCategory: boolean;
@@ -52,7 +57,7 @@ export const SidebarCategoryList = styled.div<SidebarCategoryListProps>`
     overflow: hidden;
     margin-top: 0px;
     background-color: ${COLOR.background.light};
-    ${(props) => props.isOpen && `max-height: 100vh;`}
+    ${({ isOpen }) => isOpen && 'max-height: 100vh;'}
   }
 `;
 
@@ -62,11 +67,10 @@ export const SidebarCategory = styled(Link)<SidebarCategoryProps>`
   color: ${COLOR.comment};
   line-height: 40px;
 
-  ${(props) =>
-    props.isCurrentCategory &&
-    `
-  color: ${COLOR.black_text};
-  text-decoration: underline;
+  ${({ isCurrentCategory }) =>
+    isCurrentCategory &&
+    `color: ${COLOR.black_text};
+    text-decoration: underline;
     text-underline-offset: 12px;
   `}
 
@@ -76,8 +80,8 @@ export const SidebarCategory = styled(Link)<SidebarCategoryProps>`
     border-bottom: 1px solid ${COLOR.border};
     color: ${COLOR.comment};
     font: ${FONT_STYLE.sm};
-    ${(props) =>
-      props.isCurrentCategory &&
+    ${({ isCurrentCategory }) =>
+      isCurrentCategory &&
       `color: ${COLOR.primary.main};
         text-decoration: none;`};
   }
