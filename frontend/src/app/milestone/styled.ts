@@ -40,12 +40,18 @@ export const InformationList = styled.ul`
 export const Information = styled.li`
   display: flex;
   margin-bottom: 40px;
+  @media screen and (max-width: ${RESPONSIVE_WIDTH.mobile}) {
+    display: block;
+  }
 `;
 
 export const InformationTitle = styled.div`
   color: ${COLOR.malibu_text};
   font: ${FONT_STYLE.lg.semibold};
   width: 220px;
+  @media screen and (max-width: ${RESPONSIVE_WIDTH.mobile}) {
+    margin-bottom: 10px;
+  }
 `;
 export const ImageWrapper = styled.div<ResponsiveImageProps>`
   display: flex;
