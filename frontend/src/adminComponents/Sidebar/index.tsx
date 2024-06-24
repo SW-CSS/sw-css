@@ -3,8 +3,9 @@
 import { usePathname } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
+import { adminCategories } from '@/data/adminCategory';
+
 import * as S from './styled';
-import { headerAdminInfos } from '../Header';
 
 const Sidebar = () => {
   const [currTab, setCurrTab] = useState<string>('');
@@ -21,7 +22,7 @@ const Sidebar = () => {
   return (
     <S.SidebarWrapper>
       <S.SidebarLayout>
-        {headerAdminInfos.map((item) => (
+        {adminCategories.map((item) => (
           <S.SidebarContentLayout
             key={item.title}
             style={{ maxHeight: `${currTab.includes(item.url) || pathname.includes(item.url) ? '200px' : '42px'}` }}

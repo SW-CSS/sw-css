@@ -1,8 +1,8 @@
-import { HeaderInfo } from '@/types';
+import { CategoryInfo } from '@/types';
 
 import { HeaderAccordionWrapper, Linker, Accordion, AccordionLink } from './styled';
 
-const HeaderAccordion = ({ title, url, sub }: HeaderInfo) => (
+const HeaderAccordion = ({ title, url, sub }: CategoryInfo) => (
   <HeaderAccordionWrapper>
     <Linker href={url}>{title}</Linker>
     <Accordion>
