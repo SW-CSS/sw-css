@@ -25,7 +25,7 @@ const Sidebar = () => {
       }
     });
     return bestMatch;
-  }, [currentCategory]);
+  }, [pathname, currentCategory]);
 
   useEffect(() => {
     setCurrentCategory(headerInfos.filter((headerInfo) => pathname.startsWith(headerInfo.url))[0]);
