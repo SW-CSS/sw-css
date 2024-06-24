@@ -6,8 +6,6 @@ import { COLOR, CONTENT_WIDTH, RESPONSIVE_WIDTH } from '@/constants';
 
 export const PageWithSidebarWrapper = styled.div`
   width: 100vw;
-  height: 100%;
-  min-height: calc(100vh - 280px);
   display: flex;
 
   @media screen and (max-width: ${RESPONSIVE_WIDTH.desktop}) {
