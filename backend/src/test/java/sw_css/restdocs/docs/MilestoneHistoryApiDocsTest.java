@@ -33,6 +33,7 @@ import sw_css.member.domain.StudentMember;
 import sw_css.milestone.api.MilestoneHistoryController;
 import sw_css.milestone.application.dto.request.MilestoneHistoryCreateRequest;
 import sw_css.milestone.application.dto.response.MilestoneHistoryOfStudentResponse;
+import sw_css.milestone.application.dto.response.MilestoneScoreOfStudentResponse;
 import sw_css.milestone.domain.Milestone;
 import sw_css.milestone.domain.MilestoneCategory;
 import sw_css.milestone.domain.MilestoneGroup;
@@ -48,10 +49,6 @@ public class MilestoneHistoryApiDocsTest extends RestDocsTest {
     public void registerMilestoneHistory() throws Exception {
         // given
         final RequestPartsSnippet requestPartsSnippet = requestParts(
-                //partWithName("milestoneId").description("마일스톤 ID"),
-                //partWithName("description").description("활동에 대한 설명"),
-                //partWithName("count").description("활동 횟수"),
-                //partWithName("activatedAt").description("활동 일자(yyyy-MM-dd)"),
                 partWithName("request").description(
                         "마일스톤 실적 정보(milestoneId-마일스톤 id, description - 활동에 대한 설명, count - 활동 횟수, activatedAt - 활동 일자(yyyy-MM-dd))"),
                 partWithName("file").description("증빙 자료 파일")
@@ -128,7 +125,7 @@ public class MilestoneHistoryApiDocsTest extends RestDocsTest {
         );
 
         final Milestone milestone = new Milestone(1L, new MilestoneCategory(1L, "SW 관련 창업",
-                MilestoneGroup.ACTIVITY, 100), "창업", 100, 1);
+                MilestoneGroup.ACTIVITY, 100, null), "창업", 100, 1);
         final StudentMember student = new StudentMember(202055558L,
                 new Member(1L, "abc@naver.com", "홍길동", "password", "010-0000-0000", false),
                 new Major(1L, new College(1L, "인문대학"), "사회학과"), null, null, "취업", "IT 사기업 개발자로 취업");
@@ -148,6 +145,49 @@ public class MilestoneHistoryApiDocsTest extends RestDocsTest {
                 .andExpect(status().isOk())
                 .andDo(document("milestone-history-of-student-find-all", pathParameters, queryParameters,
                         responseBodySnippet));
+    }
 
+    @Test
+    @DisplayName("[성공] 특정 학생의 마일스톤 점수 현황을 조회할 수 있다.")
+    void findAllMilestoneHistoryScores() throws Exception {
+        //given
+        final PathParametersSnippet pathParameters = pathParameters(
+                parameterWithName("memberId").description("학생의 학번(id)")
+        );
+
+        final QueryParametersSnippet queryParameters = queryParameters(
+                parameterWithName("start_date").description("조회할 마일스톤 점수 현황의 시작일"),
+                parameterWithName("end_date").description("조회할 마일스톤 점수 현황의 종료일")
+        );
+
+        final ResponseFieldsSnippet responseBodySnippet = responseFields(
+                fieldWithPath("[].id").type(JsonFieldType.NUMBER).description("마일스톤 카테고리 id"),
+                fieldWithPath("[].name").type(JsonFieldType.STRING).description("마일스톤 카테고리 이름"),
+                fieldWithPath("[].group").type(JsonFieldType.STRING).description("마일스톤 카테고리 유형"),
+                fieldWithPath("[].limitScore").type(JsonFieldType.NUMBER).description("마일스톤 카테고리 최대 점수"),
+                fieldWithPath("[].score").type(JsonFieldType.NUMBER).description("마일스톤 점수")
+        );
+
+        final List<MilestoneScoreOfStudentResponse> response = List.of(
+                MilestoneScoreOfStudentResponse.of(new MilestoneCategory(1L, "SW 관련 창업",
+                        MilestoneGroup.ACTIVITY, 100, null), 50),
+                MilestoneScoreOfStudentResponse.of(new MilestoneCategory(2L, "TOPCIT",
+                        MilestoneGroup.ACTIVITY, 60, null), 0));
+        final Long memberId = 1L;
+        final String startDate = "2024-06-01";
+        final String endDate = "2024-06-08";
+
+        //when
+        when(milestoneHistoryQueryService.findAllMilestoneHistoryScores(memberId, startDate, endDate)).thenReturn(
+                response);
+
+        //then
+        mockMvc.perform(
+                        RestDocumentationRequestBuilders.get("/milestones/histories/scores/members/{memberId}", memberId)
+                                .param("start_date", startDate)
+                                .param("end_date", endDate))
+                .andExpect(status().isOk())
+                .andDo(document("milestone-history-score-of-student-find-all", pathParameters, queryParameters,
+                        responseBodySnippet));
     }
 }

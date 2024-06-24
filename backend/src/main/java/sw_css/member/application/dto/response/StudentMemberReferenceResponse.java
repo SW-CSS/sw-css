@@ -1,14 +1,14 @@
 package sw_css.member.application.dto.response;
 
-import sw_css.milestone.persistence.dto.MilestoneHistoryWithStudentInfo;
+import sw_css.member.domain.StudentMember;
 
 public record StudentMemberReferenceResponse(
         Long id,
         String name
 ) {
-    public static StudentMemberReferenceResponse of(
-            final MilestoneHistoryWithStudentInfo milestoneHistoryWithStudentInfo) {
-        return new StudentMemberReferenceResponse(milestoneHistoryWithStudentInfo.studentId(),
-                milestoneHistoryWithStudentInfo.studentName());
+    public static StudentMemberReferenceResponse from(final StudentMember student) {
+        return new StudentMemberReferenceResponse(student.getId(),
+                student.getMember() != null ? student.getMember().getName() : "");
     }
+
 }

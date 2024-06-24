@@ -2,6 +2,7 @@
 
 import styled from 'styled-components';
 
+import { ADMIN_HEADER_HEIGHT, ADMIN_SIDEBAR_WIDTH, COLOR } from '@/adminConstants';
 import { RESPONSIVE_WIDTH } from '@/constants';
 
 export const MainPageWrapper = styled.div`
