@@ -34,6 +34,7 @@ export const SuggestionComment = styled.div`
 
 export const Divisor = styled.div`
   position: relative;
+  z-index: 0;
 
   &::after {
   content: '';

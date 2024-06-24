@@ -9,6 +9,7 @@ export const HeaderWrapper = styled.div`
   background-color: white;
   width: 100vw;
   border-bottom: 1px solid ${COLOR.border};
+  z-index: 99;
 `;
 
 export const HeaderDesktopLayout = styled.div`
