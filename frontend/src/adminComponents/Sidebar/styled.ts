@@ -1,7 +1,9 @@
+'use client';
+
 import Link from 'next/link';
 import styled from 'styled-components';
 
-import { ADMIN_HEADER_HEIGHT, ADMIN_SIDEBAR_WIDTH, COLOR } from '@/constants';
+import { ADMIN_HEADER_HEIGHT, ADMIN_SIDEBAR_WIDTH, COLOR } from '@/adminConstants';
 
 export const SidebarWrapper = styled.div`
   position: fixed;
@@ -34,7 +36,7 @@ export const SidebarContentTitle = styled.div`
 `;
 
 export const SidebarContentPointTitle = styled(SidebarContentTitle)`
-  background-color: ${COLOR.admin_sub_point};
+  background-color: ${COLOR.secondary.main};
   color: white;
 `;
 
@@ -42,7 +44,7 @@ export const SidebarContentSubTitle = styled(Link)`
   display: block;
   padding: 10px 30px;
   border-bottom: 1px solid ${COLOR.border};
-  background-color: ${COLOR.gray_bg};
+  background-color: ${COLOR.background.light};
   cursor: default;
   color: ${COLOR.comment};
 `;

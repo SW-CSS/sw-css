@@ -43,7 +43,7 @@ const Sidebar = ({ open, handleOpen, headerInfos }: SidebarProps) => {
             <S.SidebarContentTitle
               style={{
                 color: `${currTab === item.title ? 'white' : 'black'}`,
-                backgroundColor: `${currTab === item.title ? COLOR.malibu_dark : 'transparent'}`,
+                backgroundColor: `${currTab === item.title ? COLOR.primary.dark : 'transparent'}`,
               }}
               onClick={() => setCurrTab(item.title)}
             >

@@ -3,16 +3,14 @@
 import Link from 'next/link';
 import styled from 'styled-components';
 
-import { ADMIN_HEADER_HEIGHT, ADMIN_SIDEBAR_WIDTH, COLOR, FONT_STYLE, RESPONSIVE_WIDTH } from '@/constants';
+import { ADMIN_SIDEBAR_WIDTH, COLOR } from '@/adminConstants';
 
 export const HeaderWrapper = styled.div`
   position: fixed;
   width: 100vw;
+  min-width: 1200px;
   background: white;
-  border-bottom: 2px solid ${COLOR.admin_point};
-  @media screen and (max-width: ${RESPONSIVE_WIDTH.desktop}) {
-    width: ${RESPONSIVE_WIDTH.desktop};
-  }
+  border-bottom: 2px solid ${COLOR.primary.main};
 `;
 
 export const HeaderLayout = styled.div`
@@ -22,34 +20,6 @@ export const HeaderLayout = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-`;
-
-export const HeaderLinker = styled(Link)`
-  position: relative;
-  display: flex;
-  align-items: center;
-  height: ${ADMIN_HEADER_HEIGHT};
-  padding: 0 20px;
-  color: ${COLOR.comment};
-  font: ${FONT_STYLE.base.normal};
-  &:after {
-    content: '';
-    background: ${COLOR.border};
-    position: absolute;
-    top: 15%;
-    left: 0;
-    height: 70%;
-    width: 1px;
-  }
-`;
-
-export const HeaderLinkerPoint = styled(HeaderLinker)`
-  background-color: ${COLOR.admin_point};
-  color: white;
-  &:after {
-    height: 0;
-    width: 0;
-  }
 `;
 
 export const LogoLink = styled(Link)`

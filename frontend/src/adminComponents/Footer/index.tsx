@@ -1,7 +1,14 @@
-import { COLOR, FONT_STYLE } from '@/constants';
+import { COLOR, FONT_STYLE } from '@/adminConstants';
 
 const Footer = () => (
-  <div style={{ padding: '8px', font: FONT_STYLE.sm, color: COLOR.comment, textAlign: 'center' }}>
+  <div
+    style={{
+      padding: '8px',
+      font: FONT_STYLE.sm,
+      color: COLOR.comment,
+      textAlign: 'center',
+    }}
+  >
     copyright ⓒ KOREA LEARNING CONSULTING CENTER. All Right Reserved
   </div>
 );

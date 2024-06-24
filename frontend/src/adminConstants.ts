@@ -1,22 +1,22 @@
-export const MAX_WIDTH = '1200px';
-
-export const RESPONSIVE_WIDTH = {
-  mobile: '480px',
-  tablet: '768px',
-  desktop: '1200px',
-};
-
 export const COLOR = {
-  comment: '#898C96',
-  border: '#EEEEF0',
+  comment: '#4E5963',
+  border: '#EAF1F8',
   background: {
-    light: '#E6E8F1',
-    base: '#D2D4DC',
+    light: '#F0F0F0',
+    base: '#B0B0B0',
   },
   primary: {
-    light: '#96A8F6',
-    main: '#5773F1',
-    dark: '#1A40EB',
+    light: '#3B80C7',
+    main: '#095DB3',
+    dark: '#053566',
+  },
+  secondary: {
+    light: '#F0F0F0',
+    main: '#7F7F7F',
+    dark: '#3F3F3F',
+  },
+  semantic: {
+    error: 'B30818',
   },
 };
 
@@ -46,3 +46,6 @@ export const BORDER_RADIUS = {
   lg: '30px',
   full: '100%',
 };
+
+export const ADMIN_HEADER_HEIGHT = '55px';
+export const ADMIN_SIDEBAR_WIDTH = '220px';
