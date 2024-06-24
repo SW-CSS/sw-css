@@ -1,5 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-
 'use client';
 
 import { useRouter } from 'next/navigation';
@@ -8,7 +6,7 @@ import { FONT_STYLE } from '@/constants';
 import { useAppDispatch } from '@/hocks/redux';
 import { signIn } from '@/store/auth.slice';
 
-const SignIn = () => {
+const Page = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
 
@@ -49,4 +47,4 @@ const SignIn = () => {
   );
 };
 
-export default SignIn;
+export default Page;

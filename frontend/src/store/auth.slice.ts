@@ -47,7 +47,7 @@ export const authSlice = createSlice({
         uid: action.payload.uid,
         isModerator: action.payload.isModerator,
       };
-      cookie.save('auth', JSON.stringify(state.value), {});
+      cookie.remove('auth');
     },
   },
 });

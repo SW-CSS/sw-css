@@ -8,7 +8,7 @@ import { useEffect } from 'react';
 import { useAppDispatch } from '@/hocks/redux';
 import { signOut } from '@/store/auth.slice';
 
-const SignOut = () => {
+const Page = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
 
@@ -20,4 +20,4 @@ const SignOut = () => {
   return <div>로그아웃 페이지</div>;
 };
 
-export default SignOut;
+export default Page;

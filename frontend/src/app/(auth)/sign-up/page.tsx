@@ -1,3 +1,3 @@
-const SignUp = () => <div>회원가입 페이지</div>;
+const Page = () => <div>회원가입 페이지</div>;
 
-export default SignUp;
+export default Page;

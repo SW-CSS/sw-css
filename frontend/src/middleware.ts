@@ -13,10 +13,17 @@ export const middleware = (request: NextRequest) => {
     return Response.redirect(new URL('/', request.url));
   }
   if (request.nextUrl.pathname === '/admin') {
-    return Response.redirect(new URL('/admin/milestone', request.url));
+    return Response.redirect(new URL('/admin/milestone/list', request.url));
   }
-  const response = NextResponse.next();
-  return response;
+
+  const requestHeaders = new Headers(request.headers);
+  requestHeaders.set('x-pathname', request.nextUrl.pathname);
+
+  return NextResponse.next({
+    request: {
+      headers: requestHeaders,
+    },
+  });
 };
 
 export const config = {
