@@ -105,5 +105,10 @@ export const SidebarMobileButton = styled.button`
     display: flex;
     justify-content: space-between;
     align-items: center;
+    &:active,
+    &:focus {
+      outline: none;
+      border: none;
+    }
   }
 `;
