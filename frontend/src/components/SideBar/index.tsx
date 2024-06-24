@@ -25,12 +25,15 @@ const Sidebar = () => {
       }
     });
     return bestMatch;
-  }, [pathname, currentCategory]);
+  }, [currentCategory]);
 
   useEffect(() => {
     setCurrentCategory(headerInfos.filter((headerInfo) => pathname.startsWith(headerInfo.url))[0]);
+  }, [pathname]);
+
+  useEffect(() => {
     setCurrentSubCategory(findMatchPath());
-  }, [pathname, findMatchPath]);
+  }, [findMatchPath]);
 
   return (
     <>
