@@ -41,6 +41,17 @@ include::{snippets}/major-find/response-fields.adoc[]
 
 == 마일스톤
 
+=== `GET` 마일스톤 목록 조회
+
+.HTTP Request
+include::{snippets}/milestone-find-all/http-request.adoc[]
+
+.HTTP Response
+include::{snippets}/milestone-find-all/http-response.adoc[]
+
+.Response Body
+include::{snippets}/milestone-find-all/response-fields.adoc[]
+
 === `POST` 마일스톤 실적 등록
 
 .HTTP Request
@@ -73,7 +84,6 @@ include::{snippets}/milestone-history-of-student-find-all/path-parameters.adoc[]
 
 .Query Parameters
 include::{snippets}/milestone-history-of-student-find-all/query-parameters.adoc[]
-
 
 .HTTP Response
 include::{snippets}/milestone-history-of-student-find-all/http-response.adoc[]
@@ -127,3 +137,14 @@ include::{snippets}/milestone-history-create-in-batch/request-parts.adoc[]
 
 .HTTP Response
 include::{snippets}/milestone-history-create-in-batch/http-response.adoc[]
+
+=== `GET` 전체 마일스톤 점수 목록 조회
+
+.HTTP Request
+include::{snippets}/milestone-history-score-find-all/http-request.adoc[]
+
+.HTTP Response
+include::{snippets}/milestone-history-score-find-all/http-response.adoc[]
+
+.Response Body
+include::{snippets}/milestone-history-score-find-all/response-fields.adoc[]

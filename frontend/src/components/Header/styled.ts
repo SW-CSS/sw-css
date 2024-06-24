@@ -6,6 +6,7 @@ import { MAX_WIDTH, RESPONSIVE_WIDTH, FONT_STYLE, COLOR, BORDER_RADIUS } from '@
 
 export const HeaderWrapper = styled.div`
   position: fixed;
+  background-color: white;
   width: 100vw;
   z-index: 1;
   border-bottom: 1px solid ${COLOR.border};
@@ -31,7 +32,7 @@ export const HeaderTabletLayout = styled.div`
 `;
 
 export const SignButton = styled.div`
-  background-color: ${COLOR.malibu};
+  background-color: ${COLOR.primary.main};
   padding: 10px 20px;
   border-radius: ${BORDER_RADIUS.md};
 `;

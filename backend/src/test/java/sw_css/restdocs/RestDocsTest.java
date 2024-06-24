@@ -20,6 +20,7 @@ import sw_css.helper.ApiTestHelper;
 import sw_css.major.application.MajorQueryService;
 import sw_css.milestone.application.MilestoneHistoryCommandService;
 import sw_css.milestone.application.MilestoneHistoryQueryService;
+import sw_css.milestone.application.MilestoneQueryService;
 
 @Import(RestDocsConfiguration.class)
 @ExtendWith(RestDocumentationExtension.class)
@@ -39,6 +40,9 @@ public abstract class RestDocsTest extends ApiTestHelper {
 
     @MockBean
     protected MilestoneHistoryAdminQueryService milestoneHistoryAdminQueryService;
+
+    @MockBean
+    protected MilestoneQueryService milestoneQueryService;
 
     @Autowired
     protected RestDocumentationResultHandler restDocs;
