@@ -1,9 +1,12 @@
-import { AnnouncementContent, ContentWrapper, FlexContentWrapper, FlexWrapper, MainPageWrapper } from './styled';
+import Milestone from './components/Milestone';
+import { AnnouncementContent, ContentWrapper, MilestoneWrapper, FlexWrapper, MainPageWrapper } from './styled';
 
 const Page = () => (
   <MainPageWrapper>
     <FlexWrapper>
-      <FlexContentWrapper style={{ border: '2px solid pink' }}>login & milestone</FlexContentWrapper>
+      <MilestoneWrapper style={{ border: '2px solid pink' }}>
+        <Milestone />
+      </MilestoneWrapper>
       <AnnouncementContent style={{ border: '2px solid pink' }}>announcement</AnnouncementContent>
     </FlexWrapper>
     <ContentWrapper style={{ border: '2px solid pink' }}>linker</ContentWrapper>

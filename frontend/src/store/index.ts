@@ -1,7 +1,6 @@
-/* eslint-disable import/no-named-as-default */
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import { persistReducer, persistStore } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
+import { persistReducer, persistStore } from 'redux-persist';
 
 import authSlice from './auth.slice';
 

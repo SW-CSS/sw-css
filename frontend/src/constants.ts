@@ -15,7 +15,7 @@ export const COLOR = {
   comment: '#898C96',
   border: '#EEEEF0',
   background: {
-    light: '#E6E8F1',
+    light: '#F0F1F7',
     base: '#D2D4DC',
   },
   primary: {

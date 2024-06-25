@@ -10,6 +10,7 @@ export const HeaderWrapper = styled.div`
   width: 100vw;
   z-index: 1;
   border-bottom: 1px solid ${COLOR.border};
+  z-index: 99;
 `;
 
 export const HeaderDesktopLayout = styled.div`

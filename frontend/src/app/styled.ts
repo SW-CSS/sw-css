@@ -12,20 +12,21 @@ export const MainPageWrapper = styled.div`
 export const ContentWrapper = styled.div`
   width: 100%;
   margin-top: 40px;
+  padding: 10px;
 `;
 
 export const FlexWrapper = styled.div`
   display: flex;
   gap: 10px;
-  @media screen and (max-width: ${RESPONSIVE_WIDTH.desktop}) {
+  @media screen and (max-width: ${RESPONSIVE_WIDTH.tablet}) {
     flex-direction: column;
     gap: 0;
   }
 `;
 
-export const FlexContentWrapper = styled(ContentWrapper)`
-  width: 800px;
-  @media screen and (max-width: ${RESPONSIVE_WIDTH.desktop}) {
+export const MilestoneWrapper = styled(ContentWrapper)`
+  width: 600px;
+  @media screen and (max-width: ${RESPONSIVE_WIDTH.tablet}) {
     width: 100%;
   }
 `;
