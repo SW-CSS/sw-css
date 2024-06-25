@@ -18,7 +18,7 @@ export const COLOR = {
     base: '#D2D4DC',
   },
   primary: {
-    light: '#96A8F6',
+    light: '#E6EBFD',
     main: '#5773F1',
     dark: '#1A40EB',
   },
