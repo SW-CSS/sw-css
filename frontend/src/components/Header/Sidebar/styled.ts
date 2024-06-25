@@ -20,7 +20,7 @@ export const HamburgerLogo = styled.div`
 export const HamburgerLine = styled.div`
   width: 70%;
   border-radius: ${BORDER_RADIUS.md};
-  border: 2px solid white;
+  border: 2px solid ${COLOR.white};
   position: absolute;
   left: 50%;
   top: 50%;
@@ -31,7 +31,7 @@ export const SidebarContent = styled.div`
   width: 200px;
   height: 100vh;
   font: ${FONT_STYLE.sm};
-  background-color: white;
+  background-color: ${COLOR.white};
   position: absolute;
   transition: left 0.4s ease-in-out;
 `;

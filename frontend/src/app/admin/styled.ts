@@ -15,17 +15,17 @@ export const AdminButton = styled.button`
 
 export const AdminBlueButton = styled(AdminButton)`
   background-color: ${COLOR.primary.main};
-  color: white;
+  color: ${COLOR.white};
 `;
 
 export const AdminRedButton = styled(AdminButton)`
   background-color: ${COLOR.semantic.error};
-  color: white;
+  color: ${COLOR.white};
 `;
 
 export const AdminBlackButton = styled(AdminButton)`
   background-color: black;
-  color: white;
+  color: ${COLOR.white};
 `;
 
 export const AdminGrayButton = styled(AdminButton)`
@@ -44,17 +44,17 @@ export const AdminLink = styled.a`
 
 export const AdminBlueLink = styled(AdminLink)`
   background-color: ${COLOR.primary.main};
-  color: white;
+  color: ${COLOR.white};
 `;
 
 export const AdminRedLink = styled(AdminLink)`
   background-color: ${COLOR.semantic.error};
-  color: white;
+  color: ${COLOR.white};
 `;
 
 export const AdminBlackLink = styled(AdminLink)`
   background-color: black;
-  color: white;
+  color: ${COLOR.white};
 `;
 
 export const AdminGrayLink = styled(AdminLink)`

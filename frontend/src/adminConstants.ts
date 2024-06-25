@@ -1,4 +1,6 @@
 export const COLOR = {
+  white: '#FFFFFF',
+  black_text: '#333333',
   comment: '#4E5963',
   border: '#EAF1F8',
   background: {
