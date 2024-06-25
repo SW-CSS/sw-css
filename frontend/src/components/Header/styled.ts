@@ -38,7 +38,7 @@ export const SignButton = styled.div`
 `;
 
 export const SignText = styled.span`
-  font: ${FONT_STYLE.sm};
+  font: ${FONT_STYLE.sm.normal};
   color: ${COLOR.white};
 `;
 

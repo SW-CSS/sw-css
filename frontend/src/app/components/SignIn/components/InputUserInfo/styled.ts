@@ -31,7 +31,7 @@ export const FixedEmail = styled.div`
   right: 10px;
   top: 25%;
   transform: translate(0, -50%);
-  font: ${FONT_STYLE.xs};
+  font: ${FONT_STYLE.xs.normal};
 `;
 
 export const SignInButton = styled.button`

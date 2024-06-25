@@ -33,7 +33,7 @@ export const SidebarCategoryTitle = styled.p`
 `;
 
 export const SidebarCategoryDescription = styled.p`
-  font: ${FONT_STYLE.sm};
+  font: ${FONT_STYLE.sm.normal};
   color: ${COLOR.comment};
   margin-top: 30px;
   word-break: keep-all;
@@ -79,7 +79,7 @@ export const SidebarCategory = styled(Link)<SidebarCategoryProps>`
     padding: 10px 15px;
     border-bottom: 1px solid ${COLOR.border};
     color: ${COLOR.comment};
-    font: ${FONT_STYLE.sm};
+    font: ${FONT_STYLE.sm.normal};
     ${({ isCurrentCategory }) =>
       isCurrentCategory &&
       `color: ${COLOR.primary.main};

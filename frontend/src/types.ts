@@ -10,3 +10,10 @@ export interface SubCategoryInfo {
   url: string;
   key: string;
 }
+
+export interface MilestoneSummary {
+  practicalScore: number;
+  globalScore: number;
+  communicationScore: number;
+  totalScore: number;
+}
