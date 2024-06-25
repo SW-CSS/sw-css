@@ -2,11 +2,19 @@
 
 import styled from 'styled-components';
 
-import { RESPONSIVE_WIDTH } from '@/constants';
+import { MAX_WIDTH, RESPONSIVE_WIDTH } from '@/constants';
 
 export const MainPageWrapper = styled.div`
+  max-width: ${MAX_WIDTH};
+  min-height: calc(100vh - 200px);
+  margin: auto;
+  padding: 77px 0 40px;
   display: flex;
   flex-direction: column;
+
+  @media screen and (max-width: ${RESPONSIVE_WIDTH.desktop}) {
+    padding-top: 50px;
+  }
 `;
 
 export const ContentWrapper = styled.div`

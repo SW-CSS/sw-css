@@ -6,9 +6,8 @@ import { MAX_WIDTH, RESPONSIVE_WIDTH, FONT_STYLE, COLOR, BORDER_RADIUS } from '@
 
 export const HeaderWrapper = styled.div`
   position: fixed;
-  background-color: white;
+  background-color: ${COLOR.white};
   width: 100vw;
-  z-index: 1;
   border-bottom: 1px solid ${COLOR.border};
   z-index: 99;
 `;
@@ -40,7 +39,7 @@ export const SignButton = styled.div`
 
 export const SignText = styled.span`
   font: ${FONT_STYLE.sm};
-  color: white;
+  color: ${COLOR.white};
 `;
 
 export const SidebarBackground = styled.div`

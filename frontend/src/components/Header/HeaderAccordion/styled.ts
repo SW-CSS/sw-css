@@ -39,7 +39,7 @@ export const Accordion = styled.div`
   text-align: center;
   font: ${FONT_STYLE.sm};
   color: ${COLOR.comment};
-  background-color: white;
+  background-color: ${COLOR.white};
   border-bottom-left-radius: ${BORDER_RADIUS.sm};
   border-bottom-right-radius: ${BORDER_RADIUS.sm};
   box-shadow: 0px 2px 5px rgb(0, 0, 0, 0.25);

@@ -3,22 +3,11 @@
 import styled from 'styled-components';
 
 import { ADMIN_HEADER_HEIGHT, ADMIN_SIDEBAR_WIDTH, COLOR } from '@/adminConstants';
-import { RESPONSIVE_WIDTH } from '@/constants';
 
 export const PageWrapper = styled.div`
   width: 100vw;
-  background-color: white;
   min-height: calc(100vh - 200px);
-  padding-top: 80px;
-
-  @media screen and (max-width: ${RESPONSIVE_WIDTH.desktop}) {
-    padding-top: 55px;
-  }
-`;
-
-export const PageLayout = styled.div`
-  margin: auto;
-  overflow: hidden;
+  background-color: ${COLOR.white};
 `;
 
 export const AdminPageWrapper = styled.div`

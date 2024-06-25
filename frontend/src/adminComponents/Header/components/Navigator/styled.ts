@@ -24,7 +24,7 @@ export const HeaderLinker = styled(Link)`
 
 export const HeaderLinkerPoint = styled(HeaderLinker)`
   background-color: ${COLOR.primary.main};
-  color: white;
+  color: ${COLOR.white};
   &:after {
     height: 0;
     width: 0;

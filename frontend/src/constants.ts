@@ -11,7 +11,6 @@ export const RESPONSIVE_WIDTH = {
 export const COLOR = {
   white: '#FFFFFF',
   black_text: '#333333',
-  mobile_sidebar: '#26325C',
   comment: '#898C96',
   border: '#EEEEF0',
   background: {
@@ -22,6 +21,11 @@ export const COLOR = {
     light: '#96A8F6',
     main: '#5773F1',
     dark: '#1A40EB',
+  },
+  secondary: {
+    light: '#64709B',
+    main: '#26325C',
+    dark: '#050A1C',
   },
 };
 

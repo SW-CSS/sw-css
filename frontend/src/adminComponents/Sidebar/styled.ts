@@ -11,7 +11,7 @@ export const SidebarWrapper = styled.div`
   height: calc(100vh - ${ADMIN_HEADER_HEIGHT});
   margin-top: calc(${ADMIN_HEADER_HEIGHT} + 2px);
   box-shadow: 0px 0px 7px 0px rgba(0, 0, 0, 0.3);
-  background-color: white;
+  background-color: ${COLOR.white};
 `;
 
 export const SidebarLayout = styled.div`
@@ -37,7 +37,7 @@ export const SidebarContentTitle = styled.div`
 
 export const SidebarContentPointTitle = styled(SidebarContentTitle)`
   background-color: ${COLOR.secondary.main};
-  color: white;
+  color: ${COLOR.white};
 `;
 
 export const SidebarContentSubTitle = styled(Link)`

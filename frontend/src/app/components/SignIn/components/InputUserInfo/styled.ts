@@ -41,6 +41,6 @@ export const SignInButton = styled.button`
   border-radius: ${BORDER_RADIUS.sm};
   flex-grow: 1;
   background-color: ${COLOR.primary.main};
-  color: white;
+  color: ${COLOR.white};
   font: ${FONT_STYLE.base.normal};
 `;
