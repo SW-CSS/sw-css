@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { useAppDispatch } from '@/hocks/redux';
 import { signIn } from '@/store/auth.slice';
 
-import { InputID, InputPW, SignInButton } from './styled';
+import { FixedEmail, InputID, InputPW, SignInButton } from './styled';
 
 const InputUserInfo = () => {
   const [userID, setUserID] = useState<string>('');
@@ -27,7 +27,7 @@ const InputUserInfo = () => {
 
   return (
     <div style={{ display: 'flex', gap: '20px' }}>
-      <div style={{ display: 'flex', flexDirection: 'column', flexGrow: '1' }}>
+      <div style={{ display: 'flex', flexDirection: 'column', flexGrow: '1', position: 'relative' }}>
         <InputID placeholder="아이디 입력" value={userID} onChange={(e) => setUserID(e.target.value)} />
         <InputPW
           placeholder="비밀번호 입력"
@@ -35,6 +35,7 @@ const InputUserInfo = () => {
           value={userPW}
           onChange={(e) => setUserPW(e.target.value)}
         />
+        <FixedEmail>@pusan.ac.kr</FixedEmail>
       </div>
       <SignInButton type="button" onClick={handleSignInClick}>
         로그인
