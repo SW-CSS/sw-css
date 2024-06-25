@@ -17,7 +17,7 @@ export interface AnnouncementInfo {
   title: string;
   date: string;
 }
-  
+
 export interface MilestoneSummary {
   practicalScore: number;
   globalScore: number;
