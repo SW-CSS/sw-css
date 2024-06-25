@@ -30,7 +30,7 @@ export const HamburgerLine = styled.div`
 export const SidebarContent = styled.div`
   width: 200px;
   height: 100vh;
-  font: ${FONT_STYLE.sm};
+  font: ${FONT_STYLE.sm.normal};
   background-color: ${COLOR.white};
   position: absolute;
   transition: left 0.4s ease-in-out;

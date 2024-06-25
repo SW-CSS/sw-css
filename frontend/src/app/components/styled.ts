@@ -9,6 +9,6 @@ export const Title = styled.p`
 `;
 
 export const Description = styled.p`
-  font: ${FONT_STYLE.sm};
+  font: ${FONT_STYLE.sm.normal};
   color: ${COLOR.comment};
 `;

@@ -4,7 +4,7 @@ const Footer = () => (
   <div
     style={{
       padding: '8px',
-      font: FONT_STYLE.sm,
+      font: FONT_STYLE.sm.normal,
       color: COLOR.comment,
       textAlign: 'center',
     }}
