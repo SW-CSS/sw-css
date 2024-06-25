@@ -13,19 +13,19 @@ const MilestoneChart = () => {
 
   const scores = [
     {
-      sum: 0,
+      start: 0,
       score: milestoneSummaryInfo.practicalScore,
       color: COLOR.milestone.blue,
       title: '실전적 SW역량',
     },
     {
-      sum: milestoneSummaryInfo.practicalScore,
+      start: milestoneSummaryInfo.practicalScore,
       score: milestoneSummaryInfo.globalScore,
       color: COLOR.milestone.green,
       title: '글로벌 SW역량',
     },
     {
-      sum: milestoneSummaryInfo.practicalScore + milestoneSummaryInfo.globalScore,
+      start: milestoneSummaryInfo.practicalScore + milestoneSummaryInfo.globalScore,
       score: milestoneSummaryInfo.communicationScore,
       color: COLOR.milestone.purple,
       title: '커뮤니티 SW역량',
@@ -36,7 +36,7 @@ const MilestoneChart = () => {
     <S.ChartWrapper>
       <S.Chart size={chartSize}>
         {scores.map((bar) => (
-          <S.ChartBar key={bar.color} sum={bar.sum} score={bar.score} color={bar.color} />
+          <S.ChartBar key={bar.color} start={bar.start} score={bar.score} color={bar.color} />
         ))}
         <S.ChartHole size={chartSize} />
         <S.ChartTextWrapper>

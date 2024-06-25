@@ -9,7 +9,7 @@ interface ChartProps {
 }
 
 interface ChartBarProps {
-  sum: number;
+  start: number;
   score: number;
   color: string;
 }
@@ -41,10 +41,10 @@ export const ChartBar = styled.div<ChartBarProps>`
   height: inherit;
   border-radius: 50%;
   background: conic-gradient(
-    transparent ${(props) => (props.sum / 1000.0) * 360}deg,
-    ${(props) => props.color} ${(props) => (props.sum / 1000.0) * 360}deg,
-    ${(props) => props.color} ${(props) => ((props.sum + props.score) / 1000.0) * 360}deg,
-    transparent ${(props) => ((props.sum + props.score) / 1000.0) * 360}deg
+    transparent ${(props) => (props.start / 1000.0) * 360}deg,
+    ${(props) => props.color} ${(props) => (props.start / 1000.0) * 360}deg,
+    ${(props) => props.color} ${(props) => ((props.start + props.score) / 1000.0) * 360}deg,
+    transparent ${(props) => ((props.start + props.score) / 1000.0) * 360}deg
   );
 `;
 
