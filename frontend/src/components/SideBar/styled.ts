@@ -101,7 +101,7 @@ export const SidebarMobileButton = styled.button`
   display: none;
   width: 100%;
   height: 45px;
-  background-color: ${COLOR.mobile_sidebar};
+  background-color: ${COLOR.secondary.main};
   color: ${COLOR.white};
   padding: 0px 15px;
   z-index: 0;
