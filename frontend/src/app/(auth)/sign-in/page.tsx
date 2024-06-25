@@ -1,14 +1,20 @@
+/* eslint-disable implicit-arrow-linebreak */
+/* eslint-disable react-hooks/exhaustive-deps */
+
 'use client';
 
 import { useRouter } from 'next/navigation';
 
 import { FONT_STYLE } from '@/constants';
-import { useAppDispatch } from '@/hocks/redux';
+import { useAppDispatch, useAppSelector } from '@/hocks/redux';
 import { signIn } from '@/store/auth.slice';
 
 const Page = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
+  const auth = useAppSelector((state) => state.auth).value;
+
+  if (auth.isAuth) router.push('/');
 
   const handleSignInClick = () => {
     // TODO: api 연결
@@ -20,8 +26,11 @@ const Page = () => {
         isModerator: true,
       }),
     );
-    router.back();
+    setTimeout(() => {
+      router.refresh();
+    }, 0);
   };
+
   return (
     <div
       style={{

@@ -3,21 +3,24 @@
 'use client';
 
 import { useRouter } from 'next/navigation';
-import { useEffect } from 'react';
 
-import { useAppDispatch } from '@/hocks/redux';
+import { useAppDispatch, useAppSelector } from '@/hocks/redux';
 import { signOut } from '@/store/auth.slice';
 
 const Page = () => {
   const router = useRouter();
   const dispatch = useAppDispatch();
+  const auth = useAppSelector((state) => state.auth).value;
 
-  useEffect(() => {
-    // TODO: api 연결
-    dispatch(signOut());
-    router.push('/');
-  }, []);
-  return <div>로그아웃 페이지</div>;
+  if (!auth.isAuth) router.push('/');
+
+  // TODO: api 연결
+  dispatch(signOut());
+  setTimeout(() => {
+    router.refresh();
+  }, 0);
+
+  return null;
 };
 
 export default Page;
