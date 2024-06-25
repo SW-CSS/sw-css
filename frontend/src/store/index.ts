@@ -1,8 +1,9 @@
+/* eslint-disable implicit-arrow-linebreak */
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { persistReducer, persistStore } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
 
 import authSlice from './auth.slice';
+import storage from './store';
 
 export const rootReducer = combineReducers({
   auth: authSlice,
