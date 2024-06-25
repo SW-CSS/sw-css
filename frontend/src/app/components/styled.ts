@@ -15,9 +15,11 @@ export const TitleContent = styled.div`
 
 export const Title = styled.p`
   font: ${FONT_STYLE.lg.semibold};
+  cursor: default;
 `;
 
 export const Description = styled.p`
   font: ${FONT_STYLE.sm.normal};
   color: ${COLOR.comment};
+  cursor: default;
 `;

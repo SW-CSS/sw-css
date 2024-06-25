@@ -11,6 +11,13 @@ export interface SubCategoryInfo {
   key: string;
 }
 
+export interface AnnouncementInfo {
+  id: number;
+  url: string;
+  title: string;
+  date: string;
+}
+  
 export interface MilestoneSummary {
   practicalScore: number;
   globalScore: number;
