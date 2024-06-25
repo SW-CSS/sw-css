@@ -8,6 +8,7 @@ export const HeaderWrapper = styled.div`
   position: fixed;
   background-color: white;
   width: 100vw;
+  z-index: 1;
   border-bottom: 1px solid ${COLOR.border};
   z-index: 99;
 `;

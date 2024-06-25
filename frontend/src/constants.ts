@@ -1,5 +1,7 @@
 export const MAX_WIDTH = '1200px';
 
+export const CONTENT_WIDTH = '970px';
+
 export const RESPONSIVE_WIDTH = {
   mobile: '480px',
   tablet: '768px',
@@ -7,6 +9,9 @@ export const RESPONSIVE_WIDTH = {
 };
 
 export const COLOR = {
+  white: '#FFFFFF',
+  black_text: '#333333',
+  mobile_sidebar: '#26325C',
   comment: '#898C96',
   border: '#EEEEF0',
   background: {

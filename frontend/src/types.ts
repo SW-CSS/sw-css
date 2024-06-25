@@ -1,9 +1,12 @@
 export interface CategoryInfo {
   title: string;
   url: string;
-  sub: {
-    title: string;
-    url: string;
-    key: string;
-  }[];
+  description?: string;
+  sub: SubCategoryInfo[];
+}
+
+export interface SubCategoryInfo {
+  title: string;
+  url: string;
+  key: string;
 }
