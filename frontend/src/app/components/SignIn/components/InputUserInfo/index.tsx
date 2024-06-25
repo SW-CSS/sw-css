@@ -1,5 +1,6 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 import { useAppDispatch } from '@/hocks/redux';
@@ -11,6 +12,7 @@ const InputUserInfo = () => {
   const [userID, setUserID] = useState<string>('');
   const [userPW, setUserPW] = useState<string>('');
 
+  const router = useRouter();
   const dispatch = useAppDispatch();
 
   const handleSignInClick = () => {
@@ -23,6 +25,9 @@ const InputUserInfo = () => {
         isModerator: true,
       }),
     );
+    setTimeout(() => {
+      router.refresh();
+    }, 0);
   };
 
   return (

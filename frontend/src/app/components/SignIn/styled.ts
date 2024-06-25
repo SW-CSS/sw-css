@@ -15,12 +15,12 @@ export const AlertComment = styled.div`
 `;
 
 export const FindLink = styled(Link)`
-  font: ${FONT_STYLE.xs};
+  font: ${FONT_STYLE.xs.normal};
   color: ${COLOR.comment};
 `;
 
 export const SignUpLink = styled(Link)`
-  font: ${FONT_STYLE.xs};
+  font: ${FONT_STYLE.xs.normal};
   color: ${COLOR.comment};
   text-decoration: underline;
 `;
@@ -34,7 +34,7 @@ export const SuggestionComment = styled.div`
 
 export const Divisor = styled.div`
   position: relative;
-  font: ${FONT_STYLE.xs};
+  font: ${FONT_STYLE.xs.normal};
   z-index: 0;
 
   &::after {

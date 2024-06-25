@@ -34,7 +34,6 @@ export const FlexWrapper = styled.div`
 
 export const MilestoneWrapper = styled(ContentWrapper)`
   width: 380px;
-  flex-shirk: 1;
   @media screen and (max-width: ${RESPONSIVE_WIDTH.tablet}) {
     width: 100%;
   }

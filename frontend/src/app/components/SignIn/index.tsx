@@ -11,7 +11,7 @@ const SignIn = () => (
       <Divisor>
         <FindLink href="/find-id">아이디</FindLink> / <FindLink href="/find-pw">비밀번호</FindLink> 찾기
       </Divisor>
-      <div style={{ font: FONT_STYLE.xs }}>
+      <div style={{ font: FONT_STYLE.xs.normal }}>
         처음오셨나요? <SignUpLink href="/sign-up">회원가입</SignUpLink>
       </div>
     </SuggestionComment>

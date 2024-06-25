@@ -37,7 +37,7 @@ export const Accordion = styled.div`
   width: 180px;
   max-height: 0;
   text-align: center;
-  font: ${FONT_STYLE.sm};
+  font: ${FONT_STYLE.sm.normal};
   color: ${COLOR.comment};
   background-color: ${COLOR.white};
   border-bottom-left-radius: ${BORDER_RADIUS.sm};
