@@ -27,6 +27,12 @@ export const COLOR = {
     main: '#26325C',
     dark: '#050A1C',
   },
+  milestone: {
+    blue: '#8FA3F8',
+    green: '#9DE6BC',
+    purple: '#AA8CF8',
+    gray: '#F2F2F2',
+  },
 };
 
 export const FONT_STYLE = {
