@@ -35,19 +35,13 @@ export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    signOut: (state) => {
-      state.value = initialState.value;
-      cookie.save('auth', '', {});
-    },
     signIn: (state, action: PayloadAction<AuthState>) => {
-      state.value = {
-        token: action.payload.token,
-        isAuth: true,
-        username: action.payload.username,
-        uid: action.payload.uid,
-        isModerator: action.payload.isModerator,
-      };
+      cookie.save('auth', JSON.stringify({ ...action.payload, isAuth: true }), {});
+      state.value = { ...action.payload, isAuth: true };
+    },
+    signOut: (state) => {
       cookie.remove('auth');
+      state.value = initialState.value;
     },
   },
 });
