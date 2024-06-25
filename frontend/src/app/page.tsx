@@ -1,3 +1,4 @@
+import Announcement from './components/Announcement';
 import Milestone from './components/Milestone';
 import { AnnouncementContent, ContentWrapper, MilestoneWrapper, FlexWrapper, MainPageWrapper } from './styled';
 
@@ -7,7 +8,9 @@ const Page = () => (
       <MilestoneWrapper style={{ border: '2px solid pink' }}>
         <Milestone />
       </MilestoneWrapper>
-      <AnnouncementContent style={{ border: '2px solid pink' }}>announcement</AnnouncementContent>
+      <AnnouncementContent style={{ border: '2px solid pink' }}>
+        <Announcement />
+      </AnnouncementContent>
     </FlexWrapper>
     <ContentWrapper style={{ border: '2px solid pink' }}>linker</ContentWrapper>
     <ContentWrapper style={{ border: '2px solid pink' }}>team building</ContentWrapper>
