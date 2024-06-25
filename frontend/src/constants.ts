@@ -27,11 +27,25 @@ export const COLOR = {
     main: '#26325C',
     dark: '#050A1C',
   },
+  milestone: {
+    blue: '#8FA3F8',
+    green: '#9DE6BC',
+    purple: '#AA8CF8',
+    gray: '#F2F2F2',
+  },
 };
 
 export const FONT_STYLE = {
-  xs: '12px "Noto Sans KR", sans-serif',
-  sm: '14px "Noto Sans KR", sans-serif',
+  xs: {
+    normal: '400 12px "Noto Sans KR", sans-serif',
+    semibold: '600 12px "Noto Sans KR", sans-serif',
+    bold: '700 12px "Noto Sans KR", sans-serif',
+  },
+  sm: {
+    normal: '400 14px "Noto Sans KR", sans-serif',
+    semibold: '600 14px "Noto Sans KR", sans-serif',
+    bold: '700 14px "Noto Sans KR", sans-serif',
+  },
   base: {
     normal: '400 16px "Noto Sans KR", sans-serif',
     semibold: '600 16px "Noto Sans KR", sans-serif',
