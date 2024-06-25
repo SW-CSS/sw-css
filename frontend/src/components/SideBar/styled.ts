@@ -19,8 +19,8 @@ interface SidebarCategoryListProps {
 
 export const SidebarWrapper = styled.div`
   width: 290px;
-  min-height: calc(100vh - 280px);
-  padding: 40px 20px 0px 20px;
+  min-height: calc(100vh - 200px);
+  padding: 120px 20px 0px 20px;
   border-right: 1px solid ${COLOR.border};
   background-color: ${COLOR.white};
   @media screen and (max-width: ${RESPONSIVE_WIDTH.desktop}) {
@@ -89,6 +89,7 @@ export const SidebarCategory = styled(Link)<SidebarCategoryProps>`
 
 export const SidebarMobileWrapper = styled.div`
   width: 100%;
+  margin-top: 50px;
   height: inherit;
   position: relative;
 

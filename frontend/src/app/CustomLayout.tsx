@@ -6,7 +6,7 @@ import AdminSidebar from '@/adminComponents/Sidebar';
 import Footer from '@/components/Footer';
 import Header from '@/components/Header';
 
-import { PageWrapper, PageLayout, AdminPageWrapper, AdminPageLayout } from './layout-styled';
+import { PageWrapper, AdminPageWrapper, AdminPageLayout } from './layout-styled';
 
 const CustomLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => {
   const headersList = headers();
@@ -27,9 +27,7 @@ const CustomLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => 
   return (
     <>
       <Header />
-      <PageWrapper>
-        <PageLayout>{children}</PageLayout>
-      </PageWrapper>
+      <PageWrapper>{children}</PageWrapper>
       <Footer />
     </>
   );
