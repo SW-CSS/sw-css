@@ -69,3 +69,14 @@ export const BORDER_RADIUS = {
   lg: '30px',
   full: '100%',
 };
+
+export const TEAM_STATUS = {
+  RECRUITING: {
+    color: '#FAD3CA',
+    text: '모집 중',
+  },
+  RECRUITMENT_END: {
+    color: '#DEE3EB',
+    text: '모집마감',
+  },
+};
