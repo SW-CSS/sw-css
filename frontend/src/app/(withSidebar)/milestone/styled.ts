@@ -22,7 +22,7 @@ export const Content = styled.div`
 `;
 
 export const Title = styled.div`
-  color: ${COLOR.malibu_text};
+  color: ${COLOR.primary.main};
   font: ${FONT_STYLE.xl.bold};
   margin: 20px auto;
 `;
@@ -45,7 +45,7 @@ export const Information = styled.li`
 `;
 
 export const InformationTitle = styled.div`
-  color: ${COLOR.malibu_text};
+  color: ${COLOR.primary.main};
   font: ${FONT_STYLE.lg.semibold};
   width: 220px;
   @media screen and (max-width: ${RESPONSIVE_WIDTH.mobile}) {
