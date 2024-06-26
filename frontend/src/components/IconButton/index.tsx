@@ -28,7 +28,9 @@ const IconButton = ({ icon, title, size, link }: IconButtonProps) => {
       {Icon}
       <span
         style={{
-          font: `${size === 'sm' ? FONT_STYLE.xs : size === 'md' ? FONT_STYLE.base.normal : FONT_STYLE.lg.normal}`,
+          font: `${
+            size === 'sm' ? FONT_STYLE.xs.normal : size === 'md' ? FONT_STYLE.base.normal : FONT_STYLE.lg.normal
+          }`,
         }}
       >
         {title}

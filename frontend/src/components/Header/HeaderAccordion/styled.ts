@@ -19,7 +19,7 @@ export const Linker = styled(Link)`
   padding: 0 40px;
   font: ${FONT_STYLE.lg.semibold};
   &:hover {
-    color: ${COLOR.malibu_dark};
+    color: ${COLOR.primary.dark};
   }
 `;
 
@@ -28,7 +28,7 @@ export const AccordionLink = styled(Link)`
   padding: 10px;
   border-bottom: 1px solid ${COLOR.border};
   &:hover {
-    color: ${COLOR.malibu_dark};
+    color: ${COLOR.primary.dark};
   }
 `;
 
@@ -37,9 +37,9 @@ export const Accordion = styled.div`
   width: 180px;
   max-height: 0;
   text-align: center;
-  font: ${FONT_STYLE.sm};
+  font: ${FONT_STYLE.sm.normal};
   color: ${COLOR.comment};
-  background-color: white;
+  background-color: ${COLOR.white};
   border-bottom-left-radius: ${BORDER_RADIUS.sm};
   border-bottom-right-radius: ${BORDER_RADIUS.sm};
   box-shadow: 0px 2px 5px rgb(0, 0, 0, 0.25);

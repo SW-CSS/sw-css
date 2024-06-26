@@ -2,21 +2,45 @@
 
 import styled from 'styled-components';
 
-import { RESPONSIVE_WIDTH } from '@/constants';
+import { MAX_WIDTH, RESPONSIVE_WIDTH } from '@/constants';
 
-export const PageWrapper = styled.div`
-  width: 100vw;
-  min-height: calc(100vh - 280px);
-  margin-top: 80px;
+export const MainPageWrapper = styled.div`
+  max-width: ${MAX_WIDTH};
+  min-height: calc(100vh - 200px);
+  margin: auto;
+  padding: 77px 0 40px;
+  display: flex;
+  flex-direction: column;
 
   @media screen and (max-width: ${RESPONSIVE_WIDTH.desktop}) {
-    min-height: calc(100vh - 255px);
-    margin-top: 55px;
+    padding-top: 50px;
   }
 `;
 
-export const PageLayout = styled.div`
-  max-width: 1200px;
-  margin: auto;
-  overflow: hidden;
+export const ContentWrapper = styled.div`
+  width: 100%;
+  margin-top: 40px;
+  padding: 10px;
+`;
+
+export const FlexWrapper = styled.div`
+  display: flex;
+  gap: 10px;
+  @media screen and (max-width: ${RESPONSIVE_WIDTH.tablet}) {
+    flex-direction: column;
+    gap: 0;
+  }
+`;
+
+export const MilestoneWrapper = styled(ContentWrapper)`
+  width: 380px;
+  flex-shrink: 0;
+  @media screen and (max-width: ${RESPONSIVE_WIDTH.tablet}) {
+    width: 100%;
+  }
+`;
+
+export const AnnouncementContent = styled(ContentWrapper)`
+  flex-grow: 1;
+  min-width: 0;
 `;

@@ -1,3 +1,21 @@
-const Page = () => <main style={{ width: '100%', height: '20px', border: '2px solid red' }} />;
+import Announcement from './components/Announcement';
+import Milestone from './components/Milestone';
+import { AnnouncementContent, ContentWrapper, MilestoneWrapper, FlexWrapper, MainPageWrapper } from './styled';
+
+const Page = () => (
+  <MainPageWrapper>
+    <FlexWrapper>
+      <MilestoneWrapper style={{ border: '2px solid pink' }}>
+        <Milestone />
+      </MilestoneWrapper>
+      <AnnouncementContent style={{ border: '2px solid pink' }}>
+        <Announcement />
+      </AnnouncementContent>
+    </FlexWrapper>
+    <ContentWrapper style={{ border: '2px solid pink' }}>linker</ContentWrapper>
+    <ContentWrapper style={{ border: '2px solid pink' }}>team building</ContentWrapper>
+    <ContentWrapper style={{ border: '2px solid pink' }}>pnu linker</ContentWrapper>
+  </MainPageWrapper>
+);
 
 export default Page;

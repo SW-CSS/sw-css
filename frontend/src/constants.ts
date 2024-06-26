@@ -1,5 +1,7 @@
 export const MAX_WIDTH = '1200px';
 
+export const CONTENT_WIDTH = '970px';
+
 export const RESPONSIVE_WIDTH = {
   mobile: '480px',
   tablet: '768px',
@@ -7,18 +9,43 @@ export const RESPONSIVE_WIDTH = {
 };
 
 export const COLOR = {
-  comment: '#666666',
-  border: '#EEEEEE',
-  gray_bg: '#F2F2F2',
-  malibu_light: '#E5EBFF',
-  malibu: '#8AA4FF',
-  malibu_text: '#5773FF',
-  malibu_dark: '#2F5DFF',
+  white: '#FFFFFF',
+  black_text: '#333333',
+  comment: '#898C96',
+  border: '#EEEEF0',
+  background: {
+    light: '#F0F1F7',
+    base: '#D2D4DC',
+  },
+  primary: {
+    light: '#96A8F6',
+    main: '#5773F1',
+    dark: '#1A40EB',
+  },
+  secondary: {
+    light: '#64709B',
+    main: '#26325C',
+    dark: '#050A1C',
+  },
+  milestone: {
+    blue: '#8FA3F8',
+    green: '#9DE6BC',
+    purple: '#AA8CF8',
+    gray: '#F2F2F2',
+  },
 };
 
 export const FONT_STYLE = {
-  xs: '12px "Noto Sans KR", sans-serif',
-  sm: '14px "Noto Sans KR", sans-serif',
+  xs: {
+    normal: '400 12px "Noto Sans KR", sans-serif',
+    semibold: '600 12px "Noto Sans KR", sans-serif',
+    bold: '700 12px "Noto Sans KR", sans-serif',
+  },
+  sm: {
+    normal: '400 14px "Noto Sans KR", sans-serif',
+    semibold: '600 14px "Noto Sans KR", sans-serif',
+    bold: '700 14px "Noto Sans KR", sans-serif',
+  },
   base: {
     normal: '400 16px "Noto Sans KR", sans-serif',
     semibold: '600 16px "Noto Sans KR", sans-serif',

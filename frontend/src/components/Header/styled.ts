@@ -6,8 +6,10 @@ import { MAX_WIDTH, RESPONSIVE_WIDTH, FONT_STYLE, COLOR, BORDER_RADIUS } from '@
 
 export const HeaderWrapper = styled.div`
   position: fixed;
+  background-color: ${COLOR.white};
   width: 100vw;
   border-bottom: 1px solid ${COLOR.border};
+  z-index: 99;
 `;
 
 export const HeaderDesktopLayout = styled.div`
@@ -30,14 +32,14 @@ export const HeaderTabletLayout = styled.div`
 `;
 
 export const SignButton = styled.div`
-  background-color: ${COLOR.malibu};
+  background-color: ${COLOR.primary.main};
   padding: 10px 20px;
   border-radius: ${BORDER_RADIUS.md};
 `;
 
 export const SignText = styled.span`
-  font: ${FONT_STYLE.sm};
-  color: white;
+  font: ${FONT_STYLE.sm.normal};
+  color: ${COLOR.white};
 `;
 
 export const SidebarBackground = styled.div`

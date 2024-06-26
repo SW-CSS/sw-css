@@ -12,7 +12,7 @@ export const FooterWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: ${COLOR.border};
+  background-color: ${COLOR.background.base};
 `;
 
 export const FooterLayout = styled.div`
@@ -40,14 +40,14 @@ export const FooterDiv = styled.div`
 `;
 
 export const FooterText = styled.p`
-  font: ${FONT_STYLE.sm};
+  font: ${FONT_STYLE.sm.normal};
   color: ${COLOR.comment};
 `;
 
 export const FooterLink = styled(Link)`
   width: fit-content;
   height: fit-content;
-  font: ${FONT_STYLE.sm};
+  font: ${FONT_STYLE.sm.normal};
   color: ${COLOR.comment};
   padding-bottom: 2px;
   border-bottom: 1px solid ${COLOR.comment};
