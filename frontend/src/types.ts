@@ -24,3 +24,15 @@ export interface MilestoneSummary {
   communicationScore: number;
   totalScore: number;
 }
+
+export interface TeamBuildingInfo {
+  id: number;
+  category: string;
+  status: 'RECRUITMENT_END' | 'RECRUITING';
+  title: string;
+  developer: number;
+  designer: number;
+  artist: number;
+  other: number;
+  views: number;
+}
