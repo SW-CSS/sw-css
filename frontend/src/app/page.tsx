@@ -1,4 +1,5 @@
 import Announcement from './components/Announcement';
+import ExternalLink from './components/ExternalLink';
 import Milestone from './components/Milestone';
 import { AnnouncementContent, ContentWrapper, MilestoneWrapper, FlexWrapper, MainPageWrapper } from './styled';
 
@@ -12,7 +13,9 @@ const Page = () => (
         <Announcement />
       </AnnouncementContent>
     </FlexWrapper>
-    <ContentWrapper style={{ border: '2px solid pink' }}>linker</ContentWrapper>
+    <ContentWrapper style={{ border: '2px solid pink' }}>
+      <ExternalLink />
+    </ContentWrapper>
     <ContentWrapper style={{ border: '2px solid pink' }}>team building</ContentWrapper>
     <ContentWrapper style={{ border: '2px solid pink' }}>pnu linker</ContentWrapper>
   </MainPageWrapper>
