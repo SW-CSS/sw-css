@@ -1,6 +1,7 @@
 import Announcement from './components/Announcement';
 import ExternalLink from './components/ExternalLink';
 import Milestone from './components/Milestone';
+import PnuLink from './components/PnuLink';
 import { AnnouncementContent, ContentWrapper, MilestoneWrapper, FlexWrapper, MainPageWrapper } from './styled';
 
 const Page = () => (
@@ -17,7 +18,9 @@ const Page = () => (
       <ExternalLink />
     </ContentWrapper>
     <ContentWrapper style={{ border: '2px solid pink' }}>team building</ContentWrapper>
-    <ContentWrapper style={{ border: '2px solid pink' }}>pnu linker</ContentWrapper>
+    <ContentWrapper style={{ border: '2px solid pink' }}>
+      <PnuLink />
+    </ContentWrapper>
   </MainPageWrapper>
 );
 
