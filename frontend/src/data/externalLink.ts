@@ -14,3 +14,13 @@ export const externalLinkInfos: { title: string; url: string; img: string }[] = 
   },
   { title: 'PNU<br/>Online Judge', url: 'http://oj.pusan.ac.kr/', img: '/pngs/external_link_6_pnu_oj.png' },
 ];
+
+export const pnuLinkInfos: { title: string; url: string; img: string }[] = [
+  { title: '부산대학교', url: 'https://www.pusan.ac.kr/', img: '/svgs/pnu_link_banner_1.svg' },
+  { title: 'SW융합교육원', url: 'https://swedu.pusan.ac.kr/', img: '/svgs/pnu_link_banner_2.svg' },
+  { title: '정보컴퓨터공학부', url: 'https://cse.pusan.ac.kr/', img: '/svgs/pnu_link_banner_3.svg' },
+  { title: '의생명융합공학부', url: 'https://bce.pusan.ac.kr/', img: '/svgs/pnu_link_banner_4.svg' },
+  { title: '현장실습지원센터', url: 'https://placement.pusan.ac.kr/', img: '/svgs/pnu_link_banner_5.svg' },
+  { title: '취업전략과', url: 'https://job.pusan.ac.kr/', img: '/svgs/pnu_link_banner_6.svg' },
+  { title: 'SW중심대학', url: 'https://www.swuniv.kr/', img: '/svgs/pnu_link_banner_7.svg' },
+];
