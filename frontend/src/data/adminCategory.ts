@@ -1,5 +1,5 @@
 /* eslint-disable import/prefer-default-export */
-import { CategoryInfo } from '@/types';
+import { CategoryInfo } from '@/types/dto';
 
 export const adminCategories: CategoryInfo[] = [
   {
