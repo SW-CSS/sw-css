@@ -1,4 +1,4 @@
-import { AnnouncementInfo } from '@/types';
+import { AnnouncementInfo } from '@/types/dto';
 
 export const announcements: AnnouncementInfo[] = [
   { id: 1, url: '/', title: '[안내] 2024 제1회 전국대학 소프트웨어 성과 공유포럼', date: '2024.06.20' },

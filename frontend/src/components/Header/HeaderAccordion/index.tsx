@@ -1,4 +1,4 @@
-import { CategoryInfo } from '@/types';
+import { CategoryInfo } from '@/types/dto';
 
 import { HeaderAccordionWrapper, Linker, Accordion, AccordionLink } from './styled';
 

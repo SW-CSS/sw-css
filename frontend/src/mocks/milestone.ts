@@ -1,4 +1,4 @@
-import { MilestoneSummary } from '@/types';
+import { MilestoneSummary } from '@/types/dto';
 
 export const milestoneSummaryInfo: MilestoneSummary = {
   practicalScore: 20,

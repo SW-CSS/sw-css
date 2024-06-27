@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { VscSignIn, VscSignOut, VscAccount } from 'react-icons/vsc';
 
 import { useAppSelector } from '@/lib/hooks/redux';
-import { CategoryInfo } from '@/types';
+import { CategoryInfo } from '@/types/dto';
 
 import HeaderAccordion from './HeaderAccordion';
 import Sidebar from './Sidebar';

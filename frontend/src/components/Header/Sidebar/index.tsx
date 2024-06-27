@@ -1,7 +1,7 @@
 import { useState } from 'react';
 
 import { COLOR } from '@/constants';
-import { CategoryInfo } from '@/types';
+import { CategoryInfo } from '@/types/dto';
 
 import * as S from './styled';
 

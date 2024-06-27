@@ -1,8 +1,9 @@
 /* eslint-disable @next/next/no-page-custom-font */
 import { Metadata } from 'next';
 
-import ReduxProvider from '@/store/provider';
 import StyledComponentsRegistry from '@/theme/StyledComponentsRegistry';
+import ReactQueryProvider from '@/utils/reactQueryProvider';
+import ReduxProvider from '@/utils/reduxProvider';
 
 import CustomLayout from './CustomLayout';
 
@@ -21,11 +22,13 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => (
       <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet" />
     </head>
     <body style={{ margin: 0 }}>
-      <ReduxProvider>
-        <StyledComponentsRegistry>
-          <CustomLayout>{children}</CustomLayout>
-        </StyledComponentsRegistry>
-      </ReduxProvider>
+      <ReactQueryProvider>
+        <ReduxProvider>
+          <StyledComponentsRegistry>
+            <CustomLayout>{children}</CustomLayout>
+          </StyledComponentsRegistry>
+        </ReduxProvider>
+      </ReactQueryProvider>
     </body>
   </html>
 );

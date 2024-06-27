@@ -4,7 +4,7 @@ import { usePathname } from 'next/navigation';
 import { useCallback, useEffect, useState } from 'react';
 import { FaChevronUp, FaChevronDown } from 'react-icons/fa6';
 
-import { CategoryInfo, SubCategoryInfo } from '@/types';
+import { CategoryInfo, SubCategoryInfo } from '@/types/dto';
 
 import * as S from './styled';
 import { headerInfos } from '../Header';
