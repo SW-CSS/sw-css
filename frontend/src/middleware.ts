@@ -1,7 +1,7 @@
 import { NextResponse, type NextRequest } from 'next/server';
 
 import { AuthSliceState } from './store/auth.slice';
-import { getAuthFromCookie } from './utils';
+import { getAuthFromCookie } from './lib/utils/utils';
 
 export const middleware = (request: NextRequest) => {
   const auth: AuthSliceState = getAuthFromCookie();

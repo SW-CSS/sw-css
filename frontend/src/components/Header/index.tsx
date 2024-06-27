@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { VscSignIn, VscSignOut, VscAccount } from 'react-icons/vsc';
 
-import { useAppSelector } from '@/hocks/redux';
+import { useAppSelector } from '@/lib/hooks/redux';
 import { CategoryInfo } from '@/types';
 
 import HeaderAccordion from './HeaderAccordion';

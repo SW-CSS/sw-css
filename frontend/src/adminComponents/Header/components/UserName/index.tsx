@@ -1,7 +1,7 @@
 'use client';
 
 import { COLOR, FONT_STYLE } from '@/constants';
-import { useAppSelector } from '@/hocks/redux';
+import { useAppSelector } from '@/lib/hooks/redux';
 
 const UserName = () => {
   const auth = useAppSelector((state) => state.auth).value;

@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
-import { useAppDispatch } from '@/hocks/redux';
+import { useAppDispatch } from '@/lib/hooks/redux';
 import { signIn } from '@/store/auth.slice';
 
 import { FixedEmail, InputID, InputPW, SignInButton } from './styled';

@@ -6,7 +6,7 @@
 import { useRouter } from 'next/navigation';
 
 import { FONT_STYLE } from '@/constants';
-import { useAppDispatch, useAppSelector } from '@/hocks/redux';
+import { useAppDispatch, useAppSelector } from '@/lib/hooks/redux';
 import { signIn } from '@/store/auth.slice';
 
 const Page = () => {

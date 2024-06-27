@@ -1,6 +1,6 @@
 import { cookies } from 'next/headers';
 
-import { AuthSliceState } from './store/auth.slice';
+import { AuthSliceState } from '../../store/auth.slice';
 
 export const getAuthFromCookie = (): AuthSliceState => {
   const authJSON = cookies().get('auth')?.value;

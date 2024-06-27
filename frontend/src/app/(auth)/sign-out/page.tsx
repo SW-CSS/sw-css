@@ -4,7 +4,7 @@
 
 import { useRouter } from 'next/navigation';
 
-import { useAppDispatch, useAppSelector } from '@/hocks/redux';
+import { useAppDispatch, useAppSelector } from '@/lib/hooks/redux';
 import { signOut } from '@/store/auth.slice';
 
 const Page = () => {
