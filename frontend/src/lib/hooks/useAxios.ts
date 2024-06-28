@@ -4,6 +4,8 @@ import { redirect, RedirectType, usePathname } from 'next/navigation';
 import { useEffect } from 'react';
 import { toast } from 'react-toastify';
 
+import 'react-toastify/dist/ReactToastify.css';
+
 import { AccessDeniedError, BusinessError, UnauthorizedError } from '@/types/error';
 
 const handleError = (error: Error, pathname: string) => {
