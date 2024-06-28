@@ -6,7 +6,7 @@ const Page = () => (
   <S.ContentWrapper>
     <S.Content>
       <S.ImageWrapper maxWidth="230px" maxHeight="66px">
-        <Image src="/images/milestone_img01.png" priority={false} alt="" fill />
+        <Image src="/images/milestone/milestone_img01.png" priority={false} alt="" fill />
       </S.ImageWrapper>
       <S.Description>
         <S.Title>마일스톤이란</S.Title>
@@ -15,8 +15,8 @@ const Page = () => (
         학생들은 교내외 여러 활동들을 통하여 실전적 SW역량, 글로벌 역량, 커뮤니케이션 역량을 균형있게 함양하고
         SW중심대학사업단에서는 학생들의 적립된 마일스톤 점수에 따라 매년 장학생을 선발하고 있습니다.
       </S.Description>
-      <S.ImageWrapper maxWidth="429px" maxHeight="208px" backgroundImage="/images/milestone_img02_bg.png">
-        <Image src="/images/milestone_img02.png" priority={false} alt="" fill />
+      <S.ImageWrapper maxWidth="429px" maxHeight="208px" backgroundImage="/images/milestone/milestone_img02_bg.png">
+        <Image src="/images/milestone/milestone_img02.png" priority={false} alt="" fill />
       </S.ImageWrapper>
       <S.InformationList>
         <S.Information>
@@ -38,7 +38,7 @@ const Page = () => (
         </S.Information>
       </S.InformationList>
       <S.ImageWrapper maxWidth="890px" maxHeight="1028px">
-        <Image src="/images/milestone_img03.png" priority={false} alt="" fill />
+        <Image src="/images/milestone/milestone_img03.png" priority={false} alt="" fill />
       </S.ImageWrapper>
     </S.Content>
   </S.ContentWrapper>

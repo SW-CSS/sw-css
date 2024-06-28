@@ -12,7 +12,7 @@ const Header = () => (
     <HeaderLayout>
       <div style={{ display: 'flex' }}>
         <LogoLink href="/admin">
-          <Image src="/svgs/SW_logo.svg" alt="SW_logo" width="120" height="40" priority={false} />
+          <Image src="/images/logo/SW_logo.svg" alt="SW_logo" width="120" height="40" priority={false} />
         </LogoLink>
         <Navigator />
       </div>

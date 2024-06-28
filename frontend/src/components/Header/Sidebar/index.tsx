@@ -1,14 +1,14 @@
 import { useState } from 'react';
 
 import { COLOR } from '@/constants';
-import { CategoryInfo } from '@/types/dto';
+import { CategoryDto } from '@/types/common.dto';
 
 import * as S from './styled';
 
 export interface SidebarProps {
   open: boolean;
   handleOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  headerInfos: CategoryInfo[];
+  headerInfos: CategoryDto[];
 }
 
 const Sidebar = ({ open, handleOpen, headerInfos }: SidebarProps) => {

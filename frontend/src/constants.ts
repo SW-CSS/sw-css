@@ -2,6 +2,8 @@ export const MAX_WIDTH = '1200px';
 
 export const CONTENT_WIDTH = '970px';
 
+export const SIGN_WIDTH = '500px';
+
 export const RESPONSIVE_WIDTH = {
   mobile: '480px',
   tablet: '768px',
@@ -68,4 +70,15 @@ export const BORDER_RADIUS = {
   md: '20px',
   lg: '30px',
   full: '100%',
+};
+
+export const TEAM_STATUS = {
+  RECRUITING: {
+    color: '#FAD3CA',
+    text: '모집 중',
+  },
+  RECRUITMENT_END: {
+    color: '#DEE3EB',
+    text: '모집마감',
+  },
 };
