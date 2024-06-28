@@ -8,10 +8,10 @@ import * as S from './styled';
 
 const TeamBuilding = ({ id, category, status, title, developer, designer, artist, other, views }: TeamBuildingDto) => {
   const recruitment = [
-    { img: '/pngs/team_type_img_1.png', text: '개발', count: developer },
-    { img: '/pngs/team_type_img_2.png', text: '디자인', count: artist },
-    { img: '/pngs/team_type_img_3.png', text: '기획', count: designer },
-    { img: '/pngs/team_type_img_4.png', text: '기타', count: other },
+    { img: '/images/teamBuilding/team_type_img_1.svg', text: '개발', count: developer },
+    { img: '/images/teamBuilding/team_type_img_2.svg', text: '디자인', count: artist },
+    { img: '/images/teamBuilding/team_type_img_3.svg', text: '기획', count: designer },
+    { img: '/images/teamBuilding/team_type_img_4.svg', text: '기타', count: other },
   ];
   return (
     <S.TeamBuildingWrapper href={`/team-building/${id}`}>
