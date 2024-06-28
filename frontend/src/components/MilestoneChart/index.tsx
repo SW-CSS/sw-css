@@ -1,5 +1,11 @@
 import { COLOR } from '@/constants';
+<<<<<<< Feature/#50-리액트_쿼리_셋팅
+import { getAuthFromCookie } from '@/lib/utils/utils';
+import { milestoneSummaryInfo } from '@/mocks/milestone';
+import { AuthSliceState } from '@/store/auth.slice';
+=======
 import { MilestoneSummaryDto } from '@/types/common.dto';
+>>>>>>> main
 
 import * as S from './styled';
 

@@ -5,8 +5,13 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { VscSignIn, VscSignOut, VscAccount } from 'react-icons/vsc';
 
+<<<<<<< Feature/#50-리액트_쿼리_셋팅
+import { useAppSelector } from '@/lib/hooks/redux';
+import { CategoryInfo } from '@/types/dto';
+=======
 import { headerInfos } from '@/data/clientCategory';
 import { useAppSelector } from '@/lib/hooks/redux';
+>>>>>>> main
 
 import HeaderAccordion from './HeaderAccordion';
 import Sidebar from './Sidebar';

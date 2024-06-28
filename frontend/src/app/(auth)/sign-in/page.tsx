@@ -1,4 +1,31 @@
 import { FONT_STYLE } from '@/constants';
+<<<<<<< Feature/#50-리액트_쿼리_셋팅
+import { useAppDispatch, useAppSelector } from '@/lib/hooks/redux';
+import { signIn } from '@/store/auth.slice';
+
+const Page = () => {
+  const router = useRouter();
+  const dispatch = useAppDispatch();
+  const auth = useAppSelector((state) => state.auth).value;
+
+  if (auth.isAuth) router.push('/');
+
+  const handleSignInClick = () => {
+    // TODO: api 연결
+    dispatch(
+      signIn({
+        token: 'token',
+        username: 'name',
+        uid: '1',
+        isModerator: true,
+      }),
+    );
+    setTimeout(() => {
+      router.refresh();
+    }, 0);
+  };
+=======
+>>>>>>> main
 
 import InputUserInfo from './components/InputUserInfo';
 import { Divisor, FindLink, SignInContentWrapper, SignInPageWrapper, SignUpLink, SuggestionComment } from './styled';

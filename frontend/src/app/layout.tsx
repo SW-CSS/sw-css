@@ -1,6 +1,10 @@
 /* eslint-disable @next/next/no-page-custom-font */
 import { Metadata } from 'next';
 
+<<<<<<< Feature/#50-리액트_쿼리_셋팅
+import ReactQueryProvider from '@/lib/utils/reactQueryProvider';
+=======
+>>>>>>> main
 import ReduxProvider from '@/lib/utils/reduxProvider';
 import StyledComponentsRegistry from '@/theme/StyledComponentsRegistry';
 
@@ -21,11 +25,13 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => (
       <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap" rel="stylesheet" />
     </head>
     <body style={{ margin: 0 }}>
-      <ReduxProvider>
-        <StyledComponentsRegistry>
-          <CustomLayout>{children}</CustomLayout>
-        </StyledComponentsRegistry>
-      </ReduxProvider>
+      <ReactQueryProvider>
+        <ReduxProvider>
+          <StyledComponentsRegistry>
+            <CustomLayout>{children}</CustomLayout>
+          </StyledComponentsRegistry>
+        </ReduxProvider>
+      </ReactQueryProvider>
     </body>
   </html>
 );
