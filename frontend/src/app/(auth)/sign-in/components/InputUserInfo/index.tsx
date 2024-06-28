@@ -3,7 +3,7 @@
 import { useRouter } from 'next/navigation';
 
 import { InputFixedText, Input, InputLabel, InputWrapper, SignButton } from '@/app/(auth)/styled';
-import { useAppDispatch, useAppSelector } from '@/hocks/redux';
+import { useAppDispatch, useAppSelector } from '@/lib/hooks/redux';
 import { signIn } from '@/store/auth.slice';
 
 const InputUserInfo = () => {

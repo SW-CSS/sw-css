@@ -9,7 +9,7 @@ const Footer = () => (
         <FooterText>부산대학교 소프트웨어융합교육원</FooterText>
       </FooterDiv>
       <FooterLink href="/privacy">개인정보처리방침</FooterLink>
-      <FooterText>@ 2021 PNUswedu. All Right Reserved.</FooterText>
+      <FooterText>ⓒ 2021 PNUswedu. All Right Reserved.</FooterText>
       <FooterText>TEL : 051-510-3737, 3738, 3624</FooterText>
     </FooterLayout>
   </FooterWrapper>

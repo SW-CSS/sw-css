@@ -1,31 +1,31 @@
-export interface CategoryInfo {
+export interface CategoryDto {
   title: string;
   url: string;
   description?: string;
-  sub: SubCategoryInfo[];
+  sub: SubCategoryDto[];
 }
 
-export interface SubCategoryInfo {
+export interface SubCategoryDto {
   title: string;
   url: string;
   key: string;
 }
 
-export interface AnnouncementInfo {
+export interface AnnouncementDto {
   id: number;
   url: string;
   title: string;
   date: string;
 }
 
-export interface MilestoneSummary {
+export interface MilestoneSummaryDto {
   practicalScore: number;
   globalScore: number;
   communicationScore: number;
   totalScore: number;
 }
 
-export interface TeamBuildingInfo {
+export interface TeamBuildingDto {
   id: number;
   category: string;
   status: 'RECRUITMENT_END' | 'RECRUITING';

@@ -1,6 +1,6 @@
 import MilestoneChart from '@/components/MilestoneChart';
+import { getAuthFromCookie } from '@/lib/utils/auth';
 import { AuthSliceState } from '@/store/auth.slice';
-import { getAuthFromCookie } from '@/utils';
 
 import GoPageIcon from '../GoPageIcon';
 import SignIn from '../SignIn';

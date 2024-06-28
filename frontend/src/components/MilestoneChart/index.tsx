@@ -1,7 +1,7 @@
 import { COLOR } from '@/constants';
+import { getAuthFromCookie } from '@/lib/utils/auth';
 import { milestoneSummaryInfo } from '@/mocks/milestone';
 import { AuthSliceState } from '@/store/auth.slice';
-import { getAuthFromCookie } from '@/utils';
 
 import * as S from './styled';
 
