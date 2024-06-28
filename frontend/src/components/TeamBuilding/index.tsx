@@ -2,11 +2,11 @@ import Image from 'next/image';
 import { CgEye } from 'react-icons/cg';
 
 import { COLOR, TEAM_STATUS } from '@/constants';
-import { TeamBuildingInfo } from '@/types';
+import { TeamBuildingDto } from '@/types/common.dto';
 
 import * as S from './styled';
 
-const TeamBuilding = ({ id, category, status, title, developer, designer, artist, other, views }: TeamBuildingInfo) => {
+const TeamBuilding = ({ id, category, status, title, developer, designer, artist, other, views }: TeamBuildingDto) => {
   const recruitment = [
     { img: '/pngs/team_type_img_1.png', text: '개발', count: developer },
     { img: '/pngs/team_type_img_2.png', text: '디자인', count: artist },

@@ -1,7 +1,7 @@
 /* eslint-disable import/prefer-default-export */
-import { CategoryInfo } from '@/types';
+import { CategoryDto } from '@/types/common.dto';
 
-export const adminCategories: CategoryInfo[] = [
+export const adminCategories: CategoryDto[] = [
   {
     title: '마일스톤 관리',
     url: '/admin/milestone',

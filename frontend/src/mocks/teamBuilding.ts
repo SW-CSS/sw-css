@@ -1,6 +1,6 @@
-import { TeamBuildingInfo } from '@/types';
+import { TeamBuildingDto } from '@/types/common.dto';
 
-export const teamBuildingInfos: TeamBuildingInfo[] = [
+export const teamBuildingInfos: TeamBuildingDto[] = [
   {
     id: 1,
     category: '대회',

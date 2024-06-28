@@ -1,7 +1,7 @@
 /* eslint-disable @next/next/no-page-custom-font */
 import { Metadata } from 'next';
 
-import ReduxProvider from '@/store/provider';
+import ReduxProvider from '@/lib/utils/reduxProvider';
 import StyledComponentsRegistry from '@/theme/StyledComponentsRegistry';
 
 import CustomLayout from './CustomLayout';
