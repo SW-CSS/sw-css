@@ -14,13 +14,13 @@ export const TeamBuildingWrapper = styled.div`
 
   @media screen and (max-width: ${RESPONSIVE_WIDTH.desktop}) {
     grid-template-columns: repeat(2, 1fr);
-    > :nth-last-child(3) {
+    > :nth-child(3) {
       display: none;
     }
   }
   @media screen and (max-width: ${RESPONSIVE_WIDTH.tablet}) {
     grid-template-columns: repeat(1, 1fr);
-    > :nth-last-child(2) {
+    > :nth-child(2) {
       display: none;
     }
   }
