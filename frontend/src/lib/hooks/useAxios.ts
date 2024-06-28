@@ -1,33 +1,22 @@
-import { DefaultError, useMutation, UseMutationOptions, useQuery } from '@tanstack/react-query';
+import { DefaultError, useMutation, UseMutationOptions, useQuery, UseQueryOptions } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 import { redirect, RedirectType, usePathname } from 'next/navigation';
 import { useEffect } from 'react';
 import { toast } from 'react-toastify';
 
-import {
-  AccessDeniedError,
-  BusinessError,
-  MemberNotFoundError,
-  MemberRoleNotMatchedError,
-  UnauthorizedError,
-} from '@/types/error';
-
-import type { UseQueryOptions } from '@tanstack/react-query/src/types';
-
-import { AUTH_UI_SERVER, MANAGER_UI_SERVER } from '@/constants/env.constant';
+import { AccessDeniedError, BusinessError, UnauthorizedError } from '@/types/error';
 
 function handleError(error: Error, pathname: string) {
   if (error instanceof UnauthorizedError) {
-    redirect(`${AUTH_UI_SERVER}/login?redirect=${MANAGER_UI_SERVER + pathname}`, RedirectType.replace);
+    redirect(
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/login?redirect=${process.env.NEXT_PUBLIC_SERVER_URL + pathname}`,
+      RedirectType.replace,
+    );
   }
 
   if (error instanceof AccessDeniedError) {
     toast.error('해당 요청을 수행할 권한이 없습니다.');
     return;
-  }
-
-  if (error instanceof MemberNotFoundError || error instanceof MemberRoleNotMatchedError) {
-    redirect(`${AUTH_UI_SERVER}/logout?redirect=${MANAGER_UI_SERVER}`, RedirectType.replace);
   }
 
   if (error instanceof BusinessError && error.originalError instanceof AxiosError && error.originalError.response) {

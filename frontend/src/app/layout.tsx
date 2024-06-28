@@ -1,9 +1,9 @@
 /* eslint-disable @next/next/no-page-custom-font */
 import { Metadata } from 'next';
 
+import ReactQueryProvider from '@/lib/utils/reactQueryProvider';
+import ReduxProvider from '@/lib/utils/reduxProvider';
 import StyledComponentsRegistry from '@/theme/StyledComponentsRegistry';
-import ReactQueryProvider from '@/utils/reactQueryProvider';
-import ReduxProvider from '@/utils/reduxProvider';
 
 import CustomLayout from './CustomLayout';
 
