@@ -8,20 +8,20 @@ import { AnnouncementContent, ContentWrapper, MilestoneWrapper, FlexWrapper, Mai
 const Page = () => (
   <MainPageWrapper>
     <FlexWrapper>
-      <MilestoneWrapper style={{ border: '2px solid pink' }}>
+      <MilestoneWrapper>
         <Milestone />
       </MilestoneWrapper>
-      <AnnouncementContent style={{ border: '2px solid pink' }}>
+      <AnnouncementContent>
         <Announcement />
       </AnnouncementContent>
     </FlexWrapper>
-    <ContentWrapper style={{ border: '2px solid pink' }}>
+    <ContentWrapper>
       <ExternalLink />
     </ContentWrapper>
-    <ContentWrapper style={{ border: '2px solid pink' }}>
+    <ContentWrapper>
       <TeamBuildings />
     </ContentWrapper>
-    <ContentWrapper style={{ border: '2px solid pink' }}>
+    <ContentWrapper>
       <PnuLink />
     </ContentWrapper>
   </MainPageWrapper>

@@ -20,15 +20,15 @@ export const TableWrapper = styled.div`
 `;
 
 export const TableTopBorderContent = styled.div`
-  padding: 4px;
+  padding: 8px 4px;
   border-top: 1px solid ${COLOR.black_text};
-  font: ${FONT_STYLE.xs.normal};
+  font: ${FONT_STYLE.sm.normal};
 `;
 
 export const TableBottomBorderContent = styled.div`
-  padding: 4px;
+  padding: 8px 4px;
   border-bottom: 1px solid ${COLOR.border};
-  font: ${FONT_STYLE.xs.normal};
+  font: ${FONT_STYLE.sm.normal};
 `;
 
 export const TableTitle = styled(TableBottomBorderContent)`
