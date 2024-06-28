@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 
 import { AccessDeniedError, BusinessError, UnauthorizedError } from '@/types/error';
 
-function handleError(error: Error, pathname: string) {
+const handleError = (error: Error, pathname: string) => {
   if (error instanceof UnauthorizedError) {
     redirect(
       `${process.env.NEXT_PUBLIC_SERVER_URL}/login?redirect=${process.env.NEXT_PUBLIC_SERVER_URL + pathname}`,
@@ -25,9 +25,9 @@ function handleError(error: Error, pathname: string) {
   }
 
   throw error;
-}
+};
 
-export function useAxiosQuery<TQueryFnData>(options: UseQueryOptions<TQueryFnData>) {
+export const useAxiosQuery = <TQueryFnData>(options: UseQueryOptions<TQueryFnData>) => {
   const query = useQuery<TQueryFnData>(options);
   const { error, isError } = query;
   const pathname = usePathname();
@@ -39,9 +39,9 @@ export function useAxiosQuery<TQueryFnData>(options: UseQueryOptions<TQueryFnDat
   }, [error, isError, pathname]);
 
   return query;
-}
+};
 
-export function useAxiosMutation<TData, TVariables>(options: UseMutationOptions<TData, DefaultError, TVariables>) {
+export const useAxiosMutation = <TData, TVariables>(options: UseMutationOptions<TData, DefaultError, TVariables>) => {
   const mutation = useMutation<TData, DefaultError, TVariables>(options);
   const { error, isError } = mutation;
   const pathname = usePathname();
@@ -53,4 +53,4 @@ export function useAxiosMutation<TData, TVariables>(options: UseMutationOptions<
   }, [error, isError, pathname]);
 
   return mutation;
-}
+};

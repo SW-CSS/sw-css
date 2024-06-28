@@ -72,7 +72,7 @@ export class MemberNotFoundError extends AuthError {
   }
 }
 
-export function categorizeError(error: Error) {
+export const categorizeError = (error: Error) => {
   if (error instanceof AxiosError && error.response) {
     if (error.response.status === 401) {
       return new UnauthorizedError(error);
@@ -102,9 +102,9 @@ export function categorizeError(error: Error) {
     }
   }
   return error;
-}
+};
 
-export function deserializeError(error: Error) {
+export const deserializeError = (error: Error) => {
   switch (error.message) {
     case 'UnauthorizedError':
       return new UnauthorizedError();
@@ -123,4 +123,4 @@ export function deserializeError(error: Error) {
     default:
       return error;
   }
-}
+};

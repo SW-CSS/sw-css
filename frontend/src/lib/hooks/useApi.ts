@@ -1,3 +1,4 @@
+/* eslint-disable implicit-arrow-linebreak */
 import { QueryKeys } from '@/data/queryKey';
 import { client } from '@/lib/api/client.axios';
 import { useAxiosQuery } from '@/lib/hooks/useAxios';
@@ -8,8 +9,8 @@ import {
 } from '@/types/dto';
 import { BusinessError } from '@/types/error';
 
-export function useColleges() {
-  return useAxiosQuery({
+export const useColleges = () =>
+  useAxiosQuery({
     queryKey: QueryKeys.COLLEGES,
     queryFn: async (): Promise<CollegesResponseDto[] | null> => {
       try {
@@ -23,7 +24,6 @@ export function useColleges() {
       }
     },
   });
-}
 
 interface MilestoneScoreOfStudentProps {
   memberId: number;
@@ -31,8 +31,8 @@ interface MilestoneScoreOfStudentProps {
   endDate: string;
 }
 
-export function useMilestoneScoresOfStudent({ memberId, startDate, endDate }: MilestoneScoreOfStudentProps) {
-  return useAxiosQuery({
+export const useMilestoneScoresOfStudent = ({ memberId, startDate, endDate }: MilestoneScoreOfStudentProps) =>
+  useAxiosQuery({
     queryKey: QueryKeys.MILESTONE_SCORES_OF_STUDENT,
     queryFn: async (): Promise<MilestoneScoreOfStudentResponseDto[] | null> => {
       try {
@@ -48,14 +48,13 @@ export function useMilestoneScoresOfStudent({ memberId, startDate, endDate }: Mi
       }
     },
   });
-}
 
 interface MilestoneHistoriesOfStudentProps {
   memberId: number;
 }
 
-export function useMilestoneHistoriesOfStudent({ memberId }: MilestoneHistoriesOfStudentProps) {
-  return useAxiosQuery({
+export const useMilestoneHistoriesOfStudent = ({ memberId }: MilestoneHistoriesOfStudentProps) =>
+  useAxiosQuery({
     queryKey: QueryKeys.MILESTONE_HISTORIES_OF_STUDENT,
     queryFn: async (): Promise<MilestoneHistoryOfStudentResponseDto[] | null> => {
       try {
@@ -69,4 +68,3 @@ export function useMilestoneHistoriesOfStudent({ memberId }: MilestoneHistoriesO
       }
     },
   });
-}
