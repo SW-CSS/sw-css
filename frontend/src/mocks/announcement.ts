@@ -1,8 +1,4 @@
-<<<<<<< Feature/#50-리액트_쿼리_셋팅
-import { AnnouncementInfo } from '@/types/dto';
-=======
 import { AnnouncementDto } from '@/types/common.dto';
->>>>>>> main
 
 export const announcements: AnnouncementDto[] = [
   { id: 1, url: '/', title: '[안내] 2024 제1회 전국대학 소프트웨어 성과 공유포럼', date: '2024.06.20' },

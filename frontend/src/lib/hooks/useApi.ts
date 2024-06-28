@@ -6,7 +6,7 @@ import {
   CollegesResponseDto,
   MilestoneHistoryOfStudentResponseDto,
   MilestoneScoreOfStudentResponseDto,
-} from '@/types/dto';
+} from '@/types/common.dto';
 import { BusinessError } from '@/types/error';
 
 export const useColleges = () =>

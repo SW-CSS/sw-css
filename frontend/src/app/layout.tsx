@@ -1,10 +1,7 @@
 /* eslint-disable @next/next/no-page-custom-font */
 import { Metadata } from 'next';
 
-<<<<<<< Feature/#50-리액트_쿼리_셋팅
 import ReactQueryProvider from '@/lib/utils/reactQueryProvider';
-=======
->>>>>>> main
 import ReduxProvider from '@/lib/utils/reduxProvider';
 import StyledComponentsRegistry from '@/theme/StyledComponentsRegistry';
 

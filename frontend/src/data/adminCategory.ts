@@ -1,9 +1,5 @@
 /* eslint-disable import/prefer-default-export */
-<<<<<<< Feature/#50-리액트_쿼리_셋팅
-import { CategoryInfo } from '@/types/dto';
-=======
 import { CategoryDto } from '@/types/common.dto';
->>>>>>> main
 
 export const adminCategories: CategoryDto[] = [
   {
