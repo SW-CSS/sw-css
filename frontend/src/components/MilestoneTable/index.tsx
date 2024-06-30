@@ -1,15 +1,14 @@
 import { COLOR } from '@/constants';
+import { TotalMilestoneScores } from '@/types/common.dto';
 
 import * as S from './styled';
 
 interface MilestoneTableProps {
-  practicalScore: number;
-  globalScore: number;
-  communicationScore: number;
-  totalScore: number;
+  totalMilestoneScores: TotalMilestoneScores;
 }
 
-const MilestoneTable = ({ practicalScore, globalScore, communicationScore, totalScore }: MilestoneTableProps) => {
+const MilestoneTable = ({ totalMilestoneScores }: MilestoneTableProps) => {
+  const { practicalScore, globalScore, communicationScore, totalScore } = totalMilestoneScores;
   const squareSize = 12;
   const scores = [
     { score: practicalScore, color: COLOR.milestone.blue, title: '실전적 SW역량' },
