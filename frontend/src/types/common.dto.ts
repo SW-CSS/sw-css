@@ -19,13 +19,6 @@ export interface AnnouncementDto {
   date: string;
 }
 
-export interface MilestoneSummaryDto {
-  practicalScore: number;
-  globalScore: number;
-  communicationScore: number;
-  totalScore: number;
-}
-
 export interface TeamBuildingDto {
   id: number;
   category: string;

@@ -25,6 +25,8 @@ const Milestone = () => {
       {auth.isAuth && (
         <MilestoneChartWrapper>
           <MilestoneChart
+            chartSize={120}
+            fontSize="sm"
             practicalScore={milestoneSummaryInfo.practicalScore}
             globalScore={milestoneSummaryInfo.globalScore}
             communicationScore={milestoneSummaryInfo.communicationScore}
