@@ -2,6 +2,7 @@ export interface CategoryDto {
   title: string;
   url: string;
   description?: string;
+  inHeader?: boolean;
   sub: SubCategoryDto[];
 }
 

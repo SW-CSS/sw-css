@@ -1,3 +1,5 @@
+/* eslint-disable implicit-arrow-linebreak */
+
 'use client';
 
 import Image from 'next/image';
@@ -25,15 +27,18 @@ const Header = () => {
           <Image src="/images/logo/SW_logo.svg" alt="SW_logo" width="160" height="50" priority={false} />
         </Link>
         <div style={{ display: 'flex', justifyContent: 'center', flexGrow: 1 }}>
-          {headerInfos.map((item) => (
-            <HeaderAccordion
-              key={item.title}
-              title={item.title}
-              url={item.url}
-              sub={item.sub}
-              description={item.description}
-            />
-          ))}
+          {headerInfos.map(
+            (item) =>
+              item.inHeader && (
+                <HeaderAccordion
+                  key={item.title}
+                  title={item.title}
+                  url={item.url}
+                  sub={item.sub}
+                  description={item.description}
+                />
+              ),
+          )}
         </div>
         {auth.isAuth ? (
           <>
