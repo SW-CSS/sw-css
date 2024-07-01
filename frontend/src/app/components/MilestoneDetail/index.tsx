@@ -2,22 +2,11 @@
 
 import { useEffect, useState } from 'react';
 
+import { MilestoneGroup, milestoneGroups } from '@/data/milestoneGroup';
 import { useMilestoneScoresOfStudent } from '@/lib/hooks/useApi';
 import { MilestoneScoreDto } from '@/types/common.dto';
 
 import { GroupButton, TableRow, TableRowBar, TableRowScore, TableRowTitle, TableRowBarFill } from './styled';
-
-enum MilestoneGroup {
-  ACTIVITY = 'ACTIVITY',
-  GLOBAL = 'GLOBAL',
-  COMMUNITY = 'COMMUNITY',
-}
-
-const groups = [
-  { id: MilestoneGroup.ACTIVITY, text: '실전적 SW역량' },
-  { id: MilestoneGroup.GLOBAL, text: '글로벌 SW역량' },
-  { id: MilestoneGroup.COMMUNITY, text: '커뮤니티 SW역량' },
-];
 
 const compareByIdAsc = (a: MilestoneScoreDto, b: MilestoneScoreDto) => {
   if (a.id > b.id) return 1;
@@ -36,7 +25,7 @@ const MilestoneDetail = () => {
   return (
     <div style={{ display: 'flex', flexGrow: '1', flexDirection: 'column' }}>
       <div style={{ display: 'flex' }}>
-        {groups.map((group) => (
+        {milestoneGroups.map((group) => (
           <GroupButton
             key={group.id}
             isSelected={selectedGroup === group.id}

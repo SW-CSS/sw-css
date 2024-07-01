@@ -11,9 +11,9 @@ const MilestoneTable = ({ totalMilestoneScores }: MilestoneTableProps) => {
   const { practicalScore, globalScore, communicationScore, totalScore } = totalMilestoneScores;
   const squareSize = 12;
   const scores = [
-    { score: practicalScore, color: COLOR.milestone.blue, title: '실전적 SW역량' },
-    { score: globalScore, color: COLOR.milestone.green, title: '글로벌 SW역량' },
-    { score: communicationScore, color: COLOR.milestone.purple, title: '커뮤니티 SW역량' },
+    { score: practicalScore, color: COLOR.milestone.blue.main, title: '실전적 SW역량' },
+    { score: globalScore, color: COLOR.milestone.green.main, title: '글로벌 SW역량' },
+    { score: communicationScore, color: COLOR.milestone.purple.main, title: '커뮤니티 SW역량' },
   ];
 
   return (

@@ -20,7 +20,7 @@ export const Chart = styled.div<ChartProps>`
   width: ${(props) => props.size}px;
   height: ${(props) => props.size}px;
   border-radius: 100%;
-  background: ${COLOR.milestone.gray};
+  background: ${COLOR.milestone.gray.light};
 `;
 
 export const ChartBar = styled.div<ChartBarProps>`
