@@ -23,7 +23,7 @@ export const SubTitle = styled.div`
   margin-bottom: 25px;
 `;
 export const MilestoneWrapper = styled.div`
-  width: 330px;
+  min-width: 330px;
   display: flex;
   flex-direction: column;
   gap: 16px;
