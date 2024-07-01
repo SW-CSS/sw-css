@@ -76,8 +76,8 @@ export interface MilestoneHistoryOfStudentResponseDto {
 }
 
 export interface TotalMilestoneScores {
-  practicalScore: number;
+  activityScore: number;
   globalScore: number;
-  communicationScore: number;
+  communityScore: number;
   totalScore: number;
 }

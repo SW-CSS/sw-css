@@ -1,8 +1,8 @@
-import { MilestoneSummaryDto } from '@/types/common.dto';
+import { TotalMilestoneScores } from '@/types/common.dto';
 
-export const milestoneSummaryInfo: MilestoneSummaryDto = {
-  practicalScore: 20,
+export const milestoneSummaryInfo: TotalMilestoneScores = {
+  activityScore: 20,
   globalScore: 40,
-  communicationScore: 60,
+  communityScore: 60,
   totalScore: 120,
 };

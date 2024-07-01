@@ -10,13 +10,13 @@ export interface MilestoneChartProps {
 }
 
 const MilestoneChart = ({ chartSize, fontSize, totalMilestoneScores }: MilestoneChartProps) => {
-  const { practicalScore, globalScore, communicationScore, totalScore } = totalMilestoneScores;
+  const { activityScore, globalScore, communityScore, totalScore } = totalMilestoneScores;
   const scores = [
-    { start: 0, score: practicalScore, color: COLOR.milestone.blue.main, title: '실전적 SW역량' },
-    { start: practicalScore, score: globalScore, color: COLOR.milestone.green.main, title: '글로벌 SW역량' },
+    { start: 0, score: activityScore, color: COLOR.milestone.blue.main, title: '실전적 SW역량' },
+    { start: activityScore, score: globalScore, color: COLOR.milestone.green.main, title: '글로벌 SW역량' },
     {
-      start: practicalScore + globalScore,
-      score: communicationScore,
+      start: activityScore + globalScore,
+      score: communityScore,
       color: COLOR.milestone.purple.main,
       title: '커뮤니티 SW역량',
     },
