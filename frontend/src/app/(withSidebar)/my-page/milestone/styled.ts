@@ -15,7 +15,26 @@ export const Content = styled.div`
 export const Title = styled.div`
   color: ${COLOR.black_text};
   font: ${FONT_STYLE.xl.bold};
-  margin-bottom: 25px;
+`;
+
+export const PeriodInput = styled.input`
+  text-align: center;
+  padding: 8px;
+  margin: 0 8px;
+  border-radius: ${BORDER_RADIUS.md};
+  border: none;
+  background-color: ${COLOR.border};
+
+  &:focus {
+    outline-color: ${COLOR.black_text};
+  }
+`;
+
+export const SearchButton = styled.button`
+  background-color: ${COLOR.black_text};
+  color: white;
+  padding: 4px 16px;
+  border-radius: ${BORDER_RADIUS.sm};
 `;
 
 export const SubTitle = styled.div`
@@ -58,7 +77,7 @@ export const HistoryDescription = styled.td`
 `;
 
 interface GroupLabelProps {
-  group: MilestoneGroup;
+  group: string;
 }
 
 export const GroupLabel = styled.span<GroupLabelProps>`

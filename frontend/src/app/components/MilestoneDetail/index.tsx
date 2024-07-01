@@ -1,10 +1,11 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import { MilestoneGroup, milestoneGroups } from '@/data/milestoneGroup';
 import { useMilestoneScoresOfStudent } from '@/lib/hooks/useApi';
 import { MilestoneScoreDto } from '@/types/common.dto';
+import { FilterPeriod } from '@/types/milestone';
 
 import { GroupButton, TableRow, TableRowBar, TableRowScore, TableRowTitle, TableRowBarFill } from './styled';
 
@@ -13,14 +14,13 @@ const compareByIdAsc = (a: MilestoneScoreDto, b: MilestoneScoreDto) => {
   return -1;
 };
 
-const MilestoneDetail = () => {
+const MilestoneDetail = ({ startDate, endDate }: FilterPeriod) => {
   const [selectedGroup, setSelectedGroup] = useState<string>(MilestoneGroup.ACTIVITY);
   const { data: milestoneScores } = useMilestoneScoresOfStudent({
     memberId: 202055558,
-    startDate: '2024-06-05',
-    endDate: '2024-06-10',
+    startDate,
+    endDate,
   });
-  useEffect(() => {}, []);
 
   return (
     <div style={{ display: 'flex', flexGrow: '1', flexDirection: 'column' }}>
@@ -35,7 +35,7 @@ const MilestoneDetail = () => {
           </GroupButton>
         ))}
       </div>
-      <div style={{ padding: '20px' }}>
+      <div style={{ padding: '20px 20px 0 20px' }}>
         {milestoneScores
           ?.filter((milestoneScore) => milestoneScore.group === selectedGroup)
           .sort(compareByIdAsc)
