@@ -14,7 +14,7 @@ module.exports = {
       },
       colors: {
         white: '#FFFFFF',
-        black_text: '#333333',
+        black: '#333333',
         comment: '#898C96',
         border: '#EEEEF0',
         background: {
