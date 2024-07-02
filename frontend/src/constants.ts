@@ -30,10 +30,24 @@ export const COLOR = {
     dark: '#050A1C',
   },
   milestone: {
-    blue: '#8FA3F8',
-    green: '#9DE6BC',
-    purple: '#AA8CF8',
-    gray: '#F2F2F2',
+    blue: {
+      light: '#CCD7FF',
+      dark: '#5379FF',
+      main: '#8FA3F8',
+    },
+    green: {
+      light: '#CEFFD9',
+      dark: '#11BA69',
+      main: '#9DE6BC',
+    },
+    purple: {
+      light: '#D7C5FF',
+      dark: '#7b61ff',
+      main: '#AA8CF8',
+    },
+    gray: {
+      light: '#F2F2F2',
+    },
   },
 };
 

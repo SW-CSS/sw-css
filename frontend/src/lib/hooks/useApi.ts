@@ -2,11 +2,7 @@
 import { QueryKeys } from '@/data/queryKey';
 import { client } from '@/lib/api/client.axios';
 import { useAxiosQuery } from '@/lib/hooks/useAxios';
-import {
-  CollegesResponseDto,
-  MilestoneHistoryOfStudentResponseDto,
-  MilestoneScoreOfStudentResponseDto,
-} from '@/types/common.dto';
+import { CollegesResponseDto, MilestoneHistoryOfStudentResponseDto, MilestoneScoreDto } from '@/types/common.dto';
 import { BusinessError } from '@/types/error';
 
 export const useColleges = () =>
@@ -33,8 +29,8 @@ interface MilestoneScoreOfStudentProps {
 
 export const useMilestoneScoresOfStudent = ({ memberId, startDate, endDate }: MilestoneScoreOfStudentProps) =>
   useAxiosQuery({
-    queryKey: QueryKeys.MILESTONE_SCORES_OF_STUDENT,
-    queryFn: async (): Promise<MilestoneScoreOfStudentResponseDto[] | null> => {
+    queryKey: QueryKeys.MILESTONE_SCORES_OF_STUDENT(memberId, startDate, endDate),
+    queryFn: async (): Promise<MilestoneScoreDto[] | null> => {
       try {
         const response = await client.get(
           `/milestones/histories/scores/members/${memberId}?start_date=${startDate}&end_date=${endDate}`,
@@ -51,11 +47,13 @@ export const useMilestoneScoresOfStudent = ({ memberId, startDate, endDate }: Mi
 
 interface MilestoneHistoriesOfStudentProps {
   memberId: number;
+  startDate: string;
+  endDate: string;
 }
 
-export const useMilestoneHistoriesOfStudent = ({ memberId }: MilestoneHistoriesOfStudentProps) =>
+export const useMilestoneHistoriesOfStudent = ({ memberId, startDate, endDate }: MilestoneHistoriesOfStudentProps) =>
   useAxiosQuery({
-    queryKey: QueryKeys.MILESTONE_HISTORIES_OF_STUDENT,
+    queryKey: QueryKeys.MILESTONE_HISTORIES_OF_STUDENT(memberId, startDate, endDate),
     queryFn: async (): Promise<MilestoneHistoryOfStudentResponseDto[] | null> => {
       try {
         const response = await client.get(`/milestones/histories/members/${memberId}`);
