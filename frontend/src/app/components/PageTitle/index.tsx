@@ -9,7 +9,7 @@ export interface PageTitleProps {
 }
 
 const PageTitle = ({ title, description, urlText, url }: PageTitleProps) => (
-  <div className="flex">
+  <div className="flex justify-between">
     <div className="flex flex-col gap-2">
       <p className="cursor-default text-xl font-semibold">{title}</p>
       <p className="cursor-default text-sm text-comment">{description}</p>
