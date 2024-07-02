@@ -32,6 +32,13 @@ module.exports = {
           dark: '#050A1C',
         },
       },
+      fontSize: {
+        xs: ['12px', '12px'],
+        sm: ['14px', '14px'],
+        base: ['16px', '16px'],
+        lg: ['20px', '20px'],
+        xl: ['32px', '32px'],
+      },
     },
   },
   plugins: [],
