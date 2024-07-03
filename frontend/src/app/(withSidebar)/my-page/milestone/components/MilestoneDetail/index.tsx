@@ -16,11 +16,7 @@ const compareByIdAsc = (a: MilestoneScoreDto, b: MilestoneScoreDto) => {
 
 const MilestoneDetail = ({ startDate, endDate }: Period) => {
   const [selectedGroup, setSelectedGroup] = useState<string>(MilestoneGroup.ACTIVITY);
-  const { data: milestoneScores } = useMilestoneScoresOfStudentQuery({
-    memberId: 202055558,
-    startDate,
-    endDate,
-  });
+  const { data: milestoneScores } = useMilestoneScoresOfStudentQuery(202055558, startDate, endDate);
 
   return (
     <div style={{ display: 'flex', flexGrow: '1', flexDirection: 'column' }}>

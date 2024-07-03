@@ -21,11 +21,11 @@ interface MilestoneOverviewProps {
 }
 
 const MilestoneOverview = ({ searchFilterPeriod }: MilestoneOverviewProps) => {
-  const { data: milestoneScoresOfStudent } = useMilestoneScoresOfStudentQuery({
-    memberId: 202055558,
-    startDate: searchFilterPeriod.startDate,
-    endDate: searchFilterPeriod.endDate,
-  });
+  const { data: milestoneScoresOfStudent } = useMilestoneScoresOfStudentQuery(
+    202055558,
+    searchFilterPeriod.startDate,
+    searchFilterPeriod.endDate,
+  );
   const milestoneOverviewScore: MilestoneOverviewScore = useMemo(
     () =>
       milestoneScoresOfStudent?.reduce<MilestoneOverviewScore>(
