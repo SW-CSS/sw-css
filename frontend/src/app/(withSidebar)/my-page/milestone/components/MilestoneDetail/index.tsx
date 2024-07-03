@@ -2,8 +2,8 @@
 
 import { useState } from 'react';
 
-import { MilestoneGroup, milestoneGroups } from '@/data/milestoneGroup';
-import { useMilestoneScoresOfStudent } from '@/lib/hooks/useApi';
+import { MilestoneGroup, milestoneGroups } from '@/data/milestone';
+import { useMilestoneScoresOfStudentQuery } from '@/lib/hooks/useApi';
 import { Period } from '@/types/common';
 import { MilestoneScoreDto } from '@/types/common.dto';
 
@@ -16,7 +16,7 @@ const compareByIdAsc = (a: MilestoneScoreDto, b: MilestoneScoreDto) => {
 
 const MilestoneDetail = ({ startDate, endDate }: Period) => {
   const [selectedGroup, setSelectedGroup] = useState<string>(MilestoneGroup.ACTIVITY);
-  const { data: milestoneScores } = useMilestoneScoresOfStudent({
+  const { data: milestoneScores } = useMilestoneScoresOfStudentQuery({
     memberId: 202055558,
     startDate,
     endDate,

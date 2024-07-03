@@ -1,5 +1,5 @@
-import { MilestoneGroup } from '@/data/milestoneGroup';
-import { useMilestoneHistoriesOfStudent } from '@/lib/hooks/useApi';
+import { MilestoneGroup, MilestoneHistoryStatus } from '@/data/milestone';
+import { useMilestoneHistoriesOfStudentQuery } from '@/lib/hooks/useApi';
 import { Period } from '@/types/common';
 import { MilestoneHistoryOfStudentResponseDto } from '@/types/common.dto';
 
@@ -28,10 +28,11 @@ interface MilestoneHistoryTableProps {
 }
 
 const MilestoneHistoryTable = ({ searchFilterPeriod }: MilestoneHistoryTableProps) => {
-  const { data: milestoneHistoriesOfStudent } = useMilestoneHistoriesOfStudent({
+  const { data: milestoneHistoriesOfStudent } = useMilestoneHistoriesOfStudentQuery({
     memberId: 202055558,
     startDate: searchFilterPeriod.startDate,
     endDate: searchFilterPeriod.endDate,
+    filter: MilestoneHistoryStatus.APPROVED,
   });
   return (
     <table style={{ width: '100%', borderCollapse: 'collapse' }}>

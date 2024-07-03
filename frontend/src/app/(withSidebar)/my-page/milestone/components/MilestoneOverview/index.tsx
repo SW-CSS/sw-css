@@ -3,7 +3,7 @@ import { useMemo } from 'react';
 
 import MilestoneChart from '@/components/MilestoneChart';
 import MilestoneTable from '@/components/MilestoneTable';
-import { useMilestoneScoresOfStudent } from '@/lib/hooks/useApi';
+import { useMilestoneScoresOfStudentQuery } from '@/lib/hooks/useApi';
 import { Period } from '@/types/common';
 import { MilestoneOverviewScore } from '@/types/milestone';
 
@@ -21,7 +21,7 @@ interface MilestoneOverviewProps {
 }
 
 const MilestoneOverview = ({ searchFilterPeriod }: MilestoneOverviewProps) => {
-  const { data: milestoneScoresOfStudent } = useMilestoneScoresOfStudent({
+  const { data: milestoneScoresOfStudent } = useMilestoneScoresOfStudentQuery({
     memberId: 202055558,
     startDate: searchFilterPeriod.startDate,
     endDate: searchFilterPeriod.endDate,

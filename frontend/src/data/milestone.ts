@@ -9,3 +9,9 @@ export const milestoneGroups = [
   { id: MilestoneGroup.GLOBAL, text: '글로벌 SW역량' },
   { id: MilestoneGroup.COMMUNITY, text: '커뮤니티 SW역량' },
 ];
+
+export enum MilestoneHistoryStatus {
+  PENDING = 'PENDING',
+  APPROVED = 'APPROVED',
+  REJECTED = 'REJECTED',
+}
