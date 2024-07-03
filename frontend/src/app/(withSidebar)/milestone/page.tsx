@@ -21,7 +21,7 @@ const Page = () => (
       <S.InformationList>
         <S.Information>
           <S.InformationTitle>마일스톤 획득 방법</S.InformationTitle>
-          각 영역별 황동 수행 시, 책정 기준에 따라 마일스톤을 획득할 수 있습니다.
+          각 영역별 활동 수행 시, 책정 기준에 따라 마일스톤을 획득할 수 있습니다.
           <br />
           상세 내용은 아래 표를 참고해주세요.
         </S.Information>

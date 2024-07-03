@@ -24,18 +24,8 @@ const Milestone = () => {
       </TitleWrapper>
       {auth.isAuth && (
         <MilestoneChartWrapper>
-          <MilestoneChart
-            practicalScore={milestoneSummaryInfo.practicalScore}
-            globalScore={milestoneSummaryInfo.globalScore}
-            communicationScore={milestoneSummaryInfo.communicationScore}
-            totalScore={milestoneSummaryInfo.totalScore}
-          />
-          <MilestoneTable
-            practicalScore={milestoneSummaryInfo.practicalScore}
-            globalScore={milestoneSummaryInfo.globalScore}
-            communicationScore={milestoneSummaryInfo.communicationScore}
-            totalScore={milestoneSummaryInfo.totalScore}
-          />
+          <MilestoneChart chartSize={120} fontSize="sm" milestoneOverviewScore={milestoneSummaryInfo} />
+          <MilestoneTable milestoneOverviewScore={milestoneSummaryInfo} />
         </MilestoneChartWrapper>
       )}
       {!auth.isAuth && <SignIn />}

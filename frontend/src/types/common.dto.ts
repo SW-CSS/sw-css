@@ -2,6 +2,7 @@ export interface CategoryDto {
   title: string;
   url: string;
   description?: string;
+  inHeader?: boolean;
   sub: SubCategoryDto[];
 }
 
@@ -16,13 +17,6 @@ export interface AnnouncementDto {
   url: string;
   title: string;
   date: string;
-}
-
-export interface MilestoneSummaryDto {
-  practicalScore: number;
-  globalScore: number;
-  communicationScore: number;
-  totalScore: number;
 }
 
 export interface TeamBuildingDto {
@@ -48,7 +42,7 @@ interface StudentReferenceDto {
   name: string;
 }
 
-interface MilestoneScoreReferenceDto {
+export interface MilestoneScoreDto {
   id: number;
   name: string;
   group: string;
@@ -58,7 +52,7 @@ interface MilestoneScoreReferenceDto {
 
 export interface MilestoneScoreOfStudentResponseDto {
   student: StudentReferenceDto;
-  milestoneScores: MilestoneScoreReferenceDto[];
+  milestoneScores: MilestoneScoreDto[];
 }
 
 interface MilestoneReferenceDto {

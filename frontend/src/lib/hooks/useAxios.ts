@@ -11,7 +11,7 @@ import { AccessDeniedError, BusinessError, UnauthorizedError } from '@/types/err
 const handleError = (error: Error, pathname: string) => {
   if (error instanceof UnauthorizedError) {
     redirect(
-      `${process.env.NEXT_PUBLIC_SERVER_URL}/login?redirect=${process.env.NEXT_PUBLIC_SERVER_URL + pathname}`,
+      `${process.env.NEXT_PUBLIC_SERVER_URL}/sign-in?redirect=${process.env.NEXT_PUBLIC_SERVER_URL + pathname}`,
       RedirectType.replace,
     );
   }
