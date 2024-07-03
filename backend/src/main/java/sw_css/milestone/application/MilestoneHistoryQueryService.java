@@ -33,13 +33,24 @@ public class MilestoneHistoryQueryService {
 
     // TODO 페이지네이션
     public List<MilestoneHistoryOfStudentResponse> findAllMilestoneHistories(final Long memberId,
+                                                                             final String startDate,
+                                                                             final String endDate,
                                                                              final MilestoneStatus filter) {
         if (!studentMemberRepository.existsById(memberId)) {
             throw new MemberException(MemberExceptionType.NOT_FOUND_STUDENT);
         }
-        return MilestoneHistoryOfStudentResponse.from(
-                generateMilestoneHistories(milestoneHistoryRepository.findMilestoneHistoriesByStudentId(memberId),
-                        filter));
+
+        List<MilestoneHistory> milestoneHistories;
+        if (startDate == null || endDate == null) {
+            milestoneHistories = milestoneHistoryRepository.findMilestoneHistoriesByStudentId(memberId);
+        } else {
+            final LocalDate parsedStartDate = parseDate(startDate);
+            final LocalDate parsedEndDate = parseDate(endDate);
+            milestoneHistories = milestoneHistoryRepository.findMilestoneHistoriesByStudentIdAndActivatedAt(memberId,
+                    parsedStartDate, parsedEndDate);
+        }
+
+        return MilestoneHistoryOfStudentResponse.from(generateMilestoneHistories(milestoneHistories, filter));
     }
 
     private List<MilestoneHistory> generateMilestoneHistories(final List<MilestoneHistory> milestoneHistories,

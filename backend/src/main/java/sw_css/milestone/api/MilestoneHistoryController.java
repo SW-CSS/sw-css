@@ -51,8 +51,11 @@ public class MilestoneHistoryController {
     @GetMapping("/members/{memberId}")
     public ResponseEntity<List<MilestoneHistoryOfStudentResponse>> findAllMilestoneHistories(
             @PathVariable("memberId") final Long memberId,
+            @RequestParam(value = "start_date", required = false) final String startDate,
+            @RequestParam(value = "end_date", required = false) final String endDate,
             @RequestParam(value = "filter", required = false) final MilestoneStatus filter) {
-        return ResponseEntity.ok(milestoneHistoryQueryService.findAllMilestoneHistories(memberId, filter));
+        return ResponseEntity.ok(
+                milestoneHistoryQueryService.findAllMilestoneHistories(memberId, startDate, endDate, filter));
     }
 
 
