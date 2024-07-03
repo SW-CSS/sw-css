@@ -47,7 +47,7 @@ const Page = () => {
     endDate: searchFilterPeriod.endDate,
   });
 
-  const handleSearch = () => {
+  const handleSearchButtonClick = () => {
     setSearchFilterPeriod(filterPeriod);
   };
 
@@ -98,7 +98,7 @@ const Page = () => {
               setFilterPeriod({ ...filterPeriod, endDate: e.target.value })
             }
           />
-          <S.SearchButton onClick={handleSearch}>검색</S.SearchButton>
+          <S.SearchButton onClick={handleSearchButtonClick}>검색</S.SearchButton>
         </div>
       </div>
       <S.SubTitle>전체 현황</S.SubTitle>
