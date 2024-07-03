@@ -37,10 +37,14 @@ export interface TeamBuildingDto {
   views: number;
 }
 
-export interface CollegesResponseDto {
+export interface MajorDto {
   id: number;
   name: string;
   createdAt: string;
+}
+
+export interface CollegeDto extends MajorDto {
+  majors: MajorDto[];
 }
 
 interface StudentReferenceDto {
