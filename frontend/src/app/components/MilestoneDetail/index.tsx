@@ -4,8 +4,8 @@ import { useState } from 'react';
 
 import { MilestoneGroup, milestoneGroups } from '@/data/milestoneGroup';
 import { useMilestoneScoresOfStudent } from '@/lib/hooks/useApi';
+import { Period } from '@/types/common';
 import { MilestoneScoreDto } from '@/types/common.dto';
-import { Period } from '@/types/milestone';
 
 import { GroupButton, TableRow, TableRowBar, TableRowScore, TableRowTitle, TableRowBarFill } from './styled';
 

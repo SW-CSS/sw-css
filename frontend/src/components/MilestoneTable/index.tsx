@@ -1,14 +1,14 @@
 import { COLOR } from '@/constants';
-import { TotalMilestoneScores } from '@/types/common.dto';
+import { MilestoneOverviewScore } from '@/types/milestone';
 
 import * as S from './styled';
 
 interface MilestoneTableProps {
-  totalMilestoneScores: TotalMilestoneScores;
+  milestoneOverviewScore: MilestoneOverviewScore;
 }
 
-const MilestoneTable = ({ totalMilestoneScores }: MilestoneTableProps) => {
-  const { activityScore, globalScore, communityScore, totalScore } = totalMilestoneScores;
+const MilestoneTable = ({ milestoneOverviewScore }: MilestoneTableProps) => {
+  const { activityScore, globalScore, communityScore, totalScore } = milestoneOverviewScore;
   const squareSize = 12;
   const scores = [
     { score: activityScore, color: COLOR.milestone.blue.main, title: '실전적 SW역량' },

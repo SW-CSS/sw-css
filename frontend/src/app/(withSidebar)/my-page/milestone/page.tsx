@@ -12,8 +12,9 @@ import MilestoneTable from '@/components/MilestoneTable';
 import { COLOR } from '@/constants';
 import { MilestoneGroup } from '@/data/milestoneGroup';
 import { useMilestoneHistoriesOfStudent, useMilestoneScoresOfStudent } from '@/lib/hooks/useApi';
-import { MilestoneHistoryOfStudentResponseDto, TotalMilestoneScores } from '@/types/common.dto';
-import { Period } from '@/types/milestone';
+import { Period } from '@/types/common';
+import { MilestoneHistoryOfStudentResponseDto } from '@/types/common.dto';
+import { MilestoneOverviewScore } from '@/types/milestone';
 
 import * as S from './styled';
 
@@ -22,7 +23,7 @@ const compareByActivateDateAsc = (a: MilestoneHistoryOfStudentResponseDto, b: Mi
   return -1;
 };
 
-const initialData: TotalMilestoneScores = {
+const initialData: MilestoneOverviewScore = {
   activityScore: 0,
   globalScore: 0,
   communityScore: 0,
@@ -64,11 +65,11 @@ const Page = () => {
     }
   };
 
-  const totalMilestoneScores: TotalMilestoneScores = useMemo(
+  const milestoneOverviewScore: MilestoneOverviewScore = useMemo(
     () =>
-      milestoneScoresOfStudent?.reduce<TotalMilestoneScores>(
+      milestoneScoresOfStudent?.reduce<MilestoneOverviewScore>(
         (acc, cur) => {
-          const key = `${cur.group.toLowerCase()}Score` as keyof TotalMilestoneScores;
+          const key = `${cur.group.toLowerCase()}Score` as keyof MilestoneOverviewScore;
           acc[key] += cur.score;
           acc.totalScore += cur.score;
           return acc;
@@ -104,8 +105,8 @@ const Page = () => {
       <S.SubTitle>전체 현황</S.SubTitle>
       <div style={{ display: 'flex', gap: '16px' }}>
         <S.MilestoneWrapper>
-          <MilestoneChart chartSize={180} fontSize="lg" totalMilestoneScores={totalMilestoneScores} />
-          <MilestoneTable totalMilestoneScores={totalMilestoneScores} />
+          <MilestoneChart chartSize={180} fontSize="lg" milestoneOverviewScore={milestoneOverviewScore} />
+          <MilestoneTable milestoneOverviewScore={milestoneOverviewScore} />
         </S.MilestoneWrapper>
         <MilestoneDetail startDate={searchFilterPeriod.startDate} endDate={searchFilterPeriod.endDate} />
       </div>

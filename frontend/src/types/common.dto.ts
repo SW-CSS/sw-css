@@ -74,10 +74,3 @@ export interface MilestoneHistoryOfStudentResponseDto {
   activatedAt: string;
   createdAt: string;
 }
-
-export interface TotalMilestoneScores {
-  activityScore: number;
-  globalScore: number;
-  communityScore: number;
-  totalScore: number;
-}

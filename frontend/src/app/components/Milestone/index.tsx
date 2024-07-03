@@ -24,8 +24,8 @@ const Milestone = () => {
       </TitleWrapper>
       {auth.isAuth && (
         <MilestoneChartWrapper>
-          <MilestoneChart chartSize={120} fontSize="sm" totalMilestoneScores={milestoneSummaryInfo} />
-          <MilestoneTable totalMilestoneScores={milestoneSummaryInfo} />
+          <MilestoneChart chartSize={120} fontSize="sm" milestoneOverviewScore={milestoneSummaryInfo} />
+          <MilestoneTable milestoneOverviewScore={milestoneSummaryInfo} />
         </MilestoneChartWrapper>
       )}
       {!auth.isAuth && <SignIn />}
