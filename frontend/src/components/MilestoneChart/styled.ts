@@ -15,11 +15,12 @@ interface ChartBarProps {
 }
 
 export const Chart = styled.div<ChartProps>`
+  margin: 0 auto;
   position: relative;
   width: ${(props) => props.size}px;
   height: ${(props) => props.size}px;
   border-radius: 100%;
-  background: ${COLOR.milestone.gray};
+  background: ${COLOR.milestone.gray.light};
 `;
 
 export const ChartBar = styled.div<ChartBarProps>`
@@ -59,12 +60,34 @@ export const ChartTextWrapper = styled.div`
   justify-content: center;
 `;
 
-export const ChartText = styled.p`
+interface ChartTextProps {
+  fontSize: 'sm' | 'lg';
+}
+
+export const ChartText = styled.p<ChartTextProps>`
   color: ${COLOR.comment};
-  font: ${FONT_STYLE.xs.normal};
+  font: ${({ fontSize }) => {
+    switch (fontSize) {
+      case 'sm':
+        return FONT_STYLE.xs.normal;
+      case 'lg':
+        return FONT_STYLE.base.normal;
+      default:
+        return FONT_STYLE.sm.normal;
+    }
+  }};
 `;
 
-export const ChartScoreText = styled(ChartText)`
+export const ChartScoreText = styled(ChartText)<ChartTextProps>`
   color: ${COLOR.black_text};
-  font: ${FONT_STYLE.base.bold};
+  font: ${({ fontSize }) => {
+    switch (fontSize) {
+      case 'sm':
+        return FONT_STYLE.base.bold;
+      case 'lg':
+        return FONT_STYLE.xl.bold;
+      default:
+        return FONT_STYLE.lg.bold;
+    }
+  }};
 `;

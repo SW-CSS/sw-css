@@ -1,18 +1,23 @@
 import { COLOR } from '@/constants';
-import { MilestoneSummaryDto } from '@/types/common.dto';
+import { MilestoneOverviewScore } from '@/types/milestone';
 
 import * as S from './styled';
 
-const MilestoneChart = ({ practicalScore, globalScore, communicationScore, totalScore }: MilestoneSummaryDto) => {
-  const chartSize = 120;
+export interface MilestoneChartProps {
+  chartSize: number;
+  fontSize: 'sm' | 'lg';
+  milestoneOverviewScore: MilestoneOverviewScore;
+}
 
+const MilestoneChart = ({ chartSize, fontSize, milestoneOverviewScore }: MilestoneChartProps) => {
+  const { activityScore, globalScore, communityScore, totalScore } = milestoneOverviewScore;
   const scores = [
-    { start: 0, score: practicalScore, color: COLOR.milestone.blue, title: '실전적 SW역량' },
-    { start: practicalScore, score: globalScore, color: COLOR.milestone.green, title: '글로벌 SW역량' },
+    { start: 0, score: activityScore, color: COLOR.milestone.blue.main, title: '실전적 SW역량' },
+    { start: activityScore, score: globalScore, color: COLOR.milestone.green.main, title: '글로벌 SW역량' },
     {
-      start: practicalScore + globalScore,
-      score: communicationScore,
-      color: COLOR.milestone.purple,
+      start: activityScore + globalScore,
+      score: communityScore,
+      color: COLOR.milestone.purple.main,
       title: '커뮤니티 SW역량',
     },
   ];
@@ -24,8 +29,8 @@ const MilestoneChart = ({ practicalScore, globalScore, communicationScore, total
       ))}
       <S.ChartHole size={chartSize} />
       <S.ChartTextWrapper>
-        <S.ChartScoreText>{totalScore}</S.ChartScoreText>
-        <S.ChartText>/ 1000</S.ChartText>
+        <S.ChartScoreText fontSize={fontSize}>{totalScore}</S.ChartScoreText>
+        <S.ChartText fontSize={fontSize}>/ 1000</S.ChartText>
       </S.ChartTextWrapper>
     </S.Chart>
   );
