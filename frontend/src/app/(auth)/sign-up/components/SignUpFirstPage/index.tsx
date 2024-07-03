@@ -7,6 +7,8 @@ import * as Yup from 'yup';
 
 import { TextInput } from '@/app/components/Formik/TextInput';
 
+import EmailTextInput from './components/EmailTextInput';
+
 export interface FirstInfo {
   email: string;
   password: string;
@@ -41,7 +43,7 @@ const validationSchema = Yup.object().shape({
   name: Yup.string().required('필수 입력란입니다. 이름을 입력해주세요.'),
   studentId: Yup.string()
     .required('필수 입력란입니다. 학번을 입력해주세요.')
-    .matches(/^[\d]{9}$/, '9자리 학번/교직원 번호를 입력해주세요.'),
+    .matches(/^[\d]{9}$/, '9자리의 학번을 입력해주세요.'),
   phoneNumber: Yup.string()
     .required('필수 입력란입니다. 전화번호를 입력해주세요.')
     .matches(/^([0-9]{10,11})$/, '띄어쓰기나 특수기호 없이 숫자로만 입력해주세요.'),
@@ -55,14 +57,14 @@ const SignUpSecondPage = ({ handleSubmitButtonClick }: { handleSubmitButtonClick
       handleSubmitButtonClick(values);
       setSubmitting(false);
     }}
+    className="w-full"
   >
     {({ isSubmitting, values, touched, handleChange, handleBlur, errors }) => (
-      <Form className="flex flex-col gap-6">
-        <TextInput
+      <Form className="flex flex-col gap-6" autoComplete="off">
+        <EmailTextInput
           name="email"
           label="아이디(이메일)"
           type="text"
-          isRequired
           placeholder="아이디 입력"
           value={values.email}
           onChange={handleChange}
