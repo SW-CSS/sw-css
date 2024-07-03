@@ -3,18 +3,34 @@ import { QueryKeys } from '@/data/queryKey';
 import { client } from '@/lib/api/client.axios';
 import { useAxiosQuery } from '@/lib/hooks/useAxios';
 import {
-  CollegesResponseDto,
+  CollegeDto,
   MilestoneHistoryOfStudentResponseDto,
   MilestoneScoreOfStudentResponseDto,
 } from '@/types/common.dto';
 import { BusinessError } from '@/types/error';
 
-export const useColleges = () =>
+export const useCollegeQuery = () =>
   useAxiosQuery({
     queryKey: QueryKeys.COLLEGES,
-    queryFn: async (): Promise<CollegesResponseDto[] | null> => {
+    queryFn: async (): Promise<CollegeDto[] | null> => {
       try {
         const response = await client.get('/colleges');
+        return response.data;
+      } catch (error) {
+        if (error instanceof BusinessError) {
+          return null;
+        }
+        throw error;
+      }
+    },
+  });
+
+export const useMajorQuery = (collegeId: number) =>
+  useAxiosQuery({
+    queryKey: QueryKeys.COLLEGES,
+    queryFn: async (): Promise<CollegeDto[] | null> => {
+      try {
+        const response = await client.get(`/colleges/${collegeId}/majors`);
         return response.data;
       } catch (error) {
         if (error instanceof BusinessError) {
