@@ -34,7 +34,7 @@ export const TextInput = ({ isRequired = false, ...props }: TextInputProps) => {
         }}
         className={`m-0 rounded-sm border-[1px] border-border p-3 text-base ${hasError && 'border-red-400'}`}
       />
-      {errorText && <span className="pl-1 text-sm text-red-400">{errorText}</span>}
+      {errorText && <span className="pl-1 text-xs text-red-400">{errorText}</span>}
     </div>
   );
 };
