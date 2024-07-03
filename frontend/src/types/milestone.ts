@@ -1,4 +1,4 @@
-export interface FilterPeriod {
+export interface Period {
   startDate: string;
   endDate: string;
 }

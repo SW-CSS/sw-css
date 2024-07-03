@@ -13,7 +13,7 @@ import { COLOR } from '@/constants';
 import { MilestoneGroup } from '@/data/milestoneGroup';
 import { useMilestoneHistoriesOfStudent, useMilestoneScoresOfStudent } from '@/lib/hooks/useApi';
 import { MilestoneHistoryOfStudentResponseDto, TotalMilestoneScores } from '@/types/common.dto';
-import { FilterPeriod } from '@/types/milestone';
+import { Period } from '@/types/milestone';
 
 import * as S from './styled';
 
@@ -30,11 +30,11 @@ const initialData: TotalMilestoneScores = {
 };
 
 const Page = () => {
-  const [filterPeriod, setFilterPeriod] = useState<FilterPeriod>({
+  const [filterPeriod, setFilterPeriod] = useState<Period>({
     startDate: DateTime.now().minus({ years: 1 }).toFormat('yyyy-MM-dd'),
     endDate: DateTime.now().toFormat('yyyy-MM-dd'),
   });
-  const [searchFilterPeriod, setSearchFilterPeriod] = useState<FilterPeriod>(filterPeriod);
+  const [searchFilterPeriod, setSearchFilterPeriod] = useState<Period>(filterPeriod);
 
   const { data: milestoneScoresOfStudent } = useMilestoneScoresOfStudent({
     memberId: 202055558,

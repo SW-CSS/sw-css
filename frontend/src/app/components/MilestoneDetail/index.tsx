@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { MilestoneGroup, milestoneGroups } from '@/data/milestoneGroup';
 import { useMilestoneScoresOfStudent } from '@/lib/hooks/useApi';
 import { MilestoneScoreDto } from '@/types/common.dto';
-import { FilterPeriod } from '@/types/milestone';
+import { Period } from '@/types/milestone';
 
 import { GroupButton, TableRow, TableRowBar, TableRowScore, TableRowTitle, TableRowBarFill } from './styled';
 
@@ -14,7 +14,7 @@ const compareByIdAsc = (a: MilestoneScoreDto, b: MilestoneScoreDto) => {
   return -1;
 };
 
-const MilestoneDetail = ({ startDate, endDate }: FilterPeriod) => {
+const MilestoneDetail = ({ startDate, endDate }: Period) => {
   const [selectedGroup, setSelectedGroup] = useState<string>(MilestoneGroup.ACTIVITY);
   const { data: milestoneScores } = useMilestoneScoresOfStudent({
     memberId: 202055558,
