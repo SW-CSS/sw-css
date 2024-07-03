@@ -9,6 +9,12 @@ import sw_css.milestone.persistence.dto.MilestoneHistoryInfo;
 import sw_css.milestone.persistence.dto.MilestoneHistoryWithStudentInfo;
 
 public interface MilestoneHistoryRepository extends JpaRepository<MilestoneHistory, Long> {
+    @Query("SELECT mh FROM MilestoneHistory mh "
+            + "WHERE mh.studentId=:studentId AND mh.activatedAt<=:endDate AND mh.activatedAt>=:startDate")
+    List<MilestoneHistory> findMilestoneHistoriesByStudentIdAndActivatedAt(final Long studentId,
+                                                                           final LocalDate startDate,
+                                                                           final LocalDate endDate);
+
     List<MilestoneHistory> findMilestoneHistoriesByStudentId(final Long studentId);
 
     @Query("SELECT new sw_css.milestone.persistence.dto.MilestoneHistoryWithStudentInfo("
@@ -23,7 +29,7 @@ public interface MilestoneHistoryRepository extends JpaRepository<MilestoneHisto
             + "mh.id, mc, m, mh.description, mh.fileUrl, mh.status, mh.rejectReason, mh.count, mh.activatedAt, mh.createdAt) "
             + "FROM MilestoneCategory mc "
             + "LEFT JOIN Milestone m on m.category=mc "
-            + "LEFT JOIN MilestoneHistory mh on mh.milestone=m AND mh.studentId=:studentId AND mh.activatedAt <= :endDate AND mh.activatedAt >= :startDate")
+            + "LEFT JOIN MilestoneHistory mh on mh.milestone=m AND mh.studentId=:studentId AND mh.activatedAt <= :endDate AND mh.activatedAt >= :startDate AND mh.status = 'APPROVED'")
     List<MilestoneHistoryInfo> findAllMilestoneHistoriesInfoByStudentIdAndPeriod(final Long studentId,
                                                                                  final LocalDate startDate,
                                                                                  final LocalDate endDate);
