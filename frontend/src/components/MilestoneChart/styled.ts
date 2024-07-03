@@ -83,11 +83,11 @@ export const ChartScoreText = styled(ChartText)<ChartTextProps>`
   font: ${({ fontSize }) => {
     switch (fontSize) {
       case 'sm':
-        return FONT_STYLE.base.normal;
+        return FONT_STYLE.base.bold;
       case 'lg':
-        return FONT_STYLE.xl.normal;
+        return FONT_STYLE.xl.bold;
       default:
-        return FONT_STYLE.lg.normal;
+        return FONT_STYLE.lg.bold;
     }
   }};
 `;
