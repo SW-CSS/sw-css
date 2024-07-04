@@ -6,7 +6,14 @@ import { useCollegeQuery } from '@/lib/hooks/useApi';
 import { getColleges } from '@/mocks/college';
 import { MajorDto } from '@/types/common.dto';
 
-const MajorDropdown = ({ ...props }: Omit<DropdownProps, 'options'>) => {
+export interface MajorDropdownProps extends Omit<DropdownProps, 'options' | 'selectedId' | 'name'> {
+  collegeId: number;
+  majorId: number;
+  collegeName: string;
+  majorName: string;
+}
+
+const MajorDropdown = ({ ...props }: MajorDropdownProps) => {
   const colleges = getColleges;
   /* TODO: mocks 삭제 및 api 호출
   const { data: colleges } = useCollegeQuery();
@@ -14,14 +21,8 @@ const MajorDropdown = ({ ...props }: Omit<DropdownProps, 'options'>) => {
 
   const [majors, setMajors] = useState<MajorDto[]>([]);
 
-  const [selectedCollegeId, setSelectedCollegeId] = useState<number>(-1);
-
-  const handleCollegeFieldChange = (field: string, collegeId: number) => {
-    setSelectedCollegeId(collegeId);
-  };
-
   useEffect(() => {
-    const filteredMajors = colleges.filter((college) => college.id === selectedCollegeId);
+    const filteredMajors = colleges.filter((college) => college.id === props.collegeId);
     if (filteredMajors.length !== 0 && props.isRequired === undefined) {
       setMajors([{ id: 0, name: '없습니다.', createdAt: '' }, ...filteredMajors[0].majors]);
     } else if (filteredMajors.length !== 0) {
@@ -29,26 +30,26 @@ const MajorDropdown = ({ ...props }: Omit<DropdownProps, 'options'>) => {
     } else if (props.isRequired === undefined) {
       setMajors([{ id: 0, name: '없습니다.', createdAt: '' }]);
     }
-  }, [colleges, props.isRequired, selectedCollegeId]);
+  }, [colleges, props.isRequired, props.collegeId]);
 
   return (
     <div className="">
       <Dropdown
-        name={props.name}
+        name={props.collegeName}
         label={props.label}
         options={colleges}
         selectOptionText="단과대학을 선택해주세요."
-        selectedId={selectedCollegeId}
-        setFieldValue={handleCollegeFieldChange}
+        selectedId={props.collegeId}
+        setFieldValue={props.setFieldValue}
         isRequired
         errorText={props.errorText ? '' : undefined}
       />
       <Dropdown
-        name={props.name}
+        name={props.majorName}
         label=""
         options={majors}
         selectOptionText={props.selectOptionText}
-        selectedId={props.selectedId}
+        selectedId={props.majorId}
         setFieldValue={props.setFieldValue}
         errorText={props.errorText}
       />

@@ -1,3 +1,4 @@
+/* eslint-disable react/button-has-type */
 /* eslint-disable import/no-extraneous-dependencies */
 
 'use client';
@@ -12,20 +13,15 @@ import { careerCategory } from '@/data/signUp';
 import MajorDropdown from './components/MajorDropdown';
 
 export interface SecondInfo {
+  majorCollegeId: number;
   majorId: number;
+  minorCollegeId: number;
   minorId: number;
+  doubleMajorCollegeId: number;
   doubleMajorId: number;
   career: number;
   careerDetail: string;
 }
-
-const initialValues: SecondInfo = {
-  majorId: -1,
-  minorId: -1,
-  doubleMajorId: -1,
-  career: -1,
-  careerDetail: '',
-};
 
 const validationSchema = Yup.object().shape({
   majorId: Yup.number().min(1, '필수 입력란입니다. 전공을 선택해주세요.'),
@@ -35,7 +31,13 @@ const validationSchema = Yup.object().shape({
   careerDetail: Yup.string().required('필수 입력란입니다. 진로 상세 계획을 입력해주세요.'),
 });
 
-const SignUpSecondPage = ({ handleSubmitButtonClick }: { handleSubmitButtonClick: (value: SecondInfo) => void }) => (
+export interface SignUpSecondPageProps {
+  initialValues: SecondInfo;
+  handlePrevButtonClick: (value: SecondInfo) => void;
+  handleSubmitButtonClick: (value: SecondInfo) => void;
+}
+
+const SignUpSecondPage = ({ initialValues, handlePrevButtonClick, handleSubmitButtonClick }: SignUpSecondPageProps) => (
   <Formik
     initialValues={initialValues}
     validationSchema={validationSchema}
@@ -47,27 +49,33 @@ const SignUpSecondPage = ({ handleSubmitButtonClick }: { handleSubmitButtonClick
     {({ isSubmitting, values, touched, handleChange, handleBlur, setFieldValue, errors }) => (
       <Form className="flex flex-col gap-6" autoComplete="off">
         <MajorDropdown
-          name="majorId"
+          collegeName="majorCollegeId"
+          majorName="majorId"
           label="주전공"
           selectOptionText="주전공을 선택해주세요."
-          selectedId={values.majorId}
+          collegeId={values.majorCollegeId}
+          majorId={values.majorId}
           setFieldValue={setFieldValue}
           isRequired
           errorText={touched.majorId && errors.majorId ? errors.majorId : undefined}
         />
         <MajorDropdown
-          name="minorId"
+          collegeName="minorCollegeId"
+          majorName="minorId"
           label="부전공"
           selectOptionText="부전공을 선택해주세요."
-          selectedId={values.minorId}
+          collegeId={values.minorCollegeId}
+          majorId={values.minorId}
           setFieldValue={setFieldValue}
           errorText={touched.minorId && errors.minorId ? errors.minorId : undefined}
         />
         <MajorDropdown
-          name="doubleMajorId"
+          collegeName="doubleMajorCollegeId"
+          majorName="doubleMajorId"
           label="복수전공"
           selectOptionText="복수전공을 선택해주세요."
-          selectedId={values.doubleMajorId}
+          collegeId={values.doubleMajorCollegeId}
+          majorId={values.doubleMajorId}
           setFieldValue={setFieldValue}
           errorText={touched.doubleMajorId && errors.doubleMajorId ? errors.doubleMajorId : undefined}
         />
@@ -99,14 +107,24 @@ const SignUpSecondPage = ({ handleSubmitButtonClick }: { handleSubmitButtonClick
             }
           />
         </div>
-
-        <button
-          className="mt-2 rounded-sm bg-primary-main p-3 text-base text-white"
-          type="submit"
-          disabled={isSubmitting}
-        >
-          회원가입
-        </button>
+        <div className="flex w-full gap-2">
+          <button
+            className="mt-2 flex-grow rounded-sm border-[1px] border-primary-main p-3 text-base text-primary-main"
+            type="reset"
+            onClick={() => {
+              handlePrevButtonClick(values);
+            }}
+          >
+            이전으로
+          </button>
+          <button
+            className="mt-2 flex-grow rounded-sm bg-primary-main p-3 text-base text-white"
+            type="submit"
+            disabled={isSubmitting}
+          >
+            회원가입
+          </button>
+        </div>
       </Form>
     )}
   </Formik>

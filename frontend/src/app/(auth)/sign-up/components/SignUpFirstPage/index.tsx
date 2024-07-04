@@ -12,19 +12,11 @@ import EmailTextInput from './components/EmailTextInput';
 export interface FirstInfo {
   email: string;
   password: string;
+  passwordConfirmation: string;
   name: string;
   studentId: string;
   phoneNumber: string;
 }
-
-const initialValues: FirstInfo & { passwordConfirmation: string } = {
-  email: '',
-  password: '',
-  passwordConfirmation: '',
-  name: '',
-  studentId: '',
-  phoneNumber: '',
-};
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -49,12 +41,17 @@ const validationSchema = Yup.object().shape({
     .matches(/^([0-9]{10,11})$/, '띄어쓰기나 특수기호 없이 숫자로만 입력해주세요.'),
 });
 
-const SignUpSecondPage = ({ handleSubmitButtonClick }: { handleSubmitButtonClick: (value: FirstInfo) => void }) => (
+interface SignUpFirstPageProps {
+  initialValues: FirstInfo;
+  handleNextButtonClick: (value: FirstInfo) => void;
+}
+
+const SignUpSecondPage = ({ initialValues, handleNextButtonClick }: SignUpFirstPageProps) => (
   <Formik
     initialValues={initialValues}
     validationSchema={validationSchema}
     onSubmit={(values, { setSubmitting }) => {
-      handleSubmitButtonClick(values);
+      handleNextButtonClick(values);
       setSubmitting(false);
     }}
     className="w-full"
@@ -119,7 +116,7 @@ const SignUpSecondPage = ({ handleSubmitButtonClick }: { handleSubmitButtonClick
         />
         <TextInput
           name="phoneNumber"
-          label="학번"
+          label="전화번호"
           type="text"
           isRequired
           placeholder="예) 01012345678"
@@ -135,6 +132,12 @@ const SignUpSecondPage = ({ handleSubmitButtonClick }: { handleSubmitButtonClick
         >
           다음
         </button>
+        <div className="text-center text-xs text-comment">
+          이미 회원이신가요?{' '}
+          <a href="/sign-in" className="font-semibold underline underline-offset-2">
+            뒤로가기
+          </a>
+        </div>
       </Form>
     )}
   </Formik>

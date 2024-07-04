@@ -4,3 +4,8 @@ export const careerCategory: { id: number; name: string }[] = [
   { id: 3, name: '공공기관 취업' },
   { id: 4, name: '창업' },
 ];
+
+export enum SignUpPhase {
+  one,
+  two,
+}
