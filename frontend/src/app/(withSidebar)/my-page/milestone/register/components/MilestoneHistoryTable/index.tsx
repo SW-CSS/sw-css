@@ -1,7 +1,12 @@
+/* eslint-disable no-alert */
+
 'use client';
 
+import { useQueryClient } from '@tanstack/react-query';
+
 import { MilestoneHistoryStatus } from '@/data/milestone';
-import { useMilestoneHistoriesOfStudentQuery } from '@/lib/hooks/useApi';
+import { QueryKeys } from '@/data/queryKey';
+import { useMilestoneHistoriesOfStudentQuery, useMilestoneHistoryDeleteMutation } from '@/lib/hooks/useApi';
 import { MilestoneHistoryOfStudentResponseDto } from '@/types/common.dto';
 
 const compareByCreatedAtDesc = (a: MilestoneHistoryOfStudentResponseDto, b: MilestoneHistoryOfStudentResponseDto) => {
@@ -10,7 +15,10 @@ const compareByCreatedAtDesc = (a: MilestoneHistoryOfStudentResponseDto, b: Mile
 };
 
 const MilestoneHistoryTable = () => {
+  const queryClient = useQueryClient();
   const { data: milestoneHistories } = useMilestoneHistoriesOfStudentQuery(202055558);
+  const { mutate: delteMilestoneHistory } = useMilestoneHistoryDeleteMutation();
+
   const getStatusLabel = (status: string) => {
     switch (status) {
       case MilestoneHistoryStatus.APPROVED:
@@ -24,7 +32,15 @@ const MilestoneHistoryTable = () => {
     }
   };
 
-  const handleHistoryDeleteButtonClick = (id: number) => {};
+  const handleHistoryDeleteButtonClick = (id: number) => {
+    if (window.confirm('정말로 실적 내역을 삭제하시겠습니까?')) {
+      delteMilestoneHistory(id, {
+        onSuccess: () => {
+          queryClient.invalidateQueries(QueryKeys.MILESTONE_HISTORIES_OF_STUDENT(202055558));
+        },
+      });
+    }
+  };
 
   return (
     <table className="w-full text-sm">
