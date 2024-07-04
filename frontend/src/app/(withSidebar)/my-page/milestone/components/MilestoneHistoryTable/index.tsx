@@ -28,12 +28,12 @@ interface MilestoneHistoryTableProps {
 }
 
 const MilestoneHistoryTable = ({ searchFilterPeriod }: MilestoneHistoryTableProps) => {
-  const { data: milestoneHistoriesOfStudent } = useMilestoneHistoriesOfStudentQuery({
-    memberId: 202055558,
-    startDate: searchFilterPeriod.startDate,
-    endDate: searchFilterPeriod.endDate,
-    filter: MilestoneHistoryStatus.APPROVED,
-  });
+  const { data: milestoneHistoriesOfStudent } = useMilestoneHistoriesOfStudentQuery(
+    202055558,
+    searchFilterPeriod.startDate,
+    searchFilterPeriod.endDate,
+    MilestoneHistoryStatus.APPROVED,
+  );
   return (
     <table style={{ width: '100%', borderCollapse: 'collapse' }}>
       <thead>

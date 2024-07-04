@@ -27,20 +27,15 @@ export const useMilestoneScoresOfStudentQuery = (memberId: number, startDate: st
     },
   });
 
-export const useMilestoneHistoriesOfStudentQuery = ({
-  memberId,
-  startDate,
-  endDate,
-  filter,
-}: {
-  memberId: number;
-  startDate?: string;
-  endDate?: string;
-  filter?: MilestoneHistoryStatus;
-}) =>
+export const useMilestoneHistoriesOfStudentQuery = (
+  memberId: number,
+  startDate: string | undefined = undefined,
+  endDate: string | undefined = undefined,
+  filter: MilestoneHistoryStatus | undefined = undefined,
+) =>
   useAxiosQuery({
-    queryKey: QueryKeys.MILESTONE_HISTORIES_OF_STUDENT({ memberId, startDate, endDate, filter }),
-    queryFn: async (): Promise<MilestoneHistoryOfStudentResponseDto[]> => {
+    queryKey: QueryKeys.MILESTONE_HISTORIES_OF_STUDENT(memberId, startDate, endDate, filter),
+    queryFn: async (): Promise<MilestoneHistoryOfStudentResponseDto[] | null> => {
       const response = await client.get(`/milestones/histories/members/${memberId}`, {
         params: removeEmptyField({ start_date: startDate, end_date: endDate, filter }),
       });
