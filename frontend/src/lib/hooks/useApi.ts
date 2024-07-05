@@ -3,18 +3,42 @@ import { MilestoneHistoryStatus } from '@/data/milestone';
 import { QueryKeys } from '@/data/queryKey';
 import { client } from '@/lib/api/client.axios';
 import { useAxiosMutation, useAxiosQuery } from '@/lib/hooks/useAxios';
-import { CollegesResponseDto, MilestoneHistoryOfStudentResponseDto, MilestoneScoreDto } from '@/types/common.dto';
+import { CollegeDto, MilestoneHistoryOfStudentResponseDto, MilestoneScoreDto } from '@/types/common.dto';
+import { BusinessError } from '@/types/error';
 
 import { removeEmptyField } from '../utils/utils';
 
-export const useCollegesQuery = () =>
+export const useCollegeQuery = () =>
   useAxiosQuery({
     queryKey: QueryKeys.COLLEGES,
-    queryFn: async (): Promise<CollegesResponseDto[] | null> => {
-      const response = await client.get('/colleges');
-      return response?.data;
+    queryFn: async (): Promise<CollegeDto[] | null> => {
+      try {
+        const response = await client.get('/colleges');
+        return response.data;
+      } catch (error) {
+        if (error instanceof BusinessError) {
+          return null;
+        }
+        throw error;
+      }
     },
-  }) ?? [];
+  });
+
+export const useMajorQuery = (collegeId: number) =>
+  useAxiosQuery({
+    queryKey: QueryKeys.COLLEGES,
+    queryFn: async (): Promise<CollegeDto[] | null> => {
+      try {
+        const response = await client.get(`/colleges/${collegeId}/majors`);
+        return response.data;
+      } catch (error) {
+        if (error instanceof BusinessError) {
+          return null;
+        }
+        throw error;
+      }
+    },
+  });
 
 export const useMilestoneScoresOfStudentQuery = (memberId: number, startDate: string, endDate: string) =>
   useAxiosQuery({
