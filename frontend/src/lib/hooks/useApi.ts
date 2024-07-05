@@ -2,12 +2,7 @@
 import { QueryKeys } from '@/data/queryKey';
 import { client } from '@/lib/api/client.axios';
 import { useAxiosQuery } from '@/lib/hooks/useAxios';
-
-import {
-  CollegeDto,
-  MilestoneHistoryOfStudentResponseDto,
-  MilestoneScoreOfStudentResponseDto,
-} from '@/types/common.dto';
+import { CollegeDto, MilestoneHistoryOfStudentResponseDto, MilestoneScoreDto } from '@/types/common.dto';
 import { BusinessError } from '@/types/error';
 
 export const useCollegeQuery = () =>
@@ -26,7 +21,6 @@ export const useCollegeQuery = () =>
     },
   }) ?? [];
 
-
 export const useMajorQuery = (collegeId: number) =>
   useAxiosQuery({
     queryKey: QueryKeys.COLLEGES,
@@ -43,7 +37,7 @@ export const useMajorQuery = (collegeId: number) =>
     },
   });
 
-interface MilestoneScoreOfStudentProps {
+interface MilestoneInformationOfStudentProps {
   memberId: number;
   startDate: string;
   endDate: string;
