@@ -40,7 +40,9 @@
     "object-curly-newline": "off",
     "react/jsx-one-expression-per-line": "off",
     "no-param-reassign": "off",
-    "import/prefer-default-export": "off"
+    "import/prefer-default-export": "off",
+    "react/jsx-props-no-spreading": "off",
+    "react/require-default-props": "off"
   },
   "settings": {
     "import/resolver": {

@@ -47,6 +47,9 @@ module.exports = {
         lg: '30px',
         full: '100%',
       },
+      width: {
+        sign: '500px',
+      },
     },
   },
   plugins: [],
