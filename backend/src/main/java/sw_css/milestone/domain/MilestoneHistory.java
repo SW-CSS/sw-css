@@ -15,6 +15,8 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLRestriction;
 import sw_css.admin.milestone.domain.MilestoneHistoryExcelData;
 import sw_css.base.BaseEntity;
 import sw_css.member.domain.StudentMember;
@@ -25,6 +27,8 @@ import sw_css.milestone.exception.MilestoneHistoryExceptionType;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@SQLRestriction("is_deleted = false")
+@SQLDelete(sql = "UPDATE milestone_history SET is_deleted = true where id = ?")
 public class MilestoneHistory extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

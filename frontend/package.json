@@ -16,6 +16,7 @@
     "axios": "^1.7.2",
     "babel-plugin-styled-components": "^2.1.4",
     "formik": "^2.4.6",
+    "luxon": "^3.4.4",
     "next": "14.2.3",
     "react": "^18",
     "react-cookies": "^0.1.1",
@@ -32,6 +33,7 @@
   "devDependencies": {
     "@babel/plugin-proposal-class-properties": "^7.18.6",
     "@babel/plugin-proposal-private-methods": "^7.18.6",
+    "@types/luxon": "^3.4.2",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-cookies": "^0.1.3",

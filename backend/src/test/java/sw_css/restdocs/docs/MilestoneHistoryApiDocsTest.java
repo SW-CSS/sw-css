@@ -136,12 +136,17 @@ public class MilestoneHistoryApiDocsTest extends RestDocsTest {
                         new MilestoneHistory(1L, milestone, student.getId(), "창업했습니다.", "https://skfdlfjeklf.png",
                                 MilestoneStatus.APPROVED, null, 1, LocalDate.parse("2024-06-06"), false)));
         final Long memberId = 1L;
+        final String startDate = "2024-06-01";
+        final String endDate = "2024-06-08";
 
         //when
-        when(milestoneHistoryQueryService.findAllMilestoneHistories(memberId, null)).thenReturn(response);
+        when(milestoneHistoryQueryService.findAllMilestoneHistories(memberId, startDate, endDate, null)).thenReturn(
+                response);
 
         //then
-        mockMvc.perform(RestDocumentationRequestBuilders.get("/milestones/histories/members/{memberId}", memberId))
+        mockMvc.perform(RestDocumentationRequestBuilders.get("/milestones/histories/members/{memberId}", memberId)
+                        .param("start_date", startDate)
+                        .param("end_date", endDate))
                 .andExpect(status().isOk())
                 .andDo(document("milestone-history-of-student-find-all", pathParameters, queryParameters,
                         responseBodySnippet));
