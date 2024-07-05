@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import PageTitle from '@/app/components/PageTitle';
 import { SignUpPhase } from '@/data/signUp';
