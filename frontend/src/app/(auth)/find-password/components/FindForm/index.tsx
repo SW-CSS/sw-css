@@ -3,8 +3,8 @@
 import { Form, Formik } from 'formik';
 import * as Yup from 'yup';
 
-import EmailTextInput from '@/app/components/Formik/EmailTextInput';
-import TextInput from '@/app/components/Formik/TextInput';
+import EmailTextInput from '@/components/Formik/EmailTextInput';
+import TextInput from '@/components/Formik/TextInput';
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
