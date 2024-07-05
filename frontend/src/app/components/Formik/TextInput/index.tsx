@@ -11,7 +11,7 @@ interface CustomTextInputProps {
 
 export type TextInputProps = BuiltInTextInputProps & CustomTextInputProps;
 
-export const TextInput = ({ isRequired = false, ...props }: TextInputProps) => {
+const TextInput = ({ isRequired = false, ...props }: TextInputProps) => {
   const { label, errorText, onKeyDownEnter, onChangeText, ...inputProps } = props;
   const hasError = errorText !== undefined;
 
@@ -38,3 +38,5 @@ export const TextInput = ({ isRequired = false, ...props }: TextInputProps) => {
     </div>
   );
 };
+
+export default TextInput;

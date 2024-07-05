@@ -21,7 +21,7 @@ export interface DropdownProps {
   errorText?: string;
 }
 
-export const Dropdown = ({ isRequired = false, ...props }: DropdownProps) => {
+const Dropdown = ({ isRequired = false, ...props }: DropdownProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [componentRef, size] = useDivSize();
 
@@ -79,3 +79,5 @@ export const Dropdown = ({ isRequired = false, ...props }: DropdownProps) => {
     </div>
   );
 };
+
+export default Dropdown;
