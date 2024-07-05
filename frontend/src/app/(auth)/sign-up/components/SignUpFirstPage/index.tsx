@@ -5,8 +5,8 @@
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 
-import EmailTextInput from '@/app/components/Formik/EmailTextInput';
-import TextInput from '@/app/components/Formik/TextInput';
+import EmailTextInput from '@/components/Formik/EmailTextInput';
+import TextInput from '@/components/Formik/TextInput';
 
 export interface FirstInfo {
   email: string;
