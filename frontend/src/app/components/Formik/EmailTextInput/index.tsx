@@ -10,7 +10,7 @@ interface CustomTextInputProps {
 
 export type TextInputProps = BuiltInTextInputProps & CustomTextInputProps;
 
-export const EmailTextInput = ({ ...props }: TextInputProps) => {
+const EmailTextInput = ({ ...props }: TextInputProps) => {
   const { label, errorText, onKeyDownEnter, onChangeText, ...inputProps } = props;
   const hasError = errorText !== undefined;
 
