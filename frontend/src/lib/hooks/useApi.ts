@@ -3,7 +3,12 @@ import { MilestoneHistoryStatus } from '@/data/milestone';
 import { QueryKeys } from '@/data/queryKey';
 import { client } from '@/lib/api/client.axios';
 import { useAxiosMutation, useAxiosQuery } from '@/lib/hooks/useAxios';
-import { CollegeDto, MilestoneHistoryOfStudentResponseDto, MilestoneScoreDto } from '@/types/common.dto';
+import {
+  CollegeDto,
+  MilestoneHistoryOfStudentResponseDto,
+  MilestoneOverviewDto,
+  MilestoneScoreDto,
+} from '@/types/common.dto';
 import { BusinessError } from '@/types/error';
 
 import { removeEmptyField } from '../utils/utils';
@@ -66,6 +71,16 @@ export const useMilestoneHistoriesOfStudentQuery = (
       return response?.data;
     },
   });
+
+export function useMilestoneQuery() {
+  return useAxiosQuery({
+    queryKey: QueryKeys.MILESTONES,
+    queryFn: async (): Promise<MilestoneOverviewDto[]> => {
+      const response = await client.get('/milestones');
+      return response.data;
+    },
+  });
+}
 
 export function useMilestoneHistoryDeleteMutation() {
   return useAxiosMutation({

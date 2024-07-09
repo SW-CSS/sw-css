@@ -1,3 +1,5 @@
+import { Milestone } from './milestone';
+
 export interface CategoryDto {
   title: string;
   url: string;
@@ -77,4 +79,12 @@ export interface MilestoneHistoryOfStudentResponseDto {
   count: number;
   activatedAt: string;
   createdAt: string;
+}
+
+export interface MilestoneOverviewDto {
+  id: number;
+  name: string;
+  group: string;
+  limitScore: number;
+  milestones: Milestone[];
 }

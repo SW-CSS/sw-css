@@ -42,7 +42,7 @@ const MajorDropdown = ({ ...props }: MajorDropdownProps) => {
         selectedId={props.collegeId}
         setFieldValue={props.setFieldValue}
         isRequired
-        errorText={props.errorText ? '' : undefined}
+        errorText={props.errorText ? '필수 입력 값입니다.' : undefined}
       />
       <Dropdown
         name={props.majorName}
@@ -51,7 +51,7 @@ const MajorDropdown = ({ ...props }: MajorDropdownProps) => {
         selectOptionText={props.selectOptionText}
         selectedId={props.majorId}
         setFieldValue={props.setFieldValue}
-        errorText={props.errorText}
+        errorText={props.errorText ? '필수 입력 값입니다.' : undefined}
       />
     </div>
   );
