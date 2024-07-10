@@ -57,7 +57,6 @@ const MajorDropdown = ({ ...props }: MajorDropdownProps) => {
       />
       <Dropdown
         name={props.majorName}
-        label=""
         options={majors}
         selectOptionText={props.selectOptionText}
         selectedId={props.majorId}

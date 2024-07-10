@@ -13,7 +13,7 @@ export interface DropdownOption {
 
 export interface DropdownProps {
   name: string;
-  label: string;
+  label?: string;
   options: DropdownOption[];
   selectOptionText: string;
   selectedId: number;
@@ -34,12 +34,14 @@ const Dropdown = ({ isRequired = false, size = 'md', ...props }: DropdownProps) 
 
   return (
     <div className="flex flex-col gap-1">
-      <label htmlFor={dropdownProps.name} className={`${FORM_SIZE[size].subTextSize} font-semibold`}>
-        {label} {isRequired && <span className={`${FORM_SIZE[size].subTextSize} font-semibold text-red-400`}>*</span>}
-      </label>
+      {label && (
+        <label htmlFor={dropdownProps.name} className={`${FORM_SIZE[size].subTextSize} font-semibold`}>
+          {label} {isRequired && <span className={`${FORM_SIZE[size].subTextSize} font-semibold text-red-400`}>*</span>}
+        </label>
+      )}
       <div className="relative w-full" ref={componentRef}>
         <button
-          className={`m-0 w-full rounded-sm border-[1px] border-border ${FORM_SIZE[size].padding} text-left ${FORM_SIZE[size].textSize} ${hasError && 'border-red-400'} ${selectedId <= 0 && 'text-comment'}`}
+          className={`m-0 w-full rounded-sm border-[1px] border-border bg-white ${FORM_SIZE[size].padding} text-left ${FORM_SIZE[size].textSize} ${hasError && 'border-red-400'} ${selectedId <= 0 && 'text-comment'}`}
           type="button"
           onClick={() => setIsOpen(true)}
         >
