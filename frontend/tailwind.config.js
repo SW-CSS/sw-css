@@ -31,13 +31,36 @@ module.exports = {
           main: '#26325C',
           dark: '#050A1C',
         },
+        admin: {
+          white: '#FFFFFF',
+          black: '#333333',
+          comment: '#4E5963',
+          border: '#DEE2E6',
+          background: {
+            light: '#F0F0F0',
+            base: '#B0B0B0',
+          },
+          primary: {
+            light: '#3B80C7',
+            main: '#095DB3',
+            dark: '#053566',
+          },
+          secondary: {
+            light: '#F0F0F0',
+            main: '#7F7F7F',
+            dark: '#3F3F3F',
+          },
+          semantic: {
+            error: 'B30818',
+          },
+        },
       },
       fontSize: {
-        xs: ['12px', '12px'],
-        sm: ['14px', '14px'],
-        base: ['16px', '16px'],
-        lg: ['20px', '20px'],
-        xl: ['32px', '32px'],
+        xs: ['12px', '14px'],
+        sm: ['14px', '16px'],
+        base: ['16px', '18px'],
+        lg: ['20px', '22px'],
+        xl: ['32px', '34px'],
       },
       borderRadius: {
         none: '0',
