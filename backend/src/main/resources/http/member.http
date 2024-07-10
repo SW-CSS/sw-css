@@ -1,0 +1,4 @@
+GET http://localhost:8080/members/202055558
+
+###
+GET http://localhost:8080/admin/members
