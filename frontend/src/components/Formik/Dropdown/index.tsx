@@ -19,11 +19,33 @@ export interface DropdownProps {
   setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void;
   isRequired?: boolean;
   errorText?: string;
+  size?: 'sm' | 'md' | 'lg';
 }
 
-const Dropdown = ({ isRequired = false, ...props }: DropdownProps) => {
+const styleSize = {
+  sm: {
+    subTextSize: 'text-xs',
+    textSize: 'text-sm',
+    iconSize: 'text-base',
+    padding: 'p-2',
+  },
+  md: {
+    subTextSize: 'text-sm',
+    textSize: 'text-base',
+    iconSize: 'text-lg',
+    padding: 'p-3',
+  },
+  lg: {
+    subTextSize: 'text-base',
+    textSize: 'text-lg',
+    iconSize: 'text-xl',
+    padding: 'p-4',
+  },
+};
+
+const Dropdown = ({ isRequired = false, size = 'md', ...props }: DropdownProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [componentRef, size] = useDivSize();
+  const [componentRef, divSize] = useDivSize();
 
   const { label, errorText, options, selectOptionText, selectedId, setFieldValue, ...dropdownProps } = props;
   const hasError = errorText != null;
@@ -32,19 +54,21 @@ const Dropdown = ({ isRequired = false, ...props }: DropdownProps) => {
 
   return (
     <div className="flex flex-col gap-1">
-      <label htmlFor={dropdownProps.name} className="text-sm font-semibold">
-        {label} {isRequired && <span className="text-sm font-semibold text-red-400">*</span>}
+      <label htmlFor={dropdownProps.name} className={`${styleSize[size].subTextSize} font-semibold`}>
+        {label} {isRequired && <span className={`${styleSize[size].subTextSize} font-semibold text-red-400`}>*</span>}
       </label>
       <div className="relative w-full" ref={componentRef}>
         <button
-          className={`m-0 w-full rounded-sm border-[1px] border-border p-3 text-left text-base ${hasError && 'border-red-400'} ${selectedId <= 0 && 'text-comment'}`}
+          className={`m-0 w-full rounded-sm border-[1px] border-border ${styleSize[size].padding} text-left ${styleSize[size].textSize} ${hasError && 'border-red-400'} ${selectedId <= 0 && 'text-comment'}`}
           type="button"
           onClick={() => setIsOpen(true)}
         >
           {selectedValue[0]?.name ?? selectOptionText}
         </button>
-        {isOpen && <VscChevronUp className="absolute right-2 top-1/2 -translate-y-1/2 text-lg" />}
-        {!isOpen && <VscChevronDown className="absolute right-2 top-1/2 -translate-y-1/2 text-lg" />}
+        {isOpen && <VscChevronUp className={`absolute right-2 top-1/2 -translate-y-1/2 ${styleSize[size].iconSize}`} />}
+        {!isOpen && (
+          <VscChevronDown className={`absolute right-2 top-1/2 -translate-y-1/2 ${styleSize[size].iconSize}`} />
+        )}
       </div>
       {isOpen && (
         <div
@@ -54,9 +78,9 @@ const Dropdown = ({ isRequired = false, ...props }: DropdownProps) => {
         >
           <div
             style={{
-              width: `${size.width}px`,
-              top: `${size.positionY + size.height + 10}px`,
-              left: `${size.positionX}px`,
+              width: `${divSize.width}px`,
+              top: `${divSize.positionY + divSize.height + 10}px`,
+              left: `${divSize.positionX}px`,
             }}
             className="absolute max-h-[215px] min-h-4 overflow-auto rounded-sm border-[1px] border-border bg-white p-2 shadow-md"
           >
@@ -67,7 +91,7 @@ const Dropdown = ({ isRequired = false, ...props }: DropdownProps) => {
                 onClick={() => {
                   setFieldValue(dropdownProps.name, option.id);
                 }}
-                className="block w-full rounded-sm p-3 text-left text-sm hover:bg-primary-light"
+                className={`block w-full rounded-sm ${styleSize[size].padding} text-left ${styleSize[size].subTextSize} hover:bg-primary-light`}
               >
                 {option.name}
               </button>
