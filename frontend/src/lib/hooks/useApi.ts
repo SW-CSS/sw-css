@@ -8,6 +8,7 @@ import {
   MilestoneHistoryOfStudentResponseDto,
   MilestoneOverviewDto,
   MilestoneScoreDto,
+  MilestoneHistoryCreateDto,
 } from '@/types/common.dto';
 import { BusinessError } from '@/types/error';
 
@@ -78,6 +79,22 @@ export function useMilestoneQuery() {
     queryFn: async (): Promise<MilestoneOverviewDto[]> => {
       const response = await client.get('/milestones');
       return response.data;
+    },
+  });
+}
+
+export function useMilestoneHistoryCreateMutation() {
+  return useAxiosMutation({
+    mutationFn: async ({ milestoneId, description, count, file, activatedAt }: MilestoneHistoryCreateDto) => {
+      const formdata = new FormData();
+      formdata.append('file', file);
+      const blob = new Blob([JSON.stringify({ milestoneId, description, count, activatedAt })], {
+        type: 'application/json',
+      });
+      formdata.append('request', blob);
+      await client.post('/milestones/histories', formdata, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
     },
   });
 }

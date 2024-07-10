@@ -4,12 +4,16 @@
 
 import { Form, Formik } from 'formik';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import * as Yup from 'yup';
 
+import { DatePicker } from '@/app/components/Formik/DatePicker';
 import { FileUploader } from '@/app/components/Formik/FileUploader';
 import { TextInput } from '@/app/components/Formik/TextInput';
 import PageTitle from '@/app/components/PageTitle';
+import { useMilestoneHistoryCreateMutation } from '@/lib/hooks/useApi';
+import { MilestoneHistoryCreateDto } from '@/types/common.dto';
 import { Milestone, MilestoneCategory } from '@/types/milestone';
 
 import MilestoneDropdown from './components/MilestoneDropdown';
@@ -20,6 +24,9 @@ const validationSchema = Yup.object().shape({
     .min(1, '횟수는 1 이상의 값이어야 합니다.')
     .required('필수 입력란입니다. 등록할 실적의 활동 횟수를 입력해주세요.'),
   description: Yup.string().required('필수 입력란입니다. 등록할 실적의 상세 정보를 입력해주세요.'),
+  activatedAt: Yup.date()
+    .max(new Date(), '활동 인정일은 미래일 수 없습니다.')
+    .required('필수 입력란입니다. 활동 인정일을 기입해주세요.'),
 });
 
 interface MilestoneHistoryInfo {
@@ -27,16 +34,33 @@ interface MilestoneHistoryInfo {
   milestoneId: number;
   count: number;
   description: string;
-  file: string;
+  file?: File;
+  activatedAt: string;
 }
 
+const initialValues: MilestoneHistoryInfo = {
+  categoryId: -1,
+  milestoneId: -1,
+  count: 1,
+  description: '',
+  file: undefined,
+  activatedAt: '',
+};
+
 const Page = () => {
-  const handleSubmitButtonClick = (values: MilestoneHistoryInfo) => {
-    // TODO - API 연결
-    console.log(values);
-  };
+  const router = useRouter();
+  const { mutate: createMilestoneHistory } = useMilestoneHistoryCreateMutation();
   const [selectedCategory, setSelectedCategory] = useState<MilestoneCategory>();
   const [selectedMilestone, setSelectedMilestone] = useState<Milestone>();
+
+  const handleSubmitButtonClick = (values: MilestoneHistoryCreateDto) => {
+    createMilestoneHistory(values, {
+      onSuccess: () => {
+        window.alert('실적 등록에 성공하였습니다.');
+        router.push('/my-page/milestone/register');
+      },
+    });
+  };
 
   useEffect(() => {}, []);
   return (
@@ -46,16 +70,10 @@ const Page = () => {
         실적 등록하기
       </p>
       <Formik
-        initialValues={{
-          categoryId: -1,
-          milestoneId: -1,
-          count: 1,
-          description: '',
-          file: '',
-        }}
+        initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={(values, { setSubmitting }) => {
-          handleSubmitButtonClick(values);
+          handleSubmitButtonClick(values as MilestoneHistoryCreateDto);
           setSubmitting(false);
         }}
       >
@@ -104,25 +122,35 @@ const Page = () => {
                 disabled
               />
             </div>
-
-            <TextInput
-              name="description"
-              label="등록 상세 제목"
-              placeholder="예) 제 5회 창의융합해커톤 수상"
-              type="text"
-              value={values.description}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              errorText={touched.description && errors.description ? errors.description : undefined}
-              required
-            />
+            <div className="flex">
+              <TextInput
+                name="description"
+                label="등록 상세 제목"
+                placeholder="예) 제 5회 창의융합해커톤 수상"
+                type="text"
+                value={values.description}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                errorText={touched.description && errors.description ? errors.description : undefined}
+                required
+                className="flex-grow"
+              />
+              <DatePicker
+                type="date"
+                name="activatedAt"
+                label="활동 인정일"
+                value={values.activatedAt}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                errorText={touched.activatedAt && errors.activatedAt ? errors.activatedAt : undefined}
+                required
+              />
+            </div>
             <FileUploader
               name="file"
               label="증빙자료 제출"
               type="file"
-              value={values.file}
-              onChange={handleChange}
-              onBlur={handleBlur}
+              onChange={(e) => e.currentTarget.files && setFieldValue('file', e.currentTarget.files[0])}
               errorText={touched.file && errors.file ? errors.file : undefined}
               required
             />

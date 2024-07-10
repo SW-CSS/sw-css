@@ -88,3 +88,11 @@ export interface MilestoneOverviewDto {
   limitScore: number;
   milestones: Milestone[];
 }
+
+export interface MilestoneHistoryCreateDto {
+  milestoneId: number;
+  description: string;
+  count: number;
+  file?: File;
+  activatedAt: string;
+}

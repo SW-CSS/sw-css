@@ -8,9 +8,9 @@ interface CustomInputProps {
   onChangeText?(text: string): void;
 }
 
-export type FileUploaderProps = BuiltInInputProps & CustomInputProps;
+export type DatePickerProps = BuiltInInputProps & CustomInputProps;
 
-export const FileUploader = ({ isRequired = false, ...props }: FileUploaderProps) => {
+export const DatePicker = ({ isRequired = false, ...props }: DatePickerProps) => {
   const { label, errorText, onChangeText, ...inputProps } = props;
   const hasError = errorText !== undefined;
 
