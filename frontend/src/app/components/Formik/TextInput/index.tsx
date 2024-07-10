@@ -16,7 +16,7 @@ export const TextInput = ({ isRequired = false, ...props }: TextInputProps) => {
   const hasError = errorText !== undefined;
 
   return (
-    <div className="flex flex-col gap-1">
+    <div className="flex flex-grow flex-col gap-1">
       <label htmlFor={inputProps.id || inputProps.name} className="text-sm font-semibold">
         {label} {isRequired && <span className="text-sm font-semibold text-red-400">*</span>}
       </label>

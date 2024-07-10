@@ -125,7 +125,7 @@ const Page = () => {
                 disabled
               />
             </div>
-            <div className="flex">
+            <div className="flex gap-4">
               <TextInput
                 name="description"
                 label="등록 상세 제목"
@@ -136,7 +136,6 @@ const Page = () => {
                 onBlur={handleBlur}
                 errorText={touched.description && errors.description ? errors.description : undefined}
                 required
-                className="flex-grow"
               />
               <DatePicker
                 type="date"
