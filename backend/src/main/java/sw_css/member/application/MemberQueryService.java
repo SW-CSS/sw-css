@@ -1,0 +1,25 @@
+package sw_css.member.application;
+
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+import sw_css.member.application.dto.response.StudentMemberResponse;
+import sw_css.member.domain.StudentMember;
+import sw_css.member.domain.repository.StudentMemberRepository;
+import sw_css.member.exception.MemberException;
+import sw_css.member.exception.MemberExceptionType;
+
+@Service
+@RequiredArgsConstructor
+@Transactional(readOnly = true)
+public class MemberQueryService {
+    private final StudentMemberRepository studentMemberRepository;
+
+    public StudentMemberResponse findStudentMember(final Long memberId) {
+        final StudentMember student = studentMemberRepository.findById(memberId)
+                .orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND_STUDENT));
+        return StudentMemberResponse.from(student);
+    }
+
+}
+
