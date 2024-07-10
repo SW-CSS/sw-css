@@ -1,3 +1,7 @@
+/* eslint-disable @typescript-eslint/indent */
+/* eslint-disable max-len */
+import { FORM_SIZE } from '@/constants';
+
 type BuiltInTextInputProps = React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
 
 interface CustomTextInputProps {
@@ -5,20 +9,21 @@ interface CustomTextInputProps {
   label: string;
   isRequired?: boolean;
   errorText?: string;
+  size?: 'sm' | 'md' | 'lg';
   onKeyDownEnter?(): void;
   onChangeText?(text: string): void;
 }
 
-export type TextInputProps = BuiltInTextInputProps & CustomTextInputProps;
+export type TextInputProps = Omit<BuiltInTextInputProps, 'size'> & CustomTextInputProps;
 
-const TextInput = ({ isRequired = false, ...props }: TextInputProps) => {
+const TextInput = ({ isRequired = false, size = 'md', ...props }: TextInputProps) => {
   const { label, errorText, onKeyDownEnter, onChangeText, ...inputProps } = props;
   const hasError = errorText !== undefined;
 
   return (
     <div className="flex flex-col gap-1">
-      <label htmlFor={inputProps.id || inputProps.name} className="text-sm font-semibold">
-        {label} {isRequired && <span className="text-sm font-semibold text-red-400">*</span>}
+      <label htmlFor={inputProps.name} className={`${FORM_SIZE[size].subTextSize} font-semibold`}>
+        {label} {isRequired && <span className={`${FORM_SIZE[size].subTextSize} font-semibold text-red-400`}>*</span>}
       </label>
       <input
         {...inputProps}
@@ -32,7 +37,7 @@ const TextInput = ({ isRequired = false, ...props }: TextInputProps) => {
           inputProps.onChange?.(e);
           onChangeText?.(e.target.value);
         }}
-        className={`m-0 rounded-sm border-[1px] border-border p-3 text-base ${hasError && 'border-red-400'}`}
+        className={`m-0 rounded-sm border-[1px] border-border ${FORM_SIZE[size].padding} ${FORM_SIZE[size].textSize} ${hasError && 'border-red-400'}`}
       />
       {errorText && <span className="pl-1 text-xs text-red-400">{errorText}</span>}
     </div>
