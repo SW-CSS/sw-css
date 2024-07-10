@@ -96,3 +96,24 @@ export const TEAM_STATUS = {
     text: '모집마감',
   },
 };
+
+export const formSize = {
+  sm: {
+    subTextSize: 'text-xs',
+    textSize: 'text-sm',
+    iconSize: 'text-base',
+    padding: 'p-2',
+  },
+  md: {
+    subTextSize: 'text-sm',
+    textSize: 'text-base',
+    iconSize: 'text-lg',
+    padding: 'p-3',
+  },
+  lg: {
+    subTextSize: 'text-base',
+    textSize: 'text-lg',
+    iconSize: 'text-xl',
+    padding: 'p-4',
+  },
+};
