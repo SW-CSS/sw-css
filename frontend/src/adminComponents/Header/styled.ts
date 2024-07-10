@@ -8,8 +8,10 @@ import { ADMIN_SIDEBAR_WIDTH, COLOR } from '@/adminConstants';
 export const HeaderWrapper = styled.div`
   position: fixed;
   width: 100vw;
+  min-width: 1200px;
   background: ${COLOR.white};
   border-bottom: 2px solid ${COLOR.primary.main};
+  z-index: 1;
 `;
 
 export const HeaderLayout = styled.div`
