@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import { VscChevronDown, VscChevronUp } from 'react-icons/vsc';
 
-import { formSize } from '@/constants';
+import { FORM_SIZE } from '@/constants';
 import useDivSize from '@/lib/hooks/useDivSize';
 
 export interface DropdownOption {
@@ -34,20 +34,20 @@ const Dropdown = ({ isRequired = false, size = 'md', ...props }: DropdownProps) 
 
   return (
     <div className="flex flex-col gap-1">
-      <label htmlFor={dropdownProps.name} className={`${formSize[size].subTextSize} font-semibold`}>
-        {label} {isRequired && <span className={`${formSize[size].subTextSize} font-semibold text-red-400`}>*</span>}
+      <label htmlFor={dropdownProps.name} className={`${FORM_SIZE[size].subTextSize} font-semibold`}>
+        {label} {isRequired && <span className={`${FORM_SIZE[size].subTextSize} font-semibold text-red-400`}>*</span>}
       </label>
       <div className="relative w-full" ref={componentRef}>
         <button
-          className={`m-0 w-full rounded-sm border-[1px] border-border ${formSize[size].padding} text-left ${formSize[size].textSize} ${hasError && 'border-red-400'} ${selectedId <= 0 && 'text-comment'}`}
+          className={`m-0 w-full rounded-sm border-[1px] border-border ${FORM_SIZE[size].padding} text-left ${FORM_SIZE[size].textSize} ${hasError && 'border-red-400'} ${selectedId <= 0 && 'text-comment'}`}
           type="button"
           onClick={() => setIsOpen(true)}
         >
           {selectedValue[0]?.name ?? selectOptionText}
         </button>
-        {isOpen && <VscChevronUp className={`absolute right-2 top-1/2 -translate-y-1/2 ${formSize[size].iconSize}`} />}
+        {isOpen && <VscChevronUp className={`absolute right-2 top-1/2 -translate-y-1/2 ${FORM_SIZE[size].iconSize}`} />}
         {!isOpen && (
-          <VscChevronDown className={`absolute right-2 top-1/2 -translate-y-1/2 ${formSize[size].iconSize}`} />
+          <VscChevronDown className={`absolute right-2 top-1/2 -translate-y-1/2 ${FORM_SIZE[size].iconSize}`} />
         )}
       </div>
       {isOpen && (
@@ -71,7 +71,7 @@ const Dropdown = ({ isRequired = false, size = 'md', ...props }: DropdownProps) 
                 onClick={() => {
                   setFieldValue(dropdownProps.name, option.id);
                 }}
-                className={`block w-full rounded-sm ${formSize[size].padding} text-left ${formSize[size].subTextSize} hover:bg-primary-light`}
+                className={`block w-full rounded-sm ${FORM_SIZE[size].padding} text-left ${FORM_SIZE[size].subTextSize} hover:bg-primary-light`}
               >
                 {option.name}
               </button>

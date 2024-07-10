@@ -97,7 +97,7 @@ export const TEAM_STATUS = {
   },
 };
 
-export const formSize = {
+export const FORM_SIZE = {
   sm: {
     subTextSize: 'text-xs',
     textSize: 'text-sm',
