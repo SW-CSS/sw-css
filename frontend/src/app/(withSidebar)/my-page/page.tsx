@@ -1,10 +1,10 @@
 import SubTitle from '@/components/SubTitle';
 
+import StudentInfoSection from './components/StudentInfoSection';
+
 const Page = () => (
   <div className="flex w-full flex-wrap gap-5">
-    <div className="w-[530px] rounded-sm bg-white p-5">
-      <SubTitle title="내 정보" urlText="수정" url="/my-page/edit" />
-    </div>
+    <StudentInfoSection />
     <div className="w-[380px] rounded-sm bg-white p-5">
       <SubTitle title="내 마일스톤 현황" />
     </div>

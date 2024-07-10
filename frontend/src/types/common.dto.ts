@@ -108,3 +108,15 @@ export interface MemberDto {
   phoneNumber: string;
   career: string;
 }
+
+export interface StudentMemberDto {
+  id: number;
+  email: string;
+  name: string;
+  major: string;
+  minor: string;
+  doubleMajor: string;
+  phoneNumber: string;
+  career: string;
+  careerDetail: string;
+}

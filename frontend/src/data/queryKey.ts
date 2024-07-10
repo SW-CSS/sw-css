@@ -15,4 +15,5 @@ export const QueryKeys = {
     filter: MilestoneHistoryStatus | undefined = undefined,
   ) => ['milestone-histories-of-student', memberId, startDate, endDate, filter],
   MILESTONES: ['milestones'],
+  STUDENTS: (memberId: number) => ['students', memberId],
 };

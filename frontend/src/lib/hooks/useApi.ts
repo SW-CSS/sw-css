@@ -9,6 +9,7 @@ import {
   MilestoneOverviewDto,
   MilestoneScoreDto,
   MilestoneHistoryCreateDto,
+  StudentMemberDto,
 } from '@/types/common.dto';
 import { BusinessError } from '@/types/error';
 
@@ -78,6 +79,16 @@ export function useMilestoneQuery() {
     queryKey: QueryKeys.MILESTONES,
     queryFn: async (): Promise<MilestoneOverviewDto[]> => {
       const response = await client.get('/milestones');
+      return response.data;
+    },
+  });
+}
+
+export function useStudentMemberQuery(memberId: number) {
+  return useAxiosQuery({
+    queryKey: QueryKeys.STUDENTS(memberId),
+    queryFn: async (): Promise<StudentMemberDto[]> => {
+      const response = await client.get(`/members/${memberId}`);
       return response.data;
     },
   });
