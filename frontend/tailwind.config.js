@@ -34,7 +34,7 @@ module.exports = {
         admin: {
           white: '#FFFFFF',
           black: '#333333',
-          comment: '#4E5963',
+          comment: '#898C96',
           border: '#DEE2E6',
           background: {
             light: '#F0F0F0',
@@ -72,6 +72,9 @@ module.exports = {
       },
       width: {
         sign: '500px',
+      },
+      minWidth: {
+        admin: '1150px',
       },
     },
   },
