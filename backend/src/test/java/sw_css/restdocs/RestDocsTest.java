@@ -14,10 +14,12 @@ import org.springframework.restdocs.mockmvc.RestDocumentationResultHandler;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
+import sw_css.admin.member.application.MemberAdminQueryService;
 import sw_css.admin.milestone.application.MilestoneHistoryAdminCommandService;
 import sw_css.admin.milestone.application.MilestoneHistoryAdminQueryService;
 import sw_css.helper.ApiTestHelper;
 import sw_css.major.application.MajorQueryService;
+import sw_css.member.application.MemberQueryService;
 import sw_css.milestone.application.MilestoneHistoryCommandService;
 import sw_css.milestone.application.MilestoneHistoryQueryService;
 import sw_css.milestone.application.MilestoneQueryService;
@@ -43,6 +45,12 @@ public abstract class RestDocsTest extends ApiTestHelper {
 
     @MockBean
     protected MilestoneQueryService milestoneQueryService;
+
+    @MockBean
+    protected MemberQueryService memberQueryService;
+
+    @MockBean
+    protected MemberAdminQueryService memberAdminQueryService;
 
     @Autowired
     protected RestDocumentationResultHandler restDocs;

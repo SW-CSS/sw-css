@@ -2,6 +2,8 @@ package sw_css.member.domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
@@ -38,7 +40,8 @@ public class StudentMember extends BaseEntity {
     private Major doubleMajor;
 
     @Column(nullable = false)
-    private String career;
+    @Enumerated(EnumType.STRING)
+    private CareerType career;
 
     @Column(nullable = false)
     private String careerDetail;
