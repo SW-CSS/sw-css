@@ -96,3 +96,15 @@ export interface MilestoneHistoryCreateDto {
   file?: File;
   activatedAt: string;
 }
+
+export interface MemberDto {
+  id: number;
+  email: string;
+  name: string;
+  studentNumber: number;
+  major: string;
+  minor: string;
+  doubleMajor: string;
+  phoneNumber: string;
+  career: string;
+}

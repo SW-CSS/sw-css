@@ -14,10 +14,6 @@ export const AdminPageWrapper = styled.div`
   width: 100vw;
   min-height: 100vh;
   background-color: ${COLOR.secondary.light};
-  padding-top: ${ADMIN_HEADER_HEIGHT};
+  padding-top: calc(${ADMIN_HEADER_HEIGHT} + 2px);
   padding-left: ${ADMIN_SIDEBAR_WIDTH};
-`;
-
-export const AdminPageLayout = styled.div`
-  min-height: calc(100vh - ${ADMIN_HEADER_HEIGHT} - 50px);
 `;

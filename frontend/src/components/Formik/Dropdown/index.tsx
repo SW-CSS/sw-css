@@ -21,13 +21,14 @@ export interface DropdownProps {
   isRequired?: boolean;
   errorText?: string;
   size?: 'sm' | 'md' | 'lg';
+  isAdmin?: boolean;
 }
 
 const Dropdown = ({ isRequired = false, size = 'md', ...props }: DropdownProps) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [componentRef, divSize] = useDivSize();
 
-  const { label, errorText, options, selectOptionText, selectedId, setFieldValue, ...dropdownProps } = props;
+  const { label, errorText, options, selectOptionText, selectedId, setFieldValue, isAdmin, ...dropdownProps } = props;
   const hasError = errorText != null;
 
   const selectedValue = options.filter((option) => option.id === selectedId);
@@ -41,7 +42,7 @@ const Dropdown = ({ isRequired = false, size = 'md', ...props }: DropdownProps) 
       )}
       <div className="relative w-full" ref={componentRef}>
         <button
-          className={`m-0 w-full rounded-sm border-[1px] border-border bg-white ${FORM_SIZE[size].padding} text-left ${FORM_SIZE[size].textSize} ${hasError && 'border-red-400'} ${selectedId <= 0 && 'text-comment'}`}
+          className={`m-0 w-full rounded-sm border-[1px] ${isAdmin ? 'border-admin-border' : 'border-border'} bg-white ${FORM_SIZE[size].padding} text-left ${FORM_SIZE[size].textSize} ${hasError && 'border-red-400'} ${selectedId <= 0 && 'text-comment'}`}
           type="button"
           onClick={() => setIsOpen(true)}
         >
@@ -73,7 +74,7 @@ const Dropdown = ({ isRequired = false, size = 'md', ...props }: DropdownProps) 
                 onClick={() => {
                   setFieldValue(dropdownProps.name, option.id);
                 }}
-                className={`block w-full rounded-sm ${FORM_SIZE[size].padding} text-left ${FORM_SIZE[size].subTextSize} hover:bg-primary-light`}
+                className={`block w-full rounded-sm ${FORM_SIZE[size].padding} text-left ${FORM_SIZE[size].subTextSize} ${isAdmin ? 'hover:bg-admin-secondary-light' : 'hover:bg-primary-light'}`}
               >
                 {option.name}
               </button>
