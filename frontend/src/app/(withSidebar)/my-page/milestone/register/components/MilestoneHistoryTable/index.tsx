@@ -1,8 +1,10 @@
+/* eslint-disable max-len */
 /* eslint-disable no-alert */
 
 'use client';
 
 import { useQueryClient } from '@tanstack/react-query';
+import { VscInfo } from 'react-icons/vsc';
 
 import { MilestoneHistoryStatus } from '@/data/milestone';
 import { QueryKeys } from '@/data/queryKey';
@@ -19,12 +21,20 @@ const MilestoneHistoryTable = () => {
   const { data: milestoneHistories } = useMilestoneHistoriesOfStudentQuery(202055558);
   const { mutate: delteMilestoneHistory } = useMilestoneHistoryDeleteMutation();
 
-  const getStatusLabel = (status: string) => {
+  const getStatusLabel = (status: string, rejectReason: string | null) => {
     switch (status) {
       case MilestoneHistoryStatus.APPROVED:
         return <span className="rounded-sm bg-green-100 px-2 py-1 text-green-500">승인</span>;
       case MilestoneHistoryStatus.REJECTED:
-        return <span className="rounded-sm bg-red-100 px-2 py-1 text-red-500">반려</span>;
+        return (
+          <div className="relative mx-auto flex w-fit gap-1 rounded-sm bg-red-100 px-2 py-1 text-red-500">
+            <span>반려</span>
+            <VscInfo className="peer h-[14px] w-[14px]" />
+            <div className="absolute left-1/2 top-0 hidden -translate-x-1/2 -translate-y-[calc(100%+4px)] rounded border bg-white p-2 peer-hover:block">
+              {rejectReason}
+            </div>
+          </div>
+        );
       case MilestoneHistoryStatus.PENDING:
         return <span className="rounded-sm bg-gray-100 px-2 py-1 text-gray-500">처리중</span>;
       default:
@@ -63,7 +73,7 @@ const MilestoneHistoryTable = () => {
             <td className="p-2">{milestoneHistory.milestone.score * milestoneHistory.count}</td>
             <td className="p-2">{milestoneHistory.activatedAt}</td>
             <td className="p-2">{milestoneHistory.createdAt.slice(0, 10)}</td>
-            <td className="p-2">{getStatusLabel(milestoneHistory.status)}</td>
+            <td className="p-2">{getStatusLabel(milestoneHistory.status, milestoneHistory.rejectReason)}</td>
             <td className="p-2">
               <button
                 type="button"

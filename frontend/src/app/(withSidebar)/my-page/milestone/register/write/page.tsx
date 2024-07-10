@@ -59,6 +59,9 @@ const Page = () => {
         window.alert('실적 등록에 성공하였습니다.');
         router.push('/my-page/milestone/register');
       },
+      onError: () => {
+        window.alert('실적 등록에 실패하였습니다.');
+      },
     });
   };
 

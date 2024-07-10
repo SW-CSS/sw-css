@@ -65,7 +65,7 @@ export const useMilestoneHistoriesOfStudentQuery = (
 ) =>
   useAxiosQuery({
     queryKey: QueryKeys.MILESTONE_HISTORIES_OF_STUDENT(memberId, startDate, endDate, filter),
-    queryFn: async (): Promise<MilestoneHistoryOfStudentResponseDto[] | null> => {
+    queryFn: async (): Promise<MilestoneHistoryOfStudentResponseDto[]> => {
       const response = await client.get(`/milestones/histories/members/${memberId}`, {
         params: removeEmptyField({ start_date: startDate, end_date: endDate, filter }),
       });
