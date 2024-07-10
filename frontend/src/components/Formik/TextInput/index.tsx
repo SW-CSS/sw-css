@@ -6,7 +6,7 @@ type BuiltInTextInputProps = React.DetailedHTMLProps<React.InputHTMLAttributes<H
 
 interface CustomTextInputProps {
   name: string;
-  label: string;
+  label?: string;
   isRequired?: boolean;
   errorText?: string;
   size?: 'sm' | 'md' | 'lg';
@@ -22,9 +22,11 @@ const TextInput = ({ isRequired = false, size = 'md', ...props }: TextInputProps
 
   return (
     <div className="flex flex-col gap-1">
-      <label htmlFor={inputProps.name} className={`${FORM_SIZE[size].subTextSize} font-semibold`}>
-        {label} {isRequired && <span className={`${FORM_SIZE[size].subTextSize} font-semibold text-red-400`}>*</span>}
-      </label>
+      {label && (
+        <label htmlFor={inputProps.name} className={`${FORM_SIZE[size].subTextSize} font-semibold`}>
+          {label} {isRequired && <span className={`${FORM_SIZE[size].subTextSize} font-semibold text-red-400`}>*</span>}
+        </label>
+      )}
       <input
         {...inputProps}
         onKeyDown={(e) => {
@@ -37,7 +39,7 @@ const TextInput = ({ isRequired = false, size = 'md', ...props }: TextInputProps
           inputProps.onChange?.(e);
           onChangeText?.(e.target.value);
         }}
-        className={`m-0 rounded-sm border-[1px] border-border ${FORM_SIZE[size].padding} ${FORM_SIZE[size].textSize} ${hasError && 'border-red-400'}`}
+        className={`rounded-sm border-[1px] border-border ${FORM_SIZE[size].padding} ${FORM_SIZE[size].textSize} ${hasError && 'border-red-400'}`}
       />
       {errorText && <span className="pl-1 text-xs text-red-400">{errorText}</span>}
     </div>
