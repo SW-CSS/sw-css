@@ -94,7 +94,6 @@ const SignUpSecondPage = ({ initialValues, handlePrevButtonClick, handleSubmitBu
           />
           <TextInput
             name="careerDetail"
-            label=""
             type="text"
             placeholder="진로 상세 계획을 작성해주세요."
             value={values.careerDetail}
