@@ -78,3 +78,15 @@ export interface MilestoneHistoryOfStudentResponseDto {
   activatedAt: string;
   createdAt: string;
 }
+
+export interface MemberDto {
+  id: number;
+  email: string;
+  name: string;
+  studentNumber: number;
+  major: string;
+  minor: string;
+  doubleMajor: string;
+  phoneNumber: string;
+  career: string;
+}
