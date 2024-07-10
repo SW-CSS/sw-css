@@ -87,7 +87,7 @@ export function useMilestoneHistoryCreateMutation() {
   return useAxiosMutation({
     mutationFn: async ({ milestoneId, description, count, file, activatedAt }: MilestoneHistoryCreateDto) => {
       const formdata = new FormData();
-      formdata.append('file', file);
+      formdata.append('file', file!);
       const blob = new Blob([JSON.stringify({ milestoneId, description, count, activatedAt })], {
         type: 'application/json',
       });

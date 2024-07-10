@@ -1,10 +1,11 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect, useState } from 'react';
 
-import { Dropdown, DropdownProps } from '@/app/components/Formik/Dropdown';
+import Dropdown, { DropdownProps } from '@/components/Formik/Dropdown';
 import { useCollegeQuery } from '@/lib/hooks/useApi';
 import { getColleges } from '@/mocks/college';
-import { MajorDto } from '@/types/common.dto';
+import { CollegeDto, MajorDto } from '@/types/common.dto';
 
 export interface MajorDropdownProps extends Omit<DropdownProps, 'options' | 'selectedId' | 'name'> {
   collegeId: number;
@@ -14,23 +15,33 @@ export interface MajorDropdownProps extends Omit<DropdownProps, 'options' | 'sel
 }
 
 const MajorDropdown = ({ ...props }: MajorDropdownProps) => {
-  const colleges = getColleges;
+  const collegesData = getColleges;
   /* TODO: mocks 삭제 및 api 호출
-  const { data: colleges } = useCollegeQuery();
+  const { data: collegesData } = useCollegeQuery();
   */
-
+  const [colleges, setColleges] = useState<CollegeDto[]>([]);
   const [majors, setMajors] = useState<MajorDto[]>([]);
 
   useEffect(() => {
     const filteredMajors = colleges.filter((college) => college.id === props.collegeId);
-    if (filteredMajors.length !== 0 && props.isRequired === undefined) {
-      setMajors([{ id: 0, name: '없습니다.', createdAt: '' }, ...filteredMajors[0].majors]);
-    } else if (filteredMajors.length !== 0) {
+    if (filteredMajors.length !== 0) {
       setMajors(filteredMajors[0].majors);
-    } else if (props.isRequired === undefined) {
-      setMajors([{ id: 0, name: '없습니다.', createdAt: '' }]);
     }
-  }, [colleges, props.isRequired, props.collegeId]);
+    if (props.collegeId === 0) {
+      props.setFieldValue(props.majorName, 0);
+      setMajors([{ id: 0, name: `이수 중인 ${props.label}이 없습니다.`, createdAt: '' }]);
+    }
+  }, [colleges, props.collegeId]);
+
+  useEffect(() => {
+    setColleges(collegesData);
+    if (props.isRequired === undefined) {
+      setColleges((prev) => [
+        { id: 0, name: `이수 중인 ${props.label}이 없습니다.`, createdAt: '', majors: [] },
+        ...prev,
+      ]);
+    }
+  }, []);
 
   return (
     <div className="">
@@ -42,16 +53,15 @@ const MajorDropdown = ({ ...props }: MajorDropdownProps) => {
         selectedId={props.collegeId}
         setFieldValue={props.setFieldValue}
         isRequired
-        errorText={props.errorText ? '필수 입력 값입니다.' : undefined}
+        errorText={props.errorText ? '' : undefined}
       />
       <Dropdown
         name={props.majorName}
-        label=""
         options={majors}
         selectOptionText={props.selectOptionText}
         selectedId={props.majorId}
         setFieldValue={props.setFieldValue}
-        errorText={props.errorText ? '필수 입력 값입니다.' : undefined}
+        errorText={props.errorText}
       />
     </div>
   );
