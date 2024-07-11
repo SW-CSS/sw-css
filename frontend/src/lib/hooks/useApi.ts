@@ -50,7 +50,7 @@ export const useMajorQuery = (collegeId: number) =>
 export const useMilestoneScoresOfStudentQuery = (memberId: number, startDate: string, endDate: string) =>
   useAxiosQuery({
     queryKey: QueryKeys.MILESTONE_SCORES_OF_STUDENT(memberId, startDate, endDate),
-    queryFn: async (): Promise<MilestoneScoreDto[] | null> => {
+    queryFn: async (): Promise<MilestoneScoreDto[]> => {
       const response = await client.get(
         `/milestones/histories/scores/members/${memberId}?start_date=${startDate}&end_date=${endDate}`,
       );
@@ -86,9 +86,19 @@ export function useMilestoneQuery() {
 
 export function useStudentMemberQuery(memberId: number) {
   return useAxiosQuery({
-    queryKey: QueryKeys.STUDENTS(memberId),
-    queryFn: async (): Promise<StudentMemberDto[]> => {
+    queryKey: QueryKeys.STUDENT(memberId),
+    queryFn: async (): Promise<StudentMemberDto> => {
       const response = await client.get(`/members/${memberId}`);
+      return response.data;
+    },
+  });
+}
+
+export function useStudentMembersQuery() {
+  return useAxiosQuery({
+    queryKey: QueryKeys.STUDENTS,
+    queryFn: async (): Promise<StudentMemberDto[]> => {
+      const response = await client.get('/admin/members');
       return response.data;
     },
   });

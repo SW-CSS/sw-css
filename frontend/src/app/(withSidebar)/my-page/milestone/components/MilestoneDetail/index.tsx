@@ -4,15 +4,11 @@ import { useState } from 'react';
 
 import { MilestoneGroup, milestoneGroups } from '@/data/milestone';
 import { useMilestoneScoresOfStudentQuery } from '@/lib/hooks/useApi';
+import { compareByIdAsc } from '@/lib/utils/utils';
 import { Period } from '@/types/common';
-import { MilestoneScoreDto } from '@/types/common.dto';
 
-import { GroupButton, TableRow, TableRowBar, TableRowScore, TableRowTitle, TableRowBarFill } from './styled';
-
-const compareByIdAsc = (a: MilestoneScoreDto, b: MilestoneScoreDto) => {
-  if (a.id > b.id) return 1;
-  return -1;
-};
+import { GroupButton } from './styled';
+import MilestoneRowBarTable from '../../../components/MilestoneRowBarTable';
 
 const MilestoneDetail = ({ startDate, endDate }: Period) => {
   const [selectedGroup, setSelectedGroup] = useState<string>(MilestoneGroup.ACTIVITY);
@@ -31,24 +27,11 @@ const MilestoneDetail = ({ startDate, endDate }: Period) => {
           </GroupButton>
         ))}
       </div>
-      <div style={{ padding: '20px 20px 0 20px' }}>
-        {milestoneScores
+      <MilestoneRowBarTable
+        milestoneScores={milestoneScores
           ?.filter((milestoneScore) => milestoneScore.group === selectedGroup)
-          .sort(compareByIdAsc)
-          .map((milestoneScore) => (
-            <TableRow key={milestoneScore.id}>
-              <TableRowTitle>{milestoneScore.name}</TableRowTitle>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <TableRowBar>
-                  <TableRowBarFill ratio={milestoneScore.score / milestoneScore.limitScore} />
-                </TableRowBar>
-                <TableRowScore>
-                  {milestoneScore.score}/{milestoneScore.limitScore}
-                </TableRowScore>
-              </div>
-            </TableRow>
-          ))}
-      </div>
+          .sort(compareByIdAsc)}
+      />
     </div>
   );
 };

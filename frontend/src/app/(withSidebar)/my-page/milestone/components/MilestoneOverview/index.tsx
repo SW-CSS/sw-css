@@ -3,6 +3,7 @@ import { useMemo } from 'react';
 
 import MilestoneChart from '@/components/MilestoneChart';
 import MilestoneTable from '@/components/MilestoneTable';
+import { initialMilestoneOverview } from '@/data/milestone';
 import { useMilestoneScoresOfStudentQuery } from '@/lib/hooks/useApi';
 import { Period } from '@/types/common';
 import { MilestoneOverviewScore } from '@/types/milestone';
@@ -10,12 +11,6 @@ import { MilestoneOverviewScore } from '@/types/milestone';
 import { MilestoneWrapper } from './styled';
 import MilestoneDetail from '../MilestoneDetail';
 
-const initialData: MilestoneOverviewScore = {
-  activityScore: 0,
-  globalScore: 0,
-  communityScore: 0,
-  totalScore: 0,
-};
 interface MilestoneOverviewProps {
   searchFilterPeriod: Period;
 }
@@ -35,8 +30,8 @@ const MilestoneOverview = ({ searchFilterPeriod }: MilestoneOverviewProps) => {
           acc.totalScore += cur.score;
           return acc;
         },
-        { ...initialData },
-      ) || initialData,
+        { ...initialMilestoneOverview },
+      ) || initialMilestoneOverview,
     [milestoneScoresOfStudent],
   );
   return (
