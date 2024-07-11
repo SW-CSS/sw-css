@@ -15,17 +15,25 @@ import { MilestoneInfoType, initialMilestoneOverview, milestoneInfoTypes } from 
 import { useAppSelector } from '@/lib/hooks/redux';
 import { useMilestoneScoresOfStudentQuery } from '@/lib/hooks/useApi';
 import { compareByIdAsc } from '@/lib/utils/utils';
+import { Period } from '@/types/common';
 import { MilestoneOverviewScore } from '@/types/milestone';
 
+import MilestoneHistoryTable from '../../milestone/components/MilestoneHistoryTable';
 import MilestoneRowBarTable from '../MilestoneRowBarTable';
 
 const MilestoneSection = () => {
   // TODO - auth에 학번 정보 저장하도록 하기
   const auth = useAppSelector((state) => state.auth).value;
-  const startDate = DateTime.now().minus({ years: 1 }).toFormat('yyyy-MM-dd');
-  const endDate = DateTime.now().toFormat('yyyy-MM-dd');
+  const searchFilterPeriod: Period = {
+    startDate: DateTime.now().minus({ years: 1 }).toFormat('yyyy-MM-dd'),
+    endDate: DateTime.now().toFormat('yyyy-MM-dd'),
+  };
   const [selectedInfoType, setSelectedInfoType] = useState<MilestoneInfoType>(MilestoneInfoType.TOTAL);
-  const { data: milestoneScores } = useMilestoneScoresOfStudentQuery(202055558, startDate, endDate);
+  const { data: milestoneScores } = useMilestoneScoresOfStudentQuery(
+    202055558,
+    searchFilterPeriod.startDate,
+    searchFilterPeriod.endDate,
+  );
   const milestoneOverviewScore: MilestoneOverviewScore = useMemo(
     () =>
       milestoneScores?.reduce<MilestoneOverviewScore>(
@@ -39,12 +47,13 @@ const MilestoneSection = () => {
       ) || initialMilestoneOverview,
     [milestoneScores],
   );
+  // TODO - 컴포넌트 단위로 분리하기
   return (
     <div className="w-[630px] rounded-sm bg-white p-5">
       <SubTitle title="내 마일스톤 상세" urlText="전체보기" url="/my-page/milestone" />
       <div className="my-5 flex items-center justify-end gap-2">
-        <span className="rounded-lg bg-border px-4 py-1">{startDate}</span>~
-        <span className="rounded-lg bg-border px-4 py-1">{endDate}</span>
+        <span className="rounded-lg bg-border px-4 py-1">{searchFilterPeriod.startDate}</span>~
+        <span className="rounded-lg bg-border px-4 py-1">{searchFilterPeriod.endDate}</span>
       </div>
       <div className="flex">
         {milestoneInfoTypes.map((type) => (
@@ -77,7 +86,12 @@ const MilestoneSection = () => {
           />
         </div>
       )}
-      {selectedInfoType === MilestoneInfoType.HISTORY && <>aaa</>}
+      {selectedInfoType === MilestoneInfoType.HISTORY && (
+        <div className="p-4">
+          {/* TODO - 페이지네이션 */}
+          <MilestoneHistoryTable searchFilterPeriod={searchFilterPeriod} />
+        </div>
+      )}
     </div>
   );
 };
