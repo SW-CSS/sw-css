@@ -2,7 +2,7 @@ export const COLOR = {
   white: '#FFFFFF',
   black_text: '#333333',
   comment: '#4E5963',
-  border: '#EAF1F8',
+  border: '#DEE2E6',
   background: {
     light: '#F0F0F0',
     base: '#B0B0B0',

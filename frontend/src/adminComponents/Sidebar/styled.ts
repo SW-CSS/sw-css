@@ -12,6 +12,7 @@ export const SidebarWrapper = styled.div`
   margin-top: calc(${ADMIN_HEADER_HEIGHT} + 2px);
   box-shadow: 0px 0px 7px 0px rgba(0, 0, 0, 0.3);
   background-color: ${COLOR.white};
+  z-index: 1;
 `;
 
 export const SidebarLayout = styled.div`

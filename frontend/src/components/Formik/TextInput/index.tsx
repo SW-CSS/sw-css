@@ -10,6 +10,7 @@ interface CustomTextInputProps {
   isRequired?: boolean;
   errorText?: string;
   size?: 'sm' | 'md' | 'lg';
+  isAdmin?: boolean;
   onKeyDownEnter?(): void;
   onChangeText?(text: string): void;
 }
@@ -17,7 +18,7 @@ interface CustomTextInputProps {
 export type TextInputProps = Omit<BuiltInTextInputProps, 'size'> & CustomTextInputProps;
 
 const TextInput = ({ isRequired = false, size = 'md', ...props }: TextInputProps) => {
-  const { label, errorText, onKeyDownEnter, onChangeText, ...inputProps } = props;
+  const { label, errorText, onKeyDownEnter, onChangeText, isAdmin, ...inputProps } = props;
   const hasError = errorText !== undefined;
 
   return (
@@ -39,7 +40,7 @@ const TextInput = ({ isRequired = false, size = 'md', ...props }: TextInputProps
           inputProps.onChange?.(e);
           onChangeText?.(e.target.value);
         }}
-        className={`rounded-sm border-[1px] border-border ${FORM_SIZE[size].padding} ${FORM_SIZE[size].textSize} ${hasError && 'border-red-400'}`}
+        className={`rounded-sm border-[1px] outline-none ${isAdmin ? 'border-admin-border' : 'border-border'} ${FORM_SIZE[size].padding} ${FORM_SIZE[size].textSize} ${hasError && 'border-red-400'}`}
       />
       {errorText && <span className="pl-1 text-xs text-red-400">{errorText}</span>}
     </div>
