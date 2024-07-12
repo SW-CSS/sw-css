@@ -22,7 +22,7 @@ const MemberTable = ({ members }: { members: MemberDto[] }) => (
               <span className="text-xs text-admin-comment">@pusan.ac.kr</span>
             </td>
             <td className="font-semibold">{member.name}</td>
-            <td>{member.studentNumber}</td>
+            <td>{member.id}</td>
             <td>{member.major}</td>
             <td>{member.minor}</td>
             <td>{member.doubleMajor}</td>

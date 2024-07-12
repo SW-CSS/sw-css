@@ -83,7 +83,6 @@ export interface MemberDto {
   id: number;
   email: string;
   name: string;
-  studentNumber: number;
   major: string;
   minor: string;
   doubleMajor: string;
