@@ -83,9 +83,13 @@ export interface MemberDto {
   id: number;
   email: string;
   name: string;
+  phoneNumber: string;
+}
+
+export interface StudentMemberDto extends MemberDto {
   major: string;
   minor: string;
   doubleMajor: string;
-  phoneNumber: string;
   career: string;
+  careerDetail: string;
 }

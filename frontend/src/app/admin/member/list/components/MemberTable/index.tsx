@@ -1,6 +1,6 @@
-import { MemberDto } from '@/types/common.dto';
+import { StudentMemberDto } from '@/types/common.dto';
 
-const MemberTable = ({ members }: { members: MemberDto[] }) => (
+const MemberTable = ({ members }: { members: StudentMemberDto[] }) => (
   <table className="my-4 w-full table-fixed text-center text-sm [&_*]:cursor-default">
     <thead className="border-y-2 border-admin-border [&_th]:p-2">
       <th className="w-[100px]">이메일</th>
@@ -27,7 +27,9 @@ const MemberTable = ({ members }: { members: MemberDto[] }) => (
             <td>{member.minor}</td>
             <td>{member.doubleMajor}</td>
             <td>{member.phoneNumber}</td>
-            <td className="overflow-hidden text-ellipsis whitespace-nowrap hover:whitespace-normal">{member.career}</td>
+            <td className="overflow-hidden text-ellipsis whitespace-nowrap hover:whitespace-normal">
+              {member.careerDetail}
+            </td>
           </tr>
         );
       })}
