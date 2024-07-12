@@ -89,7 +89,7 @@ const MilestoneSection = () => {
       {selectedInfoType === MilestoneInfoType.HISTORY && (
         <div className="p-4">
           {/* TODO - 페이지네이션 */}
-          <MilestoneHistoryTable searchFilterPeriod={searchFilterPeriod} />
+          <MilestoneHistoryTable searchFilterPeriod={searchFilterPeriod} size={5} />
         </div>
       )}
     </div>

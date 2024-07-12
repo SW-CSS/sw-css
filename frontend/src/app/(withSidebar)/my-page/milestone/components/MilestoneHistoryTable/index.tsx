@@ -24,9 +24,10 @@ const getLabelText = (group: string) => {
 
 interface MilestoneHistoryTableProps {
   searchFilterPeriod: Period;
+  size?: number;
 }
 
-const MilestoneHistoryTable = ({ searchFilterPeriod }: MilestoneHistoryTableProps) => {
+const MilestoneHistoryTable = ({ searchFilterPeriod, size }: MilestoneHistoryTableProps) => {
   const { data: milestoneHistoriesOfStudent } = useMilestoneHistoriesOfStudentQuery(
     202055558,
     searchFilterPeriod.startDate,
@@ -44,20 +45,23 @@ const MilestoneHistoryTable = ({ searchFilterPeriod }: MilestoneHistoryTableProp
         </tr>
       </thead>
       <tbody className="border-y-2 border-black text-sm">
-        {milestoneHistoriesOfStudent?.sort(compareByActivateDateAsc).map((milestoneHistory) => (
-          <tr key={milestoneHistory.id} className="flex border-b border-border text-center">
-            <td className="max-w-[calc(100%-273px)] flex-grow p-[10px] text-left">{milestoneHistory.description}</td>
-            <td className="w-20 p-[10px]">
-              <span
-                className={`rounded-sm px-2 py-[2px] text-xs ${milestoneHistory.milestone.categoryGroup === MilestoneGroup.ACTIVITY && 'bg-milestone-blue-light text-milestone-blue-dark'} ${milestoneHistory.milestone.categoryGroup === MilestoneGroup.GLOBAL && 'bg-milestone-green-light text-milestone-green-dark'} ${milestoneHistory.milestone.categoryGroup === MilestoneGroup.COMMUNITY && 'bg-milestone-purple-light text-milestone-green-dark'} `}
-              >
-                {getLabelText(milestoneHistory.milestone.categoryGroup)}
-              </span>
-            </td>
-            <td className="w-20 p-[10px]">{milestoneHistory.milestone.score * milestoneHistory.count}</td>
-            <td className="w-[112px] p-[10px]">{milestoneHistory.activatedAt.slice(0, 10)}</td>
-          </tr>
-        ))}
+        {milestoneHistoriesOfStudent
+          ?.sort(compareByActivateDateAsc)
+          .slice(0, size)
+          .map((milestoneHistory) => (
+            <tr key={milestoneHistory.id} className="flex border-b border-border text-center">
+              <td className="max-w-[calc(100%-273px)] flex-grow p-[10px] text-left">{milestoneHistory.description}</td>
+              <td className="w-20 p-[10px]">
+                <span
+                  className={`rounded-sm px-2 py-[2px] text-xs ${milestoneHistory.milestone.categoryGroup === MilestoneGroup.ACTIVITY && 'bg-milestone-blue-light text-milestone-blue-dark'} ${milestoneHistory.milestone.categoryGroup === MilestoneGroup.GLOBAL && 'bg-milestone-green-light text-milestone-green-dark'} ${milestoneHistory.milestone.categoryGroup === MilestoneGroup.COMMUNITY && 'bg-milestone-purple-light text-milestone-green-dark'} `}
+                >
+                  {getLabelText(milestoneHistory.milestone.categoryGroup)}
+                </span>
+              </td>
+              <td className="w-20 p-[10px]">{milestoneHistory.milestone.score * milestoneHistory.count}</td>
+              <td className="w-[112px] p-[10px]">{milestoneHistory.activatedAt.slice(0, 10)}</td>
+            </tr>
+          ))}
       </tbody>
     </table>
   );

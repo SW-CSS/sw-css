@@ -6,7 +6,7 @@ interface StudentInfoLabelProps {
 }
 
 const StudentInfoLabel = ({ label, value }: StudentInfoLabelProps) => (
-  <p className="flex">
+  <p className="flex flex-grow">
     <span className="mr-4 w-[4em]">{label}</span>
     <b>{value}</b>
   </p>

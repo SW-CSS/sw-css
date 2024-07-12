@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable implicit-arrow-linebreak */
 
 // 빈 파라미터를 제거하는 유틸함수
