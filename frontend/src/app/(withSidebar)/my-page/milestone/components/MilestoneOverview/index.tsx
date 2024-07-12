@@ -10,14 +10,16 @@ import { MilestoneOverviewScore } from '@/types/milestone';
 
 import { MilestoneWrapper } from './styled';
 import MilestoneDetail from '../MilestoneDetail';
+import { useAppSelector } from '@/lib/hooks/redux';
 
 interface MilestoneOverviewProps {
   searchFilterPeriod: Period;
 }
 
 const MilestoneOverview = ({ searchFilterPeriod }: MilestoneOverviewProps) => {
+  const auth = useAppSelector((state) => state.auth).value;
   const { data: milestoneScoresOfStudent } = useMilestoneScoresOfStudentQuery(
-    202055558,
+    auth.uid,
     searchFilterPeriod.startDate,
     searchFilterPeriod.endDate,
   );

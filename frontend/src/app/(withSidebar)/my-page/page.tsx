@@ -1,8 +1,8 @@
 import SubTitle from '@/components/SubTitle';
 
+import MilestoneHistorySection from './components/MilestoneHistorySection';
 import MilestoneSection from './components/MilestoneSection';
 import StudentInfoSection from './components/StudentInfoSection';
-import MilestoneHistorySection from './components/MilestoneHistorySection';
 
 const Page = () => (
   <div className="flex w-full flex-wrap gap-5">

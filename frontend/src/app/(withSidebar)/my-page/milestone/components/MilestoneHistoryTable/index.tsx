@@ -1,5 +1,6 @@
 /* eslint-disable max-len */
 import { MilestoneGroup, MilestoneHistoryStatus } from '@/data/milestone';
+import { useAppSelector } from '@/lib/hooks/redux';
 import { useMilestoneHistoriesOfStudentQuery } from '@/lib/hooks/useApi';
 import { Period } from '@/types/common';
 import { MilestoneHistoryOfStudentResponseDto } from '@/types/common.dto';
@@ -28,8 +29,9 @@ interface MilestoneHistoryTableProps {
 }
 
 const MilestoneHistoryTable = ({ searchFilterPeriod, size }: MilestoneHistoryTableProps) => {
+  const auth = useAppSelector((state) => state.auth).value;
   const { data: milestoneHistoriesOfStudent } = useMilestoneHistoriesOfStudentQuery(
-    202055558,
+    auth.uid,
     searchFilterPeriod.startDate,
     searchFilterPeriod.endDate,
     MilestoneHistoryStatus.APPROVED,

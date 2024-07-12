@@ -15,7 +15,7 @@ const MilestoneHistorySection = () => {
   // TODO - auth에 학번 정보 저장하도록 하기
   const auth = useAppSelector((state) => state.auth).value;
 
-  const { data: milestoneHistoriesOfStudent } = useMilestoneHistoriesOfStudentQuery(202055558);
+  const { data: milestoneHistoriesOfStudent } = useMilestoneHistoriesOfStudentQuery(auth.uid);
 
   return (
     <div className="w-[280px] rounded-sm bg-white p-5">

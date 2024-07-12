@@ -22,7 +22,6 @@ import MilestoneHistoryTable from '../../milestone/components/MilestoneHistoryTa
 import MilestoneRowBarTable from '../MilestoneRowBarTable';
 
 const MilestoneSection = () => {
-  // TODO - auth에 학번 정보 저장하도록 하기
   const auth = useAppSelector((state) => state.auth).value;
   const searchFilterPeriod: Period = {
     startDate: DateTime.now().minus({ years: 1 }).toFormat('yyyy-MM-dd'),
@@ -30,7 +29,7 @@ const MilestoneSection = () => {
   };
   const [selectedInfoType, setSelectedInfoType] = useState<MilestoneInfoType>(MilestoneInfoType.TOTAL);
   const { data: milestoneScores } = useMilestoneScoresOfStudentQuery(
-    202055558,
+    auth.uid,
     searchFilterPeriod.startDate,
     searchFilterPeriod.endDate,
   );

@@ -10,9 +10,9 @@ import { appendDashPhoneNumber, convertCareer } from '@/lib/utils/utils';
 import StudentInfoLabel from './StudentInfoLabel';
 
 const StudentInfoSection = () => {
-  // TODO - auth에 학번 정보 저장하도록 하기
+  // TODO - 관리자가 로그인한 경우에 대한 처린
   const auth = useAppSelector((state) => state.auth).value;
-  const { data: member } = useStudentMemberQuery(202055558);
+  const { data: member } = useStudentMemberQuery(auth.uid);
   return (
     <div className="flex-grow rounded-sm bg-white p-5">
       <SubTitle title="내 정보" urlText="수정" url="/my-page/edit" />

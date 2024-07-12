@@ -9,10 +9,12 @@ import { Period } from '@/types/common';
 
 import { GroupButton } from './styled';
 import MilestoneRowBarTable from '../../../components/MilestoneRowBarTable';
+import { useAppSelector } from '@/lib/hooks/redux';
 
 const MilestoneDetail = ({ startDate, endDate }: Period) => {
+  const auth = useAppSelector((state) => state.auth).value;
   const [selectedGroup, setSelectedGroup] = useState<string>(MilestoneGroup.ACTIVITY);
-  const { data: milestoneScores } = useMilestoneScoresOfStudentQuery(202055558, startDate, endDate);
+  const { data: milestoneScores } = useMilestoneScoresOfStudentQuery(auth.uid, startDate, endDate);
 
   return (
     <div style={{ display: 'flex', flexGrow: '1', flexDirection: 'column' }}>
