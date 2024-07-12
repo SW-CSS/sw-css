@@ -54,7 +54,7 @@ const SearchBox = ({ initialValues, fieldCategories }: SearchBoxProps) => {
             isAdmin
           />
           <button
-            className={`bg-admin-secondary-dark rounded-sm ${FORM_SIZE.sm.textSize} text-white`}
+            className={`rounded-sm bg-admin-secondary-dark ${FORM_SIZE.sm.textSize} text-white`}
             type="submit"
             disabled={isSubmitting}
           >
