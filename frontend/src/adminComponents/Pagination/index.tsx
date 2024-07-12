@@ -26,7 +26,7 @@ const Pagination = ({ currentPage, totalItems, pathname, query }: PaginationProp
   const nextPage = totalPageCount >= nextPageCalc ? nextPageCalc : totalPageCount;
 
   return (
-    <div className="[&>*]:border-admin-border flex w-full justify-center gap-4 [&>*]:rounded-sm [&>*]:border-[1px]">
+    <div className="flex w-full justify-center gap-4 [&>*]:rounded-sm [&>*]:border-[1px] [&>*]:border-admin-border">
       <Link href={{ pathname, query: { ...queries, page: prevPage } }} className="h-8 w-8 p-1">
         <VscChevronLeft className="h-full w-full text-base" />
       </Link>
