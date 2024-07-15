@@ -60,8 +60,10 @@ public class MilestoneHistoryAdminController {
     @GetMapping("/scores")
     public ResponseEntity<List<MilestoneScoreResponse>> findAllMilestoneHistoryScores(
             @RequestParam(value = "start_date") final String startDate,
-            @RequestParam(value = "end_date") final String endDate) {
+            @RequestParam(value = "end_date") final String endDate,
+            @RequestParam(value = "page", required = false, defaultValue = "0") final String page,
+            @RequestParam(value = "size", required = false, defaultValue = "10") final String size) {
         return ResponseEntity.ok(
-                milestoneHistoryAdminQueryService.findAllMilestoneHistoryScores(startDate, endDate));
+                milestoneHistoryAdminQueryService.findAllMilestoneHistoryScores(startDate, endDate, page, size));
     }
 }

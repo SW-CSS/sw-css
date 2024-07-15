@@ -220,7 +220,7 @@ public class MilestoneHistoryAdminApiDocsTest extends RestDocsTest {
         final String endDate = "2024-06-08";
 
         //when
-        when(milestoneHistoryAdminQueryService.findAllMilestoneHistoryScores(startDate, endDate)).thenReturn(
+        when(milestoneHistoryAdminQueryService.findAllMilestoneHistoryScores(startDate, endDate, "0", "10")).thenReturn(
                 response);
 
         //then
