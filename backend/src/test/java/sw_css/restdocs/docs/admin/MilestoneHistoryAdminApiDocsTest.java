@@ -194,8 +194,6 @@ public class MilestoneHistoryAdminApiDocsTest extends RestDocsTest {
                 fieldWithPath("[].milestoneScores[].id").type(JsonFieldType.NUMBER).description("마일스톤 카테고리 id"),
                 fieldWithPath("[].milestoneScores[].name").type(JsonFieldType.STRING).description("마일스톤 카테고리 이름"),
                 fieldWithPath("[].milestoneScores[].group").type(JsonFieldType.STRING).description("마일스톤 카테고리 유형"),
-                fieldWithPath("[].milestoneScores[].limitScore").type(JsonFieldType.NUMBER)
-                        .description("마일스톤 카테고리 최대 점수"),
                 fieldWithPath("[].milestoneScores[].score").type(JsonFieldType.NUMBER).description("마일스톤 점수")
         );
 
