@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 /* eslint-disable max-len */
 import Link from 'next/link';
 import { VscChevronLeft, VscChevronRight } from 'react-icons/vsc';

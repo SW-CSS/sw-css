@@ -3,13 +3,7 @@ import { MilestoneGroup, MilestoneHistoryStatus } from '@/data/milestone';
 import { useAppSelector } from '@/lib/hooks/redux';
 import { useMilestoneHistoriesOfStudentQuery } from '@/lib/hooks/useApi';
 import { Period } from '@/types/common';
-import { MilestoneHistoryOfStudentResponseDto } from '@/types/common.dto';
 import { MilestoneHistorySortCriteria, SortDirection } from '@/types/milestone';
-
-const compareByActivateDateAsc = (a: MilestoneHistoryOfStudentResponseDto, b: MilestoneHistoryOfStudentResponseDto) => {
-  if (a.activatedAt > b.activatedAt) return 1;
-  return -1;
-};
 
 const getLabelText = (group: string) => {
   switch (group) {
