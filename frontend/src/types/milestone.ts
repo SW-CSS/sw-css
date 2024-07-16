@@ -18,3 +18,14 @@ export interface MilestoneCategory {
   group: string;
   limitScore: number;
 }
+
+export enum MilestoneHistorySortCriteria {
+  ACTIVATED_AT = 'ACTIVATED_AT',
+  CREATED_AT = 'CREATED_AT',
+  STATUS = 'STATUS',
+}
+
+export enum SortDirection {
+  ASC = 'ASC',
+  DESC = 'DESC',
+}

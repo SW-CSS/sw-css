@@ -12,6 +12,7 @@ import {
   StudentMemberDto,
 } from '@/types/common.dto';
 import { BusinessError } from '@/types/error';
+import { MilestoneHistorySortCriteria, SortDirection } from '@/types/milestone';
 
 import { removeEmptyField } from '../utils/utils';
 
@@ -63,12 +64,33 @@ export const useMilestoneHistoriesOfStudentQuery = (
   startDate: string | undefined = undefined,
   endDate: string | undefined = undefined,
   filter: MilestoneHistoryStatus | undefined = undefined,
+  sortBy: MilestoneHistorySortCriteria | undefined = undefined,
+  sortDirection: SortDirection | undefined = undefined,
+  page: number = 0,
+  size: number = 10,
 ) =>
   useAxiosQuery({
-    queryKey: QueryKeys.MILESTONE_HISTORIES_OF_STUDENT(memberId, startDate, endDate, filter),
+    queryKey: QueryKeys.MILESTONE_HISTORIES_OF_STUDENT(
+      memberId,
+      startDate,
+      endDate,
+      filter,
+      sortBy,
+      sortDirection,
+      page,
+      size,
+    ),
     queryFn: async (): Promise<MilestoneHistoryOfStudentResponseDto[]> => {
       const response = await client.get(`/milestones/histories/members/${memberId}`, {
-        params: removeEmptyField({ start_date: startDate, end_date: endDate, filter }),
+        params: removeEmptyField({
+          start_date: startDate,
+          end_date: endDate,
+          filter,
+          sort_by: sortBy,
+          sort_direction: sortDirection,
+          page,
+          size,
+        }),
       });
       return response?.data;
     },

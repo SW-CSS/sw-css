@@ -46,7 +46,7 @@ const MilestoneSection = () => {
       ) || initialMilestoneOverview,
     [milestoneScores],
   );
-  // TODO - 컴포넌트 단위로 분리하기
+
   return (
     <div className="w-[630px] rounded-sm bg-white p-5">
       <SubTitle title="내 마일스톤 상세" urlText="전체보기" url="/my-page/milestone" />
@@ -66,16 +66,16 @@ const MilestoneSection = () => {
           </button>
         ))}
       </div>
-      {selectedInfoType === MilestoneInfoType.TOTAL && (
-        <div className="flex py-10">
-          <MilestoneChart chartSize={180} fontSize="lg" milestoneOverviewScore={milestoneOverviewScore} />
-          <MilestoneTable milestoneOverviewScore={milestoneOverviewScore} />
-        </div>
-      )}
-      {(selectedInfoType === MilestoneInfoType.ACTIVITY ||
-        selectedInfoType === MilestoneInfoType.GLOBAL ||
-        selectedInfoType === MilestoneInfoType.COMMUNITY) && (
-        <div className="p-5 pb-0">
+      <div className="p-4">
+        {selectedInfoType === MilestoneInfoType.TOTAL && (
+          <div className="flex py-10">
+            <MilestoneChart chartSize={180} fontSize="lg" milestoneOverviewScore={milestoneOverviewScore} />
+            <MilestoneTable milestoneOverviewScore={milestoneOverviewScore} />
+          </div>
+        )}
+        {(selectedInfoType === MilestoneInfoType.ACTIVITY ||
+          selectedInfoType === MilestoneInfoType.GLOBAL ||
+          selectedInfoType === MilestoneInfoType.COMMUNITY) && (
           <MilestoneRowBarTable
             milestoneScores={
               milestoneScores
@@ -83,14 +83,11 @@ const MilestoneSection = () => {
                 .sort(compareByIdAsc) ?? []
             }
           />
-        </div>
-      )}
-      {selectedInfoType === MilestoneInfoType.HISTORY && (
-        <div className="p-4">
-          {/* TODO - 페이지네이션 */}
-          <MilestoneHistoryTable searchFilterPeriod={searchFilterPeriod} size={5} />
-        </div>
-      )}
+        )}
+        {selectedInfoType === MilestoneInfoType.HISTORY && (
+          <MilestoneHistoryTable searchFilterPeriod={searchFilterPeriod} page={0} size={5} />
+        )}
+      </div>
     </div>
   );
 };

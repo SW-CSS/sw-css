@@ -1,3 +1,5 @@
+import { MilestoneHistorySortCriteria, SortDirection } from '@/types/milestone';
+
 import { MilestoneHistoryStatus } from './milestone';
 
 export const QueryKeys = {
@@ -13,7 +15,11 @@ export const QueryKeys = {
     startDate: string | undefined = undefined,
     endDate: string | undefined = undefined,
     filter: MilestoneHistoryStatus | undefined = undefined,
-  ) => ['milestone-histories-of-student', memberId, startDate, endDate, filter],
+    sortBy: MilestoneHistorySortCriteria | undefined = undefined,
+    sortDirection: SortDirection | undefined = undefined,
+    page: number = 0,
+    size: number = 10,
+  ) => ['milestone-histories-of-student', memberId, startDate, endDate, filter, sortBy, sortDirection, page, size],
   MILESTONES: ['milestones'],
   STUDENT: (memberId: number) => ['student', memberId],
   STUDENTS: ['students'],
