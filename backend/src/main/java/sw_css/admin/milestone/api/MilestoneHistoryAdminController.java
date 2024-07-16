@@ -4,6 +4,8 @@ import jakarta.validation.Valid;
 import java.net.URI;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,8 +35,8 @@ public class MilestoneHistoryAdminController {
     // TODO 관리자만 호출할 수 있도록 권한 설정
 
     @GetMapping
-    public ResponseEntity<List<MilestoneHistoryResponse>> findAllMilestoneHistory() {
-        return ResponseEntity.ok(milestoneHistoryAdminQueryService.findAllMilestoneHistories());
+    public ResponseEntity<Page<MilestoneHistoryResponse>> findAllMilestoneHistory(final Pageable pageable) {
+        return ResponseEntity.ok(milestoneHistoryAdminQueryService.findAllMilestoneHistories(pageable));
     }
 
     @PostMapping
