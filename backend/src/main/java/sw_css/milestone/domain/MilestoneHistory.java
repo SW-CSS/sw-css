@@ -43,6 +43,7 @@ import sw_css.milestone.exception.MilestoneHistoryExceptionType;
                         @ColumnResult(name = "categoryId", type = Long.class),
                         @ColumnResult(name = "categoryName", type = String.class),
                         @ColumnResult(name = "milestoneGroup", type = MilestoneGroup.class),
+                        @ColumnResult(name = "limitScore", type = Integer.class),
                         @ColumnResult(name = "score", type = Integer.class)
                 }
         ))
