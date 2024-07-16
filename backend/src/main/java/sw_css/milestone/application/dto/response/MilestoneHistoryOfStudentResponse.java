@@ -3,7 +3,8 @@ package sw_css.milestone.application.dto.response;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import sw_css.milestone.domain.MilestoneHistory;
 import sw_css.milestone.domain.MilestoneStatus;
 
@@ -20,8 +21,8 @@ public record MilestoneHistoryOfStudentResponse(
         @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
         LocalDateTime createdAt
 ) {
-    public static List<MilestoneHistoryOfStudentResponse> from(List<MilestoneHistory> milestoneHistories) {
-        return milestoneHistories.stream()
+    public static Page<MilestoneHistoryOfStudentResponse> from(final Page<MilestoneHistory> milestoneHistories) {
+        return new PageImpl<>(milestoneHistories.stream()
                 .map(milestoneHistory -> new MilestoneHistoryOfStudentResponse(
                         milestoneHistory.getId(),
                         MilestoneReferenceResponse.from(milestoneHistory.getMilestone()),
@@ -33,6 +34,6 @@ public record MilestoneHistoryOfStudentResponse(
                         milestoneHistory.getActivatedAt(),
                         milestoneHistory.getCreatedAt()
                 ))
-                .toList();
+                .toList());
     }
 }

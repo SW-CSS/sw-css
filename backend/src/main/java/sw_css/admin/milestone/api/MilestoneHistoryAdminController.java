@@ -2,8 +2,9 @@ package sw_css.admin.milestone.api;
 
 import jakarta.validation.Valid;
 import java.net.URI;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,8 +34,8 @@ public class MilestoneHistoryAdminController {
     // TODO 관리자만 호출할 수 있도록 권한 설정
 
     @GetMapping
-    public ResponseEntity<List<MilestoneHistoryResponse>> findAllMilestoneHistory() {
-        return ResponseEntity.ok(milestoneHistoryAdminQueryService.findAllMilestoneHistories());
+    public ResponseEntity<Page<MilestoneHistoryResponse>> findAllMilestoneHistory(final Pageable pageable) {
+        return ResponseEntity.ok(milestoneHistoryAdminQueryService.findAllMilestoneHistories(pageable));
     }
 
     @PostMapping
@@ -58,10 +59,11 @@ public class MilestoneHistoryAdminController {
     }
 
     @GetMapping("/scores")
-    public ResponseEntity<List<MilestoneScoreResponse>> findAllMilestoneHistoryScores(
+    public ResponseEntity<Page<MilestoneScoreResponse>> findAllMilestoneHistoryScores(
             @RequestParam(value = "start_date") final String startDate,
-            @RequestParam(value = "end_date") final String endDate) {
+            @RequestParam(value = "end_date") final String endDate,
+            final Pageable pageable) {
         return ResponseEntity.ok(
-                milestoneHistoryAdminQueryService.findAllMilestoneHistoryScores(startDate, endDate));
+                milestoneHistoryAdminQueryService.findAllMilestoneHistoryScores(startDate, endDate, pageable));
     }
 }

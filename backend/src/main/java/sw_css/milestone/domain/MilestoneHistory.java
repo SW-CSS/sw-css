@@ -1,6 +1,8 @@
 package sw_css.milestone.domain;
 
 import jakarta.persistence.Column;
+import jakarta.persistence.ColumnResult;
+import jakarta.persistence.ConstructorResult;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
@@ -10,6 +12,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.SqlResultSetMapping;
 import java.time.LocalDate;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -18,6 +21,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
 import sw_css.admin.milestone.domain.MilestoneHistoryExcelData;
+import sw_css.admin.milestone.persistence.StudentAndMilestoneScoreInfo;
 import sw_css.base.BaseEntity;
 import sw_css.member.domain.StudentMember;
 import sw_css.milestone.exception.MilestoneHistoryException;
@@ -29,6 +33,19 @@ import sw_css.milestone.exception.MilestoneHistoryExceptionType;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @SQLRestriction("is_deleted = false")
 @SQLDelete(sql = "UPDATE milestone_history SET is_deleted = true where id = ?")
+@SqlResultSetMapping(
+        name = "StudentAndMilestoneScoreInfoMapping",
+        classes = @ConstructorResult(
+                targetClass = StudentAndMilestoneScoreInfo.class,
+                columns = {
+                        @ColumnResult(name = "studentId", type = Long.class),
+                        @ColumnResult(name = "studentName", type = String.class),
+                        @ColumnResult(name = "categoryId", type = Long.class),
+                        @ColumnResult(name = "categoryName", type = String.class),
+                        @ColumnResult(name = "milestoneGroup", type = MilestoneGroup.class),
+                        @ColumnResult(name = "score", type = Integer.class)
+                }
+        ))
 public class MilestoneHistory extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
