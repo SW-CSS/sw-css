@@ -10,19 +10,16 @@ import MilestoneHistoryStatusLabel from '@/app/(withSidebar)/my-page/components/
 import { QueryKeys } from '@/data/queryKey';
 import { useAppSelector } from '@/lib/hooks/redux';
 import { useMilestoneHistoriesOfStudentQuery, useMilestoneHistoryDeleteMutation } from '@/lib/hooks/useApi';
-import { MilestoneHistoryOfStudentResponseDto } from '@/types/common.dto';
 import { MilestoneHistorySortCriteria, SortDirection } from '@/types/milestone';
-
-const compareByCreatedAtDesc = (a: MilestoneHistoryOfStudentResponseDto, b: MilestoneHistoryOfStudentResponseDto) => {
-  if (a.createdAt < b.createdAt) return 1;
-  return -1;
-};
 
 const MilestoneHistoryTable = () => {
   const queryClient = useQueryClient();
   const auth = useAppSelector((state) => state.auth).value;
   const { data: milestoneHistories } = useMilestoneHistoriesOfStudentQuery(
     auth.uid,
+    undefined,
+    undefined,
+    undefined,
     MilestoneHistorySortCriteria.CREATED_AT,
     SortDirection.DESC,
   );
@@ -34,6 +31,9 @@ const MilestoneHistoryTable = () => {
           queryClient.invalidateQueries(
             QueryKeys.MILESTONE_HISTORIES_OF_STUDENT(
               auth.uid,
+              undefined,
+              undefined,
+              undefined,
               MilestoneHistorySortCriteria.CREATED_AT,
               SortDirection.DESC,
             ),
@@ -57,7 +57,7 @@ const MilestoneHistoryTable = () => {
         </tr>
       </thead>
       <tbody className="border-y text-center">
-        {milestoneHistories?.sort(compareByCreatedAtDesc).map((milestoneHistory, index) => (
+        {milestoneHistories?.content.map((milestoneHistory, index) => (
           <tr className="border-b border-border p-2">
             <td className="p-2">{index + 1} </td>
             <td className="p-2 text-left">{milestoneHistory.description}</td>

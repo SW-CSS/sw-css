@@ -31,7 +31,7 @@ const MilestoneHistorySection = () => {
     <div className="w-[280px] rounded-sm bg-white p-5">
       <SubTitle title="실적 등록" urlText="등록하기" url="/my-page/milestone/register" />
       <div className="mt-4">
-        {milestoneHistoriesOfStudent?.map((milestoneHistory) => (
+        {milestoneHistoriesOfStudent?.content.map((milestoneHistory) => (
           <div key={milestoneHistory.id} className="flex flex-col gap-[2px] border-b border-border py-2">
             <p>{milestoneHistory.description}</p>
             <p className="flex items-end justify-between">

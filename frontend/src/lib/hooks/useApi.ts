@@ -5,11 +5,11 @@ import { client } from '@/lib/api/client.axios';
 import { useAxiosMutation, useAxiosQuery } from '@/lib/hooks/useAxios';
 import {
   CollegeDto,
-  MilestoneHistoryOfStudentResponseDto,
   MilestoneOverviewDto,
   MilestoneScoreDto,
   MilestoneHistoryCreateDto,
   StudentMemberDto,
+  MilestoneHistoryOfStudentPageableDto,
 } from '@/types/common.dto';
 import { BusinessError } from '@/types/error';
 import { MilestoneHistorySortCriteria, SortDirection } from '@/types/milestone';
@@ -52,9 +52,12 @@ export const useMilestoneScoresOfStudentQuery = (memberId: number, startDate: st
   useAxiosQuery({
     queryKey: QueryKeys.MILESTONE_SCORES_OF_STUDENT(memberId, startDate, endDate),
     queryFn: async (): Promise<MilestoneScoreDto[]> => {
-      const response = await client.get(
-        `/milestones/histories/scores/members/${memberId}?start_date=${startDate}&end_date=${endDate}`,
-      );
+      const response = await client.get(`/milestones/histories/scores/members/${memberId}`, {
+        params: removeEmptyField({
+          start_date: startDate,
+          end_date: endDate,
+        }),
+      });
       return response?.data;
     },
   });
@@ -80,7 +83,7 @@ export const useMilestoneHistoriesOfStudentQuery = (
       page,
       size,
     ),
-    queryFn: async (): Promise<MilestoneHistoryOfStudentResponseDto[]> => {
+    queryFn: async (): Promise<MilestoneHistoryOfStudentPageableDto> => {
       const response = await client.get(`/milestones/histories/members/${memberId}`, {
         params: removeEmptyField({
           start_date: startDate,

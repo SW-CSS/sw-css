@@ -47,7 +47,7 @@ const MilestoneHistoryTable = ({ searchFilterPeriod, page, size }: MilestoneHist
         </tr>
       </thead>
       <tbody className="border-y-2 border-border text-sm">
-        {milestoneHistoriesOfStudent?.map((milestoneHistory) => (
+        {milestoneHistoriesOfStudent?.content.map((milestoneHistory) => (
           <tr key={milestoneHistory.id} className="flex border-b border-border text-center">
             <td className="max-w-[calc(100%-273px)] flex-grow p-[10px] text-left">{milestoneHistory.description}</td>
             <td className="w-20 p-[10px]">
