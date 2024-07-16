@@ -1,8 +1,8 @@
-import { MemberDto } from '@/types/common.dto';
+import { StudentMemberDto } from '@/types/common.dto';
 
-const MemberTable = ({ members }: { members: MemberDto[] }) => (
+const MemberTable = ({ members }: { members: StudentMemberDto[] }) => (
   <table className="my-4 w-full table-fixed text-center text-sm [&_*]:cursor-default">
-    <thead className="border-admin-border border-y-2 [&_th]:p-2">
+    <thead className="border-y-2 border-admin-border [&_th]:p-2">
       <th className="w-[100px]">이메일</th>
       <th className="w-[60px]">이름</th>
       <th className="w-[80px]">학번</th>
@@ -16,18 +16,20 @@ const MemberTable = ({ members }: { members: MemberDto[] }) => (
       {members.map((member) => {
         const emailWords = member.email.split('@');
         return (
-          <tr key={member.id} className="border-admin-border h-[50px] border-b-[1px] [&_td]:break-keep [&_td]:p-2">
+          <tr key={member.id} className="h-[50px] border-b-[1px] border-admin-border [&_td]:break-keep [&_td]:p-2">
             <td>
               {emailWords[0]} <br />
-              <span className="text-admin-comment text-xs">@pusan.ac.kr</span>
+              <span className="text-xs text-admin-comment">@pusan.ac.kr</span>
             </td>
             <td className="font-semibold">{member.name}</td>
-            <td>{member.studentNumber}</td>
+            <td>{member.id}</td>
             <td>{member.major}</td>
             <td>{member.minor}</td>
             <td>{member.doubleMajor}</td>
             <td>{member.phoneNumber}</td>
-            <td className="overflow-hidden text-ellipsis whitespace-nowrap hover:whitespace-normal">{member.career}</td>
+            <td className="overflow-hidden text-ellipsis whitespace-nowrap hover:whitespace-normal">
+              {member.careerDetail}
+            </td>
           </tr>
         );
       })}

@@ -101,22 +101,13 @@ export interface MemberDto {
   id: number;
   email: string;
   name: string;
-  studentNumber: number;
-  major: string;
-  minor: string;
-  doubleMajor: string;
   phoneNumber: string;
-  career: string;
 }
 
-export interface StudentMemberDto {
-  id: number;
-  email: string;
-  name: string;
+export interface StudentMemberDto extends MemberDto {
   major: string;
   minor: string;
   doubleMajor: string;
-  phoneNumber: string;
   career: string;
   careerDetail: string;
 }
