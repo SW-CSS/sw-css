@@ -8,6 +8,7 @@ public record StudentAndMilestoneScoreInfo(
         Long categoryId,
         String categoryName,
         MilestoneGroup milestoneGroup,
+        int limitScore,
         int score
 ) {
 }

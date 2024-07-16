@@ -7,10 +7,11 @@ public record MilestoneScoreOfStudentResponse(
         Long id,
         String name,
         MilestoneGroup group,
+        Integer limitScore,
         Integer score
 ) {
     public static MilestoneScoreOfStudentResponse of(final MilestoneCategory category, final Integer score) {
         return new MilestoneScoreOfStudentResponse(category.getId(), category.getName(), category.getMilestoneGroup(),
-                score);
+                category.getLimitScore(), score);
     }
 }

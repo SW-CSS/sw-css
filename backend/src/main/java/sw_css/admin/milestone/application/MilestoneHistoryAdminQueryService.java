@@ -59,7 +59,8 @@ public class MilestoneHistoryAdminQueryService {
                         entry.getValue()
                                 .stream()
                                 .map(info -> new MilestoneScoreOfStudentResponse(
-                                        info.categoryId(), info.categoryName(), info.milestoneGroup(), info.score()))
+                                        info.categoryId(), info.categoryName(), info.milestoneGroup(),
+                                        info.limitScore(), info.score()))
                                 .toList()))
                 .sorted(Comparator.comparing(response -> response.student().id()))
                 .toList();
