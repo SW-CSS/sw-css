@@ -23,7 +23,7 @@ INSERT INTO sw_css.milestone_history (id, milestone_id, student_id, description,
 VALUES (3, 5, 202055558, 'TOPCIT 수준 2', null, 'APPROVED', null, 1, '2024-06-03', 0, '2024-07-01 18:35:47.563444');
 INSERT INTO sw_css.milestone_history (id, milestone_id, student_id, description, file_url, status, reject_reason, count,
                                       activated_at, is_deleted, created_at)
-VALUES (4, 6, 202055558, 'PCC lv3', null, 'APPROVED', null, 1, '2024-06-04', 0, '2024-07-01 18:35:47.566673');
+VALUES (4, 6, 202000000, 'PCC lv3', null, 'APPROVED', null, 1, '2024-06-04', 0, '2024-07-01 18:35:47.566673');
 INSERT INTO sw_css.milestone_history (id, milestone_id, student_id, description, file_url, status, reject_reason, count,
                                       activated_at, is_deleted, created_at)
 VALUES (5, 7, 202055558, 'PCC lv2', null, 'APPROVED', null, 1, '2024-06-05', 0, '2024-07-01 18:35:47.569843');

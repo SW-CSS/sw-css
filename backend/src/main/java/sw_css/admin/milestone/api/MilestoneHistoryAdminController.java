@@ -2,7 +2,6 @@ package sw_css.admin.milestone.api;
 
 import jakarta.validation.Valid;
 import java.net.URI;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -60,12 +59,11 @@ public class MilestoneHistoryAdminController {
     }
 
     @GetMapping("/scores")
-    public ResponseEntity<List<MilestoneScoreResponse>> findAllMilestoneHistoryScores(
+    public ResponseEntity<Page<MilestoneScoreResponse>> findAllMilestoneHistoryScores(
             @RequestParam(value = "start_date") final String startDate,
             @RequestParam(value = "end_date") final String endDate,
-            @RequestParam(value = "page", required = false, defaultValue = "0") final String page,
-            @RequestParam(value = "size", required = false, defaultValue = "10") final String size) {
+            final Pageable pageable) {
         return ResponseEntity.ok(
-                milestoneHistoryAdminQueryService.findAllMilestoneHistoryScores(startDate, endDate, page, size));
+                milestoneHistoryAdminQueryService.findAllMilestoneHistoryScores(startDate, endDate, pageable));
     }
 }

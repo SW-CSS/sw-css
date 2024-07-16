@@ -4,10 +4,12 @@ import static java.util.stream.Collectors.groupingBy;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -38,18 +40,19 @@ public class MilestoneHistoryAdminQueryService {
     }
 
     //TODO 페이지네이션
-    public List<MilestoneScoreResponse> findAllMilestoneHistoryScores(final String startDate, final String endDate,
-                                                                      final String page, final String size) {
+    public Page<MilestoneScoreResponse> findAllMilestoneHistoryScores(final String startDate, final String endDate,
+                                                                      final Pageable pageable) {
         final LocalDate parsedStartDate = parseDate(startDate);
         final LocalDate parsedEndDate = parseDate(endDate);
         final long categoryCount = milestoneCategoryRepository.count();
         final List<StudentAndMilestoneScoreInfo> milestoneHistoryInfos = milestoneScoreRepository.findAllMilestoneScoresWithStudentInfoByPeriod(
-                parsedStartDate, parsedEndDate, Integer.parseInt(page) * categoryCount,
-                Integer.parseInt(size) * categoryCount);
+                parsedStartDate, parsedEndDate, pageable.getPageNumber() * categoryCount,
+                pageable.getPageSize() * categoryCount);
+        final Long totalMilestoneHistoryInfoCount = milestoneScoreRepository.countAllMilestoneScoresWithStudentInfoByPeriod();
         final Map<StudentMemberReferenceResponse, List<StudentAndMilestoneScoreInfo>> groupedMilestoneScoresByStudentId = milestoneHistoryInfos.stream()
                 .collect(groupingBy(
                         (info -> new StudentMemberReferenceResponse(info.studentId(), info.studentName()))));
-        return groupedMilestoneScoresByStudentId.entrySet()
+        final List<MilestoneScoreResponse> content = groupedMilestoneScoresByStudentId.entrySet()
                 .stream()
                 .map(entry -> new MilestoneScoreResponse(
                         entry.getKey(),
@@ -58,8 +61,9 @@ public class MilestoneHistoryAdminQueryService {
                                 .map(info -> new MilestoneScoreOfStudentResponse(
                                         info.categoryId(), info.categoryName(), info.milestoneGroup(), info.score()))
                                 .toList()))
+                .sorted(Comparator.comparing(response -> response.student().id()))
                 .toList();
-
+        return new PageImpl<>(content, pageable, totalMilestoneHistoryInfoCount);
     }
 
     private LocalDate parseDate(String startDate) {

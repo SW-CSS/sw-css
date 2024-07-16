@@ -9,4 +9,6 @@ public interface MilestoneScoreRepository {
                                                                                      LocalDate endDate, Long page,
                                                                                      Long pageSize);
 
+    Long countAllMilestoneScoresWithStudentInfoByPeriod();
+
 }

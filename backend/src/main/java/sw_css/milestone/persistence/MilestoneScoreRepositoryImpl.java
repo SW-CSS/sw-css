@@ -47,4 +47,20 @@ public class MilestoneScoreRepositoryImpl implements MilestoneScoreRepository {
         return query.getResultList();
     }
 
+    @Override
+    public Long countAllMilestoneScoresWithStudentInfoByPeriod() {
+        String sql =
+                "SELECT count(*) as count from (SELECT DISTINCT(COALESCE(mh.student_id, sm.id)) as studentId FROM student_member sm "
+                        + "LEFT JOIN milestone_history mh on mh.student_id=sm.id "
+                        + "LEFT JOIN member m on sm.member_id=m.id "
+                        + "UNION "
+                        + "SELECT DISTINCT(COALESCE(mh.student_id, sm.id)) as studentId FROM student_member sm "
+                        + "RIGHT JOIN milestone_history mh on mh.student_id=sm.id "
+                        + "LEFT JOIN member m on sm.member_id=m.id) student;";
+
+        Query query = entityManager.createNativeQuery(sql);
+
+        return ((Number) query.getSingleResult()).longValue();
+    }
+
 }
