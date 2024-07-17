@@ -72,7 +72,7 @@ const MilestoneDropdown = ({ ...props }: MilestoneDropdownProps) => {
           errorText={dropdownProps.errorText ? '' : undefined}
         />
       </div>
-      <div className="w-60">
+      <div className="flex-grow">
         <Dropdown
           name={milestoneName}
           label="구분"
