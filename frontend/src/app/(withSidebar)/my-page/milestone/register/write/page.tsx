@@ -36,8 +36,8 @@ interface MilestoneHistoryInfo {
 }
 
 const initialValues: MilestoneHistoryInfo = {
-  categoryId: -1,
-  milestoneId: -1,
+  categoryId: 0,
+  milestoneId: 0,
   count: 1,
   description: '',
   file: undefined,
@@ -80,7 +80,7 @@ const Page = () => {
           <Form className="flex flex-col gap-4">
             <MilestoneDropdown
               label=""
-              selectOptionText=""
+              selectOptionText="선택"
               categoryId={values.categoryId}
               milestoneId={values.milestoneId}
               categoryName="categoryId"

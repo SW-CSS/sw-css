@@ -42,7 +42,7 @@ const MilestoneDropdown = ({ ...props }: MilestoneDropdownProps) => {
       milestoneOverviews?.find((milestoneOverview) => milestoneOverview.id === categoryId) as MilestoneCategory,
     );
     setSelectedMilestone(undefined);
-    setFieldValue(milestoneName, undefined, true);
+    setFieldValue(milestoneName, 0, true);
     setMilestoneOptions(
       milestoneOverviews
         ?.find((milestoneOverview) => milestoneOverview.id === categoryId)
@@ -66,7 +66,7 @@ const MilestoneDropdown = ({ ...props }: MilestoneDropdownProps) => {
           name={categoryName}
           label="활동"
           options={milestoneCategoryOptions}
-          selectOptionText="선택"
+          selectOptionText={dropdownProps.selectOptionText}
           selectedId={categoryId}
           setFieldValue={setFieldValue}
           errorText={dropdownProps.errorText ? '' : undefined}
@@ -77,7 +77,7 @@ const MilestoneDropdown = ({ ...props }: MilestoneDropdownProps) => {
           name={milestoneName}
           label="구분"
           options={milestoneOptions}
-          selectOptionText="선택"
+          selectOptionText={dropdownProps.selectOptionText}
           selectedId={milestoneId}
           setFieldValue={setFieldValue}
           errorText={dropdownProps.errorText}
