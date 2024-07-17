@@ -7,8 +7,10 @@ import java.time.format.DateTimeParseException;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Stream;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sw_css.member.domain.repository.StudentMemberRepository;
@@ -18,7 +20,9 @@ import sw_css.milestone.application.dto.response.MilestoneHistoryOfStudentRespon
 import sw_css.milestone.application.dto.response.MilestoneScoreOfStudentResponse;
 import sw_css.milestone.domain.MilestoneCategory;
 import sw_css.milestone.domain.MilestoneHistory;
+import sw_css.milestone.domain.MilestoneHistorySortCriteria;
 import sw_css.milestone.domain.MilestoneStatus;
+import sw_css.milestone.domain.repository.MilestoneHistoryCustomRepository;
 import sw_css.milestone.domain.repository.MilestoneHistoryRepository;
 import sw_css.milestone.exception.MilestoneHistoryException;
 import sw_css.milestone.exception.MilestoneHistoryExceptionType;
@@ -30,52 +34,25 @@ import sw_css.milestone.persistence.dto.MilestoneHistoryInfo;
 public class MilestoneHistoryQueryService {
     private final StudentMemberRepository studentMemberRepository;
     private final MilestoneHistoryRepository milestoneHistoryRepository;
+    private final MilestoneHistoryCustomRepository milestoneHistoryCustomRepository;
 
-    // TODO 페이지네이션
-    public List<MilestoneHistoryOfStudentResponse> findAllMilestoneHistories(final Long memberId,
+    public Page<MilestoneHistoryOfStudentResponse> findAllMilestoneHistories(final Long memberId,
                                                                              final String startDate,
                                                                              final String endDate,
-                                                                             final MilestoneStatus filter) {
+                                                                             final MilestoneStatus filter,
+                                                                             final MilestoneHistorySortCriteria sortBy,
+                                                                             final Sort.Direction sortDirection,
+                                                                             final Pageable pageable) {
+        final LocalDate parsedStartDate = startDate != null ? parseDate(startDate) : null;
+        final LocalDate parsedEndDate = endDate != null ? parseDate(endDate) : null;
         if (!studentMemberRepository.existsById(memberId)) {
             throw new MemberException(MemberExceptionType.NOT_FOUND_STUDENT);
         }
 
-        List<MilestoneHistory> milestoneHistories;
-        if (startDate == null || endDate == null) {
-            milestoneHistories = milestoneHistoryRepository.findMilestoneHistoriesByStudentId(memberId);
-        } else {
-            final LocalDate parsedStartDate = parseDate(startDate);
-            final LocalDate parsedEndDate = parseDate(endDate);
-            milestoneHistories = milestoneHistoryRepository.findMilestoneHistoriesByStudentIdAndActivatedAt(memberId,
-                    parsedStartDate, parsedEndDate);
-        }
+        final Page<MilestoneHistory> milestoneHistories = milestoneHistoryCustomRepository.findMilestoneHistoriesByStudentId(
+                memberId, parsedStartDate, parsedEndDate, filter, sortBy, sortDirection, pageable);
 
-        return MilestoneHistoryOfStudentResponse.from(generateMilestoneHistories(milestoneHistories, filter));
-    }
-
-    private List<MilestoneHistory> generateMilestoneHistories(final List<MilestoneHistory> milestoneHistories,
-                                                              final MilestoneStatus filter) {
-        if (filter == MilestoneStatus.APPROVED) {
-            return milestoneHistories.stream()
-                    .filter(milestoneHistory -> milestoneHistory.getStatus() == MilestoneStatus.APPROVED)
-                    .sorted(Comparator.comparing(MilestoneHistory::getCreatedAt).reversed())
-                    .toList();
-        }
-        return sortAllMilestoneHistories(milestoneHistories);
-    }
-
-    private List<MilestoneHistory> sortAllMilestoneHistories(final List<MilestoneHistory> milestoneHistories) {
-        final List<MilestoneHistory> processedMilestoneHistories = milestoneHistories.stream()
-                .filter(milestoneHistory -> milestoneHistory.getStatus() == MilestoneStatus.PENDING)
-                .sorted(Comparator.comparing(MilestoneHistory::getCreatedAt))
-                .toList();
-        final List<MilestoneHistory> unprocessedMilestoneHistories = milestoneHistories.stream()
-                .filter(milestoneHistory -> milestoneHistory.getStatus() != MilestoneStatus.PENDING)
-                .sorted(Comparator.comparing(MilestoneHistory::getCreatedAt).reversed())
-                .toList();
-        return Stream.of(processedMilestoneHistories, unprocessedMilestoneHistories)
-                .flatMap(List<MilestoneHistory>::stream)
-                .toList();
+        return MilestoneHistoryOfStudentResponse.from(milestoneHistories);
     }
 
     public List<MilestoneScoreOfStudentResponse> findAllMilestoneHistoryScores(final Long memberId,
@@ -116,9 +93,9 @@ public class MilestoneHistoryQueryService {
                 .toList();
     }
 
-    private LocalDate parseDate(String startDate) {
+    private LocalDate parseDate(String date) {
         try {
-            return LocalDate.parse(startDate);
+            return LocalDate.parse(date);
         } catch (final DateTimeParseException exception) {
             throw new MilestoneHistoryException(MilestoneHistoryExceptionType.INVALID_DATE_FORMAT);
         }

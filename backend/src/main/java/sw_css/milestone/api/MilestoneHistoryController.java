@@ -4,6 +4,9 @@ import jakarta.validation.Valid;
 import java.net.URI;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -20,6 +23,7 @@ import sw_css.milestone.application.MilestoneHistoryQueryService;
 import sw_css.milestone.application.dto.request.MilestoneHistoryCreateRequest;
 import sw_css.milestone.application.dto.response.MilestoneHistoryOfStudentResponse;
 import sw_css.milestone.application.dto.response.MilestoneScoreOfStudentResponse;
+import sw_css.milestone.domain.MilestoneHistorySortCriteria;
 import sw_css.milestone.domain.MilestoneStatus;
 
 @Validated
@@ -49,13 +53,18 @@ public class MilestoneHistoryController {
 
     // TODO 학생 본인 혹은 관리자만 호출할 수 있도록 권한 설정
     @GetMapping("/members/{memberId}")
-    public ResponseEntity<List<MilestoneHistoryOfStudentResponse>> findAllMilestoneHistories(
+    public ResponseEntity<Page<MilestoneHistoryOfStudentResponse>> findAllMilestoneHistories(
+            final Pageable pageable,
             @PathVariable("memberId") final Long memberId,
             @RequestParam(value = "start_date", required = false) final String startDate,
             @RequestParam(value = "end_date", required = false) final String endDate,
-            @RequestParam(value = "filter", required = false) final MilestoneStatus filter) {
+            @RequestParam(value = "filter", required = false) final MilestoneStatus filter,
+            @RequestParam(value = "sort_by", required = false) final MilestoneHistorySortCriteria sortBy,
+            @RequestParam(value = "sort_direction", required = false) final Sort.Direction sortDirection
+    ) {
         return ResponseEntity.ok(
-                milestoneHistoryQueryService.findAllMilestoneHistories(memberId, startDate, endDate, filter));
+                milestoneHistoryQueryService.findAllMilestoneHistories(memberId, startDate, endDate, filter, sortBy,
+                        sortDirection, pageable));
     }
 
 
