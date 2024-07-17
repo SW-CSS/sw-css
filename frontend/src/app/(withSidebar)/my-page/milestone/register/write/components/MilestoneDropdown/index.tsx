@@ -26,6 +26,7 @@ const MilestoneDropdown = ({ ...props }: MilestoneDropdownProps) => {
     selectedCategory,
     setSelectedCategory,
     setSelectedMilestone,
+    setFieldValue,
     ...dropdownProps
   } = props;
   const milestoneCategoryOptions: DropdownOption[] = useMemo(
@@ -41,6 +42,7 @@ const MilestoneDropdown = ({ ...props }: MilestoneDropdownProps) => {
       milestoneOverviews?.find((milestoneOverview) => milestoneOverview.id === categoryId) as MilestoneCategory,
     );
     setSelectedMilestone(undefined);
+    setFieldValue(milestoneName, undefined, true);
     setMilestoneOptions(
       milestoneOverviews
         ?.find((milestoneOverview) => milestoneOverview.id === categoryId)
@@ -51,7 +53,7 @@ const MilestoneDropdown = ({ ...props }: MilestoneDropdownProps) => {
           score: milestone.score,
         })) || [],
     );
-  }, [categoryId, milestoneOverviews, setSelectedCategory, setSelectedMilestone]);
+  }, [categoryId, milestoneOverviews, milestoneName, setFieldValue, setSelectedCategory, setSelectedMilestone]);
 
   useEffect(() => {
     setSelectedMilestone(milestoneOptions.find((milestoneOption) => milestoneOption.id === milestoneId));
@@ -66,7 +68,8 @@ const MilestoneDropdown = ({ ...props }: MilestoneDropdownProps) => {
           options={milestoneCategoryOptions}
           selectOptionText="선택"
           selectedId={categoryId}
-          setFieldValue={dropdownProps.setFieldValue}
+          setFieldValue={setFieldValue}
+          errorText={dropdownProps.errorText ? '' : undefined}
         />
       </div>
       <div className="w-60">
@@ -76,7 +79,7 @@ const MilestoneDropdown = ({ ...props }: MilestoneDropdownProps) => {
           options={milestoneOptions}
           selectOptionText="선택"
           selectedId={milestoneId}
-          setFieldValue={dropdownProps.setFieldValue}
+          setFieldValue={setFieldValue}
           errorText={dropdownProps.errorText}
         />
       </div>
