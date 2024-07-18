@@ -17,6 +17,7 @@
     "babel-plugin-styled-components": "^2.1.4",
     "formik": "^2.4.6",
     "luxon": "^3.4.4",
+    "formik": "^2.4.6",
     "next": "14.2.3",
     "react": "^18",
     "react-cookies": "^0.1.1",
