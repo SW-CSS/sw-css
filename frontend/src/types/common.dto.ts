@@ -75,9 +75,13 @@ export interface MilestoneScoreDto {
   score: number;
 }
 
-export interface MilestoneScoreOfStudentResponseDto {
+interface MilestoneScoreOfStudentDto {
   student: StudentReferenceDto;
   milestoneScores: MilestoneScoreDto[];
+}
+
+export interface MilestoneScoreOfStudentPageableDto extends Pageable {
+  content: MilestoneScoreOfStudentDto[];
 }
 
 interface MilestoneReferenceDto {
