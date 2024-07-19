@@ -1,6 +1,8 @@
 /* eslint-disable max-len */
 /* eslint-disable implicit-arrow-linebreak */
 
+import { MilestoneGroup } from '@/data/milestone';
+
 // 빈 파라미터를 제거하는 유틸함수
 export const removeEmptyField = <T extends Record<string, unknown>>(obj: T) =>
   Object.fromEntries(
@@ -14,6 +16,19 @@ export const removeEmptyField = <T extends Record<string, unknown>>(obj: T) =>
       return true;
     }),
   ) as T;
+
+export const convertMilestoneGroup = (group: string) => {
+  switch (group) {
+    case MilestoneGroup.ACTIVITY:
+      return '실전적';
+    case MilestoneGroup.GLOBAL:
+      return '글로벌';
+    case MilestoneGroup.COMMUNITY:
+      return '커뮤니티';
+    default:
+      return '기타';
+  }
+};
 
 export const convertCareer = (enumValue: string) => {
   switch (enumValue) {

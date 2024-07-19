@@ -1,3 +1,5 @@
+import { MilestoneGroup } from '@/data/milestone';
+
 import { Milestone } from './milestone';
 
 interface PageSort {
@@ -62,7 +64,7 @@ export interface CollegeDto extends MajorDto {
   majors: MajorDto[];
 }
 
-interface StudentReferenceDto {
+export interface StudentReferenceDto {
   id: number;
   name: string;
 }
@@ -111,7 +113,7 @@ export interface MilestoneHistoryOfStudentPageableDto extends Pageable {
 export interface MilestoneOverviewDto {
   id: number;
   name: string;
-  group: string;
+  group: MilestoneGroup;
   limitScore: number;
   milestones: Milestone[];
 }
