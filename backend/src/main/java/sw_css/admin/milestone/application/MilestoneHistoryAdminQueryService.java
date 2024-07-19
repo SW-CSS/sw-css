@@ -39,14 +39,13 @@ public class MilestoneHistoryAdminQueryService {
         return MilestoneHistoryResponse.from(milestoneHistories);
     }
 
-    //TODO 페이지네이션
     public Page<MilestoneScoreResponse> findAllMilestoneHistoryScores(final String startDate, final String endDate,
                                                                       final Pageable pageable) {
         final LocalDate parsedStartDate = parseDate(startDate);
         final LocalDate parsedEndDate = parseDate(endDate);
         final long categoryCount = milestoneCategoryRepository.count();
         final List<StudentAndMilestoneScoreInfo> milestoneHistoryInfos = milestoneScoreRepository.findAllMilestoneScoresWithStudentInfoByPeriod(
-                parsedStartDate, parsedEndDate, pageable.getPageNumber() * categoryCount,
+                parsedStartDate, parsedEndDate, pageable.getPageNumber() * pageable.getPageSize() * categoryCount,
                 pageable.getPageSize() * categoryCount);
         final Long totalMilestoneHistoryInfoCount = milestoneScoreRepository.countAllMilestoneScoresWithStudentInfoByPeriod();
         final Map<StudentMemberReferenceResponse, List<StudentAndMilestoneScoreInfo>> groupedMilestoneScoresByStudentId = milestoneHistoryInfos.stream()
@@ -61,8 +60,13 @@ public class MilestoneHistoryAdminQueryService {
                                 .map(info -> new MilestoneScoreOfStudentResponse(
                                         info.categoryId(), info.categoryName(), info.milestoneGroup(),
                                         info.limitScore(), info.score()))
-                                .toList()))
-                .sorted(Comparator.comparing(response -> response.student().id()))
+                                .collect(groupingBy(MilestoneScoreOfStudentResponse::group))))
+                .sorted(Comparator.comparing(
+                        (MilestoneScoreResponse response) -> response.milestoneScores().entrySet().stream()
+                                .flatMap(entry -> entry.getValue().stream())
+                                .mapToInt(MilestoneScoreOfStudentResponse::score)
+                                .sum()
+                ).reversed())
                 .toList();
         return new PageImpl<>(content, pageable, totalMilestoneHistoryInfoCount);
     }
