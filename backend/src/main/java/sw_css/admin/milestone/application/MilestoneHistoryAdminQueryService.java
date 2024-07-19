@@ -61,10 +61,11 @@ public class MilestoneHistoryAdminQueryService {
                                 .map(info -> new MilestoneScoreOfStudentResponse(
                                         info.categoryId(), info.categoryName(), info.milestoneGroup(),
                                         info.limitScore(), info.score()))
-                                .toList()))
+                                .collect(groupingBy(MilestoneScoreOfStudentResponse::group))))
                 .sorted(Comparator.comparing(
-                        (MilestoneScoreResponse response) -> response.milestoneScores().stream().
-                                mapToInt(MilestoneScoreOfStudentResponse::score)
+                        (MilestoneScoreResponse response) -> response.milestoneScores().entrySet().stream()
+                                .flatMap(entry -> entry.getValue().stream())
+                                .mapToInt(MilestoneScoreOfStudentResponse::score)
                                 .sum()
                 ).reversed())
                 .toList();

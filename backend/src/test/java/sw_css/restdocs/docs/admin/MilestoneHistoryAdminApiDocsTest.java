@@ -15,10 +15,12 @@ import static org.springframework.restdocs.request.RequestDocumentation.pathPara
 import static org.springframework.restdocs.request.RequestDocumentation.queryParameters;
 import static org.springframework.restdocs.request.RequestDocumentation.requestParts;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static sw_css.milestone.domain.MilestoneGroup.ACTIVITY;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -46,7 +48,6 @@ import sw_css.member.domain.StudentMember;
 import sw_css.milestone.application.dto.response.MilestoneScoreOfStudentResponse;
 import sw_css.milestone.domain.Milestone;
 import sw_css.milestone.domain.MilestoneCategory;
-import sw_css.milestone.domain.MilestoneGroup;
 import sw_css.milestone.domain.MilestoneStatus;
 import sw_css.milestone.persistence.dto.MilestoneHistoryWithStudentInfo;
 import sw_css.restdocs.RestDocsTest;
@@ -139,7 +140,7 @@ public class MilestoneHistoryAdminApiDocsTest extends RestDocsTest {
         );
 
         MilestoneCategory category = new MilestoneCategory(1L, "SW 관련 창업",
-                MilestoneGroup.ACTIVITY, 100, null);
+                ACTIVITY, 100, null);
         final Milestone milestone = new Milestone(1L, category, "창업", 100, 1);
         final StudentMember student = new StudentMember(202055558L,
                 new Member(1L, "abc@naver.com", "홍길동", "password", "010-0000-0000", false),
@@ -222,14 +223,15 @@ public class MilestoneHistoryAdminApiDocsTest extends RestDocsTest {
                 fieldWithPath("empty").type(JsonFieldType.BOOLEAN).description("데이터의 존재 여부"),
                 fieldWithPath("content[].student.id").type(JsonFieldType.NUMBER).description("학생의 학번"),
                 fieldWithPath("content[].student.name").type(JsonFieldType.STRING).description("학생의 이름"),
-                fieldWithPath("content[].milestoneScores[].id").type(JsonFieldType.NUMBER).description("마일스톤 카테고리 id"),
-                fieldWithPath("content[].milestoneScores[].name").type(JsonFieldType.STRING)
+                fieldWithPath("content[].milestoneScores.*[].id").type(JsonFieldType.NUMBER)
+                        .description("마일스톤 카테고리 id"),
+                fieldWithPath("content[].milestoneScores.*[].name").type(JsonFieldType.STRING)
                         .description("마일스톤 카테고리 이름"),
-                fieldWithPath("content[].milestoneScores[].group").type(JsonFieldType.STRING)
+                fieldWithPath("content[].milestoneScores.*[].group").type(JsonFieldType.STRING)
                         .description("마일스톤 카테고리 유형"),
-                fieldWithPath("content[].milestoneScores[].limitScore").type(JsonFieldType.NUMBER)
+                fieldWithPath("content[].milestoneScores.*[].limitScore").type(JsonFieldType.NUMBER)
                         .description("마일스톤 최대 점수"),
-                fieldWithPath("content[].milestoneScores[].score").type(JsonFieldType.NUMBER).description("마일스톤 점수")
+                fieldWithPath("content[].milestoneScores.*[].score").type(JsonFieldType.NUMBER).description("마일스톤 점수")
         );
 
         final StudentMember student1 = new StudentMember(202055558L,
@@ -241,14 +243,16 @@ public class MilestoneHistoryAdminApiDocsTest extends RestDocsTest {
                 new Major(1L, new College(1L, "인문대학"), "사회학과"), null, null, CareerType.EMPLOYMENT_COMPANY,
                 "IT 사기업 개발자로 취업");
         final Page<MilestoneScoreResponse> response = new PageImpl<>(List.of(
-                new MilestoneScoreResponse(StudentMemberReferenceResponse.from(student1), List.of(
-                        MilestoneScoreOfStudentResponse.of(new MilestoneCategory(1L, "SW 관련 창업",
-                                MilestoneGroup.ACTIVITY, 100, null), 50),
-                        MilestoneScoreOfStudentResponse.of(new MilestoneCategory(2L, "TOPCIT",
-                                MilestoneGroup.ACTIVITY, 60, null), 0))),
-                new MilestoneScoreResponse(StudentMemberReferenceResponse.from(student2), List.of(
-                        MilestoneScoreOfStudentResponse.of(new MilestoneCategory(1L, "SW 관련 창업",
-                                MilestoneGroup.ACTIVITY, 100, null), 50)))));
+                new MilestoneScoreResponse(StudentMemberReferenceResponse.from(student1),
+                        Map.of(ACTIVITY, List.of(
+                                MilestoneScoreOfStudentResponse.of(new MilestoneCategory(1L, "SW 관련 창업",
+                                        ACTIVITY, 100, null), 50),
+                                MilestoneScoreOfStudentResponse.of(new MilestoneCategory(2L, "TOPCIT",
+                                        ACTIVITY, 60, null), 0)))),
+                new MilestoneScoreResponse(StudentMemberReferenceResponse.from(student2),
+                        Map.of(ACTIVITY, List.of(
+                                MilestoneScoreOfStudentResponse.of(new MilestoneCategory(1L, "SW 관련 창업",
+                                        ACTIVITY, 100, null), 50))))));
         final String startDate = "2024-06-01";
         final String endDate = "2024-06-08";
 
