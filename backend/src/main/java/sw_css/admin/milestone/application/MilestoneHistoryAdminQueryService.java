@@ -46,7 +46,7 @@ public class MilestoneHistoryAdminQueryService {
         final LocalDate parsedEndDate = parseDate(endDate);
         final long categoryCount = milestoneCategoryRepository.count();
         final List<StudentAndMilestoneScoreInfo> milestoneHistoryInfos = milestoneScoreRepository.findAllMilestoneScoresWithStudentInfoByPeriod(
-                parsedStartDate, parsedEndDate, pageable.getPageNumber() * categoryCount,
+                parsedStartDate, parsedEndDate, pageable.getPageNumber() * pageable.getPageSize() * categoryCount,
                 pageable.getPageSize() * categoryCount);
         final Long totalMilestoneHistoryInfoCount = milestoneScoreRepository.countAllMilestoneScoresWithStudentInfoByPeriod();
         final Map<StudentMemberReferenceResponse, List<StudentAndMilestoneScoreInfo>> groupedMilestoneScoresByStudentId = milestoneHistoryInfos.stream()
