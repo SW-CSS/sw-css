@@ -62,7 +62,11 @@ public class MilestoneHistoryAdminQueryService {
                                         info.categoryId(), info.categoryName(), info.milestoneGroup(),
                                         info.limitScore(), info.score()))
                                 .toList()))
-                .sorted(Comparator.comparing(response -> response.student().id()))
+                .sorted(Comparator.comparing(
+                        (MilestoneScoreResponse response) -> response.milestoneScores().stream().
+                                mapToInt(MilestoneScoreOfStudentResponse::score)
+                                .sum()
+                ).reversed())
                 .toList();
         return new PageImpl<>(content, pageable, totalMilestoneHistoryInfoCount);
     }
