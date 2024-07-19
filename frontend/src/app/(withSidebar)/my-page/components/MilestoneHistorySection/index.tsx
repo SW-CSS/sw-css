@@ -3,20 +3,18 @@
 /* eslint-disable operator-linebreak */
 /* eslint-disable react/jsx-wrap-multilines */
 
-'use client';
-
 import SubTitle from '@/components/SubTitle';
-import { useAppSelector } from '@/lib/hooks/redux';
-import { useMilestoneHistoriesOfStudentQuery } from '@/lib/hooks/useApi';
+import { getMilestoneHistoriesOfStudent } from '@/lib/api/server.api';
+import { getAuthFromCookie } from '@/lib/utils/auth';
 import { MilestoneHistorySortCriteria, SortDirection } from '@/types/milestone';
 
 import MilestoneHistoryStatusLabel from '../MilestoneHistoryStatusLabel';
 
-const MilestoneHistorySection = () => {
+const MilestoneHistorySection = async () => {
   // TODO - auth에 학번 정보 저장하도록 하기
-  const auth = useAppSelector((state) => state.auth).value;
+  const auth = getAuthFromCookie();
 
-  const { data: milestoneHistoriesOfStudent } = useMilestoneHistoriesOfStudentQuery(
+  const milestoneHistoriesOfStudent = await getMilestoneHistoriesOfStudent(
     auth.uid,
     undefined,
     undefined,
