@@ -1,3 +1,5 @@
+/* eslint-disable prettier/prettier */
+/* eslint-disable operator-linebreak */
 /* eslint-disable function-paren-newline */
 /* eslint-disable implicit-arrow-linebreak */
 /* eslint-disable @typescript-eslint/no-unused-expressions */
@@ -5,78 +7,34 @@
 'use client';
 
 import { DateTime } from 'luxon';
-import { useMemo, useState } from 'react';
+import { usePathname } from 'next/navigation';
+import { useState } from 'react';
 
+import Pagination from '@/adminComponents/Pagination';
 import MilestonePeriodSearchForm from '@/components/MilestonePeriodSearchForm';
 import { MilestoneGroup } from '@/data/milestone';
 import { useMilestoneScoresQuery } from '@/lib/hooks/useAdminApi';
 import { useMilestoneQuery } from '@/lib/hooks/useApi';
 import { convertMilestoneGroup } from '@/lib/utils/utils';
 import { Period } from '@/types/common';
-import { MilestoneOverviewDto, MilestoneScoreDto, StudentReferenceDto } from '@/types/common.dto';
 
-interface MilestoneByGroup {
-  [k: string]: MilestoneOverviewDto[];
-}
-interface MilestoneScoreByGroup {
-  [k: string]: MilestoneScoreDto[];
-}
-interface MilestoneScoreWithStudentByGroup {
-  student: StudentReferenceDto;
-  milestoneScores: MilestoneScoreByGroup;
-}
-const initialMilestonesByGroup = {
-  [MilestoneGroup.ACTIVITY]: [],
-  [MilestoneGroup.GLOBAL]: [],
-  [MilestoneGroup.COMMUNITY]: [],
-};
-const Page = () => {
+const Page = ({ searchParams }: { searchParams?: { [key: string]: string | undefined } }) => {
   const [filterPeriod, setFilterPeriod] = useState<Period>({
     startDate: DateTime.now().minus({ years: 1 }).toFormat('yyyy-MM-dd'),
     endDate: DateTime.now().toFormat('yyyy-MM-dd'),
   });
   const [searchFilterPeriod, setSearchFilterPeriod] = useState<Period>(filterPeriod);
+  const pathname = usePathname();
+  const page = searchParams?.page ? parseInt(searchParams.page, 10) : 1;
 
-  const { data: milestoneScores } = useMilestoneScoresQuery(searchFilterPeriod.startDate, searchFilterPeriod.endDate);
+  const { data: milestoneScores } = useMilestoneScoresQuery(
+    searchFilterPeriod.startDate,
+    searchFilterPeriod.endDate,
+    page - 1,
+    undefined,
+  );
   const { data: milestones } = useMilestoneQuery();
 
-  const milestonesByGroup: MilestoneByGroup = useMemo(
-    () =>
-      milestones?.reduce(
-        (acc: MilestoneByGroup, curr: MilestoneOverviewDto) => {
-          const { group } = curr;
-          acc[group] = [...acc[group], curr];
-          return acc;
-        },
-        {
-          [MilestoneGroup.ACTIVITY]: [],
-          [MilestoneGroup.GLOBAL]: [],
-          [MilestoneGroup.COMMUNITY]: [],
-        },
-      ) ?? initialMilestonesByGroup,
-    [milestones],
-  );
-
-  const milestoneScoresByGroup: MilestoneScoreWithStudentByGroup[] = useMemo(
-    () =>
-      milestoneScores?.content.map((milestoneScore) => {
-        const groupedMilestoneScores =
-          milestoneScore.milestoneScores.reduce(
-            (acc: MilestoneScoreByGroup, curr: MilestoneScoreDto) => {
-              const { group } = curr;
-              acc[group] = [...acc[group], curr];
-              return acc;
-            },
-            {
-              [MilestoneGroup.ACTIVITY]: [],
-              [MilestoneGroup.GLOBAL]: [],
-              [MilestoneGroup.COMMUNITY]: [],
-            },
-          ) ?? initialMilestonesByGroup;
-        return { student: milestoneScore.student, milestoneScores: groupedMilestoneScores };
-      }) ?? [],
-    [milestoneScores],
-  );
   return (
     <div>
       <div className="mb-8 flex justify-end">
@@ -86,7 +44,7 @@ const Page = () => {
           setSearchFilterPeriod={setSearchFilterPeriod}
         />
       </div>
-      <div className="w-full overflow-x-scroll text-xs">
+      <div className="mb-8 min-h-[426px] w-full overflow-x-scroll text-xs">
         <table className="border-collapse text-center">
           <thead className="border-b-2 border-border align-bottom">
             <tr>
@@ -96,18 +54,19 @@ const Page = () => {
               <th className="min-w-20 pb-2">총점</th>
               {Object.values(MilestoneGroup).map((group) => (
                 <>
-                  {milestonesByGroup[group]?.map((milestone) => (
-                    <th key={milestone.id} className="min-w-20 break-keep p-2">
-                      {milestone.name}
-                    </th>
-                  ))}
+                  {milestones &&
+                    milestones[group]?.map((milestone) => (
+                      <th key={milestone.id} className="min-w-20 break-keep p-2">
+                        {milestone.name}
+                      </th>
+                    ))}
                   <th className="min-w-20 break-keep p-2">{convertMilestoneGroup(group)} SW역량 소계</th>
                 </>
               ))}
             </tr>
           </thead>
           <tbody>
-            {milestoneScoresByGroup?.map((milestoneScore, index) => (
+            {milestoneScores?.content?.map((milestoneScore, index) => (
               <tr key={milestoneScore.student.id} className="border-b border-border">
                 <td>{milestoneScores!.size * milestoneScores!.number + index + 1}</td>
                 <td>{milestoneScore.student.name}</td>
@@ -136,6 +95,7 @@ const Page = () => {
           </tbody>
         </table>
       </div>
+      <Pagination currentPage={page} totalItems={milestoneScores?.totalElements ?? 0} pathname={pathname} />
     </div>
   );
 };

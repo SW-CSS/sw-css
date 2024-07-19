@@ -77,9 +77,13 @@ export interface MilestoneScoreDto {
   score: number;
 }
 
+interface MilestoneScoreByGroup {
+  [k: string]: MilestoneScoreDto[];
+}
+
 interface MilestoneScoreOfStudentDto {
   student: StudentReferenceDto;
-  milestoneScores: MilestoneScoreDto[];
+  milestoneScores: MilestoneScoreByGroup;
 }
 
 export interface MilestoneScoreOfStudentPageableDto extends Pageable {
@@ -110,12 +114,16 @@ export interface MilestoneHistoryOfStudentPageableDto extends Pageable {
   content: MilestoneHistoryOfStudentDto[];
 }
 
-export interface MilestoneOverviewDto {
+interface MilestoneOverviewDto {
   id: number;
   name: string;
   group: MilestoneGroup;
   limitScore: number;
   milestones: Milestone[];
+}
+
+export interface MilestoneByGroupDto {
+  [k: string]: MilestoneOverviewDto[];
 }
 
 export interface MilestoneHistoryCreateDto {
