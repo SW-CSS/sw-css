@@ -39,7 +39,6 @@ public class MilestoneHistoryAdminQueryService {
         return MilestoneHistoryResponse.from(milestoneHistories);
     }
 
-    //TODO 페이지네이션
     public Page<MilestoneScoreResponse> findAllMilestoneHistoryScores(final String startDate, final String endDate,
                                                                       final Pageable pageable) {
         final LocalDate parsedStartDate = parseDate(startDate);
