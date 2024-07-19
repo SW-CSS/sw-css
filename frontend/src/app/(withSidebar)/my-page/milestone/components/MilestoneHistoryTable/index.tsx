@@ -37,7 +37,7 @@ const MilestoneHistoryTable = ({ searchFilterPeriod, pageNumber, pageSize }: Mil
     pageSize,
   );
   return (
-    <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+    <table className="w-full border-collapse">
       <thead>
         <tr className="flex border-b border-border text-center">
           <th className="flex-grow p-[10px]">활동명</th>
