@@ -1,6 +1,8 @@
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable max-len */
+import { VscChevronLeft } from '@react-icons/all-files/vsc/VscChevronLeft';
+import { VscChevronRight } from '@react-icons/all-files/vsc/VscChevronRight';
 import Link from 'next/link';
-import { VscChevronLeft, VscChevronRight } from 'react-icons/vsc';
 
 export interface PaginationProps {
   currentPage: number;

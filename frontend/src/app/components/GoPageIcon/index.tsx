@@ -1,5 +1,6 @@
+/* eslint-disable import/no-extraneous-dependencies */
+import { VscAdd } from '@react-icons/all-files/vsc/VscAdd';
 import Link from 'next/link';
-import { VscAdd } from 'react-icons/vsc';
 
 import { COLOR, FONT_STYLE } from '@/constants';
 

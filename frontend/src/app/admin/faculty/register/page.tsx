@@ -1,3 +1,5 @@
+/* eslint-disable import/no-unresolved */
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
@@ -6,8 +8,8 @@
 'use client';
 
 import { Form, Formik } from 'formik';
+import Image from 'next/image';
 import Link from 'next/link';
-import { TbFileTypeXls } from 'react-icons/tb';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 
@@ -71,10 +73,10 @@ const Page = () => {
         <p className="text-lg font-semibold">교직원 일괄 등록 방법</p>
         <ul className="flex flex-col gap-2 px-4 pb-8 pt-4">
           <li className="flex text-base">
-            <TbFileTypeXls className="text-green-500" />
+            <Image src="/images/admin/xlsx_icon.svg" alt="xlsx" width="16" height="16" />
             <button
               type="button"
-              className="text-green-500 underline underline-offset-4"
+              className="pl-[0.5px] text-green-500 underline underline-offset-4"
               onClick={handleSampleButtonClick}
             >
               sample
