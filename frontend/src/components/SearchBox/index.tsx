@@ -15,13 +15,14 @@ interface SearchFormProps {
 export interface SearchBoxProps {
   initialValues: SearchFormProps;
   fieldCategories: { id: number; name: string }[];
+  path: string;
 }
 
-const SearchBox = ({ initialValues, fieldCategories }: SearchBoxProps) => {
+const SearchBox = ({ initialValues, fieldCategories, path }: SearchBoxProps) => {
   const router = useRouter();
 
   const handleSearchButtonClick = (values: SearchFormProps) => {
-    router.push(`/admin/member/list?field=${values.field}&keyword=${values.keyword}`);
+    router.push(`${path}?field=${values.field}&keyword=${values.keyword}`);
   };
 
   return (

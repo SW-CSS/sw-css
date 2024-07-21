@@ -3,10 +3,10 @@
 import { headers } from 'next/headers';
 
 import Pagination from '@/adminComponents/Pagination';
+import SearchBox from '@/components/SearchBox';
 import { fieldCategories, members } from '@/mocks/adminMember';
 
 import MemberTable from './components/MemberTable';
-import SearchBox from './components/SearchBox';
 
 const Page = ({ searchParams }: { searchParams?: { [key: string]: string | undefined } }) => {
   const headersList = headers();
@@ -25,7 +25,7 @@ const Page = ({ searchParams }: { searchParams?: { [key: string]: string | undef
         <span className="mr-20">
           총 <span className="text-admin-primary-main">{members.length}</span>명의 회원이 있습니다.
         </span>
-        <SearchBox initialValues={{ field, keyword }} fieldCategories={fieldCategories} />
+        <SearchBox initialValues={{ field, keyword }} fieldCategories={fieldCategories} path="/admin/faculty/list" />
       </div>
       <MemberTable members={members.slice((page - 1) * 10, page * 10)} />
       <Pagination
