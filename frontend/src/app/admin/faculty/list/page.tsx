@@ -17,7 +17,7 @@ const Page = ({ searchParams }: { searchParams?: { [key: string]: string | undef
   const keyword = searchParams?.keyword ? searchParams.keyword : '';
 
   // TODO: 검색 영역 조회 api 호출
-  // TODO: query에 따른 학생 목록 조회 api 호출
+  // TODO: query에 따른 교직원 목록 조회 api 호출
 
   return (
     <div className="w-full">
@@ -25,7 +25,7 @@ const Page = ({ searchParams }: { searchParams?: { [key: string]: string | undef
         <span className="mr-20">
           총 <span className="text-admin-primary-main">{members.length}</span>명의 회원이 있습니다.
         </span>
-        <SearchBox initialValues={{ field, keyword }} fieldCategories={fieldCategories} path="/admin/member/list" />
+        <SearchBox initialValues={{ field, keyword }} fieldCategories={fieldCategories} path="/admin/faculty/list" />
       </div>
       <MemberTable members={members.slice((page - 1) * 10, page * 10)} />
       <Pagination
