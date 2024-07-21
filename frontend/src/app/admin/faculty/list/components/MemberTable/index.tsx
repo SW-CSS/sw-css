@@ -6,7 +6,7 @@ import { MemberDto } from '@/types/common.dto';
 
 const MemberTable = ({ members }: { members: MemberDto[] }) => {
   const handleDeleteButtonClick = (member: MemberDto) => {
-    window.confirm(`${member.name}을 삭제하시겠습니까?`);
+    window.confirm(`${member.name}을(를) 삭제하시겠습니까?`);
   };
   return (
     <table className="my-4 w-full table-fixed text-center text-sm [&_*]:cursor-default">
