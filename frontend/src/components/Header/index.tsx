@@ -1,11 +1,14 @@
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable implicit-arrow-linebreak */
 
 'use client';
 
+import { VscAccount } from '@react-icons/all-files/vsc/VscAccount';
+import { VscSignIn } from '@react-icons/all-files/vsc/VscSignIn';
+import { VscSignOut } from '@react-icons/all-files/vsc/VscSignOut';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useState } from 'react';
-import { VscSignIn, VscSignOut, VscAccount } from 'react-icons/vsc';
 
 import { headerInfos } from '@/data/clientCategory';
 import { useAppSelector } from '@/lib/hooks/redux';

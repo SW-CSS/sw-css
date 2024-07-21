@@ -1,7 +1,9 @@
+/* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable max-len */
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { VscChevronDown } from '@react-icons/all-files/vsc/VscChevronDown';
+import { VscChevronUp } from '@react-icons/all-files/vsc/VscChevronUp';
 import React, { useState } from 'react';
-import { VscChevronDown, VscChevronUp } from 'react-icons/vsc';
 
 import { FORM_SIZE } from '@/constants';
 import useDivSize from '@/lib/hooks/useDivSize';
