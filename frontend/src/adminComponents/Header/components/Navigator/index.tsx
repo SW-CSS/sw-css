@@ -12,9 +12,17 @@ const Navigator = () => {
     <>
       {adminCategories.map((item) => {
         if (pathname.includes(item.url)) {
-          return <HeaderLinkerPoint href={item.sub[0].url}>{item.title}</HeaderLinkerPoint>;
+          return (
+            <HeaderLinkerPoint key={item.url} href={item.sub[0].url}>
+              {item.title}
+            </HeaderLinkerPoint>
+          );
         }
-        return <HeaderLinker href={item.sub[0].url}>{item.title}</HeaderLinker>;
+        return (
+          <HeaderLinker key={item.url} href={item.sub[0].url}>
+            {item.title}
+          </HeaderLinker>
+        );
       })}
     </>
   );
