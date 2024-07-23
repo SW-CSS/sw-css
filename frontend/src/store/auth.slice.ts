@@ -5,7 +5,7 @@ import cookie from 'react-cookies';
 export interface AuthState {
   token: string;
   username: string;
-  uid: string;
+  uid: number;
   isModerator: boolean;
 }
 
@@ -13,7 +13,7 @@ export interface AuthSliceState extends AuthState {
   token: string;
   isAuth: boolean; // 로그인되어 있는지.
   username: string;
-  uid: string;
+  uid: number;
   isModerator: boolean; // 관리자 계정인지.
 }
 
@@ -26,7 +26,7 @@ const initialState: InitialState = {
     token: '',
     isAuth: false,
     username: '',
-    uid: '',
+    uid: -1,
     isModerator: false,
   },
 };

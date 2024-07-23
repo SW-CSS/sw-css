@@ -6,8 +6,8 @@
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 
-import Dropdown from '@/components/Formik/Dropdown';
-import TextInput from '@/components/Formik/TextInput';
+import { Dropdown } from '@/app/components/Formik/Dropdown';
+import { TextInput } from '@/app/components/Formik/TextInput';
 import { careerCategory } from '@/data/signUp';
 
 import MajorDropdown from './components/MajorDropdown';
@@ -94,6 +94,7 @@ const SignUpSecondPage = ({ initialValues, handlePrevButtonClick, handleSubmitBu
           />
           <TextInput
             name="careerDetail"
+            label=""
             type="text"
             placeholder="진로 상세 계획을 작성해주세요."
             value={values.careerDetail}

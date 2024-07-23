@@ -1,3 +1,24 @@
+import { Milestone } from './milestone';
+
+interface PageSort {
+  empty: boolean;
+  sorted: boolean;
+  unsorted: boolean;
+}
+
+interface Pageable {
+  totalPages: number;
+  totalElements: number;
+  size: number;
+  number: number;
+  sort: PageSort;
+  first: boolean;
+  last: boolean;
+  pageable: string;
+  numberOfElements: number;
+  empty: boolean;
+}
+
 export interface CategoryDto {
   title: string;
   url: string;
@@ -67,7 +88,7 @@ interface MilestoneReferenceDto {
   score: number;
 }
 
-export interface MilestoneHistoryOfStudentResponseDto {
+interface MilestoneHistoryOfStudentDto {
   id: number;
   milestone: MilestoneReferenceDto;
   description: string;
@@ -77,6 +98,26 @@ export interface MilestoneHistoryOfStudentResponseDto {
   count: number;
   activatedAt: string;
   createdAt: string;
+}
+
+export interface MilestoneHistoryOfStudentPageableDto extends Pageable {
+  content: MilestoneHistoryOfStudentDto[];
+}
+
+export interface MilestoneOverviewDto {
+  id: number;
+  name: string;
+  group: string;
+  limitScore: number;
+  milestones: Milestone[];
+}
+
+export interface MilestoneHistoryCreateDto {
+  milestoneId: number;
+  description: string;
+  count: number;
+  file?: File;
+  activatedAt: string;
 }
 
 export interface MemberDto {

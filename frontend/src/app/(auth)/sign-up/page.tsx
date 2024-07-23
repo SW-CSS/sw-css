@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import PageTitle from '@/app/components/PageTitle';
 import { SignUpPhase } from '@/data/signUp';
@@ -46,6 +46,10 @@ const Page = () => {
     console.log(tempUserInfo);
     // TODO: 회원가입 api 연결
   };
+
+  useEffect(() => {
+    console.log(userInfo);
+  }, [userInfo]);
 
   return (
     <div className="mx-auto w-sign max-w-full pb-10 pt-14 lg:pt-20">

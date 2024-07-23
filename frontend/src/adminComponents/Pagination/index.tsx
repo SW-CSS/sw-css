@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 /* eslint-disable import/no-extraneous-dependencies */
 /* eslint-disable max-len */
 import { VscChevronLeft } from '@react-icons/all-files/vsc/VscChevronLeft';

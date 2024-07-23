@@ -3,29 +3,26 @@ import { useMemo } from 'react';
 
 import MilestoneChart from '@/components/MilestoneChart';
 import MilestoneTable from '@/components/MilestoneTable';
-import { useMilestoneScoresOfStudent } from '@/lib/hooks/useApi';
+import { initialMilestoneOverview } from '@/data/milestone';
+import { useMilestoneScoresOfStudentQuery } from '@/lib/hooks/useApi';
 import { Period } from '@/types/common';
 import { MilestoneOverviewScore } from '@/types/milestone';
 
 import { MilestoneWrapper } from './styled';
 import MilestoneDetail from '../MilestoneDetail';
+import { useAppSelector } from '@/lib/hooks/redux';
 
-const initialData: MilestoneOverviewScore = {
-  activityScore: 0,
-  globalScore: 0,
-  communityScore: 0,
-  totalScore: 0,
-};
 interface MilestoneOverviewProps {
   searchFilterPeriod: Period;
 }
 
 const MilestoneOverview = ({ searchFilterPeriod }: MilestoneOverviewProps) => {
-  const { data: milestoneScoresOfStudent } = useMilestoneScoresOfStudent({
-    memberId: 202055558,
-    startDate: searchFilterPeriod.startDate,
-    endDate: searchFilterPeriod.endDate,
-  });
+  const auth = useAppSelector((state) => state.auth).value;
+  const { data: milestoneScoresOfStudent } = useMilestoneScoresOfStudentQuery(
+    auth.uid,
+    searchFilterPeriod.startDate,
+    searchFilterPeriod.endDate,
+  );
   const milestoneOverviewScore: MilestoneOverviewScore = useMemo(
     () =>
       milestoneScoresOfStudent?.reduce<MilestoneOverviewScore>(
@@ -35,8 +32,8 @@ const MilestoneOverview = ({ searchFilterPeriod }: MilestoneOverviewProps) => {
           acc.totalScore += cur.score;
           return acc;
         },
-        { ...initialData },
-      ) || initialData,
+        { ...initialMilestoneOverview },
+      ) || initialMilestoneOverview,
     [milestoneScoresOfStudent],
   );
   return (
