@@ -123,7 +123,7 @@ interface MilestoneOverviewDto {
 }
 
 export interface MilestoneByGroupDto {
-  [k: string]: MilestoneOverviewDto[];
+  [key: string]: MilestoneOverviewDto[];
 }
 
 export interface MilestoneHistoryCreateDto {

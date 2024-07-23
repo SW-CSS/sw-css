@@ -60,7 +60,9 @@ const Page = ({ searchParams }: { searchParams?: { [key: string]: string | undef
                         {milestone.name}
                       </th>
                     ))}
-                  <th className="min-w-20 break-keep p-2">{convertMilestoneGroup(group)} SW역량 소계</th>
+                  <th key={group} className="min-w-20 break-keep p-2">
+                    {convertMilestoneGroup(group)} SW역량 소계
+                  </th>
                 </>
               ))}
             </tr>
@@ -85,7 +87,7 @@ const Page = ({ searchParams }: { searchParams?: { [key: string]: string | undef
                         {score.score}
                       </td>
                     ))}
-                    <td className="bg-admin-background-point min-w-20 p-2 font-bold">
+                    <td key={group} className="bg-admin-background-point min-w-20 p-2 font-bold">
                       {milestoneScore.milestoneScores[group].reduce((acc, curr) => acc + curr.score, 0)}
                     </td>
                   </>
