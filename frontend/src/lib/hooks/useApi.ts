@@ -5,11 +5,11 @@ import { client } from '@/lib/api/client.axios';
 import { useAxiosMutation, useAxiosQuery } from '@/lib/hooks/useAxios';
 import {
   CollegeDto,
-  MilestoneOverviewDto,
   MilestoneScoreDto,
   MilestoneHistoryCreateDto,
   StudentMemberDto,
   MilestoneHistoryOfStudentPageableDto,
+  MilestoneByGroupDto,
 } from '@/types/common.dto';
 import { BusinessError } from '@/types/error';
 import { MilestoneHistorySortCriteria, SortDirection } from '@/types/milestone';
@@ -102,9 +102,9 @@ export const useMilestoneHistoriesOfStudentQuery = (
 export function useMilestoneQuery() {
   return useAxiosQuery({
     queryKey: QueryKeys.MILESTONES,
-    queryFn: async (): Promise<MilestoneOverviewDto[]> => {
+    queryFn: async (): Promise<MilestoneByGroupDto> => {
       const response = await client.get('/milestones');
-      return response.data;
+      return response?.data;
     },
   });
 }

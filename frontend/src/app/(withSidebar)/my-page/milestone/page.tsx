@@ -8,8 +8,8 @@ import { Period } from '@/types/common';
 
 import MilestoneHistoryTable from './components/MilestoneHistoryTable';
 import MilestoneOverview from './components/MilestoneOverview';
-import MilestonePeriodSearchForm from './components/MilestonePeriodSearchForm';
 import { Content, SubTitle, Title } from './styled';
+import MilestonePeriodSearchForm from '../../../../components/MilestonePeriodSearchForm';
 
 const Page = () => {
   const [filterPeriod, setFilterPeriod] = useState<Period>({

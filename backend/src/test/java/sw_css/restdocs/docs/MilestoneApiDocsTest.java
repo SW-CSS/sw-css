@@ -6,8 +6,10 @@ import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuild
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static sw_css.milestone.domain.MilestoneGroup.ACTIVITY;
 
 import java.util.List;
+import java.util.Map;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -28,25 +30,26 @@ public class MilestoneApiDocsTest extends RestDocsTest {
     void findAllMilestones() throws Exception {
         //given
         final ResponseFieldsSnippet responseBodySnippet = responseFields(
-                fieldWithPath("[].id").type(JsonFieldType.NUMBER).description("마일스톤의 카테고리 id"),
-                fieldWithPath("[].name").type(JsonFieldType.STRING).description("마일스톤의 카테고리 이름"),
-                fieldWithPath("[].group").type(JsonFieldType.STRING).description("마일스톤의 카테고리 유형"),
-                fieldWithPath("[].limitScore").type(JsonFieldType.NUMBER).description("마일스톤 카테고리의 최대 점수"),
-                fieldWithPath("[].milestones[].id").type(JsonFieldType.NUMBER).description("마일스톤 id"),
-                fieldWithPath("[].milestones[].name").type(JsonFieldType.STRING).description("마일스톤 이름"),
-                fieldWithPath("[].milestones[].score").type(JsonFieldType.NUMBER).description("마일스톤 활동 점수"),
-                fieldWithPath("[].milestones[].limitCount").type(JsonFieldType.NUMBER).description("마일스톤 활동 상한 횟수")
+                fieldWithPath("*[].id").type(JsonFieldType.NUMBER).description("마일스톤의 카테고리 id"),
+                fieldWithPath("*[].name").type(JsonFieldType.STRING).description("마일스톤의 카테고리 이름"),
+                fieldWithPath("*[].group").type(JsonFieldType.STRING).description("마일스톤의 카테고리 유형"),
+                fieldWithPath("*[].limitScore").type(JsonFieldType.NUMBER).description("마일스톤 카테고리의 최대 점수"),
+                fieldWithPath("*[].milestones[].id").type(JsonFieldType.NUMBER).description("마일스톤 id"),
+                fieldWithPath("*[].milestones[].name").type(JsonFieldType.STRING).description("마일스톤 이름"),
+                fieldWithPath("*[].milestones[].score").type(JsonFieldType.NUMBER).description("마일스톤 활동 점수"),
+                fieldWithPath("*[].milestones[].limitCount").type(JsonFieldType.NUMBER).description("마일스톤 활동 상한 횟수")
         );
 
         MilestoneCategory category1 = new MilestoneCategory(1L, "SW 관련 창업",
-                MilestoneGroup.ACTIVITY, 100,
+                ACTIVITY, 100,
                 List.of(new Milestone(1L, null, "창업", 100, 1), new Milestone(2L, null, "교과", 50, 2)));
         MilestoneCategory category2 = new MilestoneCategory(2L, "TOPCIT",
-                MilestoneGroup.ACTIVITY, 60,
+                ACTIVITY, 60,
                 List.of(new Milestone(3L, null, "수준 3 이상", 60, 0), new Milestone(4L, null, "수준 2 이상", 50, 0)));
 
-        final List<MilestonesByCategoryResponse> response = MilestonesByCategoryResponse.from(
-                List.of(category1, category2));
+        final Map<MilestoneGroup, List<MilestonesByCategoryResponse>> response = Map.of(ACTIVITY,
+                MilestonesByCategoryResponse.from(
+                        List.of(category1, category2)));
 
         //when
         when(milestoneQueryService.findMilestones()).thenReturn(response);

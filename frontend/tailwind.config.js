@@ -60,6 +60,7 @@ module.exports = {
           background: {
             light: '#F0F0F0',
             base: '#B0B0B0',
+            point: '#E3F2FD',
           },
           primary: {
             light: '#3B80C7',

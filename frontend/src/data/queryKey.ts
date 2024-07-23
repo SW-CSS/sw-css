@@ -23,4 +23,10 @@ export const QueryKeys = {
   MILESTONES: ['milestones'],
   STUDENT: (memberId: number) => ['student', memberId],
   STUDENTS: ['students'],
+  MILESTONE_SCORES: (
+    startDate: string,
+    endDate: string,
+    page: number | undefined = 0,
+    size: number | undefined = 10,
+  ) => ['milestone-scores', startDate, endDate, page, size],
 };
