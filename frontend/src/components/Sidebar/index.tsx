@@ -1,8 +1,11 @@
+/* eslint-disable import/no-extraneous-dependencies */
+
 'use client';
 
+import { VscChevronDown } from '@react-icons/all-files/vsc/VscChevronDown';
+import { VscChevronUp } from '@react-icons/all-files/vsc/VscChevronUp';
 import { usePathname } from 'next/navigation';
 import { useCallback, useEffect, useState } from 'react';
-import { VscChevronUp, VscChevronDown } from 'react-icons/vsc';
 
 import { headerInfos } from '@/data/clientCategory';
 import { CategoryDto, SubCategoryDto } from '@/types/common.dto';

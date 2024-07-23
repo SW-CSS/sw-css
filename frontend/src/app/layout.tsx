@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-page-custom-font */
 import { Metadata } from 'next';
+import { ToastContainer } from 'react-toastify';
 
 import ReactQueryProvider from '@/lib/utils/reactQueryProvider';
 import ReduxProvider from '@/lib/utils/reduxProvider';
@@ -26,6 +27,7 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => (
         <ReduxProvider>
           <StyledComponentsRegistry>
             <CustomLayout>{children}</CustomLayout>
+            <ToastContainer autoClose={1500} position="bottom-right" />
           </StyledComponentsRegistry>
         </ReduxProvider>
       </ReactQueryProvider>

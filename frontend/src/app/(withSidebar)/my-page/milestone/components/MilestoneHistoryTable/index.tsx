@@ -8,11 +8,11 @@ import { MilestoneHistorySortCriteria, SortDirection } from '@/types/milestone';
 
 interface MilestoneHistoryTableProps {
   searchFilterPeriod: Period;
-  page: number;
-  size: number;
+  pageNumber: number;
+  pageSize: number;
 }
 
-const MilestoneHistoryTable = ({ searchFilterPeriod, page, size }: MilestoneHistoryTableProps) => {
+const MilestoneHistoryTable = ({ searchFilterPeriod, pageNumber, pageSize }: MilestoneHistoryTableProps) => {
   const auth = useAppSelector((state) => state.auth).value;
   const { data: milestoneHistoriesOfStudent } = useMilestoneHistoriesOfStudentQuery(
     auth.uid,
@@ -21,11 +21,11 @@ const MilestoneHistoryTable = ({ searchFilterPeriod, page, size }: MilestoneHist
     MilestoneHistoryStatus.APPROVED,
     MilestoneHistorySortCriteria.ACTIVATED_AT,
     SortDirection.DESC,
-    page,
-    size,
+    pageNumber,
+    pageSize,
   );
   return (
-    <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+    <table className="w-full border-collapse">
       <thead>
         <tr className="flex border-b border-border text-center">
           <th className="flex-grow p-[10px]">활동명</th>
