@@ -39,3 +39,14 @@ VALUES (8, 2, 202055558, 'SW 관련 창업 - 교과2', null, 'REJECTED', null, 1
 INSERT INTO sw_css.milestone_history (id, milestone_id, student_id, description, file_url, status, reject_reason, count,
                                       activated_at, is_deleted, created_at)
 VALUES (9, 15, 202055558, '글로벌 행사 참여', null, 'PENDING', null, 1, '2024-06-08', 0, '2024-07-01 18:35:47.580376');
+INSERT INTO sw_css.milestone_history (id, milestone_id, student_id, description, file_url, status, reject_reason, count,
+                                      activated_at, is_deleted, created_at)
+VALUES (10, 7, 202000000, 'PCC lv2', null, 'PENDING', null, 1, '2024-06-11', 0, '2024-07-01 18:35:47.580376');
+
+INSERT INTO sw_css.milestone_history (id, milestone_id, student_id, description, file_url, status, reject_reason, count,
+                                      activated_at, is_deleted, created_at)
+VALUES (11, 15, 202000000, '글로벌 행사 참여', null, 'APPROVED', null, 1, '2024-06-08', 0, '2024-07-01 18:35:47.580376');
+
+INSERT INTO sw_css.milestone_history (id, milestone_id, student_id, description, file_url, status, reject_reason, count,
+                                      activated_at, is_deleted, created_at)
+VALUES (12, 3, 202000000, '비교과 SW 관련 창업', null, 'APPROVED', null, 2, '2024-06-08', 0, '2024-07-01 18:35:47.580376');

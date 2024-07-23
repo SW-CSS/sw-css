@@ -21,7 +21,7 @@ public class MilestoneScoreRepositoryImpl implements MilestoneScoreRepository {
                                                                                             Long page, Long pageSize) {
 
         String sql =
-                "select  test.studentId, test.studentName, test.category_id as categoryId, test.name as categoryName ,test.milestone_group as milestoneGroup, ifNull(least(if(sum(test.limit_count)=0,max(test.milestone_score),sum(test.milestone_score)),test.limit_score),0) as score from "
+                "select  test.studentId, test.studentName, test.category_id as categoryId, test.name as categoryName ,test.milestone_group as milestoneGroup, test.limit_score as limitScore, ifNull(least(if(sum(test.limit_count)=0,max(test.milestone_score),sum(test.milestone_score)),test.limit_score),0) as score from "
                         + "    (SELECT s2.studentId, s2.studentName,mc.limit_score,m.category_id,mc.name,mc.milestone_group, m.limit_count,m.score,least(sum(mh.count), greatest(m.limit_count,1)), least(sum(mh.count), greatest(m.limit_count,1))*m.score as milestone_score "
                         + "FROM (SELECT DISTINCT(COALESCE(mh.student_id, sm.id)) as studentId, COALESCE(m.name,'') as studentName FROM student_member sm "
                         + "LEFT JOIN milestone_history mh on mh.student_id=sm.id "

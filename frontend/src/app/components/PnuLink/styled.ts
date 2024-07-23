@@ -1,5 +1,7 @@
+/* eslint-disable import/no-extraneous-dependencies */
+import { VscChevronLeft } from '@react-icons/all-files/vsc/VscChevronLeft';
+import { VscChevronRight } from '@react-icons/all-files/vsc/VscChevronRight';
 import Link from 'next/link';
-import { VscChevronLeft, VscChevronRight } from 'react-icons/vsc';
 import styled from 'styled-components';
 
 import { BORDER_RADIUS, COLOR, FONT_STYLE } from '@/constants';

@@ -5,7 +5,7 @@
 import { Form, Formik } from 'formik';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import * as Yup from 'yup';
 
 import { DatePicker } from '@/app/components/Formik/DatePicker';
@@ -19,14 +19,11 @@ import { Milestone, MilestoneCategory } from '@/types/milestone';
 import MilestoneDropdown from './components/MilestoneDropdown';
 
 const validationSchema = Yup.object().shape({
-  milestoneId: Yup.number().min(1, '필수 입력란입니다. 활동 구분을 선택해주세요.'),
-  count: Yup.number()
-    .min(1, '횟수는 1 이상의 값이어야 합니다.')
-    .required('필수 입력란입니다. 등록할 실적의 활동 횟수를 입력해주세요.'),
-  description: Yup.string().required('필수 입력란입니다. 등록할 실적의 상세 정보를 입력해주세요.'),
-  activatedAt: Yup.date()
-    .max(new Date(), '활동 인정일은 미래일 수 없습니다.')
-    .required('필수 입력란입니다. 활동 인정일을 기입해주세요.'),
+  milestoneId: Yup.number().min(1, '활동 구분을 선택해주세요.'),
+  count: Yup.number().min(1, '횟수는 1 이상의 값이어야 합니다.').required('등록할 실적의 활동 횟수를 입력해주세요.'),
+  description: Yup.string().required('등록할 실적의 상세 정보를 입력해주세요.'),
+  activatedAt: Yup.date().max(new Date(), '활동 인정일은 미래일 수 없습니다.').required('활동 인정일을 기입해주세요.'),
+  file: Yup.mixed().required('파일을 첨부해주세요.'),
 });
 
 interface MilestoneHistoryInfo {
@@ -39,8 +36,8 @@ interface MilestoneHistoryInfo {
 }
 
 const initialValues: MilestoneHistoryInfo = {
-  categoryId: -1,
-  milestoneId: -1,
+  categoryId: 0,
+  milestoneId: 0,
   count: 1,
   description: '',
   file: undefined,
@@ -65,7 +62,6 @@ const Page = () => {
     });
   };
 
-  useEffect(() => {}, []);
   return (
     <div className="rounded-sm bg-white p-5">
       <PageTitle title="실적 등록" description="" urlText="" url="" />
@@ -84,7 +80,7 @@ const Page = () => {
           <Form className="flex flex-col gap-4">
             <MilestoneDropdown
               label=""
-              selectOptionText=""
+              selectOptionText="선택"
               categoryId={values.categoryId}
               milestoneId={values.milestoneId}
               categoryName="categoryId"
@@ -113,7 +109,6 @@ const Page = () => {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 errorText={touched.count && errors.count ? errors.count : undefined}
-                required
               />
               <span className="mt-6">=</span>
               <TextInput
@@ -135,7 +130,6 @@ const Page = () => {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 errorText={touched.description && errors.description ? errors.description : undefined}
-                required
               />
               <DatePicker
                 type="date"
@@ -145,7 +139,6 @@ const Page = () => {
                 onChange={handleChange}
                 onBlur={handleBlur}
                 errorText={touched.activatedAt && errors.activatedAt ? errors.activatedAt : undefined}
-                required
               />
             </div>
             <FileUploader
@@ -153,8 +146,8 @@ const Page = () => {
               label="증빙자료 제출"
               type="file"
               onChange={(e) => e.currentTarget.files && setFieldValue('file', e.currentTarget.files[0])}
+              onBlur={handleBlur}
               errorText={touched.file && errors.file ? errors.file : undefined}
-              required
             />
             <div>
               <ul className="flex list-disc flex-col gap-2 px-4 text-sm">

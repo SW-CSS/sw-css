@@ -2,20 +2,16 @@
 /* eslint-disable max-len */
 /* eslint-disable no-alert */
 
-'use client';
-
-import { useQueryClient } from '@tanstack/react-query';
-
 import MilestoneHistoryStatusLabel from '@/app/(withSidebar)/my-page/components/MilestoneHistoryStatusLabel';
-import { QueryKeys } from '@/data/queryKey';
-import { useAppSelector } from '@/lib/hooks/redux';
-import { useMilestoneHistoriesOfStudentQuery, useMilestoneHistoryDeleteMutation } from '@/lib/hooks/useApi';
+import { getMilestoneHistoriesOfStudent } from '@/lib/api/server.api';
+import { getAuthFromCookie } from '@/lib/utils/auth';
 import { MilestoneHistorySortCriteria, SortDirection } from '@/types/milestone';
 
-const MilestoneHistoryTable = () => {
-  const queryClient = useQueryClient();
-  const auth = useAppSelector((state) => state.auth).value;
-  const { data: milestoneHistories } = useMilestoneHistoriesOfStudentQuery(
+import MilestoneHistoryDeleteButton from '../MilestoneHistoryDeleteButton';
+
+const MilestoneHistoryTable = async () => {
+  const auth = getAuthFromCookie();
+  const milestoneHistories = await getMilestoneHistoriesOfStudent(
     auth.uid,
     undefined,
     undefined,
@@ -23,25 +19,6 @@ const MilestoneHistoryTable = () => {
     MilestoneHistorySortCriteria.CREATED_AT,
     SortDirection.DESC,
   );
-  const { mutate: delteMilestoneHistory } = useMilestoneHistoryDeleteMutation();
-  const handleHistoryDeleteButtonClick = (id: number) => {
-    if (window.confirm('정말로 실적 내역을 삭제하시겠습니까?')) {
-      delteMilestoneHistory(id, {
-        onSuccess: () => {
-          queryClient.invalidateQueries(
-            QueryKeys.MILESTONE_HISTORIES_OF_STUDENT(
-              auth.uid,
-              undefined,
-              undefined,
-              undefined,
-              MilestoneHistorySortCriteria.CREATED_AT,
-              SortDirection.DESC,
-            ),
-          );
-        },
-      });
-    }
-  };
 
   return (
     <table className="w-full text-sm">
@@ -71,15 +48,7 @@ const MilestoneHistoryTable = () => {
               />
             </td>
             <td className="p-2">
-              <button
-                type="button"
-                onClick={() => {
-                  handleHistoryDeleteButtonClick(milestoneHistory.id);
-                }}
-                className="rounded-sm bg-red-400 px-4 py-2 text-white"
-              >
-                삭제
-              </button>
+              <MilestoneHistoryDeleteButton historyId={milestoneHistory.id} />
             </td>
           </tr>
         ))}
