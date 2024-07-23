@@ -19,7 +19,7 @@ const InputUserInfo = () => {
       signIn({
         token: 'token',
         username: 'name',
-        uid: '1',
+        uid: 202055558,
         isModerator: true,
       }),
     );

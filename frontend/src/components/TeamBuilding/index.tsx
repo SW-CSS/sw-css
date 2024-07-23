@@ -1,5 +1,6 @@
+/* eslint-disable import/no-extraneous-dependencies */
+import { CgEye } from '@react-icons/all-files/cg/CgEye';
 import Image from 'next/image';
-import { CgEye } from 'react-icons/cg';
 
 import { COLOR, TEAM_STATUS } from '@/constants';
 import { TeamBuildingDto } from '@/types/common.dto';

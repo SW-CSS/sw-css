@@ -8,8 +8,8 @@ import { Period } from '@/types/common';
 
 import MilestoneHistoryTable from './components/MilestoneHistoryTable';
 import MilestoneOverview from './components/MilestoneOverview';
-import MilestonePeriodSearchForm from './components/MilestonePeriodSearchForm';
 import { Content, SubTitle, Title } from './styled';
+import MilestonePeriodSearchForm from '../../../../components/MilestonePeriodSearchForm';
 
 const Page = () => {
   const [filterPeriod, setFilterPeriod] = useState<Period>({
@@ -32,7 +32,8 @@ const Page = () => {
       <MilestoneOverview searchFilterPeriod={searchFilterPeriod} />
       <div style={{ borderBottom: `1px dotted ${COLOR.border}`, margin: '30px 0px' }} />
       <SubTitle>획득 내역</SubTitle>
-      <MilestoneHistoryTable searchFilterPeriod={searchFilterPeriod} />
+      {/* TODO 제대로 페이지네이션 처리 하기 */}
+      <MilestoneHistoryTable searchFilterPeriod={searchFilterPeriod} page={0} size={10} />
     </Content>
   );
 };

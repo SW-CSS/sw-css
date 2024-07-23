@@ -3,7 +3,7 @@
 import styled from 'styled-components';
 
 import { BORDER_RADIUS, COLOR, FONT_STYLE } from '@/constants';
-import { MilestoneGroup } from '@/data/milestoneGroup';
+import { MilestoneGroup } from '@/data/milestone';
 
 export const TableBody = styled.tbody`
   border-top: 2px solid ${COLOR.black_text};

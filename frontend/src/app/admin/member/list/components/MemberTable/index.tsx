@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 import { StudentMemberDto } from '@/types/common.dto';
 
 const MemberTable = ({ members }: { members: StudentMemberDto[] }) => (

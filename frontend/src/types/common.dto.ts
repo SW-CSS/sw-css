@@ -1,3 +1,26 @@
+import { MilestoneGroup } from '@/data/milestone';
+
+import { Milestone } from './milestone';
+
+interface PageSort {
+  empty: boolean;
+  sorted: boolean;
+  unsorted: boolean;
+}
+
+interface Pageable {
+  totalPages: number;
+  totalElements: number;
+  size: number;
+  number: number;
+  sort: PageSort;
+  first: boolean;
+  last: boolean;
+  pageable: string;
+  numberOfElements: number;
+  empty: boolean;
+}
+
 export interface CategoryDto {
   title: string;
   url: string;
@@ -41,7 +64,7 @@ export interface CollegeDto extends MajorDto {
   majors: MajorDto[];
 }
 
-interface StudentReferenceDto {
+export interface StudentReferenceDto {
   id: number;
   name: string;
 }
@@ -54,9 +77,17 @@ export interface MilestoneScoreDto {
   score: number;
 }
 
-export interface MilestoneScoreOfStudentResponseDto {
+interface MilestoneScoreByGroup {
+  [k: string]: MilestoneScoreDto[];
+}
+
+interface MilestoneScoreOfStudentDto {
   student: StudentReferenceDto;
-  milestoneScores: MilestoneScoreDto[];
+  milestoneScores: MilestoneScoreByGroup;
+}
+
+export interface MilestoneScoreOfStudentPageableDto extends Pageable {
+  content: MilestoneScoreOfStudentDto[];
 }
 
 interface MilestoneReferenceDto {
@@ -67,7 +98,7 @@ interface MilestoneReferenceDto {
   score: number;
 }
 
-export interface MilestoneHistoryOfStudentResponseDto {
+interface MilestoneHistoryOfStudentDto {
   id: number;
   milestone: MilestoneReferenceDto;
   description: string;
@@ -77,6 +108,30 @@ export interface MilestoneHistoryOfStudentResponseDto {
   count: number;
   activatedAt: string;
   createdAt: string;
+}
+
+export interface MilestoneHistoryOfStudentPageableDto extends Pageable {
+  content: MilestoneHistoryOfStudentDto[];
+}
+
+interface MilestoneOverviewDto {
+  id: number;
+  name: string;
+  group: MilestoneGroup;
+  limitScore: number;
+  milestones: Milestone[];
+}
+
+export interface MilestoneByGroupDto {
+  [key: string]: MilestoneOverviewDto[];
+}
+
+export interface MilestoneHistoryCreateDto {
+  milestoneId: number;
+  description: string;
+  count: number;
+  file?: File;
+  activatedAt: string;
 }
 
 export interface MemberDto {

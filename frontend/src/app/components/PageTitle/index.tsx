@@ -1,5 +1,6 @@
+/* eslint-disable import/no-extraneous-dependencies */
+import { VscAdd } from '@react-icons/all-files/vsc/VscAdd';
 import Link from 'next/link';
-import { VscAdd } from 'react-icons/vsc';
 
 export interface PageTitleProps {
   title: string;
@@ -9,7 +10,7 @@ export interface PageTitleProps {
 }
 
 const PageTitle = ({ title, description, urlText, url }: PageTitleProps) => (
-  <div className="flex w-full justify-between">
+  <div className="flex flex-grow justify-between">
     <div className="flex flex-col gap-2">
       <p className="cursor-default text-xl font-semibold">{title}</p>
       <p className="cursor-default text-sm text-comment">{description}</p>
