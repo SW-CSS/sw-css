@@ -40,3 +40,22 @@ export const initialMilestoneOverview: MilestoneOverviewScore = {
   communityScore: 0,
   totalScore: 0,
 };
+
+export const milestoneHistorySearchField = [
+  {
+    id: 1,
+    name: '학번',
+  },
+  {
+    id: 2,
+    name: '학생 이름',
+  },
+  {
+    id: 3,
+    name: '마일스톤 제목',
+  },
+  {
+    id: 4,
+    name: '활동명',
+  },
+];

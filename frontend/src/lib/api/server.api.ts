@@ -1,6 +1,6 @@
 import { MilestoneHistoryStatus } from '@/data/milestone';
 import { server } from '@/lib/api/server.axios';
-import { MilestoneHistoryOfStudentPageableDto } from '@/types/common.dto';
+import { MilestoneHistoryOfStudentPageableDto, MilestoneHistoryPageableDto } from '@/types/common.dto';
 import { MilestoneHistorySortCriteria, SortDirection } from '@/types/milestone';
 
 import { removeEmptyField } from '../utils/utils';
@@ -22,6 +22,18 @@ export async function getMilestoneHistoriesOfStudent(
       filter,
       sort_by: sortBy,
       sort_direction: sortDirection,
+      page,
+      size,
+    }),
+  });
+  return response?.data;
+}
+
+export async function getMilestoneHistories(field?: number, keyword?: string, page: number = 0, size: number = 10) {
+  const response = await server.get<MilestoneHistoryPageableDto>('/admin/milestones/histories', {
+    params: removeEmptyField({
+      field,
+      keyword,
       page,
       size,
     }),

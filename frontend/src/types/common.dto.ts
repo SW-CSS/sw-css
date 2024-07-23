@@ -114,6 +114,23 @@ export interface MilestoneHistoryOfStudentPageableDto extends Pageable {
   content: MilestoneHistoryOfStudentDto[];
 }
 
+export interface MilestoneHistoryDto {
+  id: number;
+  milestone: MilestoneReferenceDto;
+  student: StudentMemberReferenceDto;
+  description: string;
+  fileUrl: string;
+  status: string;
+  rejectReason: string | null;
+  count: number;
+  activatedAt: string;
+  createdAt: string;
+}
+
+export interface MilestoneHistoryPageableDto extends Pageable {
+  content: MilestoneHistoryDto[];
+}
+
 interface MilestoneOverviewDto {
   id: number;
   name: string;
@@ -147,4 +164,9 @@ export interface StudentMemberDto extends MemberDto {
   doubleMajor: string;
   career: string;
   careerDetail: string;
+}
+
+interface StudentMemberReferenceDto {
+  id: number;
+  name: string;
 }
