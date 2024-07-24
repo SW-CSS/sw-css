@@ -73,7 +73,7 @@ module.exports = {
             dark: '#3F3F3F',
           },
           semantic: {
-            error: 'B30818',
+            error: '#B30818',
           },
         },
       },
