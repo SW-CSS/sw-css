@@ -25,21 +25,25 @@ public record MilestoneHistoryResponse(
         @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
         LocalDateTime createdAt
 ) {
+    public static MilestoneHistoryResponse from(final MilestoneHistoryWithStudentInfo milestoneHistory) {
+        return new MilestoneHistoryResponse(
+                milestoneHistory.id(),
+                MilestoneReferenceResponse.from(milestoneHistory.milestone()),
+                milestoneHistory.student(),
+                milestoneHistory.description(),
+                milestoneHistory.fileUrl(),
+                milestoneHistory.status(),
+                milestoneHistory.rejectReason(),
+                milestoneHistory.count(),
+                milestoneHistory.activatedAt(),
+                milestoneHistory.createdAt()
+        );
+    }
+
     public static Page<MilestoneHistoryResponse> from(final Page<MilestoneHistoryWithStudentInfo> milestoneHistories,
                                                       final Pageable pageable) {
         return new PageImpl<>(milestoneHistories.stream()
-                .map(milestoneHistory -> new MilestoneHistoryResponse(
-                        milestoneHistory.id(),
-                        MilestoneReferenceResponse.from(milestoneHistory.milestone()),
-                        milestoneHistory.student(),
-                        milestoneHistory.description(),
-                        milestoneHistory.fileUrl(),
-                        milestoneHistory.status(),
-                        milestoneHistory.rejectReason(),
-                        milestoneHistory.count(),
-                        milestoneHistory.activatedAt(),
-                        milestoneHistory.createdAt()
-                ))
+                .map(MilestoneHistoryResponse::from)
                 .toList(), pageable, milestoneHistories.getTotalElements());
     }
 }

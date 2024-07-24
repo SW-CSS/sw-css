@@ -41,6 +41,12 @@ public class MilestoneHistoryAdminController {
         return ResponseEntity.ok(milestoneHistoryAdminQueryService.findAllMilestoneHistories(field, keyword, pageable));
     }
 
+    @GetMapping("/{historyId}")
+    public ResponseEntity<MilestoneHistoryResponse> findAllMilestoneHistory(
+            @PathVariable("historyId") final Long historyId) {
+        return ResponseEntity.ok(milestoneHistoryAdminQueryService.findMilestoneHistory(historyId));
+    }
+
     @PostMapping
     public ResponseEntity<Void> registerMilestoneHistoriesInBatches(
             @RequestPart(value = "file") final MultipartFile file) {

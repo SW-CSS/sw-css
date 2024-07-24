@@ -123,6 +123,60 @@ public class MilestoneHistoryAdminApiDocsTest extends RestDocsTest {
 
     @Test
     @DisplayName("[성공] 전체 마일스톤 실적 목록을 조회할 수 있다.")
+    void findMilestoneHistory() throws Exception {
+        //given
+        final ResponseFieldsSnippet responseBodySnippet = responseFields(
+                fieldWithPath("id").type(JsonFieldType.NUMBER).description("마일스톤 실적 id"),
+                fieldWithPath("milestone.id").type(JsonFieldType.NUMBER).description("마일스톤 실적의 마일스톤 id"),
+                fieldWithPath("milestone.name").type(JsonFieldType.STRING).description("마일스톤 실적의 마일스톤 명칭"),
+                fieldWithPath("milestone.categoryName").type(JsonFieldType.STRING)
+                        .description("마일스톤 실적의 마일스톤 카테고리 이름"),
+                fieldWithPath("milestone.categoryGroup").type(JsonFieldType.STRING)
+                        .description("마일스톤 실적의 마일스톤 카테고리 유형"),
+                fieldWithPath("milestone.score").type(JsonFieldType.NUMBER).description("마일스톤 실적의 마일스톤 점수"),
+                fieldWithPath("student.id").type(JsonFieldType.NUMBER).description("실적을 등록한 학생의 id"),
+                fieldWithPath("student.name").type(JsonFieldType.STRING).description("실적을 등록한 학생의 이름"),
+                fieldWithPath("description").type(JsonFieldType.STRING).description("마일스톤 활동에 대한 설명"),
+                fieldWithPath("fileUrl").type(JsonFieldType.STRING).description("마일스톤 실적 등록 시 첨부된 파일 접근 url"),
+                fieldWithPath("status").type(JsonFieldType.STRING).description("마일스톤 실적의 처리 상태"),
+                fieldWithPath("rejectReason").type(JsonFieldType.STRING).optional()
+                        .description("마일스톤 실적 반려 사유"),
+                fieldWithPath("count").type(JsonFieldType.NUMBER).description("마일스톤 활동 횟수"),
+                fieldWithPath("activatedAt").type(JsonFieldType.STRING)
+                        .description("마일스톤 활동을 한 날짜(yyyy-MM-dd)"),
+                fieldWithPath("createdAt").type(JsonFieldType.STRING).optional()
+                        .description("마일스톤 실적이 등록된 날짜(yyyy-MM-dd HH:mm:ss)")
+        );
+
+        MilestoneCategory category = new MilestoneCategory(1L, "SW 관련 창업",
+                ACTIVITY, 100, null);
+        final Milestone milestone = new Milestone(1L, category, "창업", 100, 1);
+        final StudentMember student = new StudentMember(202055558L,
+                new Member(1L, "abc@naver.com", "홍길동", "password", "010-0000-0000", false),
+                new Major(1L, new College(1L, "인문대학"), "사회학과"), null, null, CareerType.EMPLOYMENT_COMPANY,
+                "IT 사기업 개발자로 취업");
+        final MilestoneHistoryWithStudentInfo history =
+                new MilestoneHistoryWithStudentInfo(1L, milestone, category,
+                        StudentMemberReferenceResponse.from(student), "창업했습니다.",
+                        "https://skfdlfjeklf.png", MilestoneStatus.PENDING, null, 1, LocalDate.parse("2024-06-06"),
+                        LocalDateTime.parse("2024-06-05T00:00:00"));
+
+        final MilestoneHistoryResponse response = MilestoneHistoryResponse.from(history);
+        final Long historyId = 1L;
+
+        //when
+        when(milestoneHistoryAdminQueryService.findMilestoneHistory(historyId)).thenReturn(response);
+
+        //then
+        mockMvc.perform(
+                        RestDocumentationRequestBuilders.get("/admin/milestones/histories/" + historyId))
+                .andExpect(status().isOk())
+                .andDo(document("milestone-history-find", responseBodySnippet));
+
+    }
+
+    @Test
+    @DisplayName("[성공] 전체 마일스톤 실적 목록을 조회할 수 있다.")
     void findAllMilestoneHistories() throws Exception {
         //given
         final ResponseFieldsSnippet responseBodySnippet = responseFields(

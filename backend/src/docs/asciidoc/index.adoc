@@ -165,6 +165,17 @@ include::{snippets}/milestone-history-find-all/http-response.adoc[]
 .Response Body
 include::{snippets}/milestone-history-find-all/response-fields.adoc[]
 
+=== `GET` 전체 마일스톤 실적 단건 조회
+
+.HTTP Request
+include::{snippets}/milestone-history-find/http-request.adoc[]
+
+.HTTP Response
+include::{snippets}/milestone-history-find/http-response.adoc[]
+
+.Response Body
+include::{snippets}/milestone-history-find/response-fields.adoc[]
+
 === `POST` 마일스톤 실적 일괄 등록
 
 .HTTP Request
