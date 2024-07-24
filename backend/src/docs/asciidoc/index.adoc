@@ -143,6 +143,17 @@ include::{snippets}/milestone-history-reject/request-fields.adoc[]
 .HTTP Response
 include::{snippets}/milestone-history-reject/http-response.adoc[]
 
+=== `PATCH` 마일스톤 실적 승인/반려 취소
+
+.HTTP Request
+include::{snippets}/milestone-history-cancel/http-request.adoc[]
+
+.Path Parameters
+include::{snippets}/milestone-history-cancel/path-parameters.adoc[]
+
+.HTTP Response
+include::{snippets}/milestone-history-cancel/http-response.adoc[]
+
 === `GET` 전체 마일스톤 실적 목록 조회
 
 .HTTP Request

@@ -61,6 +61,12 @@ public class MilestoneHistoryAdminController {
         return ResponseEntity.noContent().build();
     }
 
+    @PatchMapping("/{historyId}/cancel")
+    public ResponseEntity<Void> cancelMilestoneHistory(@PathVariable("historyId") final Long historyId) {
+        milestoneHistoryAdminCommandService.cancelMilestoneHistory(historyId);
+        return ResponseEntity.noContent().build();
+    }
+
     @GetMapping("/scores")
     public ResponseEntity<Page<MilestoneScoreResponse>> findAllMilestoneHistoryScores(
             @RequestParam(value = "start_date") final String startDate,

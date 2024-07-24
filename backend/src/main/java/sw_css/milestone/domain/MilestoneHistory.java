@@ -106,6 +106,14 @@ public class MilestoneHistory extends BaseEntity {
         this.rejectReason = rejectReason;
     }
 
+    public void cancel() {
+        if (status == MilestoneStatus.PENDING) {
+            throw new MilestoneHistoryException(MilestoneHistoryExceptionType.NOT_PROCESSED);
+        }
+        status = MilestoneStatus.PENDING;
+        this.rejectReason = "";
+    }
+
     public static MilestoneHistory of(final MilestoneHistoryExcelData data, final Milestone milestone,
                                       final MilestoneStatus status) {
         return new MilestoneHistory(null, milestone, data.getStudentId(), data.getDescription(), null, status, null,

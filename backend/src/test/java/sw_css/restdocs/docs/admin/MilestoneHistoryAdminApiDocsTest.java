@@ -103,6 +103,25 @@ public class MilestoneHistoryAdminApiDocsTest extends RestDocsTest {
     }
 
     @Test
+    @DisplayName("[성공] 마일스톤 실적 승인/반려를 취소할 수 있다.")
+    public void cancelMilestoneHistory() throws Exception {
+        // given
+        final PathParametersSnippet pathParameters = pathParameters(
+                parameterWithName("historyId").description("마일스톤 실적의 id")
+        );
+        final Long historyId = 1L;
+
+        // when
+        doNothing().when(milestoneHistoryAdminCommandService).cancelMilestoneHistory(historyId);
+
+        // then
+        mockMvc.perform(
+                        RestDocumentationRequestBuilders.patch("/admin/milestones/histories/{historyId}/cancel", historyId))
+                .andExpect(status().isNoContent())
+                .andDo(document("milestone-history-cancel", pathParameters));
+    }
+
+    @Test
     @DisplayName("[성공] 전체 마일스톤 실적 목록을 조회할 수 있다.")
     void findAllMilestoneHistories() throws Exception {
         //given
