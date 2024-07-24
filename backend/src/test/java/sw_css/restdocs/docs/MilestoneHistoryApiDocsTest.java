@@ -167,8 +167,7 @@ public class MilestoneHistoryApiDocsTest extends RestDocsTest {
 
         //when
         when(milestoneHistoryQueryService.findAllMilestoneHistories(eq(memberId), eq(startDate), eq(endDate), any(),
-                any(), any(), any())).thenReturn(
-                response);
+                any(), any(), any())).thenReturn(response);
 
         //then
         mockMvc.perform(RestDocumentationRequestBuilders.get("/milestones/histories/members/{memberId}", memberId)
