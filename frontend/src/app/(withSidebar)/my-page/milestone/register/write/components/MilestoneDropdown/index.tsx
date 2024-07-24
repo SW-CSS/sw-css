@@ -3,6 +3,7 @@
 import { Dispatch, SetStateAction, useEffect, useMemo, useState } from 'react';
 
 import { Dropdown, DropdownOption, DropdownProps } from '@/app/components/Formik/Dropdown';
+import { MilestoneGroup } from '@/data/milestone';
 import { useMilestoneQuery } from '@/lib/hooks/useApi';
 import { Milestone, MilestoneCategory } from '@/types/milestone';
 
@@ -31,20 +32,27 @@ const MilestoneDropdown = ({ ...props }: MilestoneDropdownProps) => {
   } = props;
   const milestoneCategoryOptions: DropdownOption[] = useMemo(
     () =>
-      milestoneOverviews?.map((milestoneOverview) => ({ id: milestoneOverview.id, name: milestoneOverview.name })) ||
-      [],
+      Object.values(MilestoneGroup)
+        .flatMap((group) => (milestoneOverviews ? milestoneOverviews[group] : []))
+        ?.map((milestoneOverview) => ({
+          id: milestoneOverview.id,
+          name: milestoneOverview.name,
+        })) || [],
     [milestoneOverviews],
   );
   const [milestoneOptions, setMilestoneOptions] = useState<Milestone[]>([]);
 
   useEffect(() => {
     setSelectedCategory(
-      milestoneOverviews?.find((milestoneOverview) => milestoneOverview.id === categoryId) as MilestoneCategory,
+      Object.values(MilestoneGroup)
+        .flatMap((group) => (milestoneOverviews ? milestoneOverviews[group] : []))
+        ?.find((milestoneOverview) => milestoneOverview.id === categoryId) as MilestoneCategory,
     );
     setSelectedMilestone(undefined);
     setFieldValue(milestoneName, 0, true);
     setMilestoneOptions(
-      milestoneOverviews
+      Object.values(MilestoneGroup)
+        .flatMap((group) => (milestoneOverviews ? milestoneOverviews[group] : []))
         ?.find((milestoneOverview) => milestoneOverview.id === categoryId)
         ?.milestones.map((milestone) => ({
           id: milestone.id,
