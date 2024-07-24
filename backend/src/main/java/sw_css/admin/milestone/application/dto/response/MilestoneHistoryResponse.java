@@ -5,6 +5,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import sw_css.member.application.dto.response.StudentMemberReferenceResponse;
 import sw_css.milestone.application.dto.response.MilestoneReferenceResponse;
 import sw_css.milestone.domain.MilestoneStatus;
@@ -24,7 +25,8 @@ public record MilestoneHistoryResponse(
         @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
         LocalDateTime createdAt
 ) {
-    public static Page<MilestoneHistoryResponse> from(Page<MilestoneHistoryWithStudentInfo> milestoneHistories) {
+    public static Page<MilestoneHistoryResponse> from(final Page<MilestoneHistoryWithStudentInfo> milestoneHistories,
+                                                      final Pageable pageable) {
         return new PageImpl<>(milestoneHistories.stream()
                 .map(milestoneHistory -> new MilestoneHistoryResponse(
                         milestoneHistory.id(),
@@ -38,6 +40,6 @@ public record MilestoneHistoryResponse(
                         milestoneHistory.activatedAt(),
                         milestoneHistory.createdAt()
                 ))
-                .toList());
+                .toList(), pageable, milestoneHistories.getTotalElements());
     }
 }

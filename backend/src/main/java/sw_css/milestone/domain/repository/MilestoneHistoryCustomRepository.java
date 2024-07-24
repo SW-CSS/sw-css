@@ -8,6 +8,7 @@ import org.springframework.lang.Nullable;
 import sw_css.milestone.domain.MilestoneHistory;
 import sw_css.milestone.domain.MilestoneHistorySortCriteria;
 import sw_css.milestone.domain.MilestoneStatus;
+import sw_css.milestone.persistence.dto.MilestoneHistoryWithStudentInfo;
 
 public interface MilestoneHistoryCustomRepository {
     Page<MilestoneHistory> findMilestoneHistoriesByStudentId(final Long studentId,
@@ -17,4 +18,8 @@ public interface MilestoneHistoryCustomRepository {
                                                              @Nullable final MilestoneHistorySortCriteria sortBy,
                                                              @Nullable final Sort.Direction sortDirection,
                                                              final Pageable pageable);
+
+    Page<MilestoneHistoryWithStudentInfo> findMilestoneHistories(@Nullable final Integer field,
+                                                                 @Nullable final String keyword,
+                                                                 final Pageable pageable);
 }

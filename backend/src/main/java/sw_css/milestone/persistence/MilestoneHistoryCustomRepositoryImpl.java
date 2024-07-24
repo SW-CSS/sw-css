@@ -1,10 +1,16 @@
 package sw_css.milestone.persistence;
 
+import static sw_css.member.domain.QMember.member;
+import static sw_css.member.domain.QStudentMember.studentMember;
+import static sw_css.milestone.domain.QMilestone.milestone;
 import static sw_css.milestone.domain.QMilestoneHistory.milestoneHistory;
 
+import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.types.Order;
 import com.querydsl.core.types.OrderSpecifier;
+import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import java.time.LocalDate;
 import java.util.List;
@@ -16,9 +22,11 @@ import org.springframework.data.domain.Sort;
 import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Repository;
 import sw_css.milestone.domain.MilestoneHistory;
+import sw_css.milestone.domain.MilestoneHistorySearchField;
 import sw_css.milestone.domain.MilestoneHistorySortCriteria;
 import sw_css.milestone.domain.MilestoneStatus;
 import sw_css.milestone.domain.repository.MilestoneHistoryCustomRepository;
+import sw_css.milestone.persistence.dto.MilestoneHistoryWithStudentInfo;
 
 @Repository
 @AllArgsConstructor
@@ -75,5 +83,77 @@ public class MilestoneHistoryCustomRepositoryImpl implements MilestoneHistoryCus
             default:
                 return new OrderSpecifier<>(order, milestoneHistory.activatedAt);
         }
+    }
+
+    public Page<MilestoneHistoryWithStudentInfo> findMilestoneHistories(
+            @Nullable final Integer field,
+            @Nullable final String keyword,
+            final Pageable pageable) {
+
+        final BooleanBuilder booleanBuilder = getBooleanBuilder(field, keyword);
+
+        List<MilestoneHistoryWithStudentInfo> histories = jpaQueryFactory
+                .select(Projections.constructor(
+                        MilestoneHistoryWithStudentInfo.class,
+                        milestoneHistory.id,
+                        milestone,
+                        milestone.category,
+                        milestoneHistory.studentId,
+                        member.name,
+                        milestoneHistory.description,
+                        milestoneHistory.fileUrl,
+                        milestoneHistory.status,
+                        milestoneHistory.rejectReason,
+                        milestoneHistory.count,
+                        milestoneHistory.activatedAt,
+                        milestoneHistory.createdAt
+                ))
+                .from(milestoneHistory)
+                .leftJoin(milestoneHistory.milestone, milestone)
+                .leftJoin(studentMember).on(milestoneHistory.studentId.eq(studentMember.id))
+                .leftJoin(studentMember.member, member)
+                .where(booleanBuilder)
+                .orderBy(
+                        Expressions.cases()
+                                .when(milestoneHistory.status.eq(MilestoneStatus.PENDING))
+                                .then(1)
+                                .otherwise(0).desc(),
+                        milestoneHistory.createdAt.desc()
+                )
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetch();
+
+        final Long count = jpaQueryFactory
+                .select(milestoneHistory.count())
+                .from(milestoneHistory)
+                .leftJoin(milestoneHistory.milestone, milestone)
+                .leftJoin(studentMember).on(milestoneHistory.studentId.eq(studentMember.id))
+                .leftJoin(studentMember.member, member)
+                .where(booleanBuilder)
+                .fetchOne();
+        return new PageImpl<>(histories, pageable, count);
+    }
+
+    private static BooleanBuilder getBooleanBuilder(final Integer field, final String keyword) {
+        BooleanBuilder booleanBuilder = new BooleanBuilder();
+        booleanBuilder.and(milestoneHistory.isDeleted.eq(false));
+        if (field != null && keyword != null && !keyword.isEmpty()) {
+            switch (MilestoneHistorySearchField.fromValue(field)) {
+                case STUDENT_ID:
+                    booleanBuilder.and(milestoneHistory.studentId.stringValue().like("%" + keyword + "%"));
+                    break;
+                case STUDENT_NAME:
+                    booleanBuilder.and(studentMember.member.name.containsIgnoreCase(keyword));
+                    break;
+                case MILESTONE_NAME:
+                    booleanBuilder.and(milestone.name.containsIgnoreCase(keyword));
+                    break;
+                case DESCRIPTION:
+                    booleanBuilder.and(milestoneHistory.description.containsIgnoreCase(keyword));
+                    break;
+            }
+        }
+        return booleanBuilder;
     }
 }

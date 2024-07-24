@@ -34,8 +34,11 @@ public class MilestoneHistoryAdminController {
     // TODO 관리자만 호출할 수 있도록 권한 설정
 
     @GetMapping
-    public ResponseEntity<Page<MilestoneHistoryResponse>> findAllMilestoneHistory(final Pageable pageable) {
-        return ResponseEntity.ok(milestoneHistoryAdminQueryService.findAllMilestoneHistories(pageable));
+    public ResponseEntity<Page<MilestoneHistoryResponse>> findAllMilestoneHistory(
+            @RequestParam(value = "field", required = false) final Integer field,
+            @RequestParam(value = "keyword", required = false) final String keyword,
+            final Pageable pageable) {
+        return ResponseEntity.ok(milestoneHistoryAdminQueryService.findAllMilestoneHistories(field, keyword, pageable));
     }
 
     @PostMapping

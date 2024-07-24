@@ -161,10 +161,10 @@ public class MilestoneHistoryAdminApiDocsTest extends RestDocsTest {
                         LocalDateTime.parse("2024-06-05T00:00:00"))
         ));
 
-        final Page<MilestoneHistoryResponse> response = MilestoneHistoryResponse.from(milestones);
+        final Page<MilestoneHistoryResponse> response = MilestoneHistoryResponse.from(milestones, null);
 
         //when
-        when(milestoneHistoryAdminQueryService.findAllMilestoneHistories(any())).thenReturn(response);
+        when(milestoneHistoryAdminQueryService.findAllMilestoneHistories(any(), any(), any())).thenReturn(response);
 
         //then
         mockMvc.perform(

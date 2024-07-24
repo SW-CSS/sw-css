@@ -1,4 +1,6 @@
-GET http://localhost:8080/admin/milestones/histories?page=0&size=3
+GET http://localhost:8080/admin/milestones/histories?page=0&size=3&field=1&keyword=202000000
+
+
 
 ###
 GET http://localhost:8080/milestones/histories/members/202055558?page=0&size=10&sort_by=ACTIVATED_AT&sort_direction=DESC
