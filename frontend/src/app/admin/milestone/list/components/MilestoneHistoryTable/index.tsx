@@ -3,6 +3,7 @@
 import Link from 'next/link';
 
 import { MilestoneHistoryStatus } from '@/data/milestone';
+import { convertMilestoneHistoryStatus } from '@/lib/utils/utils';
 import { MilestoneHistoryDto } from '@/types/common.dto';
 
 interface MilestoneHistoryTableProps {
@@ -13,13 +14,19 @@ const MilestoneHistoryTable = ({ histories }: MilestoneHistoryTableProps) => {
   const getHistoryStatus = (status: string) => {
     switch (status) {
       case MilestoneHistoryStatus.PENDING:
-        return <span className="rounded-sm text-lg font-bold text-admin-comment">대기</span>;
+        return <span className="text-lg font-bold text-admin-comment">{convertMilestoneHistoryStatus(status)}</span>;
       case MilestoneHistoryStatus.APPROVED:
-        return <span className="rounded-sm text-lg font-bold text-admin-primary-light">승인</span>;
+        return (
+          <span className="text-lg font-bold text-admin-primary-light">{convertMilestoneHistoryStatus(status)}</span>
+        );
       case MilestoneHistoryStatus.REJECTED:
-        return <span className="rounded-sm text-lg font-bold text-admin-semantic-error">반려</span>;
+        return (
+          <span className="text-admin-semantic-error-main text-lg font-bold">
+            {convertMilestoneHistoryStatus(status)}
+          </span>
+        );
       default:
-        return '알수없음';
+        return convertMilestoneHistoryStatus(status);
     }
   };
 

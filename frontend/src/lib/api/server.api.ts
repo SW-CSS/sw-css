@@ -49,3 +49,10 @@ export async function getMilestoneHistory(historyId: number) {
   const response = await server.get<MilestoneHistoryDto>(`/admin/milestones/histories/${historyId}`);
   return response?.data;
 }
+
+export async function getFile(fileName: string | null) {
+  const response = await server.get<Blob>(`/files/${fileName}`, {
+    responseType: 'blob',
+  });
+  return response.data;
+}

@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 /* eslint-disable implicit-arrow-linebreak */
 
-import { MilestoneGroup } from '@/data/milestone';
+import { MilestoneGroup, MilestoneHistoryStatus } from '@/data/milestone';
 
 // 빈 파라미터를 제거하는 유틸함수
 export const removeEmptyField = <T extends Record<string, unknown>>(obj: T) =>
@@ -27,6 +27,19 @@ export const convertMilestoneGroup = (group: string) => {
       return '커뮤니티';
     default:
       return '기타';
+  }
+};
+
+export const convertMilestoneHistoryStatus = (status: string) => {
+  switch (status) {
+    case MilestoneHistoryStatus.PENDING:
+      return '미처리';
+    case MilestoneHistoryStatus.APPROVED:
+      return '승인';
+    case MilestoneHistoryStatus.REJECTED:
+      return '반려';
+    default:
+      return '유효하지 않은 상태';
   }
 };
 

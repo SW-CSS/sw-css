@@ -3,8 +3,10 @@ import Link from 'next/link';
 
 import MilestoneGroupLabel from '@/components/MilestoneGroupLabel';
 import { getMilestoneHistory } from '@/lib/api/server.api';
+import { convertMilestoneHistoryStatus } from '@/lib/utils/utils';
 
 import FilePreview from './components/FilePreview';
+import MilestoneHistoryStatusChangeButton from './components/MilestoneHistoryStatusChangeButton';
 
 interface MilestoneHistoryDetailPageProps {
   params: {
@@ -56,7 +58,7 @@ const Page = async ({ params: { slug } }: MilestoneHistoryDetailPageProps) => {
         </div>
       </div>
       <div className="flex w-full gap-4">
-        <div className="flex w-1/2 flex-col">
+        <div className="flex flex-1 flex-col">
           <p className="text-lg font-bold">실적 정보</p>
           <div className="my-4 flex flex-grow flex-col gap-2 rounded-md border border-border p-2 px-4">
             <p className="flex">
@@ -79,15 +81,21 @@ const Page = async ({ params: { slug } }: MilestoneHistoryDetailPageProps) => {
               <span className="w-[8em]">실적 등록일</span>
               <span className="flex-grow">{history.createdAt.slice(0, 10)}</span>
             </p>
+            <p className="flex">
+              <span className="w-[8em]">승인 상태</span>
+              <span className="flex-grow">{convertMilestoneHistoryStatus(history.status)}</span>
+            </p>
+            <MilestoneHistoryStatusChangeButton historyId={history.id} status={history.status} />
           </div>
         </div>
-        <div className="flex w-1/2 flex-col">
+        <div className="flex flex-1 flex-col">
           <p className="text-lg font-bold">증빙자료 미리보기</p>
           <div className="my-4 flex flex-grow flex-col items-center justify-center gap-2 rounded-md border border-border p-2 px-4 text-center">
             <FilePreview fileName={history.fileUrl} />
           </div>
         </div>
       </div>
+
       <div className="flex justify-end">
         <Link
           href="/admin/milestone/list"
