@@ -35,13 +35,6 @@ export interface SubCategoryDto {
   key: string;
 }
 
-export interface AnnouncementDto {
-  id: number;
-  url: string;
-  title: string;
-  date: string;
-}
-
 export interface TeamBuildingDto {
   id: number;
   category: string;

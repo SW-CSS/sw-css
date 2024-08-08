@@ -1,12 +1,14 @@
+import RSSParser from 'rss-parser';
+
 import GoPageIcon from '@/components/GoPageIcon';
-import { announcements } from '@/mocks/announcement';
 
 import { AnnouncementDate, AnnouncementItem, AnnouncementTitle } from './styled';
 import { Description, Title, TitleContent, TitleWrapper } from '../styled';
 
-const Announcement = () => {
+const Announcement = async () => {
   const ANNOUNCEMENT_URL = 'https://swedu.pusan.ac.kr/swedu/31630/subview.do';
-
+  const parser = new RSSParser();
+  const announcements = await parser.parseURL('https://swedu.pusan.ac.kr/bbs/swedu/6906/rssList.do?row=50');
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
       <TitleWrapper style={{ justifyContent: 'space-between' }}>
@@ -17,10 +19,10 @@ const Announcement = () => {
         <GoPageIcon name="더보기" url={ANNOUNCEMENT_URL} />
       </TitleWrapper>
       <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginTop: '20px' }}>
-        {announcements.map((item) => (
-          <AnnouncementItem key={item.id} href={item.url}>
+        {announcements.items.slice(0, 4).map((item) => (
+          <AnnouncementItem key={item.link} href={item.link ?? ''} target="_blank">
             <AnnouncementTitle>{item.title}</AnnouncementTitle>
-            <AnnouncementDate>{item.date}</AnnouncementDate>
+            <AnnouncementDate>{item.pubDate?.slice(0, 10).replaceAll('-', '.')}</AnnouncementDate>
           </AnnouncementItem>
         ))}
       </div>
