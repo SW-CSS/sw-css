@@ -1,7 +1,10 @@
+/* eslint-disable max-len */
 import Link from 'next/link';
 
 import MilestoneGroupLabel from '@/components/MilestoneGroupLabel';
 import { getMilestoneHistory } from '@/lib/api/server.api';
+
+import FilePreview from './components/FilePreview';
 
 interface MilestoneHistoryDetailPageProps {
   params: {
@@ -53,7 +56,7 @@ const Page = async ({ params: { slug } }: MilestoneHistoryDetailPageProps) => {
         </div>
       </div>
       <div className="flex w-full gap-4">
-        <div className="flex flex-grow flex-col">
+        <div className="flex w-1/2 flex-col">
           <p className="text-lg font-bold">실적 정보</p>
           <div className="my-4 flex flex-grow flex-col gap-2 rounded-md border border-border p-2 px-4">
             <p className="flex">
@@ -78,10 +81,10 @@ const Page = async ({ params: { slug } }: MilestoneHistoryDetailPageProps) => {
             </p>
           </div>
         </div>
-        <div className="flex flex-grow flex-col">
+        <div className="flex w-1/2 flex-col">
           <p className="text-lg font-bold">증빙자료 미리보기</p>
-          <div className="my-4 flex flex-grow flex-col gap-2 rounded-md border border-border p-2 px-4">
-            파일 미리보기
+          <div className="my-4 flex flex-grow flex-col items-center justify-center gap-2 rounded-md border border-border p-2 px-4 text-center">
+            <FilePreview fileName={history.fileUrl} />
           </div>
         </div>
       </div>
