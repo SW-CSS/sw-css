@@ -12,6 +12,16 @@ endif::[]
 
 == API 목록
 
+== 파일
+
+=== `GET`: 파일 다운로드
+
+.HTTP Request
+include::{snippets}/download-file/http-request.adoc[]
+
+.HTTP Response
+include::{snippets}/download-file/http-response.adoc[]
+
 == 회원
 
 === `GET`: 학생 정보 조회
