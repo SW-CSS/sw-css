@@ -30,5 +30,6 @@ jobs:
           jq -r 'to_entries|map("\(.key)=\(.value|tostring)")|.[]' <<< "$SECRETS" | grep $PREFIX > .env
 
       - name: Build
-        run: cd frontend
-        run: npm run build
+        run: |
+          cd frontend
+          npm run build
