@@ -73,8 +73,10 @@ module.exports = {
             dark: '#3F3F3F',
           },
           semantic: {
-            'errpr-light': '#EC3B4C',
-            'error-main': '#B30818',
+            error: {
+              light: '#EC3B4C',
+              main: '#B30818',
+            },
           },
         },
       },
