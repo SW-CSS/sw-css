@@ -48,17 +48,17 @@ const MilestoneSection = () => {
   );
 
   return (
-    <div className="w-[630px] rounded-sm bg-white p-5">
+    <div className="w-full flex-1 rounded-sm bg-white p-5 sm:min-w-[630px] lg:max-w-[630px]">
       <SubTitle title="내 마일스톤 상세" urlText="전체보기" url="/my-page/milestone" />
-      <div className="my-5 flex items-center justify-end gap-2">
+      <div className="my-5 flex items-center justify-center gap-2 sm:justify-end">
         <span className="rounded-lg bg-border px-4 py-1">{searchFilterPeriod.startDate}</span>~
         <span className="rounded-lg bg-border px-4 py-1">{searchFilterPeriod.endDate}</span>
       </div>
-      <div className="flex">
+      <div className="flex flex-wrap">
         {milestoneInfoTypes.map((type) => (
           <button
             type="button"
-            className={`h-[30px] flex-grow border-0 bg-white ${selectedInfoType === type.id ? 'border-b-2 text-black' : 'text-comment'} border-black hover:border-b-2 hover:text-black`}
+            className={`h-[30px] min-w-[6em] flex-grow border-0 bg-white ${selectedInfoType === type.id ? 'border-b-2 text-black' : 'text-comment'} border-black hover:border-b-2 hover:text-black`}
             key={type.id}
             onClick={() => setSelectedInfoType(type.id)}
           >
@@ -68,7 +68,7 @@ const MilestoneSection = () => {
       </div>
       <div className="p-4">
         {selectedInfoType === MilestoneInfoType.TOTAL && (
-          <div className="flex py-10">
+          <div className="flex flex-wrap gap-y-5 py-1 sm:py-10">
             <MilestoneChart chartSize={180} fontSize="lg" milestoneOverviewScore={milestoneOverviewScore} />
             <MilestoneTable milestoneOverviewScore={milestoneOverviewScore} />
           </div>
@@ -85,7 +85,7 @@ const MilestoneSection = () => {
           />
         )}
         {selectedInfoType === MilestoneInfoType.HISTORY && (
-          <MilestoneHistoryTable searchFilterPeriod={searchFilterPeriod} page={0} size={5} />
+          <MilestoneHistoryTable searchFilterPeriod={searchFilterPeriod} pageNumber={0} pageSize={5} />
         )}
       </div>
     </div>

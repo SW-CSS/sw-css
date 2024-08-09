@@ -26,7 +26,7 @@ const MilestoneHistorySection = async () => {
   );
 
   return (
-    <div className="w-[280px] rounded-sm bg-white p-5">
+    <div className="w-full min-w-[260px] flex-1 rounded-sm bg-white p-5 lg:max-w-[280px]">
       <SubTitle title="실적 등록" urlText="등록하기" url="/my-page/milestone/register" />
       <div className="mt-4">
         {milestoneHistoriesOfStudent?.content.map((milestoneHistory) => (
