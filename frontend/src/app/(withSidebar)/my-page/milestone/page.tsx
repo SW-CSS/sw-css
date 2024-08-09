@@ -8,7 +8,7 @@ import { Period } from '@/types/common';
 
 import MilestoneHistoryTable from './components/MilestoneHistoryTable';
 import MilestoneOverview from './components/MilestoneOverview';
-import { Content, SubTitle, Title } from './styled';
+import { Content, SubTitle } from './styled';
 import MilestonePeriodSearchForm from '../../../../components/MilestonePeriodSearchForm';
 
 const Page = () => {
@@ -20,8 +20,8 @@ const Page = () => {
 
   return (
     <Content>
-      <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '25px' }}>
-        <Title>마일스톤 획득 내역</Title>
+      <div className="mb-6 flex flex-wrap justify-between gap-4">
+        <p className="min-w-[10em] text-xl font-bold">마일스톤 획득 내역</p>
         <MilestonePeriodSearchForm
           setFilterPeriod={setFilterPeriod}
           filterPeriod={filterPeriod}
@@ -33,7 +33,7 @@ const Page = () => {
       <div style={{ borderBottom: `1px dotted ${COLOR.border}`, margin: '30px 0px' }} />
       <SubTitle>획득 내역</SubTitle>
       {/* TODO 제대로 페이지네이션 처리 하기 */}
-      <MilestoneHistoryTable searchFilterPeriod={searchFilterPeriod} page={0} size={10} />
+      <MilestoneHistoryTable searchFilterPeriod={searchFilterPeriod} pageNumber={0} pageSize={10} />
     </Content>
   );
 };

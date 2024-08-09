@@ -3,13 +3,13 @@
 import { useState } from 'react';
 
 import { MilestoneGroup, milestoneGroups } from '@/data/milestone';
+import { useAppSelector } from '@/lib/hooks/redux';
 import { useMilestoneScoresOfStudentQuery } from '@/lib/hooks/useApi';
 import { compareByIdAsc } from '@/lib/utils/utils';
 import { Period } from '@/types/common';
 
 import { GroupButton } from './styled';
 import MilestoneRowBarTable from '../../../components/MilestoneRowBarTable';
-import { useAppSelector } from '@/lib/hooks/redux';
 
 const MilestoneDetail = ({ startDate, endDate }: Period) => {
   const auth = useAppSelector((state) => state.auth).value;
@@ -18,7 +18,7 @@ const MilestoneDetail = ({ startDate, endDate }: Period) => {
 
   return (
     <div style={{ display: 'flex', flexGrow: '1', flexDirection: 'column' }}>
-      <div style={{ display: 'flex' }}>
+      <div className="flex flex-wrap">
         {milestoneGroups.map((group) => (
           <GroupButton
             key={group.id}
