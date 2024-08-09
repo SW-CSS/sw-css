@@ -28,8 +28,11 @@ jobs:
         env:
           SECRETS: ${{ toJson(secrets) }}
         run: |
+          cd frontend
           touch .env && \
           jq -r 'to_entries|map("\(.key)=\(.value|tostring)")|.[]' <<< "$SECRETS" > .env
 
       - name: Build
-        run: npm run build
+        run: |
+          cd frontend
+          npm run build
