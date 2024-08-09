@@ -29,7 +29,7 @@ jobs:
           SECRETS: ${{ toJson(secrets) }}
         run: |
           touch .env && \
-          jq -r 'to_entries|map("\(.key)=\(.value|tostring)")|.[]' <<< "$SECRETS" | grep $PREFIX > .env
+          jq -r 'to_entries|map("\(.key)=\(.value|tostring)")|.[]' <<< "$SECRETS" > .env
 
       - name: Build
         run: npm run build
