@@ -1,13 +1,14 @@
 name: front-build-test
 
 on:
+  push:
+    branches: [main]
   pull_request:
-    branches:
-      - main
+    branches: [main]
   workflow_dispatch:
 
 jobs:
-  build_test:
+  front_build_test:
     runs-on: ubuntu-24.04
     timeout-minutes: 10
 
