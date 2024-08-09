@@ -4,13 +4,13 @@ import { useMemo } from 'react';
 import MilestoneChart from '@/components/MilestoneChart';
 import MilestoneTable from '@/components/MilestoneTable';
 import { initialMilestoneOverview } from '@/data/milestone';
+import { useAppSelector } from '@/lib/hooks/redux';
 import { useMilestoneScoresOfStudentQuery } from '@/lib/hooks/useApi';
 import { Period } from '@/types/common';
 import { MilestoneOverviewScore } from '@/types/milestone';
 
 import { MilestoneWrapper } from './styled';
 import MilestoneDetail from '../MilestoneDetail';
-import { useAppSelector } from '@/lib/hooks/redux';
 
 interface MilestoneOverviewProps {
   searchFilterPeriod: Period;

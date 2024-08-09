@@ -22,7 +22,7 @@ const validationSchema = Yup.object().shape({
       'fileFormat',
       'Excel 파일(.xlsx)만 업로드 가능합니다.',
       (value) =>
-        value &&
+        value instanceof File &&
         ['application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/vnd.ms-excel'].includes(
           value.type,
         ),
