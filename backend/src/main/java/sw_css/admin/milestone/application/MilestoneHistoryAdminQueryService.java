@@ -19,6 +19,7 @@ import sw_css.admin.milestone.persistence.StudentAndMilestoneScoreInfo;
 import sw_css.member.application.dto.response.StudentMemberReferenceResponse;
 import sw_css.milestone.application.dto.response.MilestoneScoreOfStudentResponse;
 import sw_css.milestone.domain.repository.MilestoneCategoryRepository;
+import sw_css.milestone.domain.repository.MilestoneHistoryCustomRepository;
 import sw_css.milestone.domain.repository.MilestoneHistoryRepository;
 import sw_css.milestone.domain.repository.MilestoneScoreRepository;
 import sw_css.milestone.exception.MilestoneHistoryException;
@@ -29,14 +30,24 @@ import sw_css.milestone.persistence.dto.MilestoneHistoryWithStudentInfo;
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class MilestoneHistoryAdminQueryService {
-    private final MilestoneHistoryRepository milestoneHistoryRepository;
     private final MilestoneCategoryRepository milestoneCategoryRepository;
     private final MilestoneScoreRepository milestoneScoreRepository;
+    private final MilestoneHistoryCustomRepository milestoneHistoryCustomRepository;
+    private final MilestoneHistoryRepository milestoneHistoryRepository;
 
-    public Page<MilestoneHistoryResponse> findAllMilestoneHistories(final Pageable pageable) {
-        final Page<MilestoneHistoryWithStudentInfo> milestoneHistories = milestoneHistoryRepository.findAllMilestoneHistoriesWithStudentInfo(
-                pageable);
-        return MilestoneHistoryResponse.from(milestoneHistories);
+    public Page<MilestoneHistoryResponse> findAllMilestoneHistories(final Integer field,
+                                                                    final String keyword, final Pageable pageable) {
+        final Page<MilestoneHistoryWithStudentInfo> milestoneHistories = milestoneHistoryCustomRepository.findMilestoneHistories(
+                field, keyword, pageable);
+        return MilestoneHistoryResponse.from(milestoneHistories, pageable);
+    }
+
+    public MilestoneHistoryResponse findMilestoneHistory(final Long historyId) {
+        final MilestoneHistoryWithStudentInfo history = milestoneHistoryRepository.findMilestoneHistoriesWithStudentInfoById(
+                historyId).orElseThrow(
+                () -> new MilestoneHistoryException(MilestoneHistoryExceptionType.NOT_FOUND_MILESTONE_HISTORY)
+        );
+        return MilestoneHistoryResponse.from(history);
     }
 
     public Page<MilestoneScoreResponse> findAllMilestoneHistoryScores(final String startDate, final String endDate,

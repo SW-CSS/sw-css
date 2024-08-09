@@ -29,4 +29,5 @@ export const QueryKeys = {
     page: number | undefined = 0,
     size: number | undefined = 10,
   ) => ['milestone-scores', startDate, endDate, page, size],
+  FILE: (fileName: string | null) => ['file', fileName],
 };

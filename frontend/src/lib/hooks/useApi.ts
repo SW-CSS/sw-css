@@ -129,6 +129,19 @@ export function useStudentMembersQuery() {
   });
 }
 
+export function useFileQuery(fileName: string | null) {
+  return useAxiosQuery({
+    queryKey: QueryKeys.FILE(fileName),
+    queryFn: async (): Promise<Blob | null> => {
+      const response = await client.get(`/files/${fileName}`, { responseType: 'blob' });
+      if (response?.status !== 200) {
+        return null;
+      }
+      return response?.data;
+    },
+  });
+}
+
 export function useMilestoneHistoryCreateMutation() {
   return useAxiosMutation({
     mutationFn: async ({ milestoneId, description, count, file, activatedAt }: MilestoneHistoryCreateDto) => {

@@ -1,6 +1,10 @@
 import { MilestoneHistoryStatus } from '@/data/milestone';
 import { server } from '@/lib/api/server.axios';
-import { MilestoneHistoryOfStudentPageableDto } from '@/types/common.dto';
+import {
+  MilestoneHistoryDto,
+  MilestoneHistoryOfStudentPageableDto,
+  MilestoneHistoryPageableDto,
+} from '@/types/common.dto';
 import { MilestoneHistorySortCriteria, SortDirection } from '@/types/milestone';
 
 import { removeEmptyField } from '../utils/utils';
@@ -27,4 +31,28 @@ export async function getMilestoneHistoriesOfStudent(
     }),
   });
   return response?.data;
+}
+
+export async function getMilestoneHistories(field?: number, keyword?: string, page: number = 0, size: number = 10) {
+  const response = await server.get<MilestoneHistoryPageableDto>('/admin/milestones/histories', {
+    params: removeEmptyField({
+      field,
+      keyword,
+      page,
+      size,
+    }),
+  });
+  return response?.data;
+}
+
+export async function getMilestoneHistory(historyId: number) {
+  const response = await server.get<MilestoneHistoryDto>(`/admin/milestones/histories/${historyId}`);
+  return response?.data;
+}
+
+export async function getFile(fileName: string | null) {
+  const response = await server.get<Blob>(`/files/${fileName}`, {
+    responseType: 'blob',
+  });
+  return response.data;
 }

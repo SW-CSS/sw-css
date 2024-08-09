@@ -1,7 +1,7 @@
 /* eslint-disable implicit-arrow-linebreak */
 import { QueryKeys } from '@/data/queryKey';
 import { client } from '@/lib/api/client.axios';
-import { useAxiosQuery } from '@/lib/hooks/useAxios';
+import { useAxiosMutation, useAxiosQuery } from '@/lib/hooks/useAxios';
 import { MilestoneScoreOfStudentPageableDto } from '@/types/common.dto';
 import { BusinessError } from '@/types/error';
 
@@ -27,3 +27,24 @@ export const useMilestoneScoresQuery = (
       }
     },
   }) ?? [];
+
+export const useMilestoneHistoryStatusApproveMutation = () =>
+  useAxiosMutation({
+    mutationFn: async (historyId: number) => {
+      await client.patch(`/admin/milestones/histories/${historyId}/approve`);
+    },
+  });
+
+export const useMilestoneHistoryStatusRejectMutation = () =>
+  useAxiosMutation({
+    mutationFn: async ({ historyId, rejectReason }: { historyId: number; rejectReason: string }) => {
+      await client.patch(`/admin/milestones/histories/${historyId}/reject`, { data: { rejectReason } });
+    },
+  });
+
+export const useMilestoneHistoryStatusCancelMutation = () =>
+  useAxiosMutation({
+    mutationFn: async (historyId: number) => {
+      await client.patch(`/admin/milestones/histories/${historyId}/cancel`);
+    },
+  });

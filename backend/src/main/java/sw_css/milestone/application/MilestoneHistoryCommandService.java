@@ -8,6 +8,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -29,6 +30,10 @@ import sw_css.milestone.exception.MilestoneHistoryExceptionType;
 @RequiredArgsConstructor
 @Transactional
 public class MilestoneHistoryCommandService {
+
+    @Value("${data.file-path-prefix}")
+    private String filePathPrefix;
+
     // TODO 테스트 작성
     private final StudentMemberRepository studentMemberRepository;
     private final MilestoneRepository milestoneRepository;
@@ -46,7 +51,7 @@ public class MilestoneHistoryCommandService {
         final MilestoneHistory newMilestoneHistory = new MilestoneHistory(milestone, student, request.description(),
                 newFilePath, request.count(), request.activatedAt());
         final Long newMilestoneHistoryId = milestoneHistoryRepository.save(newMilestoneHistory).getId();
-        downloadFile(file, newFilePath);
+        uploadFile(file, newFilePath);
         return newMilestoneHistoryId;
     }
 
@@ -57,11 +62,11 @@ public class MilestoneHistoryCommandService {
         return UUID.randomUUID() + "_" + file.getOriginalFilename();
     }
 
-    private void downloadFile(MultipartFile file, String newFilePath) {
+    private void uploadFile(final MultipartFile file, final String newFilePath) {
         if (file == null) {
             return;
         }
-        final Path filePath = Paths.get(System.getProperty("user.dir") + "/backend/src/main/resources/static/files")
+        final Path filePath = Paths.get(System.getProperty("user.dir") + filePathPrefix)
                 .resolve(Paths.get(newFilePath)).normalize().toAbsolutePath();
         try (final InputStream inputStream = file.getInputStream()) {
             if (Files.notExists(filePath.getParent())) {

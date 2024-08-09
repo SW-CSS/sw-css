@@ -2,8 +2,7 @@
 
 import styled from 'styled-components';
 
-import { BORDER_RADIUS, COLOR, FONT_STYLE } from '@/constants';
-import { MilestoneGroup } from '@/data/milestone';
+import { COLOR, FONT_STYLE } from '@/constants';
 
 export const TableBody = styled.tbody`
   border-top: 2px solid ${COLOR.black_text};
@@ -29,26 +28,4 @@ export const TableRow = styled.tr`
 
 export const HistoryDescription = styled.td`
   width: 540px;
-`;
-
-interface GroupLabelProps {
-  group: string;
-}
-
-export const GroupLabel = styled.span<GroupLabelProps>`
-  ${({ group }) => {
-    switch (group) {
-      case MilestoneGroup.ACTIVITY:
-        return `background-color: ${COLOR.milestone.blue.light}; color:${COLOR.milestone.blue.dark};`;
-      case MilestoneGroup.GLOBAL:
-        return `background-color: ${COLOR.milestone.green.light}; color:${COLOR.milestone.green.dark};`;
-      case MilestoneGroup.COMMUNITY:
-        return `background-color: ${COLOR.milestone.purple.light}; color:${COLOR.milestone.purple.dark};`;
-      default:
-        return COLOR.milestone.gray.light;
-    }
-  }};
-  font: ${FONT_STYLE.xs.normal};
-  padding: 2px 8px;
-  border-radius: ${BORDER_RADIUS.sm};
 `;

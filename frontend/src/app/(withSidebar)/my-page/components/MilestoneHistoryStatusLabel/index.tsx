@@ -1,5 +1,5 @@
 /* eslint-disable max-len */
-import { VscInfo } from 'react-icons/vsc';
+import { VscInfo } from '@react-icons/all-files/vsc/VscInfo';
 
 import { MilestoneHistoryStatus } from '@/data/milestone';
 

@@ -17,6 +17,7 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 import sw_css.admin.member.application.MemberAdminQueryService;
 import sw_css.admin.milestone.application.MilestoneHistoryAdminCommandService;
 import sw_css.admin.milestone.application.MilestoneHistoryAdminQueryService;
+import sw_css.file.application.FileService;
 import sw_css.helper.ApiTestHelper;
 import sw_css.major.application.MajorQueryService;
 import sw_css.member.application.MemberQueryService;
@@ -51,6 +52,9 @@ public abstract class RestDocsTest extends ApiTestHelper {
 
     @MockBean
     protected MemberAdminQueryService memberAdminQueryService;
+
+    @MockBean
+    protected FileService fileService;
 
     @Autowired
     protected RestDocumentationResultHandler restDocs;

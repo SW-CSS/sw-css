@@ -34,8 +34,17 @@ public class MilestoneHistoryAdminController {
     // TODO 관리자만 호출할 수 있도록 권한 설정
 
     @GetMapping
-    public ResponseEntity<Page<MilestoneHistoryResponse>> findAllMilestoneHistory(final Pageable pageable) {
-        return ResponseEntity.ok(milestoneHistoryAdminQueryService.findAllMilestoneHistories(pageable));
+    public ResponseEntity<Page<MilestoneHistoryResponse>> findAllMilestoneHistory(
+            @RequestParam(value = "field", required = false) final Integer field,
+            @RequestParam(value = "keyword", required = false) final String keyword,
+            final Pageable pageable) {
+        return ResponseEntity.ok(milestoneHistoryAdminQueryService.findAllMilestoneHistories(field, keyword, pageable));
+    }
+
+    @GetMapping("/{historyId}")
+    public ResponseEntity<MilestoneHistoryResponse> findAllMilestoneHistory(
+            @PathVariable("historyId") final Long historyId) {
+        return ResponseEntity.ok(milestoneHistoryAdminQueryService.findMilestoneHistory(historyId));
     }
 
     @PostMapping
@@ -55,6 +64,12 @@ public class MilestoneHistoryAdminController {
     public ResponseEntity<Void> approveMilestoneHistory(@PathVariable("historyId") final Long historyId,
                                                         @RequestBody @Valid final MilestoneHistoryRejectRequest request) {
         milestoneHistoryAdminCommandService.rejectMilestoneHistory(historyId, request);
+        return ResponseEntity.noContent().build();
+    }
+
+    @PatchMapping("/{historyId}/cancel")
+    public ResponseEntity<Void> cancelMilestoneHistory(@PathVariable("historyId") final Long historyId) {
+        milestoneHistoryAdminCommandService.cancelMilestoneHistory(historyId);
         return ResponseEntity.noContent().build();
     }
 

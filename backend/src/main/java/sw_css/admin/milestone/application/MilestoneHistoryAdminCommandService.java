@@ -86,4 +86,11 @@ public class MilestoneHistoryAdminCommandService {
                         () -> new MilestoneHistoryException(MilestoneHistoryExceptionType.NOT_FOUND_MILESTONE_HISTORY));
         history.reject(request.reason());
     }
+
+    public void cancelMilestoneHistory(final Long historyId) {
+        final MilestoneHistory history = milestoneHistoryRepository.findById(historyId)
+                .orElseThrow(
+                        () -> new MilestoneHistoryException(MilestoneHistoryExceptionType.NOT_FOUND_MILESTONE_HISTORY));
+        history.cancel();
+    }
 }

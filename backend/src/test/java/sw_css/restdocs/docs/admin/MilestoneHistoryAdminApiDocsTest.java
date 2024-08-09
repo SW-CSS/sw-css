@@ -26,6 +26,8 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
@@ -101,6 +103,79 @@ public class MilestoneHistoryAdminApiDocsTest extends RestDocsTest {
     }
 
     @Test
+    @DisplayName("[성공] 마일스톤 실적 승인/반려를 취소할 수 있다.")
+    public void cancelMilestoneHistory() throws Exception {
+        // given
+        final PathParametersSnippet pathParameters = pathParameters(
+                parameterWithName("historyId").description("마일스톤 실적의 id")
+        );
+        final Long historyId = 1L;
+
+        // when
+        doNothing().when(milestoneHistoryAdminCommandService).cancelMilestoneHistory(historyId);
+
+        // then
+        mockMvc.perform(
+                        RestDocumentationRequestBuilders.patch("/admin/milestones/histories/{historyId}/cancel", historyId))
+                .andExpect(status().isNoContent())
+                .andDo(document("milestone-history-cancel", pathParameters));
+    }
+
+    @Test
+    @DisplayName("[성공] 전체 마일스톤 실적 목록을 조회할 수 있다.")
+    void findMilestoneHistory() throws Exception {
+        //given
+        final ResponseFieldsSnippet responseBodySnippet = responseFields(
+                fieldWithPath("id").type(JsonFieldType.NUMBER).description("마일스톤 실적 id"),
+                fieldWithPath("milestone.id").type(JsonFieldType.NUMBER).description("마일스톤 실적의 마일스톤 id"),
+                fieldWithPath("milestone.name").type(JsonFieldType.STRING).description("마일스톤 실적의 마일스톤 명칭"),
+                fieldWithPath("milestone.categoryName").type(JsonFieldType.STRING)
+                        .description("마일스톤 실적의 마일스톤 카테고리 이름"),
+                fieldWithPath("milestone.categoryGroup").type(JsonFieldType.STRING)
+                        .description("마일스톤 실적의 마일스톤 카테고리 유형"),
+                fieldWithPath("milestone.score").type(JsonFieldType.NUMBER).description("마일스톤 실적의 마일스톤 점수"),
+                fieldWithPath("student.id").type(JsonFieldType.NUMBER).description("실적을 등록한 학생의 id"),
+                fieldWithPath("student.name").type(JsonFieldType.STRING).description("실적을 등록한 학생의 이름"),
+                fieldWithPath("description").type(JsonFieldType.STRING).description("마일스톤 활동에 대한 설명"),
+                fieldWithPath("fileUrl").type(JsonFieldType.STRING).description("마일스톤 실적 등록 시 첨부된 파일 접근 url"),
+                fieldWithPath("status").type(JsonFieldType.STRING).description("마일스톤 실적의 처리 상태"),
+                fieldWithPath("rejectReason").type(JsonFieldType.STRING).optional()
+                        .description("마일스톤 실적 반려 사유"),
+                fieldWithPath("count").type(JsonFieldType.NUMBER).description("마일스톤 활동 횟수"),
+                fieldWithPath("activatedAt").type(JsonFieldType.STRING)
+                        .description("마일스톤 활동을 한 날짜(yyyy-MM-dd)"),
+                fieldWithPath("createdAt").type(JsonFieldType.STRING).optional()
+                        .description("마일스톤 실적이 등록된 날짜(yyyy-MM-dd HH:mm:ss)")
+        );
+
+        MilestoneCategory category = new MilestoneCategory(1L, "SW 관련 창업",
+                ACTIVITY, 100, null);
+        final Milestone milestone = new Milestone(1L, category, "창업", 100, 1);
+        final StudentMember student = new StudentMember(202055558L,
+                new Member(1L, "abc@naver.com", "홍길동", "password", "010-0000-0000", false),
+                new Major(1L, new College(1L, "인문대학"), "사회학과"), null, null, CareerType.EMPLOYMENT_COMPANY,
+                "IT 사기업 개발자로 취업");
+        final MilestoneHistoryWithStudentInfo history =
+                new MilestoneHistoryWithStudentInfo(1L, milestone, category,
+                        StudentMemberReferenceResponse.from(student), "창업했습니다.",
+                        "https://skfdlfjeklf.png", MilestoneStatus.PENDING, null, 1, LocalDate.parse("2024-06-06"),
+                        LocalDateTime.parse("2024-06-05T00:00:00"));
+
+        final MilestoneHistoryResponse response = MilestoneHistoryResponse.from(history);
+        final Long historyId = 1L;
+
+        //when
+        when(milestoneHistoryAdminQueryService.findMilestoneHistory(historyId)).thenReturn(response);
+
+        //then
+        mockMvc.perform(
+                        RestDocumentationRequestBuilders.get("/admin/milestones/histories/" + historyId))
+                .andExpect(status().isOk())
+                .andDo(document("milestone-history-find", responseBodySnippet));
+
+    }
+
+    @Test
     @DisplayName("[성공] 전체 마일스톤 실적 목록을 조회할 수 있다.")
     void findAllMilestoneHistories() throws Exception {
         //given
@@ -114,7 +189,14 @@ public class MilestoneHistoryAdminApiDocsTest extends RestDocsTest {
                 fieldWithPath("sort.unsorted").type(JsonFieldType.BOOLEAN).description("정렬여부"),
                 fieldWithPath("first").type(JsonFieldType.BOOLEAN).description("첫 페이지인지 여부"),
                 fieldWithPath("last").type(JsonFieldType.BOOLEAN).description("마지막 페이지인지 여부"),
-                fieldWithPath("pageable").type(JsonFieldType.STRING).description(""),
+                fieldWithPath("pageable.pageNumber").type(JsonFieldType.NUMBER).description("요청한 페이지번호"),
+                fieldWithPath("pageable.pageSize").type(JsonFieldType.NUMBER).description("요청한 페이지크기"),
+                fieldWithPath("pageable.sort.empty").type(JsonFieldType.BOOLEAN).description("요청한 데이터가 비었는지 여부"),
+                fieldWithPath("pageable.sort.sorted").type(JsonFieldType.BOOLEAN).description("요청한 데이터 정렬 기준 존재 여부"),
+                fieldWithPath("pageable.sort.unsorted").type(JsonFieldType.BOOLEAN).description("요청한 데이터 정렬 기준 존재 여부"),
+                fieldWithPath("pageable.offset").type(JsonFieldType.NUMBER).description("요청한 페이지오프셋"),
+                fieldWithPath("pageable.paged").type(JsonFieldType.BOOLEAN).description("페이징 여부"),
+                fieldWithPath("pageable.unpaged").type(JsonFieldType.BOOLEAN).description("페이징 여부"),
                 fieldWithPath("numberOfElements").type(JsonFieldType.NUMBER).description("총 데이터 수"),
                 fieldWithPath("empty").type(JsonFieldType.BOOLEAN).description("데이터의 존재 여부"),
                 fieldWithPath("content[].id").type(JsonFieldType.NUMBER).description("마일스톤 실적 id"),
@@ -146,6 +228,7 @@ public class MilestoneHistoryAdminApiDocsTest extends RestDocsTest {
                 new Member(1L, "abc@naver.com", "홍길동", "password", "010-0000-0000", false),
                 new Major(1L, new College(1L, "인문대학"), "사회학과"), null, null, CareerType.EMPLOYMENT_COMPANY,
                 "IT 사기업 개발자로 취업");
+        final Pageable pageable = PageRequest.of(0, 10);
         final Page<MilestoneHistoryWithStudentInfo> milestones = new PageImpl<>(List.of(
                 new MilestoneHistoryWithStudentInfo(1L, milestone, category,
                         StudentMemberReferenceResponse.from(student), "창업했습니다.",
@@ -161,10 +244,10 @@ public class MilestoneHistoryAdminApiDocsTest extends RestDocsTest {
                         LocalDateTime.parse("2024-06-05T00:00:00"))
         ));
 
-        final Page<MilestoneHistoryResponse> response = MilestoneHistoryResponse.from(milestones);
+        final Page<MilestoneHistoryResponse> response = MilestoneHistoryResponse.from(milestones, pageable);
 
         //when
-        when(milestoneHistoryAdminQueryService.findAllMilestoneHistories(any())).thenReturn(response);
+        when(milestoneHistoryAdminQueryService.findAllMilestoneHistories(any(), any(), any())).thenReturn(response);
 
         //then
         mockMvc.perform(
@@ -218,7 +301,14 @@ public class MilestoneHistoryAdminApiDocsTest extends RestDocsTest {
                 fieldWithPath("sort.unsorted").type(JsonFieldType.BOOLEAN).description("정렬여부"),
                 fieldWithPath("first").type(JsonFieldType.BOOLEAN).description("첫 페이지인지 여부"),
                 fieldWithPath("last").type(JsonFieldType.BOOLEAN).description("마지막 페이지인지 여부"),
-                fieldWithPath("pageable").type(JsonFieldType.STRING).description(""),
+                fieldWithPath("pageable.pageNumber").type(JsonFieldType.NUMBER).description("요청한 페이지번호"),
+                fieldWithPath("pageable.pageSize").type(JsonFieldType.NUMBER).description("요청한 페이지크기"),
+                fieldWithPath("pageable.sort.empty").type(JsonFieldType.BOOLEAN).description("요청한 데이터가 비었는지 여부"),
+                fieldWithPath("pageable.sort.sorted").type(JsonFieldType.BOOLEAN).description("요청한 데이터 정렬 기준 존재 여부"),
+                fieldWithPath("pageable.sort.unsorted").type(JsonFieldType.BOOLEAN).description("요청한 데이터 정렬 기준 존재 여부"),
+                fieldWithPath("pageable.offset").type(JsonFieldType.NUMBER).description("요청한 페이지오프셋"),
+                fieldWithPath("pageable.paged").type(JsonFieldType.BOOLEAN).description("페이징 여부"),
+                fieldWithPath("pageable.unpaged").type(JsonFieldType.BOOLEAN).description("페이징 여부"),
                 fieldWithPath("numberOfElements").type(JsonFieldType.NUMBER).description("총 데이터 수"),
                 fieldWithPath("empty").type(JsonFieldType.BOOLEAN).description("데이터의 존재 여부"),
                 fieldWithPath("content[].student.id").type(JsonFieldType.NUMBER).description("학생의 학번"),
@@ -252,20 +342,21 @@ public class MilestoneHistoryAdminApiDocsTest extends RestDocsTest {
                 new MilestoneScoreResponse(StudentMemberReferenceResponse.from(student2),
                         Map.of(ACTIVITY, List.of(
                                 MilestoneScoreOfStudentResponse.of(new MilestoneCategory(1L, "SW 관련 창업",
-                                        ACTIVITY, 100, null), 50))))));
+                                        ACTIVITY, 100, null), 50))))), PageRequest.of(0, 10), 3);
         final String startDate = "2024-06-01";
         final String endDate = "2024-06-08";
 
         //when
         when(milestoneHistoryAdminQueryService.findAllMilestoneHistoryScores(eq(startDate), eq(endDate),
-                any())).thenReturn(
-                response);
+                any())).thenReturn(response);
 
         //then
         mockMvc.perform(
                         RestDocumentationRequestBuilders.get("/admin/milestones/histories/scores")
                                 .param("start_date", startDate)
-                                .param("end_date", endDate))
+                                .param("end_date", endDate)
+                                .param("page", "0")
+                                .param("size", "10"))
                 .andExpect(status().isOk())
                 .andDo(document("milestone-history-score-find-all", queryParameters,
                         responseBodySnippet));

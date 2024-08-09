@@ -1,4 +1,6 @@
+/* eslint-disable jsx-a11y/control-has-associated-label */
 /* eslint-disable max-len */
+import MilestoneGroupLabel from '@/components/MilestoneGroupLabel';
 import { MilestoneGroup, MilestoneHistoryStatus } from '@/data/milestone';
 import { useAppSelector } from '@/lib/hooks/redux';
 import { useMilestoneHistoriesOfStudentQuery } from '@/lib/hooks/useApi';
@@ -39,11 +41,7 @@ const MilestoneHistoryTable = ({ searchFilterPeriod, pageNumber, pageSize }: Mil
           <tr key={milestoneHistory.id} className="flex border-b border-border text-center">
             <td className="max-w-[calc(100%-273px)] flex-grow p-[10px] text-left">{milestoneHistory.description}</td>
             <td className="w-20 p-[10px]">
-              <span
-                className={`rounded-sm px-2 py-[2px] text-xs ${milestoneHistory.milestone.categoryGroup === MilestoneGroup.ACTIVITY && 'bg-milestone-blue-light text-milestone-blue-dark'} ${milestoneHistory.milestone.categoryGroup === MilestoneGroup.GLOBAL && 'bg-milestone-green-light text-milestone-green-dark'} ${milestoneHistory.milestone.categoryGroup === MilestoneGroup.COMMUNITY && 'bg-milestone-purple-light text-milestone-green-dark'} `}
-              >
-                {convertMilestoneGroup(milestoneHistory.milestone.categoryGroup)}
-              </span>
+              <MilestoneGroupLabel group={milestoneHistory.milestone.categoryGroup} />
             </td>
             <td className="w-20 p-[10px]">{milestoneHistory.milestone.score * milestoneHistory.count}</td>
             <td className="w-[112px] p-[10px]">{milestoneHistory.activatedAt.slice(0, 10)}</td>
