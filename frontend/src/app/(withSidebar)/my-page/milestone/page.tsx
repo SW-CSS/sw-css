@@ -33,7 +33,7 @@ const Page = () => {
       <div style={{ borderBottom: `1px dotted ${COLOR.border}`, margin: '30px 0px' }} />
       <SubTitle>획득 내역</SubTitle>
       {/* TODO 제대로 페이지네이션 처리 하기 */}
-      <MilestoneHistoryTable searchFilterPeriod={searchFilterPeriod} page={0} size={10} />
+      <MilestoneHistoryTable searchFilterPeriod={searchFilterPeriod} pageNumber={0} pageSize={10} />
     </Content>
   );
 };

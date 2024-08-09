@@ -48,3 +48,14 @@ export const useMilestoneHistoryStatusCancelMutation = () =>
       await client.patch(`/admin/milestones/histories/${historyId}/cancel`);
     },
   });
+
+export const useRegisterHistoryInBatchMutation = () =>
+  useAxiosMutation({
+    mutationFn: async (file?: File) => {
+      const formdata = new FormData();
+      formdata.append('file', file!);
+      await client.post('/admin/milestones/histories', formdata, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
+    },
+  });

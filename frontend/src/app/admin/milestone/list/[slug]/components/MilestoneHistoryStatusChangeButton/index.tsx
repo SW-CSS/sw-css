@@ -82,7 +82,7 @@ const MilestoneHistoryStatusChangeButton = ({ historyId, status }: MilestoneHist
             <button
               type="button"
               onClick={handleRejectButtonClick}
-              className="bg-admin-semantic-errpr-light hover:bg-admin-semantic-error-main rounded-sm py-2 text-white"
+              className="hover:bg-admin-semantic-error-main bg-admin-semantic-error-light rounded-sm py-2 text-white"
             >
               반려
             </button>

@@ -1,10 +1,9 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
 /* eslint-disable max-len */
 import MilestoneGroupLabel from '@/components/MilestoneGroupLabel';
-import { MilestoneGroup, MilestoneHistoryStatus } from '@/data/milestone';
+import { MilestoneHistoryStatus } from '@/data/milestone';
 import { useAppSelector } from '@/lib/hooks/redux';
 import { useMilestoneHistoriesOfStudentQuery } from '@/lib/hooks/useApi';
-import { convertMilestoneGroup } from '@/lib/utils/utils';
 import { Period } from '@/types/common';
 import { MilestoneHistorySortCriteria, SortDirection } from '@/types/milestone';
 
