@@ -15,8 +15,8 @@ import sw_css.file.application.FileService;
 public class FileController {
     private final FileService fileService;
 
-    @GetMapping
-    public ResponseEntity<byte[]> downloadFile(@PathVariable final String fileName) throws IOException {
+    @GetMapping("/{fileName}")
+    public ResponseEntity<byte[]> downloadFile(@PathVariable("fileName") final String fileName) throws IOException {
         byte[] downloadFile = fileService.downloadFileFromFileSystem(fileName);
         return ResponseEntity.ok(downloadFile);
     }
