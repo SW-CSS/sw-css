@@ -3,36 +3,13 @@
 import Image from 'next/image';
 import { useMemo } from 'react';
 
+import { HistoryFileType } from '@/data/milestone';
 import { useFileQuery } from '@/lib/hooks/useApi';
+import { getFileType } from '@/lib/utils/utils';
 
 interface FilePreviewProps {
   fileName: string | null;
 }
-
-enum FileType {
-  IMAGE = 'image',
-  PDF = 'pdf',
-  EMPTY = 'empty',
-  UNKNOWN = 'unknown',
-}
-
-const getFileType = (fileName: string | null): FileType => {
-  const extension = fileName?.split('.').pop()?.toLowerCase() ?? null;
-
-  switch (extension) {
-    case 'png':
-    case 'jpg':
-    case 'jpeg':
-      return FileType.IMAGE;
-    case 'pdf':
-      return FileType.PDF;
-    case null:
-    case '':
-      return FileType.EMPTY;
-    default:
-      return FileType.UNKNOWN;
-  }
-};
 
 const FilePreview = ({ fileName }: FilePreviewProps) => {
   const { data: file } = useFileQuery(fileName);
@@ -43,7 +20,7 @@ const FilePreview = ({ fileName }: FilePreviewProps) => {
     return '';
   }, [file]);
   switch (getFileType(fileName)) {
-    case FileType.PDF:
+    case HistoryFileType.PDF:
       return (
         <>
           <a className="w-full rounded-sm bg-admin-primary-main text-white" href={fileUrl} download>
@@ -57,7 +34,7 @@ const FilePreview = ({ fileName }: FilePreviewProps) => {
           />
         </>
       );
-    case FileType.IMAGE:
+    case HistoryFileType.IMAGE:
       return (
         <>
           <a className="w-full rounded-sm bg-admin-primary-main text-white" href={fileUrl} download>
@@ -66,17 +43,10 @@ const FilePreview = ({ fileName }: FilePreviewProps) => {
           <Image src={fileUrl} priority={false} layout="responsive" alt={fileName ?? ''} width={532} height={532} />
         </>
       );
-    case FileType.EMPTY:
+    case HistoryFileType.EMPTY:
       return <div>첨부된 파일이 없습니다.</div>;
     default:
-      return (
-        <>
-          <a className="w-full rounded-sm bg-admin-primary-main text-white" href={fileUrl} download>
-            다운로드
-          </a>
-          <div>미리보기는 PDF, PNG, JPG, JPEG 파일만 제공됩니다.</div>
-        </>
-      );
+      return <div>잘못된 유형의 파일이 첨부되어 있습니다.</div>;
   }
 };
 
