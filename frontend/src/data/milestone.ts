@@ -41,6 +41,13 @@ export const initialMilestoneOverview: MilestoneOverviewScore = {
   totalScore: 0,
 };
 
+export enum HistoryFileType {
+  IMAGE = 'image',
+  PDF = 'pdf',
+  EMPTY = 'empty',
+  NOT_SUPPORTED = 'not supported',
+}
+
 export const milestoneHistorySearchField = [
   {
     id: 1,

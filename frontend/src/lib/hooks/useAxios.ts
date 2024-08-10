@@ -23,10 +23,7 @@ const handleError = (error: Error, pathname: string) => {
 
   if (error instanceof BusinessError && error.originalError instanceof AxiosError && error.originalError.response) {
     toast.error(error.originalError.response.data.detail);
-    return;
   }
-
-  throw error;
 };
 
 export const useAxiosQuery = <TQueryFnData>(options: UseQueryOptions<TQueryFnData>) => {

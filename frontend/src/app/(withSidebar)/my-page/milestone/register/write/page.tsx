@@ -7,6 +7,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import * as Yup from 'yup';
+import { toast } from 'react-toastify';
 
 import { DatePicker } from '@/app/components/Formik/DatePicker';
 import { FileUploader } from '@/app/components/Formik/FileUploader';
@@ -53,11 +54,11 @@ const Page = () => {
   const handleSubmitButtonClick = (values: MilestoneHistoryCreateDto) => {
     createMilestoneHistory(values, {
       onSuccess: () => {
-        window.alert('실적 등록에 성공하였습니다.');
+        toast.info('실적 등록에 성공하였습니다.');
         router.push('/my-page/milestone/register');
       },
       onError: () => {
-        window.alert('실적 등록에 실패하였습니다.');
+        toast.error('실적 등록에 실패하였습니다.');
       },
     });
   };

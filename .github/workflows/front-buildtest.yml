@@ -1,0 +1,37 @@
+name: front-build-test
+
+on:
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  front_build_test:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Dependencies
+        run: |
+          cd frontend
+          npm i
+
+      - name: Create .env File
+        env:
+          SECRETS: ${{ toJson(secrets) }}
+        run: |
+          cd frontend
+          touch .env && \
+          jq -r 'to_entries|map("\(.key)=\(.value|tostring)")|.[]' <<< "$SECRETS" > .env
+
+      - name: Build
+        run: |
+          cd frontend
+          npm run build

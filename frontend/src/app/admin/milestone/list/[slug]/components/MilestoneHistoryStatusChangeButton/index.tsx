@@ -4,6 +4,7 @@
 
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { toast } from 'react-toastify';
 
 import TextInput from '@/components/Formik/TextInput';
 import { MilestoneHistoryStatus } from '@/data/milestone';
@@ -28,11 +29,11 @@ const MilestoneHistoryStatusChangeButton = ({ historyId, status }: MilestoneHist
   const handleApproveButtonClick = () =>
     approveMilestoneHistory(historyId, {
       onSuccess: () => {
-        window.alert('실적 내역을 승인하였습니다.');
+        toast.info('실적 내역을 승인하였습니다.');
         router.refresh();
       },
       onError: () => {
-        window.alert('실적 내역을 승인하는 데 실패했습니다.');
+        toast.error('실적 내역을 승인하는 데 실패했습니다.');
       },
     });
   const handleRejectButtonClick = () =>
@@ -40,11 +41,11 @@ const MilestoneHistoryStatusChangeButton = ({ historyId, status }: MilestoneHist
       { historyId, rejectReason },
       {
         onSuccess: () => {
-          window.alert('실적 내역을 반려하였습니다.');
+          toast.info('실적 내역을 반려하였습니다.');
           router.refresh();
         },
         onError: () => {
-          window.alert('실적 내역을 반려하는 데 실패했습니다.');
+          toast.error('실적 내역을 반려하는 데 실패했습니다.');
         },
       },
     );
@@ -52,11 +53,11 @@ const MilestoneHistoryStatusChangeButton = ({ historyId, status }: MilestoneHist
   const handleCancelButtonClick = () =>
     cancelMilestoneHistory(historyId, {
       onSuccess: () => {
-        window.alert(`${convertMilestoneHistoryStatus(status)}을(를) 취소했습니다.`);
+        toast.info(`${convertMilestoneHistoryStatus(status)}을(를) 취소했습니다.`);
         router.refresh();
       },
       onError: () => {
-        window.alert(`${convertMilestoneHistoryStatus(status)} 취소에 실패하였습니다.`);
+        toast.error(`${convertMilestoneHistoryStatus(status)} 취소에 실패하였습니다.`);
       },
     });
   switch (status) {
@@ -82,7 +83,7 @@ const MilestoneHistoryStatusChangeButton = ({ historyId, status }: MilestoneHist
             <button
               type="button"
               onClick={handleRejectButtonClick}
-              className="bg-admin-semantic-errpr-light hover:bg-admin-semantic-error-main rounded-sm py-2 text-white"
+              className="hover:bg-admin-semantic-error-main bg-admin-semantic-error-light rounded-sm py-2 text-white"
             >
               반려
             </button>
