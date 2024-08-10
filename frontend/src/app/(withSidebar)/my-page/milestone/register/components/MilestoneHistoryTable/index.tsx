@@ -1,6 +1,5 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
 /* eslint-disable max-len */
-/* eslint-disable no-alert */
 
 import MilestoneHistoryStatusLabel from '@/app/(withSidebar)/my-page/components/MilestoneHistoryStatusLabel';
 import { getMilestoneHistoriesOfStudent } from '@/lib/api/server.api';

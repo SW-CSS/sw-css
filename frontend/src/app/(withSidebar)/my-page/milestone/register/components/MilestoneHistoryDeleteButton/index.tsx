@@ -2,6 +2,7 @@
 
 import { useRouter } from 'next/navigation';
 
+import { toast } from 'react-toastify';
 import { useMilestoneHistoryDeleteMutation } from '@/lib/hooks/useApi';
 
 interface MilestoneHistoryDeleteButtonProps {
@@ -19,7 +20,7 @@ const MilestoneHistoryDeleteButton = ({ historyId }: MilestoneHistoryDeleteButto
           if (router) router.refresh();
         },
         onError: () => {
-          window.alert('삭제에 실패하였습니다.');
+          toast.error('삭제에 실패하였습니다.');
         },
       });
     }

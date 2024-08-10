@@ -1,4 +1,3 @@
-/* eslint-disable no-alert */
 /* eslint-disable max-len */
 /* eslint-disable operator-linebreak */
 /* eslint-disable implicit-arrow-linebreak */
@@ -10,6 +9,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useMemo } from 'react';
 import * as Yup from 'yup';
+import { toast } from 'react-toastify';
 
 import { FileUploader } from '@/app/components/Formik/FileUploader';
 import { useRegisterHistoryInBatchMutation } from '@/lib/hooks/useAdminApi';
@@ -79,11 +79,11 @@ const Page = () => {
         onSubmit={(values, { setSubmitting }) => {
           registerHistories(values.file, {
             onSuccess: () => {
-              window.alert('실적 등록에 성공하였습니다.');
-              router.push('/admin/milestone/list');
+              toast.info('실적 등록에 성공하였습니다.');
+              router.refresh();
             },
             onError: () => {
-              window.alert('실적 등록에 실패하였습니다.');
+              toast.error('실적 등록에 실패하였습니다.');
             },
           });
           setSubmitting(false);
