@@ -5,6 +5,22 @@ import { useAxiosMutation, useAxiosQuery } from '@/lib/hooks/useAxios';
 import { MilestoneScoreOfStudentPageableDto } from '@/types/common.dto';
 import { BusinessError } from '@/types/error';
 
+export function useMilestoneHistoryExcelFileQuery(keyword: number | null, field: string | null) {
+  return useAxiosQuery({
+    queryKey: QueryKeys.MILESTONE_HISTORY_EXCEL(keyword, field),
+    queryFn: async (): Promise<Blob | null> => {
+      const response = await client.get(`/admin/milestones/histories/files`, {
+        params: { keyword, field },
+        responseType: 'blob',
+      });
+      if (response?.status !== 200) {
+        return null;
+      }
+      return response?.data;
+    },
+  });
+}
+
 export const useMilestoneScoresQuery = (
   startDate: string,
   endDate: string,
