@@ -28,5 +28,6 @@ export const Content = styled.div`
 
   @media screen and (max-width: ${RESPONSIVE_WIDTH.desktop}) {
     padding: 20px;
+    width: 100%;
   }
 `;

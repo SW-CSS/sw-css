@@ -92,36 +92,44 @@ const Page = () => {
               setSelectedMilestone={setSelectedMilestone}
               errorText={touched.milestoneId && errors.milestoneId ? errors.milestoneId : undefined}
             />
-            <div className="flex gap-4">
-              <TextInput
-                name="unitScore"
-                label="건당 점수"
-                type="text"
-                defaultValue={0}
-                value={selectedMilestone?.score || 0}
-                disabled
-              />
-              <span className="mt-6">x</span>
-              <TextInput
-                name="count"
-                label="횟수(건)"
-                type="number"
-                value={values.count}
-                onChange={handleChange}
-                onBlur={handleBlur}
-                errorText={touched.count && errors.count ? errors.count : undefined}
-              />
-              <span className="mt-6">=</span>
-              <TextInput
-                name="totalScore"
-                label="총 점수"
-                type="text"
-                defaultValue={0}
-                value={(selectedMilestone?.score ?? 0) * values.count}
-                disabled
-              />
+            <div className="flex flex-wrap gap-4">
+              <div className="min-w-[4em] flex-grow">
+                <TextInput
+                  name="unitScore"
+                  label="건당 점수"
+                  type="text"
+                  defaultValue={0}
+                  value={selectedMilestone?.score || 0}
+                  disabled
+                />
+              </div>
+              <div className="flex flex-grow gap-4">
+                <span className="mt-6">x</span>
+                <TextInput
+                  name="count"
+                  label="횟수(건)"
+                  type="number"
+                  value={values.count}
+                  onChange={handleChange}
+                  onBlur={handleBlur}
+                  errorText={touched.count && errors.count ? errors.count : undefined}
+                />
+              </div>
+              <div className="flex flex-grow gap-4">
+                <span className="mt-6">=</span>
+                <div className="min-w-[4em] flex-grow">
+                  <TextInput
+                    name="totalScore"
+                    label="총 점수"
+                    type="text"
+                    defaultValue={0}
+                    value={(selectedMilestone?.score ?? 0) * values.count}
+                    disabled
+                  />
+                </div>
+              </div>
             </div>
-            <div className="flex gap-4">
+            <div className="flex flex-wrap gap-4">
               <TextInput
                 name="description"
                 label="등록 상세 제목"
