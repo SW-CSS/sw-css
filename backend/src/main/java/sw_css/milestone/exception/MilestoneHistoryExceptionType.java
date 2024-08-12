@@ -10,7 +10,9 @@ public enum MilestoneHistoryExceptionType implements BaseExceptionType {
     NO_MATCH_EXTENSION(HttpStatus.BAD_REQUEST, "파일 확장자가 올바르지 않습니다."),
     CANNOT_OPEN_FILE(HttpStatus.BAD_REQUEST, "파일을 열 수 없습니다."),
     INVALID_DATE_FORMAT(HttpStatus.BAD_REQUEST, "날짜 형식이 올바르지 않습니다."),
-    INVALID_SEARCH_FIELD_ID(HttpStatus.BAD_REQUEST, "검색 유형이 올바르지 않습니다.");
+    INVALID_SEARCH_FIELD_ID(HttpStatus.BAD_REQUEST, "검색 유형이 올바르지 않습니다."),
+    UNSUPPORTED_FILE_TYPE(HttpStatus.UNSUPPORTED_MEDIA_TYPE, "파일 유형이 png, jpg, jpeg, pdf가 아닙니다."),
+    NOT_EXIST_FILE(HttpStatus.BAD_REQUEST, "파일을 첨부해야 합니다.");
 
     private final HttpStatus httpStatus;
     private final String errorMessage;

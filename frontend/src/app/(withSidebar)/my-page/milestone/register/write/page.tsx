@@ -24,7 +24,14 @@ const validationSchema = Yup.object().shape({
   count: Yup.number().min(1, '횟수는 1 이상의 값이어야 합니다.').required('등록할 실적의 활동 횟수를 입력해주세요.'),
   description: Yup.string().required('등록할 실적의 상세 정보를 입력해주세요.'),
   activatedAt: Yup.date().max(new Date(), '활동 인정일은 미래일 수 없습니다.').required('활동 인정일을 기입해주세요.'),
-  file: Yup.mixed().required('파일을 첨부해주세요.'),
+  file: Yup.mixed()
+    .required('파일을 첨부해주세요.')
+    .test(
+      'fileFormat',
+      '이미지 파일(.jpg, .jpeg, .png), PDF 파일(.pdf)만 업로드 가능합니다.',
+      (value) =>
+        value instanceof File && ['image/jpeg', 'image/jpg', 'image/png', 'application/pdf'].includes(value.type),
+    ),
 });
 
 interface MilestoneHistoryInfo {
@@ -154,6 +161,7 @@ const Page = () => {
               name="file"
               label="증빙자료 제출"
               type="file"
+              accept=".jpg,.jpeg,.png,.pdf"
               onChange={(e) => e.currentTarget.files && setFieldValue('file', e.currentTarget.files[0])}
               onBlur={handleBlur}
               errorText={touched.file && errors.file ? errors.file : undefined}
@@ -162,7 +170,7 @@ const Page = () => {
               <ul className="flex list-disc flex-col gap-2 px-4 text-sm">
                 <li>
                   증빙자료(어학점수 인증서, 공모전 수상 상장 등){' '}
-                  <span className="text-red-400">pdf, jpeg, png 파일형식으로 등록</span>
+                  <span className="text-red-400">pdf, jpg, jpeg, png 파일형식으로 등록</span>
                 </li>
                 <li>
                   영어성적은 부산대학교 학생지원시스템에 접속하여{' '}

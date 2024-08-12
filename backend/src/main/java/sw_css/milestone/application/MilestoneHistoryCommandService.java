@@ -40,6 +40,8 @@ public class MilestoneHistoryCommandService {
     private final MilestoneHistoryRepository milestoneHistoryRepository;
 
     public Long registerMilestoneHistory(final MultipartFile file, final MilestoneHistoryCreateRequest request) {
+        validateFileType(file);
+
         final Milestone milestone = milestoneRepository.findById(request.milestoneId())
                 .orElseThrow(() -> new MilestoneException(MilestoneExceptionType.NOT_FOUND_MILESTONE));
         // TODO 요청자의 학번을 불러오는 로직 추가
@@ -53,6 +55,26 @@ public class MilestoneHistoryCommandService {
         final Long newMilestoneHistoryId = milestoneHistoryRepository.save(newMilestoneHistory).getId();
         uploadFile(file, newFilePath);
         return newMilestoneHistoryId;
+    }
+
+    private void validateFileType(final MultipartFile file) {
+        if (file == null) {
+            throw new MilestoneHistoryException(MilestoneHistoryExceptionType.NOT_EXIST_FILE);
+        }
+        final String contentType = file.getContentType();
+        if (!isSupportedContentType(contentType)) {
+            throw new MilestoneHistoryException(MilestoneHistoryExceptionType.UNSUPPORTED_FILE_TYPE);
+        }
+    }
+
+
+    private boolean isSupportedContentType(final String contentType) {
+        return contentType != null && (
+                contentType.equals("application/pdf") ||
+                        contentType.equals("image/png") ||
+                        contentType.equals("image/jpeg") ||
+                        contentType.equals("image/jpg")
+        );
     }
 
     private String generateFilePath(final MultipartFile file) {

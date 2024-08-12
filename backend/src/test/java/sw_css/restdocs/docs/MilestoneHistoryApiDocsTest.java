@@ -56,7 +56,7 @@ public class MilestoneHistoryApiDocsTest extends RestDocsTest {
         final RequestPartsSnippet requestPartsSnippet = requestParts(
                 partWithName("request").description(
                         "마일스톤 실적 정보(milestoneId-마일스톤 id, description - 활동에 대한 설명, count - 활동 횟수, activatedAt - 활동 일자(yyyy-MM-dd))"),
-                partWithName("file").description("증빙 자료 파일")
+                partWithName("file").description("증빙 자료 파일(jpg, jpeg, png, pdf)")
 
         );
         final MockMultipartFile file = new MockMultipartFile("file", "test.png", "multipart/form-data",
