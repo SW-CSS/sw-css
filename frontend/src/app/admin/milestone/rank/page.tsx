@@ -8,12 +8,12 @@
 
 import { DateTime } from 'luxon';
 import { usePathname } from 'next/navigation';
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import Pagination from '@/adminComponents/Pagination';
 import MilestonePeriodSearchForm from '@/components/MilestonePeriodSearchForm';
 import { MilestoneGroup } from '@/data/milestone';
-import { useMilestoneScoresQuery } from '@/lib/hooks/useAdminApi';
+import { useMilestoneHistoryScoreExcelFileQuery, useMilestoneScoresQuery } from '@/lib/hooks/useAdminApi';
 import { useMilestoneQuery } from '@/lib/hooks/useApi';
 import { convertMilestoneGroup } from '@/lib/utils/utils';
 import { Period } from '@/types/common';
@@ -27,6 +27,16 @@ const Page = ({ searchParams }: { searchParams?: { [key: string]: string | undef
   const pathname = usePathname();
   const page = searchParams?.page ? parseInt(searchParams.page, 10) : 1;
 
+  const { data: excelFile } = useMilestoneHistoryScoreExcelFileQuery(
+    searchFilterPeriod.startDate,
+    searchFilterPeriod.endDate,
+  );
+  const excelFileUrl = useMemo(() => {
+    if (excelFile) {
+      return URL.createObjectURL(excelFile);
+    }
+    return '';
+  }, [excelFile]);
   const { data: milestoneScores } = useMilestoneScoresQuery(
     searchFilterPeriod.startDate,
     searchFilterPeriod.endDate,
@@ -87,7 +97,7 @@ const Page = ({ searchParams }: { searchParams?: { [key: string]: string | undef
                         {score.score}
                       </td>
                     ))}
-                    <td key={group} className="bg-admin-background-point min-w-20 p-2 font-bold">
+                    <td key={group} className="min-w-20 bg-admin-background-point p-2 font-bold">
                       {milestoneScore.milestoneScores[group].reduce((acc, curr) => acc + curr.score, 0)}
                     </td>
                   </>
@@ -96,6 +106,15 @@ const Page = ({ searchParams }: { searchParams?: { [key: string]: string | undef
             ))}
           </tbody>
         </table>
+      </div>
+      <div className="flex justify-end">
+        <a
+          className="rounded-sm bg-admin-primary-main px-4 py-2 text-white hover:bg-admin-primary-dark"
+          href={excelFileUrl}
+          download={'마일스톤_점수_현황.xlsx'}
+        >
+          Excel로 다운로드
+        </a>
       </div>
       <Pagination currentPage={page} totalItems={milestoneScores?.totalElements ?? 0} pathname={pathname} />
     </div>

@@ -5,9 +5,9 @@ import { useAxiosMutation, useAxiosQuery } from '@/lib/hooks/useAxios';
 import { MilestoneScoreOfStudentPageableDto } from '@/types/common.dto';
 import { BusinessError } from '@/types/error';
 
-export function useMilestoneHistoryExcelFileQuery(keyword: number | null, field: string | null) {
+export function useMilestoneHistoryExcelFileQuery(field: number | null, keyword: string | null) {
   return useAxiosQuery({
-    queryKey: QueryKeys.MILESTONE_HISTORY_EXCEL(keyword, field),
+    queryKey: QueryKeys.MILESTONE_HISTORY_EXCEL(field, keyword),
     queryFn: async (): Promise<Blob | null> => {
       const response = await client.get(`/admin/milestones/histories/files`, {
         params: { keyword, field },
@@ -43,6 +43,22 @@ export const useMilestoneScoresQuery = (
       }
     },
   }) ?? [];
+
+export function useMilestoneHistoryScoreExcelFileQuery(startDate: string, endDate: string) {
+  return useAxiosQuery({
+    queryKey: QueryKeys.MILESTONE_HISTORY_SCORE_EXCEL(startDate, endDate),
+    queryFn: async (): Promise<Blob | null> => {
+      const response = await client.get(`/admin/milestones/histories/scores/files`, {
+        params: { start_date: startDate, end_date: endDate },
+        responseType: 'blob',
+      });
+      if (response?.status !== 200) {
+        return null;
+      }
+      return response?.data;
+    },
+  });
+}
 
 export const useMilestoneHistoryStatusApproveMutation = () =>
   useAxiosMutation({
