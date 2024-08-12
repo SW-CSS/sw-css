@@ -26,6 +26,5 @@ jobs:
           key: ${{ secrets.REMOTE_SSH_KEY }}
           port: ${{ secrets.REMOTE_SSH_PORT }}
           script: |
-            whoami
             cd $HOME
             sh sw_css-deploy.sh
