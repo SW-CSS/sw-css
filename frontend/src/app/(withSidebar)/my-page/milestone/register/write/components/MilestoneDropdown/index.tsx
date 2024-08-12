@@ -68,8 +68,8 @@ const MilestoneDropdown = ({ ...props }: MilestoneDropdownProps) => {
   }, [milestoneId, milestoneOptions, setSelectedMilestone]);
 
   return (
-    <div className="flex gap-x-4">
-      <div className="w-[540px]">
+    <div className="flex flex-col flex-wrap gap-4 sm:flex-row">
+      <div className="flex-grow sm:min-w-[540px] lg:w-[540px]">
         <Dropdown
           name={categoryName}
           label="활동"
@@ -80,7 +80,7 @@ const MilestoneDropdown = ({ ...props }: MilestoneDropdownProps) => {
           errorText={dropdownProps.errorText ? '' : undefined}
         />
       </div>
-      <div className="flex-grow">
+      <div className="flex-grow sm:min-w-[330px]">
         <Dropdown
           name={milestoneName}
           label="구분"
