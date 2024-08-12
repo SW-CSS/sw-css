@@ -1,4 +1,4 @@
-name: back build test
+name: back-build-test
 
 on:
   pull_request:
