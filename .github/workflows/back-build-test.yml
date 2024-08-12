@@ -32,8 +32,6 @@ jobs:
           container port: 3306
           mysql version: "8.0"
           mysql database: "sw_css"
-          mysql user: root
-          mysql password: ${{ secrets.DB_PASSWORD }}
           mysql root password: ${{ secrets.DB_PASSWORD }}
 
       - name: Setup Gradle
