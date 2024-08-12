@@ -122,7 +122,7 @@ public class MilestoneHistoryAdminApiDocsTest extends RestDocsTest {
     }
 
     @Test
-    @DisplayName("[성공] 전체 마일스톤 실적 목록을 조회할 수 있다.")
+    @DisplayName("[성공] 특정 마일스톤 실적 목록을 조회할 수 있다.")
     void findMilestoneHistory() throws Exception {
         //given
         final ResponseFieldsSnippet responseBodySnippet = responseFields(
@@ -179,6 +179,10 @@ public class MilestoneHistoryAdminApiDocsTest extends RestDocsTest {
     @DisplayName("[성공] 전체 마일스톤 실적 목록을 조회할 수 있다.")
     void findAllMilestoneHistories() throws Exception {
         //given
+        final QueryParametersSnippet queryParameters = queryParameters(
+                parameterWithName("field").description("검색 필드 번호(option)").optional(),
+                parameterWithName("keyword").description("검색할 키워드(option)").optional()
+        );
         final ResponseFieldsSnippet responseBodySnippet = responseFields(
                 fieldWithPath("totalPages").type(JsonFieldType.NUMBER).description("총 페이지 수"),
                 fieldWithPath("totalElements").type(JsonFieldType.NUMBER).description("총 데이터 수"),
@@ -253,8 +257,31 @@ public class MilestoneHistoryAdminApiDocsTest extends RestDocsTest {
         mockMvc.perform(
                         RestDocumentationRequestBuilders.get("/admin/milestones/histories"))
                 .andExpect(status().isOk())
-                .andDo(document("milestone-history-find-all", responseBodySnippet));
+                .andDo(document("milestone-history-find-all", queryParameters, responseBodySnippet));
 
+    }
+
+    @Test
+    @DisplayName("[성공] 학생들의 마일스톤 실적 현황을 엑셀 파일로 다운로드할 수 있다.")
+    public void downloadMilestoneHistoryExcelFile() throws Exception {
+        // given
+        final byte[] response = new byte[]{};
+        final QueryParametersSnippet queryParameters = queryParameters(
+                parameterWithName("field").description("검색 필드 번호(option)").optional(),
+                parameterWithName("keyword").description("검색할 키워드(option)").optional()
+        );
+        final String field = "1";
+        final String keyword = "202055558";
+
+        // when
+        when(milestoneHistoryAdminQueryService.downloadMilestoneHistory(any(), any())).thenReturn(response);
+
+        // then
+        mockMvc.perform(RestDocumentationRequestBuilders.get("/admin/milestones/histories/files")
+                        .param("field", field)
+                        .param("keyword", keyword))
+                .andExpect(status().isOk())
+                .andDo(document("download-history-file", queryParameters));
     }
 
     @Test
@@ -360,6 +387,29 @@ public class MilestoneHistoryAdminApiDocsTest extends RestDocsTest {
                 .andExpect(status().isOk())
                 .andDo(document("milestone-history-score-find-all", queryParameters,
                         responseBodySnippet));
+    }
+
+    @Test
+    @DisplayName("[성공] 학생들의 마일스톤 실적 현황을 엑셀 파일로 다운로드할 수 있다.")
+    public void downloadMilestoneHistoryScoreExcelFile() throws Exception {
+        // given
+        final byte[] response = new byte[]{};
+        final QueryParametersSnippet queryParameters = queryParameters(
+                parameterWithName("start_date").description("조회할 마일스톤 점수 현황의 시작일"),
+                parameterWithName("end_date").description("조회할 마일스톤 점수 현황의 종료일")
+        );
+        final String startDate = "2024-06-01";
+        final String endDate = "2024-06-08";
+
+        // when
+        when(milestoneHistoryAdminQueryService.downloadMilestoneHistoryScore(any(), any())).thenReturn(response);
+
+        // then
+        mockMvc.perform(RestDocumentationRequestBuilders.get("/admin/milestones/histories/scores/files")
+                        .param("start_date", startDate)
+                        .param("end_date", endDate))
+                .andExpect(status().isOk())
+                .andDo(document("download-score-file", queryParameters));
     }
 
 }

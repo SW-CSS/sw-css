@@ -156,4 +156,39 @@ public class MilestoneHistoryCustomRepositoryImpl implements MilestoneHistoryCus
         }
         return booleanBuilder;
     }
+
+    public List<MilestoneHistoryWithStudentInfo> findAllMilestoneHistories(@Nullable final Integer field,
+                                                                           @Nullable final String keyword) {
+        final BooleanBuilder booleanBuilder = getBooleanBuilder(field, keyword);
+
+        return jpaQueryFactory
+                .select(Projections.constructor(
+                        MilestoneHistoryWithStudentInfo.class,
+                        milestoneHistory.id,
+                        milestone,
+                        milestone.category,
+                        milestoneHistory.studentId,
+                        member.name,
+                        milestoneHistory.description,
+                        milestoneHistory.fileUrl,
+                        milestoneHistory.status,
+                        milestoneHistory.rejectReason,
+                        milestoneHistory.count,
+                        milestoneHistory.activatedAt,
+                        milestoneHistory.createdAt
+                ))
+                .from(milestoneHistory)
+                .leftJoin(milestoneHistory.milestone, milestone)
+                .leftJoin(studentMember).on(milestoneHistory.studentId.eq(studentMember.id))
+                .leftJoin(studentMember.member, member)
+                .where(booleanBuilder)
+                .orderBy(
+                        Expressions.cases()
+                                .when(milestoneHistory.status.eq(MilestoneStatus.PENDING))
+                                .then(1)
+                                .otherwise(0).desc(),
+                        milestoneHistory.createdAt.desc()
+                )
+                .fetch();
+    }
 }

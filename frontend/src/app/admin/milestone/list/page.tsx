@@ -7,6 +7,7 @@ import { milestoneHistorySearchField } from '@/data/milestone';
 import { getMilestoneHistories } from '@/lib/api/server.api';
 
 import MilestoneHistoryTable from './components/MilestoneHistoryTable';
+import MilestoneHistoryExcelFileDownloadButton from './components/MilestoneHistoryTable/MilestoneHistoryExcelFileDownloadButton.tsx';
 
 const Page = async ({ searchParams }: { searchParams?: { [key: string]: string | undefined } }) => {
   const headersList = headers();
@@ -31,6 +32,9 @@ const Page = async ({ searchParams }: { searchParams?: { [key: string]: string |
         />
       </div>
       <MilestoneHistoryTable histories={milstoneHistories.content} />
+      <div className="flex justify-end">
+        <MilestoneHistoryExcelFileDownloadButton field={field} keyword={keyword} />
+      </div>
       <Pagination currentPage={page} totalItems={milstoneHistories.totalElements} pathname={pathname} />
     </div>
   );

@@ -2,9 +2,13 @@ package sw_css.admin.milestone.api;
 
 import jakarta.validation.Valid;
 import java.net.URI;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -39,6 +43,21 @@ public class MilestoneHistoryAdminController {
             @RequestParam(value = "keyword", required = false) final String keyword,
             final Pageable pageable) {
         return ResponseEntity.ok(milestoneHistoryAdminQueryService.findAllMilestoneHistories(field, keyword, pageable));
+    }
+
+    @GetMapping("/files")
+    public ResponseEntity<byte[]> downloadAllMilestoneHistoryExcelFile(
+            @RequestParam(value = "field", required = false) final Integer field,
+            @RequestParam(value = "keyword", required = false) final String keyword
+    ) {
+        String filename = "마일스톤_내역_목록.xlsx";
+        String encodedFilename = URLEncoder.encode(filename, StandardCharsets.UTF_8);
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION,
+                        "attachment; filename=\"" + encodedFilename + "\"; filename*=UTF-8''" + encodedFilename)
+
+                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .body(milestoneHistoryAdminQueryService.downloadMilestoneHistory(field, keyword));
     }
 
     @GetMapping("/{historyId}")
@@ -80,5 +99,18 @@ public class MilestoneHistoryAdminController {
             final Pageable pageable) {
         return ResponseEntity.ok(
                 milestoneHistoryAdminQueryService.findAllMilestoneHistoryScores(startDate, endDate, pageable));
+    }
+
+    @GetMapping("/scores/files")
+    public ResponseEntity<byte[]> downloadMilestoneHistoryScoreExcelFile(
+            @RequestParam(value = "start_date") final String startDate,
+            @RequestParam(value = "end_date") final String endDate) {
+        String filename = "마일스톤_점수_현황.xlsx";
+        String encodedFilename = URLEncoder.encode(filename, StandardCharsets.UTF_8);
+        return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION,
+                        "attachment; filename=\"" + encodedFilename + "\"; filename*=UTF-8''" + encodedFilename)
+                .contentType(MediaType.APPLICATION_OCTET_STREAM)
+                .body(milestoneHistoryAdminQueryService.downloadMilestoneHistoryScore(startDate, endDate));
     }
 }

@@ -169,11 +169,25 @@ include::{snippets}/milestone-history-cancel/http-response.adoc[]
 .HTTP Request
 include::{snippets}/milestone-history-find-all/http-request.adoc[]
 
+.Path Parameters
+include::{snippets}/milestone-history-find-all/query-parameters.adoc[]
+
 .HTTP Response
 include::{snippets}/milestone-history-find-all/http-response.adoc[]
 
 .Response Body
 include::{snippets}/milestone-history-find-all/response-fields.adoc[]
+
+=== `GET` 전체 마일스톤 실적 목록 엑셀 파일로 다운로드
+
+.HTTP Request
+include::{snippets}/download-history-file/http-request.adoc[]
+
+.Path Parameters
+include::{snippets}/download-history-file/query-parameters.adoc[]
+
+.HTTP Response
+include::{snippets}/download-history-file/http-response.adoc[]
 
 === `GET` 전체 마일스톤 실적 단건 조회
 
@@ -207,3 +221,14 @@ include::{snippets}/milestone-history-score-find-all/http-response.adoc[]
 
 .Response Body
 include::{snippets}/milestone-history-score-find-all/response-fields.adoc[]
+
+=== `GET` 전체 마일스톤 점수 목록 엑셀 파일로 다운로드
+
+.HTTP Request
+include::{snippets}/download-score-file/http-request.adoc[]
+
+.Path Parameters
+include::{snippets}/download-score-file/query-parameters.adoc[]
+
+.HTTP Response
+include::{snippets}/download-score-file/http-response.adoc[]
