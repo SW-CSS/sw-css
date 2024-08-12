@@ -26,4 +26,4 @@ jobs:
           key: ${{ secrets.REMOTE_SSH_KEY }}
           passphrase: ${{ secrets.REMOTE_SSH_PASSPHRASE }}
           port: ${{ secrets.REMOTE_SSH_PORT }}
-        run: $HOME/sw_css-deploy.sh
+          script: $HOME/sw_css-deploy.sh
