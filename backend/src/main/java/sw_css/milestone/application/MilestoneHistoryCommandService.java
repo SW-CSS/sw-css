@@ -59,7 +59,7 @@ public class MilestoneHistoryCommandService {
 
     private void validateFileType(final MultipartFile file) {
         if (file == null) {
-            return;
+            throw new MilestoneHistoryException(MilestoneHistoryExceptionType.NOT_EXIST_FILE);
         }
         final String contentType = file.getContentType();
         if (!isSupportedContentType(contentType)) {
