@@ -28,9 +28,12 @@ jobs:
       - name: Set up MySQL 8.0
         uses: mirromutth/mysql-action@v1.1
         with:
-          collation server: utf8mb4_0900_ai_ci
-          mysql version: 8.0
-          mysql database: sw_css
+          host port: 3306
+          container port: 3306
+          mysql version: "8.0"
+          mysql database: "sw_css"
+          mysql user: root
+          mysql password: ${{ secrets.DB_PASSWORD }}
           mysql root password: ${{ secrets.DB_PASSWORD }}
 
       - name: Setup Gradle
