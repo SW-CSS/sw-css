@@ -4,6 +4,9 @@ GET http://localhost:8080/admin/milestones/histories?page=0&size=3&field=1&keywo
 GET http://localhost:8080/admin/milestones/histories/9
 
 ###
+GET http://localhost:8080/admin/milestones/histories/files
+
+###
 GET http://localhost:8080/milestones/histories/members/202055558?page=0&size=10&sort_by=ACTIVATED_AT&sort_direction=DESC
 
 
@@ -14,6 +17,10 @@ GET http://localhost:8080/milestones/histories/scores/members/202055558?start_da
 GET http://localhost:8080/admin/milestones/histories/scores?start_date=2024-06-05&end_date=2024-06-10&page=0&size=1
 
 ###
+GET http://localhost:8080/admin/milestones/histories/scores/files?start_date=2024-06-05&end_date=2024-06-10
+
+###
+
 
 POST http://localhost:8080/milestones/histories
 Content-Type: application/json

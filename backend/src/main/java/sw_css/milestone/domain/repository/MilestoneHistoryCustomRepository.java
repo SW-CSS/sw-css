@@ -1,6 +1,7 @@
 package sw_css.milestone.domain.repository;
 
 import java.time.LocalDate;
+import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -22,4 +23,8 @@ public interface MilestoneHistoryCustomRepository {
     Page<MilestoneHistoryWithStudentInfo> findMilestoneHistories(@Nullable final Integer field,
                                                                  @Nullable final String keyword,
                                                                  final Pageable pageable);
+
+    List<MilestoneHistoryWithStudentInfo> findAllMilestoneHistories(@Nullable final Integer field,
+                                                                    @Nullable final String keyword
+    );
 }
