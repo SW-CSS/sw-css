@@ -18,16 +18,16 @@ const StudentInfoSection = () => {
       <SubTitle title="내 정보" urlText="수정" url="/my-page/edit" />
       {member && (
         <div className="my-5">
-          <div className="mb-5 flex items-end gap-4">
+          <div className="mb-5 flex flex-wrap items-end gap-4">
             <p className="text-xl font-bold">{member.name}</p>
             <p className="text-lg text-comment">{member.email}</p>
           </div>
-          <div className="grid grid-cols-2 gap-4 text-sm">
-            <div className="col-span-2 flex justify-between gap-4">
-              <StudentInfoLabel label="주전공" value={member.major} />
-              {member.minor && <StudentInfoLabel label="부전공" value={member.minor} />}
-              {member.doubleMajor && <StudentInfoLabel label="복수전공" value={member.doubleMajor} />}
-            </div>
+          <div className="mb-4 flex w-full justify-between gap-4">
+            <StudentInfoLabel label="주전공" value={member.major} />
+            {member.minor && <StudentInfoLabel label="부전공" value={member.minor} />}
+            {member.doubleMajor && <StudentInfoLabel label="복수전공" value={member.doubleMajor} />}
+          </div>
+          <div className="flex flex-wrap gap-y-4">
             <StudentInfoLabel label="전화번호" value={appendDashPhoneNumber(member.phoneNumber)} />
             <StudentInfoLabel
               label="진로 계획"

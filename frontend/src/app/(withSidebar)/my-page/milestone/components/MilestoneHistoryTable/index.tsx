@@ -28,22 +28,26 @@ const MilestoneHistoryTable = ({ searchFilterPeriod, pageNumber, pageSize }: Mil
   return (
     <table className="w-full border-collapse">
       <thead>
-        <tr className="flex border-b border-border text-center">
+        <tr className="flex items-center border-b border-border text-center text-sm sm:text-base">
           <th className="flex-grow p-[10px]">활동명</th>
-          <th className="w-20 p-[10px]">역량 구분</th>
-          <th className="w-20 p-[10px]">획득 점수</th>
-          <th className="w-[112px] p-[10px]">활동일</th>
+          <th className="w-16 p-1 sm:w-20 sm:p-[10px]">구분</th>
+          <th className="w-16 p-1 sm:p-[10px]">점수</th>
+          <th className="hidden w-[80px] p-1 sm:table-cell sm:w-[100px] sm:p-[10px]">활동일</th>
         </tr>
       </thead>
-      <tbody className="border-y-2 border-border text-sm">
+      <tbody className="border-y-2 border-border text-xs sm:text-sm">
         {milestoneHistoriesOfStudent?.content.map((milestoneHistory) => (
-          <tr key={milestoneHistory.id} className="flex border-b border-border text-center">
-            <td className="max-w-[calc(100%-273px)] flex-grow p-[10px] text-left">{milestoneHistory.description}</td>
-            <td className="w-20 p-[10px]">
+          <tr key={milestoneHistory.id} className="flex items-center border-b border-border text-center">
+            <td className="max-w-[calc(100%-128px)] flex-grow p-[10px] text-left sm:max-w-[calc(100%-244px)]">
+              {milestoneHistory.description}
+            </td>
+            <td className="w-16 p-1 sm:w-20 sm:p-[10px]">
               <MilestoneGroupLabel group={milestoneHistory.milestone.categoryGroup} />
             </td>
-            <td className="w-20 p-[10px]">{milestoneHistory.milestone.score * milestoneHistory.count}</td>
-            <td className="w-[112px] p-[10px]">{milestoneHistory.activatedAt.slice(0, 10)}</td>
+            <td className="w-16 p-1 sm:p-[10px]">{milestoneHistory.milestone.score * milestoneHistory.count}</td>
+            <td className="hidden w-[100px] p-[10px] sm:table-cell">
+              {milestoneHistory.activatedAt.slice(0, 10).replaceAll('-', '.')}
+            </td>
           </tr>
         ))}
       </tbody>

@@ -20,7 +20,7 @@ const MilestonePeriodSearchForm = ({
   };
 
   return (
-    <div style={{ display: 'flex', alignItems: 'center' }}>
+    <div className="flex flex-grow flex-col items-center justify-center gap-x-4 sm:flex-row">
       <PeriodInput
         type="date"
         value={filterPeriod.startDate}

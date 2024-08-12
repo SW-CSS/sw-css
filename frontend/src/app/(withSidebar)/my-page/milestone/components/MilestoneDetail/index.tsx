@@ -18,7 +18,7 @@ const MilestoneDetail = ({ startDate, endDate }: Period) => {
 
   return (
     <div style={{ display: 'flex', flexGrow: '1', flexDirection: 'column' }}>
-      <div style={{ display: 'flex' }}>
+      <div className="flex flex-wrap">
         {milestoneGroups.map((group) => (
           <GroupButton
             key={group.id}
