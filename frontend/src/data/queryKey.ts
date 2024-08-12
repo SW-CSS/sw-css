@@ -23,11 +23,17 @@ export const QueryKeys = {
   MILESTONES: ['milestones'],
   STUDENT: (memberId: number) => ['student', memberId],
   STUDENTS: ['students'],
+  MILESTONE_HISTORY_EXCEL: (keyword: number | null, field: string | null) => [
+    'milestone-history-excel',
+    keyword,
+    field,
+  ],
   MILESTONE_SCORES: (
     startDate: string,
     endDate: string,
     page: number | undefined = 0,
     size: number | undefined = 10,
   ) => ['milestone-scores', startDate, endDate, page, size],
+  MILESTONE_HISTORY_SCORE_EXCEL: (startDate: string, endDate: string) => ['milestone-score-excel', startDate, endDate],
   FILE: (fileName: string | null) => ['file', fileName],
 };
