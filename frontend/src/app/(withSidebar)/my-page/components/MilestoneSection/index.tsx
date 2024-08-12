@@ -85,7 +85,7 @@ const MilestoneSection = () => {
           />
         )}
         {selectedInfoType === MilestoneInfoType.HISTORY && (
-          <MilestoneHistoryTable searchFilterPeriod={searchFilterPeriod} page={0} size={5} />
+          <MilestoneHistoryTable searchFilterPeriod={searchFilterPeriod} pageNumber={0} pageSize={5} />
         )}
       </div>
     </div>
