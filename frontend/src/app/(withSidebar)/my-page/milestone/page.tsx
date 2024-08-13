@@ -1,7 +1,7 @@
 'use client';
 
 import { DateTime } from 'luxon';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { COLOR } from '@/constants';
 import { Period } from '@/types/common';
@@ -10,13 +10,23 @@ import MilestoneHistoryTable from './components/MilestoneHistoryTable';
 import MilestoneOverview from './components/MilestoneOverview';
 import { Content, SubTitle } from './styled';
 import MilestonePeriodSearchForm from '../../../../components/MilestonePeriodSearchForm';
+import { useSearchParams } from 'next/navigation';
 
 const Page = () => {
+  const searchParams = useSearchParams();
+  const [pageNumber, setPageNumber] = useState<number>(1);
   const [filterPeriod, setFilterPeriod] = useState<Period>({
     startDate: DateTime.now().minus({ years: 1 }).toFormat('yyyy-MM-dd'),
     endDate: DateTime.now().toFormat('yyyy-MM-dd'),
   });
   const [searchFilterPeriod, setSearchFilterPeriod] = useState<Period>(filterPeriod);
+
+  useEffect(() => {
+    const pageParam = searchParams.get('page');
+    if (pageParam) {
+      setPageNumber(parseInt(pageParam, 10));
+    }
+  }, [searchParams]);
 
   return (
     <Content>
