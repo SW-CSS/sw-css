@@ -23,7 +23,8 @@ const Page = async ({ searchParams }: { searchParams?: { [key: string]: string |
     <div>
       <div className="flex items-center rounded-sm border-[1px] border-admin-border bg-admin-background-light px-5 py-3 text-sm">
         <span className="mr-20">
-          총 <span className="text-admin-primary-main">{milstoneHistories.totalElements}</span>건의 내역이 있습니다.
+          총 <span className="text-admin-primary-main">{milstoneHistories?.totalElements ?? 0}</span>건의 내역이
+          있습니다.
         </span>
         <SearchBox
           initialValues={{ field, keyword }}
@@ -31,11 +32,11 @@ const Page = async ({ searchParams }: { searchParams?: { [key: string]: string |
           path="/admin/milestone/list"
         />
       </div>
-      <MilestoneHistoryTable histories={milstoneHistories.content} />
+      <MilestoneHistoryTable histories={milstoneHistories?.content} />
       <div className="flex justify-end">
         <MilestoneHistoryExcelFileDownloadButton field={field} keyword={keyword} />
       </div>
-      <Pagination currentPage={page} totalItems={milstoneHistories.totalElements} pathname={pathname} />
+      <Pagination currentPage={page} totalItems={milstoneHistories?.totalElements} pathname={pathname} />
     </div>
   );
 };

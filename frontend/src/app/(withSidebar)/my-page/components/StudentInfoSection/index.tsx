@@ -6,6 +6,7 @@ import SubTitle from '@/components/SubTitle';
 import { useAppSelector } from '@/lib/hooks/redux';
 import { useStudentMemberQuery } from '@/lib/hooks/useApi';
 import { appendDashPhoneNumber, convertCareer } from '@/lib/utils/utils';
+import { VscWarning } from '@react-icons/all-files/vsc/VscWarning';
 
 import StudentInfoLabel from './StudentInfoLabel';
 
@@ -14,9 +15,9 @@ const StudentInfoSection = () => {
   const auth = useAppSelector((state) => state.auth).value;
   const { data: member } = useStudentMemberQuery(auth.uid);
   return (
-    <div className="flex-grow rounded-sm bg-white p-5">
+    <div className="relative flex-grow rounded-sm bg-white p-5">
       <SubTitle title="내 정보" urlText="수정" url="/my-page/edit" />
-      {member && (
+      {member ? (
         <div className="my-5">
           <div className="mb-5 flex flex-wrap items-end gap-4">
             <p className="text-xl font-bold">{member.name}</p>
@@ -41,6 +42,14 @@ const StudentInfoSection = () => {
               }
             />
           </div>
+        </div>
+      ) : (
+        <div className="text-admin-semantic-error-light absolute inset-0 flex flex-col items-center justify-center gap-2 text-center">
+          <VscWarning className="h-8 w-8" />
+          <p>
+            학생 정보를 불러오는 데<br />
+            실패했습니다.
+          </p>
         </div>
       )}
     </div>
