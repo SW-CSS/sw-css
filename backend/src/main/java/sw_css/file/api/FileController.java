@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import sw_css.file.application.FileService;
 
+@Deprecated
 @RequestMapping("/files")
 @RestController
 @RequiredArgsConstructor

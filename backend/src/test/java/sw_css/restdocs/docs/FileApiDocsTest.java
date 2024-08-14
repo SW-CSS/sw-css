@@ -15,6 +15,7 @@ import org.springframework.restdocs.request.PathParametersSnippet;
 import sw_css.file.api.FileController;
 import sw_css.restdocs.RestDocsTest;
 
+@Deprecated
 @WebMvcTest(FileController.class)
 public class FileApiDocsTest extends RestDocsTest {
 
