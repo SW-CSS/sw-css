@@ -163,3 +163,17 @@ interface StudentMemberReferenceDto {
   id: number;
   name: string;
 }
+
+export interface HackathonOverviewDto {
+  id: number;
+  name: string;
+  applyStartDate: string;
+  applyEndDate: string;
+  hackathonStartDate: string;
+  hackathonEndDate: string;
+  thumbnailImageName: string;
+}
+
+export interface HackathonPageableDto extends Pageable {
+  content: HackathonOverviewDto[];
+}
