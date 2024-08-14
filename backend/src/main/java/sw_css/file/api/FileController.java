@@ -9,15 +9,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import sw_css.file.application.FileService;
 
-@RequestMapping("/files")
+@RequestMapping
 @RestController
 @RequiredArgsConstructor
 public class FileController {
     private final FileService fileService;
 
+    @Deprecated
     @GetMapping("/{fileName}")
     public ResponseEntity<byte[]> downloadFile(@PathVariable("fileName") final String fileName) throws IOException {
         byte[] downloadFile = fileService.downloadFileFromFileSystem(fileName);
         return ResponseEntity.ok(downloadFile);
+    }
+
+    @GetMapping("/favicon.ico")
+    public ResponseEntity<Void> ignoreFaviconRequest() {
+        return ResponseEntity.noContent().build();
     }
 }
