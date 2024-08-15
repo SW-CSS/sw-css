@@ -6,13 +6,19 @@ import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.docu
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
+import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
+import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.queryParameters;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.restdocs.payload.RequestFieldsSnippet;
+import org.springframework.restdocs.payload.ResponseFieldsSnippet;
+import org.springframework.restdocs.request.QueryParametersSnippet;
 import sw_css.auth.api.SignUpController;
 import sw_css.auth.application.dto.request.SendAuthCodeRequest;
 import sw_css.auth.application.dto.request.SignUpRequest;
@@ -73,14 +79,83 @@ public class SignUpApiDocsTest extends RestDocsTest {
         final String email = "ddang@pusan.ac.kr";
         final SendAuthCodeRequest request = new SendAuthCodeRequest(email);
 
-        when(authCodeEmailService.emailAuth(email)).thenReturn(300);
+        // when
+        when(authCodeEmailService.emailAuth(request.email())).thenReturn(600);
 
         // then
-        mockMvc.perform(post("/send-auth-code")
-                .contentType(APPLICATION_JSON)
-                .content(objectMapper.writeValueAsString(request)));
-//                .andExpect(status().isOk())
-//                .andDo(document("send-auth-code", requestFieldsSnippet));
+        mockMvc.perform(post("/sign-up/send-auth-code")
+                        .contentType(APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request)))
+                .andExpect(status().isOk())
+                .andDo(document("send-auth-code", requestFieldsSnippet));
+    }
 
+    @Test
+    @DisplayName("[성공] 중복하는 이메일인지 확인할 수 있다.")
+    public void checkDuplicateEmail() throws Exception {
+        // given
+        final QueryParametersSnippet queryParameters = queryParameters(
+                parameterWithName("email").description("부산대학교 이메일")
+        );
+        final ResponseFieldsSnippet responseBodySnippet = responseFields(
+                fieldWithPath("isDuplicate").type(JsonFieldType.BOOLEAN).description("중복 여부"));
+
+        final String email = "ddang@pusan.ac.kr";
+        final boolean isDuplicate = false;
+
+        //when
+        when(authCheckDuplicateService.isDuplicateEmail("")).thenReturn(isDuplicate);
+
+        //then
+        mockMvc.perform(RestDocumentationRequestBuilders.get("/sign-up/exists/email")
+                        .param("email", email))
+                .andExpect(status().isOk())
+                .andDo(document("check-duplicate-email", queryParameters, responseBodySnippet));
+    }
+
+    @Test
+    @DisplayName("[성공] 중복하는 학번인지 확인할 수 있다.")
+    public void checkDuplicateStudentId() throws Exception {
+        // given
+        final QueryParametersSnippet queryParameters = queryParameters(
+                parameterWithName("student_id").description("부산대학교 학번")
+        );
+        final ResponseFieldsSnippet responseBodySnippet = responseFields(
+                fieldWithPath("is_duplicate").type(JsonFieldType.BOOLEAN).description("중복 여부"));
+
+        final String sutdnetId = "202012345";
+        final boolean isDuplicate = false;
+
+        //when
+        when(authCheckDuplicateService.isDuplicateEmail("")).thenReturn(isDuplicate);
+
+        //then
+        mockMvc.perform(RestDocumentationRequestBuilders.get("/sign-up/exists/student-id")
+                        .param("student_id", sutdnetId))
+                .andExpect(status().isOk())
+                .andDo(document("check-duplicate-student-id", queryParameters, responseBodySnippet));
+    }
+
+    @Test
+    @DisplayName("[성공] 중복하는 전화번호인지 확인할 수 있다.")
+    public void checkDuplicatePhoneNumber() throws Exception {
+        // given
+        final QueryParametersSnippet queryParameters = queryParameters(
+                parameterWithName("phone_number").description("전화번호")
+        );
+        final ResponseFieldsSnippet responseBodySnippet = responseFields(
+                fieldWithPath("is_duplicate").type(JsonFieldType.BOOLEAN).description("중복 여부"));
+
+        final String phoneNumber = "01012341234";
+        final boolean isDuplicate = false;
+
+        //when
+        when(authCheckDuplicateService.isDuplicateEmail("")).thenReturn(isDuplicate);
+
+        //then
+        mockMvc.perform(RestDocumentationRequestBuilders.get("/sign-up/exists/phone-number")
+                        .param("phone_number", phoneNumber))
+                .andExpect(status().isOk())
+                .andDo(document("check-duplicate-phone-number", queryParameters, responseBodySnippet));
     }
 }

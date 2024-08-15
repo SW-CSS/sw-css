@@ -17,6 +17,7 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 import sw_css.admin.member.application.MemberAdminQueryService;
 import sw_css.admin.milestone.application.MilestoneHistoryAdminCommandService;
 import sw_css.admin.milestone.application.MilestoneHistoryAdminQueryService;
+import sw_css.auth.application.AuthCheckDuplicateService;
 import sw_css.auth.application.AuthCodeEmailService;
 import sw_css.auth.application.AuthSignUpService;
 import sw_css.file.application.FileService;
@@ -63,6 +64,9 @@ public abstract class RestDocsTest extends ApiTestHelper {
 
     @MockBean
     protected AuthCodeEmailService authCodeEmailService;
+
+    @MockBean
+    protected AuthCheckDuplicateService authCheckDuplicateService;
 
     @Autowired
     protected RestDocumentationResultHandler restDocs;
