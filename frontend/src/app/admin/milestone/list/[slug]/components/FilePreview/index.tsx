@@ -1,10 +1,6 @@
-'use client';
-
 import Image from 'next/image';
-import { useMemo } from 'react';
 
 import { HistoryFileType } from '@/data/milestone';
-import { useFileQuery } from '@/lib/hooks/useApi';
 import { getFileType } from '@/lib/utils/utils';
 
 interface FilePreviewProps {
@@ -12,22 +8,19 @@ interface FilePreviewProps {
 }
 
 const FilePreview = ({ fileName }: FilePreviewProps) => {
-  const { data: file } = useFileQuery(fileName);
-  const fileUrl = useMemo(() => {
-    if (file) {
-      return URL.createObjectURL(file);
-    }
-    return '';
-  }, [file]);
   switch (getFileType(fileName)) {
     case HistoryFileType.PDF:
       return (
         <>
-          <a className="w-full rounded-sm bg-admin-primary-main text-white" href={fileUrl} download>
+          <a
+            className="w-full rounded-sm bg-admin-primary-main text-white"
+            href={process.env.NEXT_PUBLIC_FILE_URL + '/' + fileName}
+            download
+          >
             다운로드
           </a>
           <embed
-            src={fileUrl}
+            src={process.env.NEXT_PUBLIC_FILE_URL + '/' + fileName}
             type="application/pdf"
             className="h-full w-full"
             style={{ height: '100%', minHeight: '800px' }}
@@ -37,10 +30,21 @@ const FilePreview = ({ fileName }: FilePreviewProps) => {
     case HistoryFileType.IMAGE:
       return (
         <>
-          <a className="w-full rounded-sm bg-admin-primary-main text-white" href={fileUrl} download>
+          <a
+            className="w-full rounded-sm bg-admin-primary-main text-white"
+            href={process.env.NEXT_PUBLIC_FILE_URL + '/' + fileName}
+            download
+          >
             다운로드
           </a>
-          <Image src={fileUrl} priority={false} layout="responsive" alt={fileName ?? ''} width={532} height={532} />
+          <Image
+            src={process.env.NEXT_PUBLIC_FILE_URL + '/' + fileName}
+            priority={false}
+            layout="responsive"
+            alt={fileName ?? ''}
+            width={532}
+            height={532}
+          />
         </>
       );
     case HistoryFileType.EMPTY:
