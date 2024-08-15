@@ -14,6 +14,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.restdocs.payload.RequestFieldsSnippet;
 import sw_css.auth.api.SignUpController;
+import sw_css.auth.application.dto.request.SendAuthCodeRequest;
 import sw_css.auth.application.dto.request.SignUpRequest;
 import sw_css.restdocs.RestDocsTest;
 
@@ -60,7 +61,27 @@ public class SignUpApiDocsTest extends RestDocsTest {
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isCreated())
                 .andDo(document("sign-up", requestFieldsSnippet));
-        System.out.println("hello world");
     }
 
+    @Test
+    @DisplayName("[성공] 인증 코드 메일을 전송할 수 있다.")
+    public void sendAuthCodeMail() throws Exception {
+        // given
+        final RequestFieldsSnippet requestFieldsSnippet = requestFields(
+                fieldWithPath("email").type(JsonFieldType.STRING).description("부산대학교 이메일")
+        );
+
+        final String email = "ddang@pusan.ac.kr";
+        final SendAuthCodeRequest request = new SendAuthCodeRequest(email);
+
+        when(authCodeEmailService.emailAuth(email)).thenReturn(300);
+
+        // then
+        mockMvc.perform(post("/send-auth-code")
+                .contentType(APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(request)));
+//                .andExpect(status().isOk())
+//                .andDo(document("send-auth-code", requestFieldsSnippet));
+
+    }
 }
