@@ -1,3 +1,0 @@
-[submodule "backend/config"]
-	path = backend/config
-	url = https://github.com/SW-CSS/config.git
