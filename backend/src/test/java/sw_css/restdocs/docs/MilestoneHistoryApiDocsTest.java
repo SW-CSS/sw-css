@@ -151,7 +151,7 @@ public class MilestoneHistoryApiDocsTest extends RestDocsTest {
         final Milestone milestone = new Milestone(1L, new MilestoneCategory(1L, "SW 관련 창업",
                 MilestoneGroup.ACTIVITY, 100, null), "창업", 100, 1);
         final StudentMember student = new StudentMember(202055558L,
-                new Member(1L, "abc@naver.com", "홍길동", "password", "010-0000-0000", false),
+                new Member(1L, "abc@naver.com", "홍길동", "password", "010-0000-0000", false, false),
                 new Major(1L, new College(1L, "인문대학"), "사회학과"), null, null, CareerType.EMPLOYMENT_COMPANY,
                 "IT 사기업 개발자로 취업");
 

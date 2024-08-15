@@ -152,7 +152,7 @@ public class MilestoneHistoryAdminApiDocsTest extends RestDocsTest {
                 ACTIVITY, 100, null);
         final Milestone milestone = new Milestone(1L, category, "창업", 100, 1);
         final StudentMember student = new StudentMember(202055558L,
-                new Member(1L, "abc@naver.com", "홍길동", "password", "010-0000-0000", false),
+                new Member(1L, "abc@naver.com", "홍길동", "password", "010-0000-0000", false, false),
                 new Major(1L, new College(1L, "인문대학"), "사회학과"), null, null, CareerType.EMPLOYMENT_COMPANY,
                 "IT 사기업 개발자로 취업");
         final MilestoneHistoryWithStudentInfo history =
@@ -229,7 +229,7 @@ public class MilestoneHistoryAdminApiDocsTest extends RestDocsTest {
                 ACTIVITY, 100, null);
         final Milestone milestone = new Milestone(1L, category, "창업", 100, 1);
         final StudentMember student = new StudentMember(202055558L,
-                new Member(1L, "abc@naver.com", "홍길동", "password", "010-0000-0000", false),
+                new Member(1L, "abc@naver.com", "홍길동", "password", "010-0000-0000", false, false),
                 new Major(1L, new College(1L, "인문대학"), "사회학과"), null, null, CareerType.EMPLOYMENT_COMPANY,
                 "IT 사기업 개발자로 취업");
         final Pageable pageable = PageRequest.of(0, 10);
@@ -352,11 +352,11 @@ public class MilestoneHistoryAdminApiDocsTest extends RestDocsTest {
         );
 
         final StudentMember student1 = new StudentMember(202055558L,
-                new Member(1L, "abc@naver.com", "홍길동", "password", "010-0000-0000", false),
+                new Member(1L, "abc@naver.com", "홍길동", "password", "010-0000-0000", false, false),
                 new Major(1L, new College(1L, "인문대학"), "사회학과"), null, null, CareerType.EMPLOYMENT_COMPANY,
                 "IT 사기업 개발자로 취업");
         final StudentMember student2 = new StudentMember(202000000L,
-                new Member(2L, "abc@naver.com", "김아무개", "password", "010-0000-0000", false),
+                new Member(2L, "abc@naver.com", "김아무개", "password", "010-0000-0000", false, false),
                 new Major(1L, new College(1L, "인문대학"), "사회학과"), null, null, CareerType.EMPLOYMENT_COMPANY,
                 "IT 사기업 개발자로 취업");
         final Page<MilestoneScoreResponse> response = new PageImpl<>(List.of(
