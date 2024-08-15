@@ -35,7 +35,8 @@ public class SignUpApiDocsTest extends RestDocsTest {
                 fieldWithPath("minorId").type(JsonFieldType.NUMBER).description("부전공"),
                 fieldWithPath("doubleMajorId").type(JsonFieldType.NUMBER).description("복수전공"),
                 fieldWithPath("career").type(JsonFieldType.STRING).description("직로 계획"),
-                fieldWithPath("careerDetail").type(JsonFieldType.STRING).description("진로 상세 계획")
+                fieldWithPath("careerDetail").type(JsonFieldType.STRING).description("진로 상세 계획"),
+                fieldWithPath("authCode").type(JsonFieldType.STRING).description("메일 인증 코드")
         );
 
         final String email = "ddang@pusan.ac.kr";
@@ -44,13 +45,11 @@ public class SignUpApiDocsTest extends RestDocsTest {
         final String studentId = "202012345";
         final String phoneNumber = "01012345678";
         final Long majorId = 100L;
-        final Long minorId = 100L;
-        final Long doubleMajorId = 100L;
         final String career = "GRADUATE_SCHOOL";
         final String careerDetail = "IT 기업 개발자";
 
-        final SignUpRequest request = new SignUpRequest(email, password, name, studentId, phoneNumber, majorId, minorId,
-                doubleMajorId, career, careerDetail);
+        final SignUpRequest request = new SignUpRequest(email, password, name, studentId, phoneNumber, majorId, majorId,
+                majorId, career, careerDetail, "auth code");
 
         // when
         when(authSignUpService.signUp(request)).thenReturn(1L);

@@ -9,14 +9,13 @@ drop table if exists sw_css.milestone_history;
 
 create table member
 (
-    id            bigint auto_increment primary key,
-    email         varchar(255) not null,
-    name          varchar(255) not null,
-    password      varchar(255) not null,
-    phone_number  varchar(255) not null,
-    is_authorized boolean      not null,
-    is_deleted    boolean      not null,
-    created_at    datetime(6)  not null default current_timestamp(6)
+    id           bigint auto_increment primary key,
+    email        varchar(255) not null,
+    name         varchar(255) not null,
+    password     varchar(255) not null,
+    phone_number varchar(255) not null,
+    is_deleted   boolean      not null,
+    created_at   datetime(6)  not null default current_timestamp(6)
 );
 
 create table student_member

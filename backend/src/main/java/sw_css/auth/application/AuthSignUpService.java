@@ -1,9 +1,11 @@
 package sw_css.auth.application;
 
+import jakarta.validation.constraints.Email;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sw_css.auth.application.dto.request.SignUpRequest;
+import sw_css.auth.domain.repository.EmailAuthRedisRepository;
 import sw_css.auth.exception.AuthException;
 import sw_css.auth.exception.AuthExceptionType;
 import sw_css.major.domain.Major;
@@ -21,12 +23,16 @@ public class AuthSignUpService {
     private final StudentMemberRepository studentMemberRepository;
     private final AuthCheckDuplicateService authCheckDuplicateService;
     private final MajorRepository majorRepository;
+    private final EmailAuthRedisRepository emailAuthRedisRepository;
 
     @Transactional
     public long signUp(SignUpRequest request) {
         checkIsDuplicateEmail(request.email());
         checkIsDuplicateStudentId(request.studentId());
         checkIsDuplicatePhoneNumber(request.phoneNumber());
+
+        String actualAuthCode = getActualAuthCode(request.email());
+        checkAuthCodeMatch(request.authCode(), actualAuthCode);
 
         Major major = majorRepository.findById(request.majorId())
                 .orElseThrow(() -> new AuthException(AuthExceptionType.MAJOR_NOT_EXIST));
@@ -59,5 +65,17 @@ public class AuthSignUpService {
         if (authCheckDuplicateService.isDuplicatePhoneNumber(phoneNumber)) {
             throw new AuthException(AuthExceptionType.MEMBER_PHONE_NUMBER_DUPLICATE);
         }
+    }
+
+    void checkAuthCodeMatch(String requestAuthCode, String actualAuthCode) {
+        if (!actualAuthCode.equals(requestAuthCode)) {
+            throw new AuthException(AuthExceptionType.AUTH_CODE_MISMATCH);
+        }
+    }
+
+    String getActualAuthCode(@Email String email) {
+        return emailAuthRedisRepository.findById(email)
+                .orElseThrow(() -> new AuthException(AuthExceptionType.AUTH_CODE_EXPIRED))
+                .getAuthCode();
     }
 }

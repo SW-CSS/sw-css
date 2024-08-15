@@ -33,13 +33,9 @@ public class Member extends BaseEntity {
     private String phoneNumber;
 
     @Column(nullable = false)
-    private boolean isAuthorized;
-
-    @Column(nullable = false)
     private boolean isDeleted;
 
-    public Member(String email, String name, String password, String phoneNumber, boolean isAuthorized,
-                  boolean isDeleted) {
-        this(null, email, name, password, phoneNumber, isAuthorized, isDeleted);
+    public Member(String email, String name, String password, String phoneNumber, boolean isDeleted) {
+        this(null, email, name, password, phoneNumber, isDeleted);
     }
 }

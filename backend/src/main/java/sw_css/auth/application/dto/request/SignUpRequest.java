@@ -33,15 +33,16 @@ public record SignUpRequest(
         @NotBlank(message = "진로 계획 유형을 선택해주세요.")
         String career,
         @NotBlank(message = "진로 상세 계획을 기입해주세요.")
-        String careerDetail) {
+        String careerDetail,
+        @NotBlank(message = "인증 코드를 입력해주세요.")
+        String authCode) {
 
     public Member toMember() {
-        return new Member(this.email, this.name, Password.encode(this.password), this.phoneNumber, false, false);
+        return new Member(this.email, this.name, Password.encode(this.password), this.phoneNumber, false);
     }
 
     public Member toMember(Long memberId) {
-        return new Member(memberId, this.email, this.name, Password.encode(this.password), this.phoneNumber, false,
-                false);
+        return new Member(memberId, this.email, this.name, Password.encode(this.password), this.phoneNumber, false);
     }
 
     public StudentMember toStudentMember(Long memberId, Major major, Major minor, Major doubleMajor) {
