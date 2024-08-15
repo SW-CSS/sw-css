@@ -35,14 +35,14 @@ public class SignUpApiDocsTest extends RestDocsTest {
                 fieldWithPath("email").type(JsonFieldType.STRING).description("부산대학교 이메일"),
                 fieldWithPath("password").type(JsonFieldType.STRING).description("비밀번호"),
                 fieldWithPath("name").type(JsonFieldType.STRING).description("실명"),
-                fieldWithPath("studentId").type(JsonFieldType.STRING).description("학번"),
-                fieldWithPath("phoneNumber").type(JsonFieldType.STRING).description("전화번호"),
-                fieldWithPath("majorId").type(JsonFieldType.NUMBER).description("주전공"),
-                fieldWithPath("minorId").type(JsonFieldType.NUMBER).description("부전공"),
-                fieldWithPath("doubleMajorId").type(JsonFieldType.NUMBER).description("복수전공"),
+                fieldWithPath("student_id").type(JsonFieldType.STRING).description("학번"),
+                fieldWithPath("phone_number").type(JsonFieldType.STRING).description("전화번호"),
+                fieldWithPath("major_id").type(JsonFieldType.NUMBER).description("주전공"),
+                fieldWithPath("minor_id").type(JsonFieldType.NUMBER).description("부전공"),
+                fieldWithPath("double_major_id").type(JsonFieldType.NUMBER).description("복수전공"),
                 fieldWithPath("career").type(JsonFieldType.STRING).description("직로 계획"),
-                fieldWithPath("careerDetail").type(JsonFieldType.STRING).description("진로 상세 계획"),
-                fieldWithPath("authCode").type(JsonFieldType.STRING).description("메일 인증 코드")
+                fieldWithPath("career_detail").type(JsonFieldType.STRING).description("진로 상세 계획"),
+                fieldWithPath("auth_code").type(JsonFieldType.STRING).description("메일 인증 코드")
         );
 
         final String email = "ddang@pusan.ac.kr";

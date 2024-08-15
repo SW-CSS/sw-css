@@ -28,18 +28,19 @@ public class AuthSignUpService {
     @Transactional
     public long signUp(SignUpRequest request) {
         checkIsDuplicateEmail(request.email());
-        checkIsDuplicateStudentId(request.studentId());
-        checkIsDuplicatePhoneNumber(request.phoneNumber());
+        checkIsDuplicateStudentId(request.student_id());
+        checkIsDuplicatePhoneNumber(request.phone_number());
 
         String actualAuthCode = getActualAuthCode(request.email());
-        checkAuthCodeMatch(request.authCode(), actualAuthCode);
+        checkAuthCodeMatch(request.auth_code(), actualAuthCode);
 
-        Major major = majorRepository.findById(request.majorId())
+        Major major = majorRepository.findById(request.major_id())
                 .orElseThrow(() -> new AuthException(AuthExceptionType.MAJOR_NOT_EXIST));
-        Major minor = request.minorId() == null ? null : majorRepository.findById(request.minorId())
+        Major minor = request.minor_id() == null ? null : majorRepository.findById(request.minor_id())
                 .orElseThrow(() -> new AuthException(AuthExceptionType.MAJOR_NOT_EXIST));
-        Major doubleMinor = request.doubleMajorId() == null ? null : majorRepository.findById(request.doubleMajorId())
-                .orElseThrow(() -> new AuthException(AuthExceptionType.MAJOR_NOT_EXIST));
+        Major doubleMinor =
+                request.double_major_id() == null ? null : majorRepository.findById(request.double_major_id())
+                        .orElseThrow(() -> new AuthException(AuthExceptionType.MAJOR_NOT_EXIST));
 
         final long memberId = memberRepository.save(request.toMember()).getId();
         final StudentMember studentMember = request.toStudentMember(memberId, major, minor, doubleMinor);

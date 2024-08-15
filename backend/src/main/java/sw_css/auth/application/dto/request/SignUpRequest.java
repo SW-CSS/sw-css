@@ -23,34 +23,34 @@ public record SignUpRequest(
         @Pattern(regexp = RealName.NAME_REGEX, message = RealName.NAME_INVALID)
         String name,
         @Pattern(regexp = StudentId.STUDENT_ID_REGEX, message = StudentId.STUDENT_ID_INVALID)
-        String studentId,
+        String student_id,
         @Pattern(regexp = PhoneNumber.PHONE_NUMBER_REGEX, message = PhoneNumber.PHONE_NUMBER_INVALID)
-        String phoneNumber,
+        String phone_number,
         @NotNull(message = "전공을 선택해주세요.")
-        Long majorId,
-        Long minorId,
-        Long doubleMajorId,
+        Long major_id,
+        Long minor_id,
+        Long double_major_id,
         @NotBlank(message = "진로 계획 유형을 선택해주세요.")
         String career,
         @NotBlank(message = "진로 상세 계획을 기입해주세요.")
-        String careerDetail,
+        String career_detail,
         @NotBlank(message = "인증 코드를 입력해주세요.")
-        String authCode) {
+        String auth_code) {
 
     public Member toMember() {
-        return new Member(this.email, this.name, Password.encode(this.password), this.phoneNumber, false);
+        return new Member(this.email, this.name, Password.encode(this.password), this.phone_number, false);
     }
 
     public Member toMember(Long memberId) {
-        return new Member(memberId, this.email, this.name, Password.encode(this.password), this.phoneNumber, false);
+        return new Member(memberId, this.email, this.name, Password.encode(this.password), this.phone_number, false);
     }
 
     public StudentMember toStudentMember(Long memberId, Major major, Major minor, Major doubleMajor) {
         final Member member = toMember(memberId);
 
-        final Long studentID = Long.valueOf(this.studentId());
+        final Long studentID = Long.valueOf(this.student_id);
         final CareerType careerType = CareerType.valueOf(this.career());
 
-        return new StudentMember(studentID, member, major, minor, doubleMajor, careerType, this.careerDetail);
+        return new StudentMember(studentID, member, major, minor, doubleMajor, careerType, this.career_detail);
     }
 }
