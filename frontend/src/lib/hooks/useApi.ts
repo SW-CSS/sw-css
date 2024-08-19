@@ -10,11 +10,13 @@ import {
   StudentMemberDto,
   MilestoneHistoryOfStudentPageableDto,
   MilestoneByGroupDto,
+  HackathonTeamPageableDto,
 } from '@/types/common.dto';
 import { BusinessError } from '@/types/error';
 import { MilestoneHistorySortCriteria, SortDirection } from '@/types/milestone';
 
 import { removeEmptyField } from '../utils/utils';
+import { mockHackathonTeamPageableData } from '@/mocks/hackathon';
 
 export const useCollegeQuery = () =>
   useAxiosQuery({
@@ -138,6 +140,23 @@ export function useFileQuery(fileName: string | null) {
         return null;
       }
       return response?.data;
+    },
+  });
+}
+
+export function useHackathonTeamsQuery(
+  hackathonId: number,
+  page: number = 0,
+  size: number = 10,
+  options?: { enabled?: boolean },
+) {
+  return useAxiosQuery({
+    ...options,
+    queryKey: QueryKeys.HACKATHON_TEAMS(hackathonId, page, size),
+    queryFn: async (): Promise<HackathonTeamPageableDto> => {
+      const response = await client.get(`/hackathons/${hackathonId}/teams`);
+      //return response?.data;
+      return mockHackathonTeamPageableData;
     },
   });
 }

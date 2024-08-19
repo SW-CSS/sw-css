@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import Highlight from '@tiptap/extension-highlight';
 import Typography from '@tiptap/extension-typography';

@@ -1,6 +1,6 @@
-import Title from '@/components/Title';
 import { getHackathonInformation } from '@/lib/api/server.api';
-import HackathonInformation from './components/HackathonInformation';
+import Image from 'next/image';
+import MarkdownViewer from '@/components/MarkdownViewer';
 
 interface HackathonDetailPageProps {
   params: {
@@ -10,12 +10,23 @@ interface HackathonDetailPageProps {
 
 const Page = async ({ params: { slug } }: HackathonDetailPageProps) => {
   const hackathonInformation = await getHackathonInformation(slug);
-
   return (
-    <div className="flex w-full flex-col gap-4 rounded-sm bg-white p-5">
-      <Title title={hackathonInformation.name} />
-      <div className="h-0 w-full border border-border" />
-      <HackathonInformation information={hackathonInformation} />
+    <div>
+      <div className="relative h-60 w-full">
+        <Image
+          src={process.env.NEXT_PUBLIC_FILE_URL + '/' + hackathonInformation.thumbnailImageName}
+          alt="해커톤 섬네일"
+          className="rounded-t-sm"
+          layout="fill"
+          objectFit="cover"
+          objectPosition="center"
+          quality={100}
+        />
+      </div>
+      <div className="m-2 flex flex-col justify-center gap-2">
+        <div className="text-xl font-bold">{hackathonInformation.name} 참가자 모집 안내</div>
+        <MarkdownViewer content={hackathonInformation.content} />
+      </div>
     </div>
   );
 };
