@@ -16,7 +16,7 @@ const MarkdownViewer = ({ content }: MarkdownViewerProps) => {
       Highlight,
       Typography,
       Markdown.configure({
-        html: false, // Ensures that only Markdown is parsed
+        html: false,
       }),
     ],
     content,

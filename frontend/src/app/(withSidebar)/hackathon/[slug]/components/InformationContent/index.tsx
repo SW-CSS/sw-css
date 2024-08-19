@@ -1,7 +1,7 @@
-import { useState } from 'react';
 import { InformationType } from '../HackathonInformation';
 import Image from 'next/image';
 import { HackathonInformationDto } from '@/types/common.dto';
+import MarkdownViewer from '@/components/MarkdownViewer';
 
 interface InformationContentProps {
   informationType: InformationType;
@@ -26,7 +26,7 @@ const InformationContent = ({ informationType, information }: InformationContent
           </div>
           <div className="m-2 flex flex-col justify-center gap-2">
             <div className="text-lg font-bold">{information.name} 참가자 모집 안내</div>
-            <div className="text-xs text-comment">{information.content}</div>
+            <MarkdownViewer content={information.content} />
           </div>
         </div>
       );

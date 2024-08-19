@@ -144,7 +144,15 @@ export async function getHackathonInformation(hackathonId: number) {
   //return response?.data;
   return {
     name: '제 4회 창의융합 소프트웨어 해커톤',
-    content: '### Hackathon 1 Description\ndkflsfjl',
+    content: `
+# Heading 1
+## Heading 2
+### Heading 3
+
+This is a **bold** text with some *italic* and [a link](https://example.com).
+- ㅁ렁ㄹㄴㄹ
+1. ㄹㄴㅇㄹㅁㄹ
+`,
     thumbnailImageName: 'test1.jpeg',
   };
 }

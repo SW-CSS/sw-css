@@ -1,4 +1,3 @@
-import PageTitle from '@/app/components/PageTitle';
 import Title from '@/components/Title';
 import { getHackathonInformation } from '@/lib/api/server.api';
 import HackathonInformation from './components/HackathonInformation';
