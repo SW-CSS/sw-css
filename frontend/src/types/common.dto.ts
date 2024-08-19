@@ -177,3 +177,29 @@ export interface HackathonOverviewDto {
 export interface HackathonPageableDto extends Pageable {
   content: HackathonOverviewDto[];
 }
+
+export interface HackathonInformationDto {
+  name: string;
+  content: string;
+  thumbnailImageName: string;
+}
+
+interface TeamMemberDto {
+  id: number;
+  name: string;
+  majorName: string;
+  role: string;
+  isLeader: boolean;
+}
+
+export interface HackathonTeamDto {
+  name: string;
+  githubUrl: string;
+  teamMembers: TeamMemberDto[];
+  thumbnailImageName: string;
+  voteCount: number;
+}
+
+export interface HackathonTeamPageableDto extends Pageable {
+  content: HackathonTeamDto[];
+}

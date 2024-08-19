@@ -1,6 +1,7 @@
 import { MilestoneHistoryStatus } from '@/data/milestone';
 import { server } from '@/lib/api/server.axios';
 import {
+  HackathonInformationDto,
   HackathonPageableDto,
   MilestoneHistoryDto,
   MilestoneHistoryOfStudentPageableDto,
@@ -134,5 +135,16 @@ export async function getHackathons(page: number = 0, size: number = 10) {
     size: 6,
     totalElements: 8,
     totalPages: 2,
+  };
+}
+
+export async function getHackathonInformation(hackathonId: number) {
+  const response = await server.get<HackathonInformationDto>(`/hackathons/${hackathonId}`);
+  // TODO : API 구현
+  //return response?.data;
+  return {
+    name: '제 4회 창의융합 소프트웨어 해커톤',
+    content: '### Hackathon 1 Description\ndkflsfjl',
+    thumbnailImageName: 'test1.jpeg',
   };
 }
