@@ -193,6 +193,7 @@ interface TeamMemberDto {
 }
 
 export interface HackathonTeamDto {
+  id: number;
   name: string;
   githubUrl: string;
   teamMembers: TeamMemberDto[];

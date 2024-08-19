@@ -3,6 +3,7 @@ import { server } from '@/lib/api/server.axios';
 import {
   HackathonInformationDto,
   HackathonPageableDto,
+  HackathonTeamPageableDto,
   MilestoneHistoryDto,
   MilestoneHistoryOfStudentPageableDto,
   MilestoneHistoryPageableDto,
@@ -10,6 +11,7 @@ import {
 import { MilestoneHistorySortCriteria, SortDirection } from '@/types/milestone';
 
 import { removeEmptyField } from '../utils/utils';
+import { mockHackathonTeamPageableData } from '@/mocks/hackathon';
 
 export async function getMilestoneHistoriesOfStudent(
   memberId: number,
@@ -155,4 +157,13 @@ This is a **bold** text with some *italic* and [a link](https://example.com).
 `,
     thumbnailImageName: 'test1.jpeg',
   };
+}
+
+export async function getHackathonTeams(hackathonId: number, page: number = 0, size: number = 10) {
+  const response = await server.get<HackathonTeamPageableDto>(`/hackathons/${hackathonId}/teams`, {
+    params: removeEmptyField({ page, size }),
+  });
+  // TODO : API 구현
+  //return response?.data;
+  return mockHackathonTeamPageableData;
 }

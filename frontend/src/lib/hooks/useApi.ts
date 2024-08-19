@@ -144,23 +144,6 @@ export function useFileQuery(fileName: string | null) {
   });
 }
 
-export function useHackathonTeamsQuery(
-  hackathonId: number,
-  page: number = 0,
-  size: number = 10,
-  options?: { enabled?: boolean },
-) {
-  return useAxiosQuery({
-    ...options,
-    queryKey: QueryKeys.HACKATHON_TEAMS(hackathonId, page, size),
-    queryFn: async (): Promise<HackathonTeamPageableDto> => {
-      const response = await client.get(`/hackathons/${hackathonId}/teams`);
-      //return response?.data;
-      return mockHackathonTeamPageableData;
-    },
-  });
-}
-
 export function useMilestoneHistoryCreateMutation() {
   return useAxiosMutation({
     mutationFn: async ({ milestoneId, description, count, file, activatedAt }: MilestoneHistoryCreateDto) => {
