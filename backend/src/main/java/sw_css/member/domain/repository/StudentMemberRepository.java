@@ -6,4 +6,5 @@ import sw_css.member.domain.StudentMember;
 public interface StudentMemberRepository extends JpaRepository<StudentMember, Long> {
     boolean existsById(Number studentId);
 
+    boolean existsByMemberId(Number memberId);
 }

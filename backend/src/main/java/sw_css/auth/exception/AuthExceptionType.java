@@ -10,7 +10,9 @@ public enum AuthExceptionType implements BaseExceptionType {
     MAJOR_NOT_EXIST(HttpStatus.BAD_REQUEST, "존재하지 않는 전공 입니다."),
     AUTH_CODE_EXPIRED(HttpStatus.BAD_REQUEST, "만료된 인증코드입니다."),
     AUTH_CODE_MISMATCH(HttpStatus.BAD_REQUEST, "인증코드가 일치하지 않습니다."),
-    ;
+    MEMBER_EMAIL_NOT_FOUND(HttpStatus.NOT_FOUND, "해당 회원의 이메일을 찾을 수 없습니다."),
+    MEMBER_WRONG_ID_OR_PASSWORD(HttpStatus.BAD_REQUEST, "아이디 혹은 비밀번호가 잘못되었습니다."),
+    MEMBER_NOT_FOUND(HttpStatus.BAD_REQUEST, "해당 회원의 정보를 찾을 수 없습니다.");
 
     private final HttpStatus httpStatus;
     private final String errorMessage;

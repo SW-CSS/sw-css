@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import sw_css.base.BaseEntity;
+import sw_css.member.domain.embedded.Password;
 
 @Entity
 @Getter
@@ -37,5 +38,9 @@ public class Member extends BaseEntity {
 
     public Member(String email, String name, String password, String phoneNumber, boolean isDeleted) {
         this(null, email, name, password, phoneNumber, isDeleted);
+    }
+
+    public boolean isWrongPassword(String rawPassword) {
+        return !Password.matches(rawPassword, password);
     }
 }
