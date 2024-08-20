@@ -11,7 +11,7 @@ import sw_css.utils.MailUtil;
 
 @Service
 @RequiredArgsConstructor
-public class AuthCodeEmailService {
+public class AuthEmailService {
     public static final int EMAIL_EXPIRED_SECONDS = 600; // 10분
     public static final int AUTH_CODE_LENGTH = 10;
 
@@ -27,13 +27,20 @@ public class AuthCodeEmailService {
         return EMAIL_EXPIRED_SECONDS;
     }
 
+    public void sendNewPassword(String email, String password) {
+        List<String> toUserList = new ArrayList<>(List.of(email));
+        String subject = "[부산대학교] SW역량강화플랫폼 임시 비밀번호 발송 메일입니다.";
+        String text = "SW역량강화플랫폼 임시 비밀번호는 " + password + " 입니다.";
+        mailUtil.sendMail(toUserList, subject, text);
+    }
+
     private static String generateRandomAuthCode() {
         char leftLimit = '0';
         char rightLimit = 'z';
 
         return RANDOM.ints(leftLimit, rightLimit + 1)
                 .filter(i -> Character.isAlphabetic(i) || Character.isDigit(i))
-                .limit(AuthCodeEmailService.AUTH_CODE_LENGTH)
+                .limit(AuthEmailService.AUTH_CODE_LENGTH)
                 .collect(StringBuilder::new, StringBuilder::appendCodePoint, StringBuilder::append)
                 .toString();
     }

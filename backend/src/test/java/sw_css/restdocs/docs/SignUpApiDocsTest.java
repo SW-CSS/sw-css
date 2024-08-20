@@ -80,7 +80,7 @@ public class SignUpApiDocsTest extends RestDocsTest {
         final SendAuthCodeRequest request = new SendAuthCodeRequest(email);
 
         // when
-        when(authCodeEmailService.emailAuth(request.email())).thenReturn(600);
+        when(authEmailService.emailAuth(request.email())).thenReturn(600);
 
         // then
         mockMvc.perform(post("/sign-up/send-auth-code")

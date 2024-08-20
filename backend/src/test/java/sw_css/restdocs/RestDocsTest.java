@@ -18,7 +18,7 @@ import sw_css.admin.member.application.MemberAdminQueryService;
 import sw_css.admin.milestone.application.MilestoneHistoryAdminCommandService;
 import sw_css.admin.milestone.application.MilestoneHistoryAdminQueryService;
 import sw_css.auth.application.AuthCheckDuplicateService;
-import sw_css.auth.application.AuthCodeEmailService;
+import sw_css.auth.application.AuthEmailService;
 import sw_css.auth.application.AuthSignUpService;
 import sw_css.file.application.FileService;
 import sw_css.helper.ApiTestHelper;
@@ -63,7 +63,7 @@ public abstract class RestDocsTest extends ApiTestHelper {
     protected AuthSignUpService authSignUpService;
 
     @MockBean
-    protected AuthCodeEmailService authCodeEmailService;
+    protected AuthEmailService authEmailService;
 
     @MockBean
     protected AuthCheckDuplicateService authCheckDuplicateService;

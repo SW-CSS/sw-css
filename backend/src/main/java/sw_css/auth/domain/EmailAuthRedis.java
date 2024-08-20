@@ -1,6 +1,6 @@
 package sw_css.auth.domain;
 
-import static sw_css.auth.application.AuthCodeEmailService.EMAIL_EXPIRED_SECONDS;
+import static sw_css.auth.application.AuthEmailService.EMAIL_EXPIRED_SECONDS;
 
 import lombok.AccessLevel;
 import lombok.Getter;
