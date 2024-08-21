@@ -39,10 +39,10 @@ const HackathonTeamReadModal = ({ selectedTeam, setSelectedTeam }: HackathonTeam
   }
   return (
     <div className="fixed inset-0 z-[51] flex items-center justify-center bg-black bg-opacity-30">
-      <div ref={ref} className="flex h-[700px] w-full max-w-[900px] flex-col items-center gap-2 rounded bg-white p-5">
-        <div className="flex w-full items-center justify-between">
+      <div ref={ref} className="flex h-[600px] sm:h-[700px] w-full max-w-[900px] flex-col items-center gap-2 rounded bg-white p-5">
+        <div className="flex flex-wrap gap-y-2 w-full items-center justify-between">
           <Title title={selectedTeam.name} />
-          <div className="flex gap-2">
+          <div className="flex gap-2 justify-end flex-grow">
             <span className="flex items-center gap-1 font-bold text-primary-main">
               <VscHeart />
               {selectedTeam.voteCount}표 득표
@@ -50,11 +50,11 @@ const HackathonTeamReadModal = ({ selectedTeam, setSelectedTeam }: HackathonTeam
             <button className="rounded-lg bg-primary-main px-4 py-1 text-lg font-bold text-white">투표하기</button>
           </div>
         </div>
-        <div className="flex w-full flex-grow flex-col gap-4 items-center overflow-auto py-4">
+        <div className="flex w-full flex-grow flex-col gap-4 sm:items-center overflow-auto py-4">
           <div className="h-0 w-full border border-border" />
-          <div className="flex w-full gap-4">
-            <div className="text-lg font-bold">팀 구성</div>
-            <div className="flex flex-grow flex-col gap-1">
+          <div className="flex w-full gap-4 flex-wrap">
+            <div className="text-lg font-bold min-w-[4em]">팀 구성</div>
+            <div className="flex flex-grow flex-col gap-1 text-xs sm:text-base">
               {Object.values(TeamMemberRole)
                 .filter((role) => selectedTeam.teamMembers[role])
                 .map((role) => (
@@ -68,8 +68,8 @@ const HackathonTeamReadModal = ({ selectedTeam, setSelectedTeam }: HackathonTeam
                         <tr key={member.id} className={classNames(member.isLeader && 'font-bold')}>
                           <td className="min-w-[4em]">{member.name}</td>
                           <td className="min-w-[10em]">{member.id}</td>
-                          <td className="min-w-[10em]">{member.majorName}</td>
-                          {member.isLeader && <td>(팀장)</td>}
+                          <td className="min-w-[10em] hidden md:table-cell">{member.majorName}</td>
+                          {member.isLeader && <td className="min-w-[4em]">(팀장)</td>}
                         </tr>
                       ))}
                     </table>
