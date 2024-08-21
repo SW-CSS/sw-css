@@ -80,7 +80,7 @@ export async function getHackathons(page: number = 0, size: number = 10) {
         applyEndDate: '2022-01-31',
         hackathonStartDate: '2022-01-01',
         hackathonEndDate: '2022-01-31',
-        thumbnailImageName: 'ug0sO16.png',
+        thumbnailImageName: 'test1.jpeg',
       },
       {
         id: 2,
@@ -90,7 +90,7 @@ export async function getHackathons(page: number = 0, size: number = 10) {
         applyEndDate: '2022-01-31',
         hackathonStartDate: '2022-01-01',
         hackathonEndDate: '2022-01-31',
-        thumbnailImageName: 'hackathon_1.jpg',
+        thumbnailImageName: 'test2.jpeg',
       },
       {
         id: 3,
@@ -100,7 +100,7 @@ export async function getHackathons(page: number = 0, size: number = 10) {
         applyEndDate: '2022-01-31',
         hackathonStartDate: '2022-01-01',
         hackathonEndDate: '2022-01-31',
-        thumbnailImageName: 'hackathon_1.jpg',
+        thumbnailImageName: 'test3.png',
       },
       {
         id: 4,
@@ -110,7 +110,7 @@ export async function getHackathons(page: number = 0, size: number = 10) {
         applyEndDate: '2022-01-31',
         hackathonStartDate: '2022-01-01',
         hackathonEndDate: '2022-01-31',
-        thumbnailImageName: 'hackathon_1.jpg',
+        thumbnailImageName: 'test1.jpeg',
       },
       {
         id: 5,
@@ -120,7 +120,7 @@ export async function getHackathons(page: number = 0, size: number = 10) {
         applyEndDate: '2022-01-31',
         hackathonStartDate: '2022-01-01',
         hackathonEndDate: '2022-01-31',
-        thumbnailImageName: 'hackathon_1.jpg',
+        thumbnailImageName: 'test2.jpeg',
       },
     ],
     empty: false,
@@ -157,13 +157,4 @@ This is a **bold** text with some *italic* and [a link](https://example.com).
 `,
     thumbnailImageName: 'test1.jpeg',
   };
-}
-
-export async function getHackathonTeams(hackathonId: number, page: number = 0, size: number = 10) {
-  const response = await server.get<HackathonTeamPageableDto>(`/hackathons/${hackathonId}/teams`, {
-    params: removeEmptyField({ page, size }),
-  });
-  // TODO : API 구현
-  //return response?.data;
-  return mockHackathonTeamPageableData;
 }

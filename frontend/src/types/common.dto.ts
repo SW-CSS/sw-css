@@ -185,18 +185,14 @@ export interface HackathonInformationDto {
 }
 
 interface TeamMemberDto {
-  id: number;
-  name: string;
-  majorName: string;
-  role: string;
-  isLeader: boolean;
+  [key: string]: { id: number; name: string; majorName: string; isLeader: boolean }[];
 }
 
 export interface HackathonTeamDto {
   id: number;
   name: string;
   githubUrl: string;
-  teamMembers: TeamMemberDto[];
+  teamMembers: TeamMemberDto;
   thumbnailImageName: string;
   voteCount: number;
 }

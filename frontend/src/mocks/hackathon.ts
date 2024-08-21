@@ -19,166 +19,166 @@ export const mockHackathonTeamPageableData: HackathonTeamPageableDto = {
     {
       id: 1,
       name: '팀 알파',
-      githubUrl: 'https://github.com/team-alpha',
-      teamMembers: [
-        {
-          id: 1,
-          name: '김철수',
-          majorName: '컴퓨터 과학',
-          role: '개발자',
-          isLeader: true,
-        },
-        {
-          id: 2,
-          name: '이영희',
-          majorName: '수학',
-          role: '디자이너',
-          isLeader: false,
-        },
-      ],
+      githubUrl: 'https://github.com/pnu-code-place/code-place',
+      teamMembers: {
+        DEVELOPER: [
+          {
+            id: 3,
+            name: '박하나',
+            majorName: '공학',
+            isLeader: false,
+          },
+          {
+            id: 4,
+            name: '최민수',
+            majorName: '물리학',
+            isLeader: true,
+          },
+        ],
+      },
       thumbnailImageName: 'test1.jpeg',
       voteCount: 120,
     },
     {
       id: 2,
       name: '팀 베타',
-      githubUrl: 'https://github.com/team-beta',
-      teamMembers: [
-        {
-          id: 3,
-          name: '박하나',
-          majorName: '공학',
-          role: '개발자',
-          isLeader: false,
-        },
-        {
-          id: 4,
-          name: '최민수',
-          majorName: '물리학',
-          role: '프로젝트 매니저',
-          isLeader: true,
-        },
-      ],
+      githubUrl: 'https://github.com/amaran-th/jwp-refactoring',
+      teamMembers: {
+        DEVELOPER: [
+          {
+            id: 3,
+            name: '박하나',
+            majorName: '공학',
+            isLeader: false,
+          },
+          {
+            id: 4,
+            name: '최민수',
+            majorName: '물리학',
+            isLeader: true,
+          },
+        ],
+      },
       thumbnailImageName: 'test2.jpeg',
       voteCount: 95,
     },
     {
       id: 3,
       name: '팀 감마',
-      githubUrl: 'https://github.com/team-gamma',
-      teamMembers: [
-        {
-          id: 5,
-          name: '정수정',
-          majorName: '데이터 과학',
-          role: '데이터 분석가',
-          isLeader: false,
-        },
-        {
-          id: 6,
-          name: '김영준',
-          majorName: '통계학',
-          role: '개발자',
-          isLeader: true,
-        },
-        {
-          id: 1,
-          name: '김철수',
-          majorName: '컴퓨터 과학',
-          role: '개발자',
-          isLeader: true,
-        },
-        {
-          id: 2,
-          name: '이영희',
-          majorName: '수학',
-          role: '디자이너',
-          isLeader: false,
-        },
-      ],
+      githubUrl: 'https://github.com/ueberdosis/tiptap',
+      teamMembers: {
+        DEVELOPER: [
+          {
+            id: 202055558,
+            name: '정수정',
+            majorName: '데이터 과학',
+            isLeader: true,
+          },
+          {
+            id: 202055555,
+            name: '김영준',
+            majorName: '통계학',
+            isLeader: false,
+          },
+        ],
+        DESIGNER: [
+          {
+            id: 202000000,
+            name: '김철수',
+            majorName: '컴퓨터 과학',
+            isLeader: false,
+          },
+          {
+            id: 202012345,
+            name: '이영희',
+            majorName: '수학',
+            isLeader: false,
+          },
+        ],
+      },
       thumbnailImageName: 'test3.png',
       voteCount: 120,
     },
     {
       id: 4,
       name: '팀 베타',
-      githubUrl: 'https://github.com/team-beta',
-      teamMembers: [
-        {
-          id: 3,
-          name: '박하나',
-          majorName: '공학',
-          role: '개발자',
-          isLeader: false,
-        },
-        {
-          id: 4,
-          name: '최민수',
-          majorName: '물리학',
-          role: '프로젝트 매니저',
-          isLeader: true,
-        },
-      ],
+      githubUrl: 'https://github.com/woowacourse-teams/2023-emmsale',
+      teamMembers: {
+        DEVELOPER: [
+          {
+            id: 3,
+            name: '박하나',
+            majorName: '공학',
+            isLeader: false,
+          },
+          {
+            id: 4,
+            name: '최민수',
+            majorName: '물리학',
+            isLeader: true,
+          },
+        ],
+      },
       thumbnailImageName: 'test1.jpeg',
       voteCount: 95,
     },
     {
       id: 5,
       name: '팀 감마',
-      githubUrl: 'https://github.com/team-gamma',
-      teamMembers: [
-        {
-          id: 5,
-          name: '정수정',
-          majorName: '데이터 과학',
-          role: '데이터 분석가',
-          isLeader: false,
-        },
-        {
-          id: 6,
-          name: '김영준',
-          majorName: '통계학',
-          role: '개발자',
-          isLeader: true,
-        },
-        {
-          id: 1,
-          name: '김철수',
-          majorName: '컴퓨터 과학',
-          role: '개발자',
-          isLeader: true,
-        },
-        {
-          id: 2,
-          name: '이영희',
-          majorName: '수학',
-          role: '디자이너',
-          isLeader: false,
-        },
-      ],
+      githubUrl: 'https://github.com/gatsbyjs/gatsby-starter-blog',
+      teamMembers: {
+        DEVELOPER: [
+          {
+            id: 5,
+            name: '정수정',
+            majorName: '데이터 과학',
+            isLeader: false,
+          },
+          {
+            id: 6,
+            name: '김영준',
+            majorName: '통계학',
+            isLeader: true,
+          },
+        ],
+        DESIGNER: [
+          {
+            id: 1,
+            name: '김철수',
+            majorName: '컴퓨터 과학',
+            isLeader: true,
+          },
+          {
+            id: 2,
+            name: '이영희',
+            majorName: '수학',
+            isLeader: false,
+          },
+        ],
+      },
       thumbnailImageName: 'test2.jpeg',
       voteCount: 120,
     },
     {
       id: 6,
       name: '팀 베타',
-      githubUrl: 'https://github.com/team-beta',
-      teamMembers: [
-        {
-          id: 3,
-          name: '박하나',
-          majorName: '공학',
-          role: '개발자',
-          isLeader: false,
-        },
-        {
-          id: 4,
-          name: '최민수',
-          majorName: '물리학',
-          role: '프로젝트 매니저',
-          isLeader: true,
-        },
-      ],
+      githubUrl: 'https://github.com/blueimp/JavaScript-Templates/blob/master/README.md',
+      teamMembers: {
+        DEVELOPER: [
+          {
+            id: 3,
+            name: '박하나',
+            majorName: '공학',
+            isLeader: false,
+          },
+          {
+            id: 4,
+            name: '최민수',
+            majorName: '물리학',
+            isLeader: true,
+          },
+        ],
+      },
       thumbnailImageName: 'test3.png',
       voteCount: 95,
     },
@@ -186,22 +186,22 @@ export const mockHackathonTeamPageableData: HackathonTeamPageableDto = {
       id: 7,
       name: '팀 감마',
       githubUrl: 'https://github.com/team-gamma',
-      teamMembers: [
-        {
-          id: 5,
-          name: '정수정',
-          majorName: '데이터 과학',
-          role: '데이터 분석가',
-          isLeader: false,
-        },
-        {
-          id: 6,
-          name: '김영준',
-          majorName: '통계학',
-          role: '개발자',
-          isLeader: true,
-        },
-      ],
+      teamMembers: {
+        DEVELOPER: [
+          {
+            id: 5,
+            name: '정수정',
+            majorName: '데이터 과학',
+            isLeader: false,
+          },
+          {
+            id: 6,
+            name: '김영준',
+            majorName: '통계학',
+            isLeader: true,
+          },
+        ],
+      },
       thumbnailImageName: 'test1.jpeg',
       voteCount: 85,
     },

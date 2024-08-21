@@ -17,6 +17,7 @@ import { MilestoneHistorySortCriteria, SortDirection } from '@/types/milestone';
 
 import { removeEmptyField } from '../utils/utils';
 import { mockHackathonTeamPageableData } from '@/mocks/hackathon';
+import { github } from '../api/github.axios';
 
 export const useCollegeQuery = () =>
   useAxiosQuery({
@@ -140,6 +141,49 @@ export function useFileQuery(fileName: string | null) {
         return null;
       }
       return response?.data;
+    },
+  });
+}
+
+export function useHackathonTeamsQuery(
+  hackathonId: number,
+  page: number = 0,
+  size: number = 10,
+  options?: { enabled?: boolean },
+) {
+  return useAxiosQuery({
+    ...options,
+    queryKey: QueryKeys.HACKATHON_TEAMS(hackathonId, page, size),
+    queryFn: async (): Promise<HackathonTeamPageableDto> => {
+      //const response = await client.get(`/hackathons/${hackathonId}/teams`);
+      //return response?.data;
+      return mockHackathonTeamPageableData;
+    },
+  });
+}
+
+export function useGithubReadmeQuery(owner: string, repo: string, options?: { enabled?: boolean }) {
+  return useAxiosQuery({
+    queryKey: QueryKeys.GITHUB_README(repo, repo),
+    queryFn: async (): Promise<string | null> => {
+      try {
+        const response = await github.get(`/repos/${owner}/${repo}/readme`, {
+          headers: { Accept: 'application/vnd.github.v3+json' },
+        });
+        const binaryString = atob(response.data.content);
+        const bytes = new Uint8Array(binaryString.length);
+
+        for (let i = 0; i < binaryString.length; i++) {
+          bytes[i] = binaryString.charCodeAt(i);
+        }
+        const decodedContent = new TextDecoder('utf-8').decode(bytes);
+        return decodedContent;
+      } catch (error) {
+        if (error instanceof BusinessError) {
+          return null;
+        }
+        throw error;
+      }
     },
   });
 }
