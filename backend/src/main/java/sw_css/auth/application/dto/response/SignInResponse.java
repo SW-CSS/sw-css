@@ -7,10 +7,10 @@ public record SignInResponse(
         String name,
         String email,
         String role,
-        String accessToken
+        String token
 ) {
 
-    public static SignInResponse of(Member member, String role, String accessToken) {
-        return new SignInResponse(member.getId(), member.getName(), member.getEmail(), role, accessToken);
+    public static SignInResponse of(Member member, String role, String token) {
+        return new SignInResponse(member.getId(), member.getName(), member.getEmail(), role, token);
     }
 }
