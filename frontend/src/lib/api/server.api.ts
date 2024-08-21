@@ -3,6 +3,7 @@ import { server } from '@/lib/api/server.axios';
 import {
   HackathonInformationDto,
   HackathonPageableDto,
+  HackathonPrizeDto,
   HackathonTeamPageableDto,
   MilestoneHistoryDto,
   MilestoneHistoryOfStudentPageableDto,
@@ -11,7 +12,7 @@ import {
 import { MilestoneHistorySortCriteria, SortDirection } from '@/types/milestone';
 
 import { removeEmptyField } from '../utils/utils';
-import { mockHackathonTeamPageableData } from '@/mocks/hackathon';
+import { mockHackathonPrize, mockHackathonTeamPageableData } from '@/mocks/hackathon';
 
 export async function getMilestoneHistoriesOfStudent(
   memberId: number,
@@ -157,4 +158,11 @@ This is a **bold** text with some *italic* and [a link](https://example.com).
 `,
     thumbnailImageName: 'test1.jpeg',
   };
+}
+
+export async function getHackathonPrize(hackathonId:number){
+  const response = await server.get<HackathonPrizeDto[]>(`/hackathons/${hackathonId}/prizes`);
+  //TODO : API 구현
+  // return response?.data;
+  return mockHackathonPrize;
 }

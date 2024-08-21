@@ -37,5 +37,6 @@ export const QueryKeys = {
   MILESTONE_HISTORY_SCORE_EXCEL: (startDate: string, endDate: string) => ['milestone-score-excel', startDate, endDate],
   FILE: (fileName: string | null) => ['file', fileName],
   HACKATHON_TEAMS: (hackathonId: number, page: number, size: number) => ['hackathon-teams', hackathonId, page, size],
+  HACKATHON_PRIZE: (hackathonId: number) => ['hackathon-prize', hackathonId],
   GITHUB_README: (owner: string, repo: string) => ['github-readme', owner, repo],
 };

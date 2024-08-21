@@ -5,19 +5,19 @@ import { client } from '@/lib/api/client.axios';
 import { useAxiosMutation, useAxiosQuery } from '@/lib/hooks/useAxios';
 import {
   CollegeDto,
-  MilestoneScoreDto,
-  MilestoneHistoryCreateDto,
-  StudentMemberDto,
-  MilestoneHistoryOfStudentPageableDto,
-  MilestoneByGroupDto,
   HackathonTeamPageableDto,
+  MilestoneByGroupDto,
+  MilestoneHistoryCreateDto,
+  MilestoneHistoryOfStudentPageableDto,
+  MilestoneScoreDto,
+  StudentMemberDto,
 } from '@/types/common.dto';
 import { BusinessError } from '@/types/error';
 import { MilestoneHistorySortCriteria, SortDirection } from '@/types/milestone';
 
-import { removeEmptyField } from '../utils/utils';
 import { mockHackathonTeamPageableData } from '@/mocks/hackathon';
 import { github } from '../api/github.axios';
+import { removeEmptyField } from '../utils/utils';
 
 export const useCollegeQuery = () =>
   useAxiosQuery({
@@ -155,6 +155,7 @@ export function useHackathonTeamsQuery(
     ...options,
     queryKey: QueryKeys.HACKATHON_TEAMS(hackathonId, page, size),
     queryFn: async (): Promise<HackathonTeamPageableDto> => {
+      // TODO : API 구현
       //const response = await client.get(`/hackathons/${hackathonId}/teams`);
       //return response?.data;
       return mockHackathonTeamPageableData;

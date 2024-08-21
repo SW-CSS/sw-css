@@ -1,24 +1,23 @@
 'use client';
 
-import React from 'react';
+import BlockQuote from '@tiptap/extension-blockquote';
+import Code from '@tiptap/extension-code';
+import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight';
 import Highlight from '@tiptap/extension-highlight';
-import Typography from '@tiptap/extension-typography';
-import { useEditor, EditorContent } from '@tiptap/react';
-import { StarterKit } from '@tiptap/starter-kit';
 import Image from '@tiptap/extension-image';
-import Table from '@tiptap/extension-table'
-import TableCell from '@tiptap/extension-table-cell'
-import TableHeader from '@tiptap/extension-table-header'
-import TableRow from '@tiptap/extension-table-row'
+import Link from '@tiptap/extension-link';
+import Table from '@tiptap/extension-table';
+import TableCell from '@tiptap/extension-table-cell';
+import TableHeader from '@tiptap/extension-table-header';
+import TableRow from '@tiptap/extension-table-row';
 import TaskItem from '@tiptap/extension-task-item';
 import TaskList from '@tiptap/extension-task-list';
-import Code from '@tiptap/extension-code'
-import Link from '@tiptap/extension-link'
+import Typography from '@tiptap/extension-typography';
+import { EditorContent, useEditor } from '@tiptap/react';
+import { StarterKit } from '@tiptap/starter-kit';
+import { common, createLowlight } from 'lowlight';
 import { Markdown } from 'tiptap-markdown';
-import { common, createLowlight } from 'lowlight'
-import CodeBlockLowlight from '@tiptap/extension-code-block-lowlight'
-import BlockQuote from '@tiptap/extension-blockquote'
-import './markdown.css'
+import './markdown.css';
 
 interface MarkdownViewerProps {
   content: string;
@@ -29,8 +28,8 @@ const MarkdownViewer = ({ content }: MarkdownViewerProps) => {
     extensions: [
       StarterKit.configure({
         codeBlock: false,
-        blockquote:false,
-    }),
+        blockquote: false,
+      }),
       Highlight,
       Image.configure({ inline: true, allowBase64: true }),
       Typography,
@@ -46,8 +45,8 @@ const MarkdownViewer = ({ content }: MarkdownViewerProps) => {
           class: 'flex space-x-2 [&_p]:m-0',
         },
       }),
-CodeBlockLowlight.configure({
-        lowlight:createLowlight(common)
+      CodeBlockLowlight.configure({
+        lowlight: createLowlight(common),
       }),
       Code.configure({
         HTMLAttributes: {
@@ -57,9 +56,9 @@ CodeBlockLowlight.configure({
       Link.configure({
         HTMLAttributes: {
           class: 'text-primary-main cursor-pointer hover:text-primary-dark',
-        }
+        },
       }),
-    BlockQuote,
+      BlockQuote,
     ],
     content,
     editable: false,

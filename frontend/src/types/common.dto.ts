@@ -200,3 +200,16 @@ export interface HackathonTeamDto {
 export interface HackathonTeamPageableDto extends Pageable {
   content: HackathonTeamDto[];
 }
+
+interface HackathonTeamReferenceDto{
+  name: string;
+  memberCount: number;
+  work:string;
+}
+
+export interface HackathonPrizeDto {
+  id:number;
+  name:string;
+  rank:number;
+  teams:HackathonTeamReferenceDto[];
+}
