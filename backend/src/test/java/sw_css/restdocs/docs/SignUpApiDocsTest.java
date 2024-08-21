@@ -65,7 +65,7 @@ public class SignUpApiDocsTest extends RestDocsTest {
                         .contentType(APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isCreated())
-                .andDo(document("sign-up", requestFieldsSnippet));
+                .andDo(document("auth-sign-up", requestFieldsSnippet));
     }
 
     @Test
@@ -76,8 +76,14 @@ public class SignUpApiDocsTest extends RestDocsTest {
                 fieldWithPath("email").type(JsonFieldType.STRING).description("부산대학교 이메일")
         );
 
+        final ResponseFieldsSnippet responseFieldsSnippet = responseFields(
+                fieldWithPath("expired_seconds").type(JsonFieldType.NUMBER).description("인증 코드 유효 기간")
+        );
+
         final String email = "ddang@pusan.ac.kr";
         final SendAuthCodeRequest request = new SendAuthCodeRequest(email);
+
+        final int expiredSeconds = 600;
 
         // when
         when(authEmailService.emailAuth(request.email())).thenReturn(600);
@@ -87,7 +93,7 @@ public class SignUpApiDocsTest extends RestDocsTest {
                         .contentType(APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isOk())
-                .andDo(document("send-auth-code", requestFieldsSnippet));
+                .andDo(document("auth-send-auth-code", requestFieldsSnippet, responseFieldsSnippet));
     }
 
     @Test
@@ -98,7 +104,7 @@ public class SignUpApiDocsTest extends RestDocsTest {
                 parameterWithName("email").description("부산대학교 이메일")
         );
         final ResponseFieldsSnippet responseBodySnippet = responseFields(
-                fieldWithPath("isDuplicate").type(JsonFieldType.BOOLEAN).description("중복 여부"));
+                fieldWithPath("is_duplicate").type(JsonFieldType.BOOLEAN).description("중복 여부"));
 
         final String email = "ddang@pusan.ac.kr";
         final boolean isDuplicate = false;
@@ -110,7 +116,7 @@ public class SignUpApiDocsTest extends RestDocsTest {
         mockMvc.perform(RestDocumentationRequestBuilders.get("/sign-up/exists/email")
                         .param("email", email))
                 .andExpect(status().isOk())
-                .andDo(document("check-duplicate-email", queryParameters, responseBodySnippet));
+                .andDo(document("auth-check-duplicate-email", queryParameters, responseBodySnippet));
     }
 
     @Test
@@ -133,7 +139,7 @@ public class SignUpApiDocsTest extends RestDocsTest {
         mockMvc.perform(RestDocumentationRequestBuilders.get("/sign-up/exists/student-id")
                         .param("student_id", sutdnetId))
                 .andExpect(status().isOk())
-                .andDo(document("check-duplicate-student-id", queryParameters, responseBodySnippet));
+                .andDo(document("auth-check-duplicate-student-id", queryParameters, responseBodySnippet));
     }
 
     @Test
@@ -156,6 +162,6 @@ public class SignUpApiDocsTest extends RestDocsTest {
         mockMvc.perform(RestDocumentationRequestBuilders.get("/sign-up/exists/phone-number")
                         .param("phone_number", phoneNumber))
                 .andExpect(status().isOk())
-                .andDo(document("check-duplicate-phone-number", queryParameters, responseBodySnippet));
+                .andDo(document("auth-check-duplicate-phone-number", queryParameters, responseBodySnippet));
     }
 }

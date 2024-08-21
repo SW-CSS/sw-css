@@ -61,7 +61,7 @@ public class SignInApiDocsTest extends RestDocsTest {
                         .contentType(APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isOk())
-                .andDo(document("sign-in", requestFieldsSnippet, responseFieldsSnippet));
+                .andDo(document("auth-sign-in", requestFieldsSnippet, responseFieldsSnippet));
     }
 
     @Test
@@ -86,6 +86,6 @@ public class SignInApiDocsTest extends RestDocsTest {
                         .contentType(APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isNoContent())
-                .andDo(document("reset-password", requestFieldsSnippet));
+                .andDo(document("auth-reset-password", requestFieldsSnippet));
     }
 }
