@@ -40,7 +40,7 @@ public class JwtAuthorizationArgumentResolver implements HandlerMethodArgumentRe
         if (token == null || token.trim().isEmpty()) {
             throw new JwtTokenException(JwtTokenExceptionType.JWT_TOKEN_EMPTY);
         }
-        
+
         jwtTokenProvider.validateToken(token);
 
         long userId = jwtTokenProvider.getUserId(token);

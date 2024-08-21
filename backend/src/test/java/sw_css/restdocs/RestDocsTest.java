@@ -28,6 +28,7 @@ import sw_css.member.application.MemberQueryService;
 import sw_css.milestone.application.MilestoneHistoryCommandService;
 import sw_css.milestone.application.MilestoneHistoryQueryService;
 import sw_css.milestone.application.MilestoneQueryService;
+import sw_css.utils.JwtToken.JwtAuthorizationArgumentResolver;
 
 @Import(RestDocsConfiguration.class)
 @ExtendWith(RestDocumentationExtension.class)
@@ -71,6 +72,9 @@ public abstract class RestDocsTest extends ApiTestHelper {
 
     @MockBean
     protected AuthSignInService authSignInService;
+
+    @MockBean
+    protected JwtAuthorizationArgumentResolver jwtAuthorizationArgumentResolver;
 
     @Autowired
     protected RestDocumentationResultHandler restDocs;
