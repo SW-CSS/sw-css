@@ -5,6 +5,7 @@ import sw_css.base.BaseExceptionType;
 
 public enum MemberExceptionType implements BaseExceptionType {
     MEMBER_NOT_FOUND(HttpStatus.NOT_FOUND, "해당 회원을 찾을 수 없습니다."),
+    MEMBER_WRONG_PASSWORD(HttpStatus.BAD_REQUEST, "비밀번호가 잘못되었습니다."),
     NOT_FOUND_STUDENT(HttpStatus.NOT_FOUND, "해당하는 학생이 존재하지 않습니다.");
 
 
