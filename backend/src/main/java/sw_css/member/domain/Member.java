@@ -9,6 +9,7 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import sw_css.base.BaseEntity;
 import sw_css.member.domain.embedded.Password;
 
@@ -27,6 +28,7 @@ public class Member extends BaseEntity {
     @Column(nullable = false)
     private String name;
 
+    @Setter(AccessLevel.PUBLIC)
     @Column(nullable = false)
     private String password;
 
@@ -43,4 +45,5 @@ public class Member extends BaseEntity {
     public boolean isWrongPassword(String rawPassword) {
         return !Password.matches(rawPassword, password);
     }
+
 }

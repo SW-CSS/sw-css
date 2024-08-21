@@ -1,13 +1,10 @@
 package sw_css.auth.application;
 
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.transaction.Transactional;
 import java.security.SecureRandom;
 import java.util.regex.Pattern;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
 import sw_css.auth.application.dto.response.SignInResponse;
 import sw_css.auth.exception.AuthException;
@@ -18,6 +15,7 @@ import sw_css.member.domain.embedded.Password;
 import sw_css.member.domain.repository.FacultyMemberRepository;
 import sw_css.member.domain.repository.MemberRepository;
 import sw_css.member.domain.repository.StudentMemberRepository;
+import sw_css.utils.JwtToken.JwtTokenProvider;
 
 @Service
 @RequiredArgsConstructor
@@ -29,11 +27,10 @@ public class AuthSignInService {
     private final StudentMemberRepository studentMemberRepository;
     private final FacultyMemberRepository facultyMemberRepository;
     private final MemberRepository memberRepository;
-    private final AuthCookieService authCookieService;
     private final AuthEmailService authEmailService;
+    private final JwtTokenProvider jwtTokenProvider;
 
-    public SignInResponse signIn(String email, String rawPassword, HttpServletRequest request,
-                                 HttpServletResponse response) {
+    public SignInResponse signIn(String email, String rawPassword) {
         Member member = memberRepository.findByEmail(email)
                 .orElseThrow(() -> new AuthException(AuthExceptionType.MEMBER_EMAIL_NOT_FOUND));
 
@@ -45,9 +42,9 @@ public class AuthSignInService {
         if (role == null) {
             throw new AuthException(AuthExceptionType.MEMBER_NOT_FOUND);
         }
-        authCookieService.setNewCookieInResponse(member.getId(), role, request.getHeader(HttpHeaders.USER_AGENT),
-                response);
-        return SignInResponse.of(member, role);
+        String accessToken = jwtTokenProvider.createToken(member.getId(), role);
+
+        return SignInResponse.of(member, role, accessToken);
     }
 
     public void resetPassword(String email, String name) {

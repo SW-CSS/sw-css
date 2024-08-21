@@ -6,10 +6,11 @@ public record SignInResponse(
         long member_id,
         String name,
         String email,
-        String role
+        String role,
+        String accessToken
 ) {
 
-    public static SignInResponse of(Member member, String role) {
-        return new SignInResponse(member.getId(), member.getName(), member.getEmail(), role);
+    public static SignInResponse of(Member member, String role, String accessToken) {
+        return new SignInResponse(member.getId(), member.getName(), member.getEmail(), role, accessToken);
     }
 }

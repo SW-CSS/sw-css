@@ -1,7 +1,5 @@
 package sw_css.auth.api;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -25,12 +23,8 @@ public class SignInController {
     private final AuthSignInService authSignInService;
 
     @PostMapping
-    public ResponseEntity<SignInResponse> signIn(
-            @RequestBody @Valid SignInRequest request,
-            HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) {
-        return ResponseEntity.ok(
-                authSignInService.signIn(request.email(), request.password(), httpServletRequest, httpServletResponse)
-        );
+    public ResponseEntity<SignInResponse> signIn(@RequestBody @Valid SignInRequest request) {
+        return ResponseEntity.ok(authSignInService.signIn(request.email(), request.password()));
     }
 
     @PatchMapping("/reset-password")
