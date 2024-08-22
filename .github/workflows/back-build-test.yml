@@ -33,16 +33,6 @@ jobs:
           mysql database: "sw_css"
           mysql root password: ${{ secrets.DB_PASSWORD }}
 
-      - name: Connect to Redis
-        run: |
-          cd github-workflow-help
-          npm ci
-          node client.js
-        env:
-          REDIS_HOST: ${{ secrets.REDIS_HOST }}
-          REDIS_PORT: ${{ secrets.REDIS_PORT }}
-          REDIS_PASS: ${{ secrets.REDIS_PASSWORD }}
-
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@dbbdc275be76ac10734476cc723d82dfe7ec6eda # v3.4.2
 
