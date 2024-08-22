@@ -34,6 +34,6 @@ public record MilestoneHistoryOfStudentResponse(
                         milestoneHistory.getActivatedAt(),
                         milestoneHistory.getCreatedAt()
                 ))
-                .toList());
+                .toList(), milestoneHistories.getPageable(), milestoneHistories.getTotalElements());
     }
 }
