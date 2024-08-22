@@ -32,9 +32,12 @@ jobs:
           container port: 3306
           mysql database: "sw_css"
           mysql root password: ${{ secrets.DB_PASSWORD }}
-          
+
       - name: Connect to Redis
-        run: node client.js
+        run: |
+          cd github-workflow-help
+          npm ci
+          node client.js
         env:
           REDIS_HOST: ${{ secrets.REDIS_HOST }}
           REDIS_PORT: ${{ secrets.REDIS_PORT }}
