@@ -25,7 +25,6 @@ public class MemberQueryService {
         return StudentMemberResponse.from(student);
     }
 
-    @Transactional
     public void changePassword(Member me, String oldPassword, String newPassword) {
         if (me.isWrongPassword(oldPassword)) {
             throw new MemberException(MemberExceptionType.MEMBER_WRONG_PASSWORD);

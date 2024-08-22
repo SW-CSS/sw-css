@@ -38,10 +38,8 @@ public class AuthSignInService {
             throw new AuthException(AuthExceptionType.MEMBER_WRONG_ID_OR_PASSWORD);
         }
 
-        String role = getMemberRole(member);
-        if (role == null) {
-            throw new AuthException(AuthExceptionType.MEMBER_NOT_FOUND);
-        }
+        String role = loadMemberRole(member);
+        
         String accessToken = jwtTokenProvider.createToken(member.getId(), role);
 
         return SignInResponse.of(member, role, accessToken);
@@ -64,7 +62,7 @@ public class AuthSignInService {
         authEmailService.sendNewPassword(email, newPassword);
     }
 
-    private String getMemberRole(Member member) {
+    private String loadMemberRole(Member member) {
         Long memberId = member.getId();
         if (studentMemberRepository.existsByMemberId(memberId)) {
             return Role.ROLE_MEMBER.toString();
@@ -72,7 +70,7 @@ public class AuthSignInService {
         if (facultyMemberRepository.existsByMemberId(memberId)) {
             return Role.ROLE_ADMIN.toString();
         }
-        return null;
+        throw new AuthException(AuthExceptionType.MEMBER_NOT_FOUND);
     }
 
     private static String generateAvailablePassword() {

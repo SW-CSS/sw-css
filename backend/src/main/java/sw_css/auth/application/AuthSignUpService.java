@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sw_css.auth.application.dto.request.SignUpRequest;
+import sw_css.auth.application.dto.response.CheckDuplicateResponse;
 import sw_css.auth.domain.repository.EmailAuthRedisRepository;
 import sw_css.auth.exception.AuthException;
 import sw_css.auth.exception.AuthExceptionType;
@@ -25,13 +26,12 @@ public class AuthSignUpService {
     private final MajorRepository majorRepository;
     private final EmailAuthRedisRepository emailAuthRedisRepository;
 
-    @Transactional
     public long signUp(SignUpRequest request) {
         checkIsDuplicateEmail(request.email());
         checkIsDuplicateStudentId(request.student_id());
         checkIsDuplicatePhoneNumber(request.phone_number());
 
-        String actualAuthCode = getActualAuthCode(request.email());
+        String actualAuthCode = loadActualAuthCode(request.email());
         checkAuthCodeMatch(request.auth_code(), actualAuthCode);
 
         Major major = majorRepository.findById(request.major_id())
@@ -48,6 +48,18 @@ public class AuthSignUpService {
         studentMemberRepository.save(studentMember);
 
         return memberId;
+    }
+
+    public CheckDuplicateResponse isDuplicateEmail(String email) {
+        return CheckDuplicateResponse.from(authCheckDuplicateService.isDuplicateEmail(email));
+    }
+
+    public CheckDuplicateResponse isDuplicateStudentId(String studentId) {
+        return CheckDuplicateResponse.from(authCheckDuplicateService.isDuplicateStudentID(studentId));
+    }
+
+    public CheckDuplicateResponse isDuplicatePhoneNumber(String phoneNumber) {
+        return CheckDuplicateResponse.from(authCheckDuplicateService.isDuplicatePhoneNumber(phoneNumber));
     }
 
     private void checkIsDuplicateEmail(String email) {
@@ -68,13 +80,13 @@ public class AuthSignUpService {
         }
     }
 
-    void checkAuthCodeMatch(String requestAuthCode, String actualAuthCode) {
+    private void checkAuthCodeMatch(String requestAuthCode, String actualAuthCode) {
         if (!actualAuthCode.equals(requestAuthCode)) {
             throw new AuthException(AuthExceptionType.AUTH_CODE_MISMATCH);
         }
     }
 
-    String getActualAuthCode(@Email String email) {
+    private String loadActualAuthCode(@Email String email) {
         return emailAuthRedisRepository.findById(email)
                 .orElseThrow(() -> new AuthException(AuthExceptionType.AUTH_CODE_EXPIRED))
                 .getAuthCode();

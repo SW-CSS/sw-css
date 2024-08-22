@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import sw_css.auth.application.AuthCheckDuplicateService;
 import sw_css.auth.application.AuthEmailService;
 import sw_css.auth.application.AuthSignUpService;
 import sw_css.auth.application.dto.request.SendAuthCodeRequest;
@@ -29,7 +28,6 @@ public class SignUpController {
 
     private final AuthSignUpService authSignUpService;
     private final AuthEmailService authEmailService;
-    private final AuthCheckDuplicateService authCheckDuplicateService;
 
     @PostMapping
     public ResponseEntity<Void> signUp(@RequestBody @Valid SignUpRequest request) {
@@ -39,28 +37,24 @@ public class SignUpController {
 
     @PostMapping("/send-auth-code")
     public ResponseEntity<SendAuthCodeResponse> sendAuthCode(@RequestBody @Valid SendAuthCodeRequest request) {
-        int expiredSeconds = authEmailService.emailAuth(request.email());
-        return ResponseEntity.ok(SendAuthCodeResponse.from(expiredSeconds));
+        return ResponseEntity.ok(authEmailService.emailAuth(request.email()));
     }
 
     @GetMapping("/exists/email")
     public ResponseEntity<CheckDuplicateResponse> checkDuplicateEmail(
             @RequestParam(value = "email") @NotBlank final String email) {
-        boolean isDuplicate = authCheckDuplicateService.isDuplicateEmail(email);
-        return ResponseEntity.ok(CheckDuplicateResponse.from(isDuplicate));
+        return ResponseEntity.ok(authSignUpService.isDuplicateEmail(email));
     }
 
     @GetMapping("/exists/student-id")
     public ResponseEntity<CheckDuplicateResponse> checkDuplicateStudentId(
             @RequestParam(value = "student_id") @NotBlank final String studentId) {
-        boolean isDuplicate = authCheckDuplicateService.isDuplicateStudentID(studentId);
-        return ResponseEntity.ok(CheckDuplicateResponse.from(isDuplicate));
+        return ResponseEntity.ok(authSignUpService.isDuplicateStudentId(studentId));
     }
 
     @GetMapping("/exists/phone-number")
     public ResponseEntity<CheckDuplicateResponse> checkDuplicatePhoneNumber(
             @RequestParam(value = "phone_number") @NotBlank final String phoneNumber) {
-        boolean isDuplicate = authCheckDuplicateService.isDuplicatePhoneNumber(phoneNumber);
-        return ResponseEntity.ok(CheckDuplicateResponse.from(isDuplicate));
+        return ResponseEntity.ok(authSignUpService.isDuplicatePhoneNumber(phoneNumber));
     }
 }

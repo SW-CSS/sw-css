@@ -22,6 +22,8 @@ import org.springframework.restdocs.request.QueryParametersSnippet;
 import sw_css.auth.api.SignUpController;
 import sw_css.auth.application.dto.request.SendAuthCodeRequest;
 import sw_css.auth.application.dto.request.SignUpRequest;
+import sw_css.auth.application.dto.response.CheckDuplicateResponse;
+import sw_css.auth.application.dto.response.SendAuthCodeResponse;
 import sw_css.restdocs.RestDocsTest;
 
 @WebMvcTest(SignUpController.class)
@@ -84,9 +86,10 @@ public class SignUpApiDocsTest extends RestDocsTest {
         final SendAuthCodeRequest request = new SendAuthCodeRequest(email);
 
         final int expiredSeconds = 600;
+        final SendAuthCodeResponse response = new SendAuthCodeResponse(expiredSeconds);
 
         // when
-        when(authEmailService.emailAuth(request.email())).thenReturn(600);
+        when(authEmailService.emailAuth(request.email())).thenReturn(response);
 
         // then
         mockMvc.perform(post("/sign-up/send-auth-code")
@@ -108,9 +111,10 @@ public class SignUpApiDocsTest extends RestDocsTest {
 
         final String email = "ddang@pusan.ac.kr";
         final boolean isDuplicate = false;
+        final CheckDuplicateResponse response = new CheckDuplicateResponse(isDuplicate);
 
         //when
-        when(authCheckDuplicateService.isDuplicateEmail("")).thenReturn(isDuplicate);
+        when(authSignUpService.isDuplicateEmail(email)).thenReturn(response);
 
         //then
         mockMvc.perform(RestDocumentationRequestBuilders.get("/sign-up/exists/email")
@@ -129,15 +133,16 @@ public class SignUpApiDocsTest extends RestDocsTest {
         final ResponseFieldsSnippet responseBodySnippet = responseFields(
                 fieldWithPath("is_duplicate").type(JsonFieldType.BOOLEAN).description("중복 여부"));
 
-        final String sutdnetId = "202012345";
+        final String studentId = "202012345";
         final boolean isDuplicate = false;
+        final CheckDuplicateResponse response = new CheckDuplicateResponse(isDuplicate);
 
         //when
-        when(authCheckDuplicateService.isDuplicateEmail("")).thenReturn(isDuplicate);
+        when(authSignUpService.isDuplicateStudentId(studentId)).thenReturn(response);
 
         //then
         mockMvc.perform(RestDocumentationRequestBuilders.get("/sign-up/exists/student-id")
-                        .param("student_id", sutdnetId))
+                        .param("student_id", studentId))
                 .andExpect(status().isOk())
                 .andDo(document("auth-check-duplicate-student-id", queryParameters, responseBodySnippet));
     }
@@ -154,9 +159,10 @@ public class SignUpApiDocsTest extends RestDocsTest {
 
         final String phoneNumber = "01012341234";
         final boolean isDuplicate = false;
+        final CheckDuplicateResponse response = new CheckDuplicateResponse(isDuplicate);
 
         //when
-        when(authCheckDuplicateService.isDuplicateEmail("")).thenReturn(isDuplicate);
+        when(authSignUpService.isDuplicatePhoneNumber(phoneNumber)).thenReturn(response);
 
         //then
         mockMvc.perform(RestDocumentationRequestBuilders.get("/sign-up/exists/phone-number")

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Random;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import sw_css.auth.application.dto.response.SendAuthCodeResponse;
 import sw_css.auth.domain.EmailAuthRedis;
 import sw_css.auth.domain.repository.EmailAuthRedisRepository;
 import sw_css.utils.MailUtil;
@@ -20,11 +21,11 @@ public class AuthEmailService {
     private final MailUtil mailUtil;
     private final EmailAuthRedisRepository emailAuthRedisRepository;
 
-    public int emailAuth(String email) {
+    public SendAuthCodeResponse emailAuth(String email) {
         String authCode = generateRandomAuthCode();
         emailAuthRedisRepository.save(EmailAuthRedis.of(email, authCode));
         sendAuthCode(email, authCode);
-        return EMAIL_EXPIRED_SECONDS;
+        return SendAuthCodeResponse.from(EMAIL_EXPIRED_SECONDS);
     }
 
     public void sendNewPassword(String email, String password) {
