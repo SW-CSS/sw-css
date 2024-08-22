@@ -25,3 +25,4 @@ spring:
 data:
   client-url: http://localhost:3000
   file-path-prefix: /backend/src/main/resources/static/files
+  file-storage-path: /절대 경로/
