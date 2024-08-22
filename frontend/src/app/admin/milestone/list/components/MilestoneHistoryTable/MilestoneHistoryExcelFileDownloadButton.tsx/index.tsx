@@ -2,6 +2,7 @@
 
 import { useMilestoneHistoryExcelFileQuery } from '@/lib/hooks/useAdminApi';
 import { useMemo } from 'react';
+import { toast } from 'react-toastify';
 
 interface MilestoneHistoryExcelFileDownloadButtonProps {
   field: number | null;
@@ -17,14 +18,25 @@ const MilestoneHistoryExcelFileDownloadButton = ({ field, keyword }: MilestoneHi
     return '';
   }, [excelFile]);
 
+  const handleExcelDownloadButtonClick = () => {
+    if (!excelFileUrl) {
+      toast.error('파일을 불러오는 데 실패하였습니다.');
+      return;
+    }
+    const a = document.createElement('a');
+    a.href = excelFileUrl;
+    a.download = '마일스톤_실적_내역_목록.xlsx';
+    a.click();
+  };
+
   return (
-    <a
+    <button
+      type="button"
       className="rounded-sm bg-admin-primary-main px-4 py-2 text-white hover:bg-admin-primary-dark"
-      href={excelFileUrl}
-      download={'마일스톤_실적_내역_목록.xlsx'}
+      onClick={handleExcelDownloadButtonClick}
     >
       Excel로 다운로드
-    </a>
+    </button>
   );
 };
 
