@@ -57,20 +57,50 @@ const Page = () => {
 
   const { mutate: registerHistories } = useRegisterHistoryInBatchMutation();
 
+  const handleStandardFileDownloadButtonClick = () => {
+    if (!standardFileUrl) {
+      toast.error('파일을 불러오는 데 실패하였습니다.');
+      return;
+    }
+    const a = document.createElement('a');
+    a.href = standardFileUrl;
+    a.download = '마일스톤_실적_내역_목록.xlsx';
+    a.click();
+  };
+
+  const handleSampleFileDownloadButtonClick = () => {
+    if (!sampleFileUrl) {
+      toast.error('파일을 불러오는 데 실패하였습니다.');
+      return;
+    }
+    const a = document.createElement('a');
+    a.href = sampleFileUrl;
+    a.download = '마일스톤_실적_내역_목록.xlsx';
+    a.click();
+  };
+
   return (
     <>
       <div className="flex items-center rounded-sm border-[1px] border-admin-border bg-admin-background-light px-5 py-3 text-sm">
         <p className="flex flex-1 justify-center gap-1">
           점수 산정 기준 표 - <Image src="/images/admin/pdf_icon.svg" alt="pdf" width="16" height="16" />
-          <a className="pl-[0.5px] text-red-500 underline underline-offset-4" href={standardFileUrl} download>
+          <button
+            type="button"
+            onClick={handleStandardFileDownloadButtonClick}
+            className="pl-[0.5px] text-red-500 underline underline-offset-4"
+          >
             점수산정파일.pdf
-          </a>
+          </button>
         </p>
         <p className="flex flex-1 justify-center gap-1">
           일괄등록 파일 예시 - <Image src="/images/admin/xlsx_icon.svg" alt="xlsx" width="16" height="16" />
-          <a className="pl-[0.5px] text-green-500 underline underline-offset-4" href={sampleFileUrl} download>
+          <button
+            type="button"
+            onClick={handleSampleFileDownloadButtonClick}
+            className="pl-[0.5px] text-green-500 underline underline-offset-4"
+          >
             sample.xlsx
-          </a>
+          </button>
         </p>
       </div>
       <Formik
