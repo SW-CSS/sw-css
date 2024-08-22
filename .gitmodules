@@ -1,3 +1,4 @@
-[submodule "backend/src/main/resources/config"]
-	path = backend/src/main/resources/config
-	url = https://github.com/SW-CSS/config.git
+[submodule "config"]
+  path = backend/src/main/resources/config
+  url = https://github.com/SW-CSS/config.git
+  branch = main
