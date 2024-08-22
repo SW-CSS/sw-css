@@ -37,7 +37,7 @@ const MilestoneOverview = ({ searchFilterPeriod }: MilestoneOverviewProps) => {
     [milestoneScoresOfStudent],
   );
   return (
-    <div className="flex flex-wrap justify-center gap-4">
+    <div className="flex flex-wrap justify-center gap-4 md:flex-nowrap">
       <MilestoneWrapper>
         <MilestoneChart chartSize={180} fontSize="lg" milestoneOverviewScore={milestoneOverviewScore} />
         <MilestoneTable milestoneOverviewScore={milestoneOverviewScore} />
