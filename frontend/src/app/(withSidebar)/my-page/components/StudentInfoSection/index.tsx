@@ -5,7 +5,7 @@
 import SubTitle from '@/components/SubTitle';
 import { useAppSelector } from '@/lib/hooks/redux';
 import { useStudentMemberQuery } from '@/lib/hooks/useApi';
-import { appendDashPhoneNumber, convertCareer } from '@/lib/utils/utils';
+import { appendDashPhoneNumber, convertCareerToStr } from '@/lib/utils/utils';
 import { VscWarning } from '@react-icons/all-files/vsc/VscWarning';
 
 import StudentInfoLabel from './StudentInfoLabel';
@@ -35,7 +35,7 @@ const StudentInfoSection = () => {
               value={
                 <>
                   <span className="mr-4 rounded border px-2 py-1 font-medium text-primary-main">
-                    {convertCareer(member.career)}
+                    {convertCareerToStr(member.career)}
                   </span>
                   <span>{member.careerDetail}</span>
                 </>
@@ -44,7 +44,7 @@ const StudentInfoSection = () => {
           </div>
         </div>
       ) : (
-        <div className="text-admin-semantic-error-light absolute inset-0 flex flex-col items-center justify-center gap-2 text-center">
+        <div className="absolute inset-0 flex flex-col items-center justify-center gap-2 text-center text-admin-semantic-error-light">
           <VscWarning className="h-8 w-8" />
           <p>
             학생 정보를 불러오는 데<br />
