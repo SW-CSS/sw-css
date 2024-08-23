@@ -29,7 +29,6 @@ public class AuthSignUpService {
     public long signUp(SignUpRequest request) {
         checkIsDuplicateEmail(request.email());
         checkIsDuplicateStudentId(request.student_id());
-        checkIsDuplicatePhoneNumber(request.phone_number());
 
         String actualAuthCode = loadActualAuthCode(request.email());
         checkAuthCodeMatch(request.auth_code(), actualAuthCode);
