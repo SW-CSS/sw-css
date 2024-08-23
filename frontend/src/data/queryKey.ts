@@ -36,4 +36,5 @@ export const QueryKeys = {
   ) => ['milestone-scores', startDate, endDate, page, size],
   MILESTONE_HISTORY_SCORE_EXCEL: (startDate: string, endDate: string) => ['milestone-score-excel', startDate, endDate],
   FILE: (fileName: string | null) => ['file', fileName],
+  DUPLICATE_STUDENT_ID: ['duplicate_student_id'],
 };

@@ -7,6 +7,9 @@ import { SignUpPhase } from '@/data/signUp';
 
 import SignUpFirstPage, { FirstInfo } from './components/SignUpFirstPage';
 import SignUpSecondPage, { SecondInfo } from './components/SignUpSecondPage';
+import { useSignUpMutation } from '@/lib/hooks/useApi';
+import { toast } from 'react-toastify';
+import { useRouter } from 'next/navigation';
 
 type UserInformation = FirstInfo & SecondInfo;
 
@@ -29,6 +32,8 @@ const Page = () => {
     careerDetail: '',
   });
   const [phase, setPhase] = useState<SignUpPhase>(SignUpPhase.one);
+  const { mutate: signUpMutation } = useSignUpMutation();
+  const router = useRouter();
 
   const handleNextButtonClick = (value: FirstInfo) => {
     setUserInfo((prev) => ({ ...prev, ...value }));
@@ -43,14 +48,17 @@ const Page = () => {
   const handleSubmitButtonClick = (value: SecondInfo) => {
     setUserInfo((prev) => ({ ...prev, ...value }));
 
-    const tempUserInfo = { ...userInfo, ...value };
-    console.log(tempUserInfo);
-    // TODO: 회원가입 api 연결
-  };
+    const UserInfo = { ...userInfo, ...value };
 
-  useEffect(() => {
-    console.log(userInfo);
-  }, [userInfo]);
+    signUpMutation(UserInfo, {
+      onSuccess(data, variables, context) {
+        router.push('/sign-in');
+      },
+      onError(error, variables, context) {
+        toast.error(error.message);
+      },
+    });
+  };
 
   return (
     <div className="mx-auto w-sign max-w-full pb-10 pt-14 lg:pt-20">

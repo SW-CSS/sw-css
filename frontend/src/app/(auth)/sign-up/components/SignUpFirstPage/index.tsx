@@ -8,6 +8,11 @@ import * as Yup from 'yup';
 import { TextInput } from '@/app/components/Formik/TextInput';
 
 import EmailTextInput from './components/EmailTextInput';
+import { useState } from 'react';
+import { useSendAuthCodeMutation } from '@/lib/hooks/useApi';
+import { toast } from 'react-toastify';
+import { getValidationStudentId } from '@/lib/api/server.api';
+import { AxiosError } from 'axios';
 
 export interface FirstInfo {
   email: string;
@@ -18,6 +23,16 @@ export interface FirstInfo {
   studentId: string;
   phoneNumber: string;
 }
+
+const validateStudentId = async (studentId: string) => {
+  if (!studentId.match(/^[\d]{9}$/)) return false;
+  try {
+    const isDuplicated = await getValidationStudentId(studentId);
+    return isDuplicated;
+  } catch (err) {
+    return false;
+  }
+};
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -39,7 +54,10 @@ const validationSchema = Yup.object().shape({
   name: Yup.string().required('필수 입력란입니다. 이름을 입력해주세요.'),
   studentId: Yup.string()
     .required('필수 입력란입니다. 학번을 입력해주세요.')
-    .matches(/^[\d]{9}$/, '9자리의 학번을 입력해주세요.'),
+    .matches(/^[\d]{9}$/, '9자리의 학번을 입력해주세요.')
+    .test('student_id', '중복된 학번이라서 사용할 수 없습니다.', (value) => {
+      return validateStudentId(value);
+    }),
   phoneNumber: Yup.string()
     .required('필수 입력란입니다. 전화번호를 입력해주세요.')
     .matches(/^([0-9]{10,11})$/, '띄어쓰기나 특수기호 없이 숫자로만 입력해주세요.'),
