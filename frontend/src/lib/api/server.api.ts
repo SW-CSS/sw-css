@@ -56,3 +56,23 @@ export async function getFile(fileName: string | null) {
   });
   return response.data;
 }
+
+export interface DuplicateDto {
+  is_duplicate: number;
+}
+
+export async function getValidationStudentId(studentId: string) {
+  const response = await server
+    .get(`/sign-up/exists/student-id`, {
+      params: removeEmptyField({
+        student_id: studentId,
+      }),
+    })
+    .then((res) => res.data)
+    .catch((err) => {
+      console.log('message: ', err.message);
+      return Promise.reject(err);
+    });
+
+  return response;
+}
