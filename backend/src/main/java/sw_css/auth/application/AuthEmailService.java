@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import sw_css.auth.application.dto.response.SendAuthCodeResponse;
 import sw_css.auth.domain.EmailAuthRedis;
 import sw_css.auth.domain.repository.EmailAuthRedisRepository;
+import sw_css.auth.exception.AuthException;
+import sw_css.auth.exception.AuthExceptionType;
 import sw_css.utils.MailUtil;
 
 @Service
@@ -20,8 +22,11 @@ public class AuthEmailService {
 
     private final MailUtil mailUtil;
     private final EmailAuthRedisRepository emailAuthRedisRepository;
+    private final AuthCheckDuplicateService authCheckDuplicateService;
 
     public SendAuthCodeResponse emailAuth(String email) {
+        checkIsDuplicateEmail(email);
+
         String authCode = generateRandomAuthCode();
         emailAuthRedisRepository.save(EmailAuthRedis.of(email, authCode));
         sendAuthCode(email, authCode);
@@ -51,5 +56,11 @@ public class AuthEmailService {
         String subject = "[부산대학교] SW역량강화플랫폼 인증코드 발송 메일입니다.";
         String text = "SW역량강화플랫폼 인증코드는 " + authCode + " 입니다.";
         mailUtil.sendMail(toUserList, subject, text);
+    }
+
+    private void checkIsDuplicateEmail(String email) {
+        if (authCheckDuplicateService.isDuplicateEmail(email)) {
+            throw new AuthException(AuthExceptionType.MEMBER_EMAIL_DUPLICATE);
+        }
     }
 }
