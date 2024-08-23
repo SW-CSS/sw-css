@@ -13,6 +13,7 @@ type UserInformation = FirstInfo & SecondInfo;
 const Page = () => {
   const [userInfo, setUserInfo] = useState<UserInformation>({
     email: '',
+    authCode: '',
     password: '',
     passwordConfirmation: '',
     name: '',

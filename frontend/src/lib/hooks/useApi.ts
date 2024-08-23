@@ -165,3 +165,12 @@ export function useMilestoneHistoryDeleteMutation() {
     },
   });
 }
+export function useSendAuthCodeMutation() {
+  return useAxiosMutation({
+    mutationFn: async (email: string) =>
+      await client
+        .post(`/sign-up/send-auth-code`, { email })
+        .then((res) => res.data)
+        .catch((err) => Promise.reject(err)),
+  });
+}
