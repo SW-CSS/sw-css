@@ -46,6 +46,7 @@ const InputUserInfo = () => {
             isModerator: data.is_moderator,
           }),
         );
+        router.push('/');
       },
       onError(error, variables, context) {
         toast.error(error.message);
