@@ -13,7 +13,7 @@ import StudentInfoLabel from './StudentInfoLabel';
 const StudentInfoSection = () => {
   // TODO - 관리자가 로그인한 경우에 대한 처린
   const auth = useAppSelector((state) => state.auth).value;
-  const { data: member } = useStudentMemberQuery(auth.uid);
+  const { data: member } = useStudentMemberQuery(auth.id);
   return (
     <div className="relative flex-grow rounded-sm bg-white p-5">
       <SubTitle title="내 정보" urlText="수정" url="/my-page/edit" />

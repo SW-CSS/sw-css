@@ -15,7 +15,7 @@ const MilestoneHistorySection = async () => {
   const auth = getAuthFromCookie();
 
   const milestoneHistoriesOfStudent = await getMilestoneHistoriesOfStudent(
-    auth.uid,
+    auth.id,
     undefined,
     undefined,
     undefined,

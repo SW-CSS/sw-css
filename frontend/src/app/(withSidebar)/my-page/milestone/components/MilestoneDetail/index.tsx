@@ -14,7 +14,7 @@ import MilestoneRowBarTable from '../../../components/MilestoneRowBarTable';
 const MilestoneDetail = ({ startDate, endDate }: Period) => {
   const auth = useAppSelector((state) => state.auth).value;
   const [selectedGroup, setSelectedGroup] = useState<string>(MilestoneGroup.ACTIVITY);
-  const { data: milestoneScores } = useMilestoneScoresOfStudentQuery(auth.uid, startDate, endDate);
+  const { data: milestoneScores } = useMilestoneScoresOfStudentQuery(auth.id, startDate, endDate);
 
   return (
     <div style={{ display: 'flex', flexGrow: '1', flexDirection: 'column' }}>

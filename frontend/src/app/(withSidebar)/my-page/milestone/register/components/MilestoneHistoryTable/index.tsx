@@ -20,7 +20,7 @@ const MilestoneHistoryTable = async ({ pageNumber }: MilestoneHistoryTableProp) 
 
   const auth = getAuthFromCookie();
   const milestoneHistories = await getMilestoneHistoriesOfStudent(
-    auth.uid,
+    auth.id,
     undefined,
     undefined,
     undefined,
