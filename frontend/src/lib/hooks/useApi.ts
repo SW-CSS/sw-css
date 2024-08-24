@@ -201,3 +201,13 @@ export function useSendAuthCodeMutation() {
         .catch((err) => Promise.reject(err)),
   });
 }
+
+export function useSignInMutation() {
+  return useAxiosMutation({
+    mutationFn: async ({ email, password }: { email: string; password: string }) =>
+      await client
+        .post(`/sign-in`, { email: email + '@pusan.ac.kr', password })
+        .then((res) => res.data)
+        .catch((err) => Promise.reject(err)),
+  });
+}

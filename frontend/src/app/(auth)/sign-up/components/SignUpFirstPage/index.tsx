@@ -90,7 +90,7 @@ const SignUpSecondPage = ({ initialValues, handleNextButtonClick }: SignUpFirstP
       initialValues={initialValues}
       validationSchema={validationSchema}
       onSubmit={(values, { setSubmitting }) => {
-        // handleNextButtonClick(values);
+        handleNextButtonClick(values);
         setSubmitting(false);
       }}
       className="w-full"
