@@ -33,7 +33,8 @@ const InputUserInfo = () => {
     });
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     signInMutation(userInfo, {
       onSuccess(data, variables, context) {
         dispatch(
