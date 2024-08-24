@@ -12,7 +12,6 @@ import { useState } from 'react';
 import { useSendAuthCodeMutation } from '@/lib/hooks/useApi';
 import { toast } from 'react-toastify';
 import { getValidationStudentId } from '@/lib/api/server.api';
-import { AxiosError } from 'axios';
 
 export interface FirstInfo {
   email: string;
