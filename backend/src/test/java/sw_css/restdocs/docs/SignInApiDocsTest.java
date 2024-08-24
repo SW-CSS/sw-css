@@ -40,6 +40,7 @@ public class SignInApiDocsTest extends RestDocsTest {
                 fieldWithPath("email").type(JsonFieldType.STRING).description("부산대학교 이메일"),
                 fieldWithPath("name").type(JsonFieldType.STRING).description("실명"),
                 fieldWithPath("role").type(JsonFieldType.STRING).description("회원의 역할 (ADMIN, MEMBER)"),
+                fieldWithPath("is_moderator").type(JsonFieldType.BOOLEAN).description("관리자 인지 판별"),
                 fieldWithPath("token").type(JsonFieldType.STRING).description("회원의 토큰")
         );
 
