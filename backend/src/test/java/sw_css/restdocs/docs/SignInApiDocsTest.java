@@ -51,7 +51,7 @@ public class SignInApiDocsTest extends RestDocsTest {
         final String token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwicm9sZSI6IlJPTEVfTUVNQkVSIiwiaWF0IjoxNzI0MjIxMDI0LCJleHAiOjE3MjQyNTcwMjR9.i1zj-_jRjkdO89_5ixKVgZXWr1V8e0PMr-958YGQAQQ";
 
         final SignInRequest request = new SignInRequest(email, password);
-        final SignInResponse response = new SignInResponse(member_id, email, name, role, token);
+        final SignInResponse response = new SignInResponse(member_id, email, name, role, false, token);
 
         // when
         when(authSignInService.signIn(email, password)).thenReturn(response);
