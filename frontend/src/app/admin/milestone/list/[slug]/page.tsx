@@ -16,7 +16,12 @@ interface MilestoneHistoryDetailPageProps {
 }
 
 const Page = async ({ params: { slug } }: MilestoneHistoryDetailPageProps) => {
-  const history = await getMilestoneHistory(slug);
+  let history;
+  try {
+    history = await getMilestoneHistory(slug);
+  } catch (e) {
+    // TODO: server api error handling...
+  }
 
   if (!history) notFound();
 
