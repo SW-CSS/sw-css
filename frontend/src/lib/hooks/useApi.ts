@@ -1,8 +1,11 @@
 /* eslint-disable implicit-arrow-linebreak */
+import { FirstInfo } from '@/app/(auth)/sign-up/components/SignUpFirstPage';
+import { SecondInfo } from '@/app/(auth)/sign-up/components/SignUpSecondPage';
 import { MilestoneHistoryStatus } from '@/data/milestone';
 import { QueryKeys } from '@/data/queryKey';
 import { client } from '@/lib/api/client.axios';
 import { useAxiosMutation, useAxiosQuery } from '@/lib/hooks/useAxios';
+import { mockHackathonTeamPageableData } from '@/mocks/hackathon';
 import {
   CollegeDto,
   HackathonTeamCreateDto,
@@ -15,12 +18,8 @@ import {
 } from '@/types/common.dto';
 import { BusinessError } from '@/types/error';
 import { MilestoneHistorySortCriteria, SortDirection } from '@/types/milestone';
-import { mockHackathonTeamPageableData } from '@/mocks/hackathon';
 import { github } from '../api/github.axios';
-import { removeEmptyField } from '../utils/utils';
 import { convertNumToCareer, removeEmptyField } from '../utils/utils';
-import { FirstInfo } from '@/app/(auth)/sign-up/components/SignUpFirstPage';
-import { SecondInfo } from '@/app/(auth)/sign-up/components/SignUpSecondPage';
 
 export const useCollegeQuery = () =>
   useAxiosQuery({
