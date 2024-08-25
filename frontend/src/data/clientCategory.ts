@@ -21,8 +21,7 @@ export const headerInfos: CategoryDto[] = [
     description: '부산대학교에서는 매년 창의 융합 소프트웨어 해커톤을 진행하고 있습니다.',
     inHeader: true,
     sub: [
-      { title: '진행중인 해커톤', url: '/hackathon', key: 'onGoingHackathon' },
-      { title: '창의융합SW해커톤', url: '/hackathon/sw-hackathon', key: 'SWHackathon' },
+      { title: '창의융합SW해커톤', url: '/hackathon', key: 'SWHackathon' },
       { title: 'SW문제 해결 경진대회', url: '/hackathon/sw-contest', key: 'problemContest' },
     ],
   },

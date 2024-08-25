@@ -10,10 +10,6 @@ interface ResponsiveImageProps {
   backgroundImage?: string;
 }
 
-export const ContentWrapper = styled.div`
-  background-color: ${COLOR.border};
-`;
-
 export const Content = styled.div`
   width: 100%;
   background-color: white;
