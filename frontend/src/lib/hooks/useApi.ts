@@ -113,12 +113,22 @@ export function useMilestoneQuery() {
   });
 }
 
-export function useStudentMemberQuery(memberId: number) {
+export function useStudentMemberQuery(memberId: number, options?: { enabled?: boolean }) {
   return useAxiosQuery({
+    ...options,
     queryKey: QueryKeys.STUDENT(memberId),
     queryFn: async (): Promise<StudentMemberDto> => {
       const response = await client.get(`/members/${memberId}`);
       return response.data;
+    },
+  });
+}
+
+export function useStudentMemberMutation() {
+  return useAxiosMutation({
+    mutationFn: async (memberId: number): Promise<StudentMemberDto | null> => {
+      const response = await client.get<StudentMemberDto>(`/members/${memberId}`);
+      return response?.data;
     },
   });
 }

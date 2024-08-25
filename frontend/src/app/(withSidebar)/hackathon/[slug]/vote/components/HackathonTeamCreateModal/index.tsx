@@ -1,8 +1,7 @@
-import Dropdown from '@/components/Formik/Dropdown';
 import ImageUploader from '@/components/Formik/ImageUploader';
 import TextInput from '@/components/Formik/TextInput';
 import Title from '@/components/Title';
-import { TeamMemberRole, memberRoleOptions, teamMemberRoleInfo } from '@/data/hackathon';
+import { TeamMemberRole } from '@/data/hackathon';
 import { useRegisterTeamMutation } from '@/lib/hooks/useApi';
 import useBodyScrollLock from '@/lib/hooks/useBodyScrollLock';
 import useOnClickOutside from '@/lib/hooks/useOnClickOutside';
@@ -20,6 +19,7 @@ import { useEffect, useRef } from 'react';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 import TeamCreateInputSection from '../TeamCreateInputSection';
+import TeamMemberInput from '../TeamMemberInput';
 
 const validationSchema = Yup.object().shape({
   image: Yup.mixed()
@@ -69,7 +69,7 @@ const initialValues: HackathonTeamFormProps = {
   name: '',
   work: '',
   githubUrl: '',
-  leader: { id: '', role: TeamMemberRole.DEVELOPER, isLeader: true },
+  leader: { id: null, role: TeamMemberRole.DEVELOPER, isLeader: true },
   members: [],
   password: '',
 };
@@ -209,10 +209,9 @@ const HackathonTeamCreateModal = ({ hackathonId, open, onClose }: HackathonTeamC
                     <div className="flex items-center">
                       <p className="h-full w-[2em] shrink-0 pt-[10px]">팀장</p>
                       <div className="grid flex-grow grid-cols-[3fr_2fr_3fr_2fr] gap-2">
-                        <TextInput
-                          style={{ width: '100%' }}
-                          name="leader.id"
-                          value={values.leader.id}
+                        <TeamMemberInput
+                          fieldName="leader"
+                          student={values.leader}
                           onChange={handleChange}
                           onBlur={handleBlur}
                           errorText={
@@ -221,15 +220,6 @@ const HackathonTeamCreateModal = ({ hackathonId, open, onClose }: HackathonTeamC
                               ? errors.members
                               : undefined)
                           }
-                          placeholder="학번을 입력해주세요."
-                        />
-                        <TextInput style={{ width: '100%' }} name="leader-name" disabled />
-                        <TextInput style={{ width: '100%' }} name="leader-major" disabled />
-                        <Dropdown
-                          name="leader.role"
-                          options={memberRoleOptions}
-                          selectOptionText={teamMemberRoleInfo[values.leader.role].text}
-                          selectedId={values.leader.role}
                           setFieldValue={setFieldValue}
                         />
                       </div>
@@ -237,12 +227,11 @@ const HackathonTeamCreateModal = ({ hackathonId, open, onClose }: HackathonTeamC
                     <div className="flex items-center">
                       <p className="h-full w-[2em] shrink-0 pt-[10px]">팀원</p>
                       <div className="flex w-full flex-col gap-2">
-                        {values.members.map((member, index) => (
+                        {values.members.map((_, index) => (
                           <div key={index} className="grid flex-grow grid-cols-[3fr_2fr_3fr_2fr_1fr] gap-2">
-                            <TextInput
-                              style={{ width: '100%' }}
-                              name={`members[${index}].id`}
-                              value={values.members[index].id}
+                            <TeamMemberInput
+                              fieldName={`members[${index}]`}
+                              student={values.members[index]}
                               onChange={handleChange}
                               onBlur={handleBlur}
                               errorText={
@@ -255,15 +244,6 @@ const HackathonTeamCreateModal = ({ hackathonId, open, onClose }: HackathonTeamC
                                   ? errors.members
                                   : undefined)
                               }
-                              placeholder="학번을 입력해주세요."
-                            />
-                            <TextInput style={{ width: '100%' }} name="member-name" disabled />
-                            <TextInput style={{ width: '100%' }} name="member-major" disabled />
-                            <Dropdown
-                              name={`members[${index}].role`}
-                              options={memberRoleOptions}
-                              selectOptionText={teamMemberRoleInfo[values.members[index].role].text}
-                              selectedId={values.members[index].role}
                               setFieldValue={setFieldValue}
                             />
                             <button

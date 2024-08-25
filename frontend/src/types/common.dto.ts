@@ -200,7 +200,7 @@ export interface HackathonTeamDto {
 }
 
 export interface TeamMember {
-  id: string;
+  id: number|null;
   role: TeamMemberRole;
   isLeader: boolean;
 }
