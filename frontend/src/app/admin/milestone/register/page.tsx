@@ -7,13 +7,11 @@
 import { Form, Formik } from 'formik';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
-import { useMemo } from 'react';
-import * as Yup from 'yup';
 import { toast } from 'react-toastify';
+import * as Yup from 'yup';
 
 import { FileUploader } from '@/app/components/Formik/FileUploader';
 import { useRegisterHistoryInBatchMutation } from '@/lib/hooks/useAdminApi';
-import { useFileQuery } from '@/lib/hooks/useApi';
 
 const validationSchema = Yup.object().shape({
   file: Yup.mixed()
@@ -39,68 +37,30 @@ const initialValues: HistoryRegisterFormProps = {
 
 const Page = () => {
   const router = useRouter();
-  const { data: standardFile } = useFileQuery('history_standard.pdf');
-  const standardFileUrl = useMemo(() => {
-    if (standardFile) {
-      return URL.createObjectURL(standardFile);
-    }
-    return '';
-  }, [standardFile]);
-
-  const { data: sampleFile } = useFileQuery('history_register_sample.xlsx');
-  const sampleFileUrl = useMemo(() => {
-    if (sampleFile) {
-      return URL.createObjectURL(sampleFile);
-    }
-    return '';
-  }, [sampleFile]);
-
   const { mutate: registerHistories } = useRegisterHistoryInBatchMutation();
-
-  const handleStandardFileDownloadButtonClick = () => {
-    if (!standardFileUrl) {
-      toast.error('파일을 불러오는 데 실패하였습니다.');
-      return;
-    }
-    const a = document.createElement('a');
-    a.href = standardFileUrl;
-    a.download = '마일스톤_실적_내역_목록.xlsx';
-    a.click();
-  };
-
-  const handleSampleFileDownloadButtonClick = () => {
-    if (!sampleFileUrl) {
-      toast.error('파일을 불러오는 데 실패하였습니다.');
-      return;
-    }
-    const a = document.createElement('a');
-    a.href = sampleFileUrl;
-    a.download = '마일스톤_실적_내역_목록.xlsx';
-    a.click();
-  };
 
   return (
     <>
       <div className="flex items-center rounded-sm border-[1px] border-admin-border bg-admin-background-light px-5 py-3 text-sm">
         <p className="flex flex-1 justify-center gap-1">
           점수 산정 기준 표 - <Image src="/images/admin/pdf_icon.svg" alt="pdf" width="16" height="16" />
-          <button
-            type="button"
-            onClick={handleStandardFileDownloadButtonClick}
+          <a
             className="pl-[0.5px] text-red-500 underline underline-offset-4"
+            href={process.env.NEXT_PUBLIC_FILE_URL + '/history_standard.pdf'}
+            download
           >
             점수산정파일.pdf
-          </button>
+          </a>
         </p>
         <p className="flex flex-1 justify-center gap-1">
           일괄등록 파일 예시 - <Image src="/images/admin/xlsx_icon.svg" alt="xlsx" width="16" height="16" />
-          <button
-            type="button"
-            onClick={handleSampleFileDownloadButtonClick}
+          <a
             className="pl-[0.5px] text-green-500 underline underline-offset-4"
+            href={process.env.NEXT_PUBLIC_FILE_URL + '/history_register_sample.xlsx'}
+            download
           >
             sample.xlsx
-          </button>
+          </a>
         </p>
       </div>
       <Formik
