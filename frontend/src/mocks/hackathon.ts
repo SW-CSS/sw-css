@@ -19,6 +19,7 @@ export const mockHackathonTeamPageableData: HackathonTeamPageableDto = {
     {
       id: 1,
       name: '팀 알파',
+      work: 'ㅁㅁㅁ서비스',
       githubUrl: 'https://github.com/pnu-code-place/code-place',
       teamMembers: {
         DEVELOPER: [
@@ -42,6 +43,7 @@ export const mockHackathonTeamPageableData: HackathonTeamPageableDto = {
     {
       id: 2,
       name: '팀 베타',
+      work: 'ㅁㅁㅁ서비스',
       githubUrl: 'https://github.com/amaran-th/jwp-refactoring',
       teamMembers: {
         DEVELOPER: [
@@ -65,6 +67,7 @@ export const mockHackathonTeamPageableData: HackathonTeamPageableDto = {
     {
       id: 3,
       name: '팀 감마',
+      work: 'ㅁㅁㅁ서비스',
       githubUrl: 'https://github.com/ueberdosis/tiptap',
       teamMembers: {
         DEVELOPER: [
@@ -102,6 +105,7 @@ export const mockHackathonTeamPageableData: HackathonTeamPageableDto = {
     {
       id: 4,
       name: '팀 베타',
+      work: 'ㅁㅁㅁ서비스',
       githubUrl: 'https://github.com/woowacourse-teams/2023-emmsale',
       teamMembers: {
         DEVELOPER: [
@@ -125,6 +129,7 @@ export const mockHackathonTeamPageableData: HackathonTeamPageableDto = {
     {
       id: 5,
       name: '팀 감마',
+      work: 'ㅁㅁㅁ서비스',
       githubUrl: 'https://github.com/gatsbyjs/gatsby-starter-blog',
       teamMembers: {
         DEVELOPER: [
@@ -162,6 +167,7 @@ export const mockHackathonTeamPageableData: HackathonTeamPageableDto = {
     {
       id: 6,
       name: '팀 베타',
+      work: 'ㅁㅁㅁ서비스',
       githubUrl: 'https://github.com/blueimp/JavaScript-Templates/blob/master/README.md',
       teamMembers: {
         DEVELOPER: [
@@ -185,6 +191,7 @@ export const mockHackathonTeamPageableData: HackathonTeamPageableDto = {
     {
       id: 7,
       name: '팀 감마',
+      work: 'ㅁㅁㅁ서비스',
       githubUrl: 'https://github.com/team-gamma',
       teamMembers: {
         DEVELOPER: [
