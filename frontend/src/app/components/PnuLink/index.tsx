@@ -53,9 +53,9 @@ const PnuLink = () => {
         loop
       >
         {pnuLinkInfos.map((link) => (
-          <SwiperSlide>
+          <SwiperSlide key={link.url}>
             <PnuLinker href={link.url} target="_blank">
-              <Image width="160" height="50" src={link.img} alt={link.title} />
+              <Image width="160" height="50" src={link.img} alt={link.title} style={{ width: 'auto', height: 50 }} />
             </PnuLinker>
           </SwiperSlide>
         ))}

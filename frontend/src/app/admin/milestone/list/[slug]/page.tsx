@@ -7,6 +7,7 @@ import { convertMilestoneHistoryStatus } from '@/lib/utils/utils';
 
 import FilePreview from './components/FilePreview';
 import MilestoneHistoryStatusChangeButton from './components/MilestoneHistoryStatusChangeButton';
+import { notFound } from 'next/navigation';
 
 interface MilestoneHistoryDetailPageProps {
   params: {
@@ -15,7 +16,15 @@ interface MilestoneHistoryDetailPageProps {
 }
 
 const Page = async ({ params: { slug } }: MilestoneHistoryDetailPageProps) => {
-  const history = await getMilestoneHistory(slug);
+  let history;
+  try {
+    history = await getMilestoneHistory(slug);
+  } catch (e) {
+    // TODO: server api error handling...
+  }
+
+  if (!history) notFound();
+
   return (
     <div className="flex flex-col gap-8">
       <div className="flex w-full gap-4">

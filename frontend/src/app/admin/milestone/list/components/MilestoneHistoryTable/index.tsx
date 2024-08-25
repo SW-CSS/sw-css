@@ -47,7 +47,7 @@ const MilestoneHistoryTable = ({ histories }: MilestoneHistoryTableProps) => {
         </tr>
       </thead>
       <tbody>
-        {histories.map((history) => (
+        {histories?.map((history) => (
           <tr
             key={history.id}
             className="cursor-pointer border-b-[1px] border-admin-border hover:bg-admin-background-light [&_td]:h-[50px] [&_td]:break-keep"
