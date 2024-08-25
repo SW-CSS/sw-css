@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 interface ComponentSize {
   width: number;
@@ -29,7 +29,7 @@ function useDivSize(): [React.RefObject<HTMLDivElement>, ComponentSize] {
     window.addEventListener('resize', handleResize);
 
     return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  }, [componentRef.current?.getBoundingClientRect().top, componentRef.current?.getBoundingClientRect().left]);
 
   return [componentRef, size];
 }
