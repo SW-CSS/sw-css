@@ -18,7 +18,7 @@ const CustomLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => 
         <AdminHeader />
         <AdminSidebar />
         <AdminPageWrapper>
-          <section className="m-5 min-h-[80vh] min-w-admin rounded-sm bg-white p-5">{children}</section>
+          <section className="relative m-5 min-h-[80vh] min-w-admin rounded-sm bg-white p-5">{children}</section>
           <AdminFooter />
         </AdminPageWrapper>
       </>

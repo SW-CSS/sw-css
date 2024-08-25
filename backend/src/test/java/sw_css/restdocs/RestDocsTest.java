@@ -17,6 +17,10 @@ import org.springframework.web.filter.CharacterEncodingFilter;
 import sw_css.admin.member.application.MemberAdminQueryService;
 import sw_css.admin.milestone.application.MilestoneHistoryAdminCommandService;
 import sw_css.admin.milestone.application.MilestoneHistoryAdminQueryService;
+import sw_css.auth.application.AuthCheckDuplicateService;
+import sw_css.auth.application.AuthEmailService;
+import sw_css.auth.application.AuthSignInService;
+import sw_css.auth.application.AuthSignUpService;
 import sw_css.file.application.FileService;
 import sw_css.helper.ApiTestHelper;
 import sw_css.major.application.MajorQueryService;
@@ -24,6 +28,7 @@ import sw_css.member.application.MemberQueryService;
 import sw_css.milestone.application.MilestoneHistoryCommandService;
 import sw_css.milestone.application.MilestoneHistoryQueryService;
 import sw_css.milestone.application.MilestoneQueryService;
+import sw_css.utils.JwtToken.JwtAuthorizationArgumentResolver;
 
 @Import(RestDocsConfiguration.class)
 @ExtendWith(RestDocumentationExtension.class)
@@ -55,6 +60,21 @@ public abstract class RestDocsTest extends ApiTestHelper {
 
     @MockBean
     protected FileService fileService;
+
+    @MockBean
+    protected AuthSignUpService authSignUpService;
+
+    @MockBean
+    protected AuthEmailService authEmailService;
+
+    @MockBean
+    protected AuthCheckDuplicateService authCheckDuplicateService;
+
+    @MockBean
+    protected AuthSignInService authSignInService;
+
+    @MockBean
+    protected JwtAuthorizationArgumentResolver jwtAuthorizationArgumentResolver;
 
     @Autowired
     protected RestDocumentationResultHandler restDocs;

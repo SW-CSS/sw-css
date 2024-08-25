@@ -62,6 +62,7 @@ export const SignButton = styled.button`
   border: none;
   border-radius: ${BORDER_RADIUS.sm};
   padding: 8px;
+  margin-top: 16px;
   background-color: ${COLOR.primary.main};
   color: ${COLOR.white};
   font: ${FONT_STYLE.base.normal};

@@ -27,7 +27,13 @@ const Header = () => {
     <S.HeaderWrapper>
       <S.HeaderDesktopLayout>
         <Link href="/" style={{ width: 'fit-content' }}>
-          <Image src="/images/logo/SW_logo.svg" alt="SW_logo" width="160" height="50" priority={false} />
+          <Image
+            src="/images/logo/SW_logo.svg"
+            alt="SW_logo"
+            width="160"
+            height="50"
+            style={{ width: 160, height: 50 }}
+          />
         </Link>
         <div style={{ display: 'flex', justifyContent: 'center', flexGrow: 1 }}>
           {headerInfos.map(
@@ -62,7 +68,13 @@ const Header = () => {
       />
       <S.HeaderTabletLayout>
         <Link href="/" style={{ width: 'fit-content', height: '50px', padding: '5px 10px' }}>
-          <Image src="/images/logo/SW_logo.svg" alt="SW_logo" width="125" height="40" priority={false} />
+          <Image
+            src="/images/logo/SW_logo.svg"
+            alt="SW_logo"
+            width="125"
+            height="40"
+            style={{ width: 125, height: 40 }}
+          />
         </Link>
         <div style={{ display: 'flex' }}>
           {auth.isAuth ? (

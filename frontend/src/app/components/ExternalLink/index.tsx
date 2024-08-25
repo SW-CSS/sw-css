@@ -9,9 +9,9 @@ const ExternalLink = () => (
     {externalLinkInfos.map((link) => {
       const markup = { __html: link.title };
       return (
-        <ItemWrapper href={link.url}>
+        <ItemWrapper key={link.url} href={link.url}>
           <ImageWrapper>
-            <Image src={link.img} alt={link.title} width="50" height="50" priority={false} />
+            <Image src={link.img} alt={link.title} width="50" height="50" style={{ width: 50, height: 50 }} />
           </ImageWrapper>
           <ImageTitle dangerouslySetInnerHTML={markup} />
         </ItemWrapper>

@@ -3,18 +3,15 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import cookie from 'react-cookies';
 
 export interface AuthState {
+  readonly id: number;
   token: string;
-  username: string;
-  uid: number;
-  isModerator: boolean;
+  name: string;
+  email: string;
+  isModerator: boolean; // 관리자 계정인지.
 }
 
 export interface AuthSliceState extends AuthState {
-  token: string;
   isAuth: boolean; // 로그인되어 있는지.
-  username: string;
-  uid: number;
-  isModerator: boolean; // 관리자 계정인지.
 }
 
 interface InitialState {
@@ -23,10 +20,11 @@ interface InitialState {
 
 const initialState: InitialState = {
   value: {
+    id: -1,
     token: '',
+    name: '',
+    email: '',
     isAuth: false,
-    username: '',
-    uid: -1,
     isModerator: false,
   },
 };

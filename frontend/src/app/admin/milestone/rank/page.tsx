@@ -17,6 +17,7 @@ import { useMilestoneHistoryScoreExcelFileQuery, useMilestoneScoresQuery } from 
 import { useMilestoneQuery } from '@/lib/hooks/useApi';
 import { convertMilestoneGroup } from '@/lib/utils/utils';
 import { Period } from '@/types/common';
+import { toast } from 'react-toastify';
 
 const Page = ({ searchParams }: { searchParams?: { [key: string]: string | undefined } }) => {
   const [filterPeriod, setFilterPeriod] = useState<Period>({
@@ -44,6 +45,17 @@ const Page = ({ searchParams }: { searchParams?: { [key: string]: string | undef
     undefined,
   );
   const { data: milestones } = useMilestoneQuery();
+
+  const handleExcelDownloadButtonClick = () => {
+    if (!excelFileUrl) {
+      toast.error('파일을 불러오는 데 실패하였습니다.');
+      return;
+    }
+    const a = document.createElement('a');
+    a.href = excelFileUrl;
+    a.download = '마일스톤_점수_현황.xlsx';
+    a.click();
+  };
 
   return (
     <div>
@@ -108,13 +120,13 @@ const Page = ({ searchParams }: { searchParams?: { [key: string]: string | undef
         </table>
       </div>
       <div className="flex justify-end">
-        <a
+        <button
+          type="button"
           className="rounded-sm bg-admin-primary-main px-4 py-2 text-white hover:bg-admin-primary-dark"
-          href={excelFileUrl}
-          download={'마일스톤_점수_현황.xlsx'}
+          onClick={handleExcelDownloadButtonClick}
         >
           Excel로 다운로드
-        </a>
+        </button>
       </div>
       <Pagination currentPage={page} totalItems={milestoneScores?.totalElements ?? 0} pathname={pathname} />
     </div>
