@@ -1,6 +1,6 @@
+import MarkdownViewer from '@/components/MarkdownViewer';
 import { getHackathonInformation } from '@/lib/api/server.api';
 import Image from 'next/image';
-import MarkdownViewer from '@/components/MarkdownViewer';
 
 interface HackathonDetailPageProps {
   params: {
@@ -14,7 +14,7 @@ const Page = async ({ params: { slug } }: HackathonDetailPageProps) => {
     <div>
       <div className="relative h-60 w-full">
         <Image
-          src={process.env.NEXT_PUBLIC_FILE_URL + '/' + hackathonInformation.thumbnailImageName}
+          src={process.env.NEXT_PUBLIC_FILE_URL + '/' + hackathonInformation.bannerImageName}
           alt="해커톤 섬네일"
           className="rounded-t-sm"
           layout="fill"
