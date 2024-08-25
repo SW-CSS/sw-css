@@ -10,7 +10,7 @@ const HackathonInformationTypeButtons = ({ slug }: HackathonInformationTypeButto
   const pathname = usePathname();
 
   return (
-    <div className="mb-4 flex flex-wrap border-b border-border">
+    <div className="flex flex-wrap border-b border-border">
       {hackathonInformationTypes.map((type) => (
         <Link
           href={type.path(slug)}

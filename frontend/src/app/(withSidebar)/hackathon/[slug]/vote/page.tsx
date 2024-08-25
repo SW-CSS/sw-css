@@ -5,7 +5,8 @@ import { useHackathonTeamsQuery } from '@/lib/hooks/useApi';
 import { HackathonTeamDto } from '@/types/common.dto';
 import Image from 'next/image';
 import { useState } from 'react';
-import HackathonTeamReadModal from '../components/HackathonTeamReadModal';
+import HackathonTeamCreateModal from './components/HackathonTeamCreateModal';
+import HackathonTeamReadModal from './components/HackathonTeamReadModal';
 
 interface HackathonVotePageProps {
   params: {
@@ -16,12 +17,26 @@ interface HackathonVotePageProps {
 
 const Page = ({ params: { slug }, searchParams }: HackathonVotePageProps) => {
   const [selectedTeam, setSelectedTeam] = useState<HackathonTeamDto | null>(null);
+  const [teamCreateModalOpen, setTeamCreateModalOpen] = useState<boolean>(false);
 
   const page = searchParams?.page ? parseInt(searchParams.page, 10) : 1;
   const { data: teams } = useHackathonTeamsQuery(slug, page, 8);
   return (
     <div className="flex flex-col gap-4">
-      <HackathonTeamReadModal selectedTeam={selectedTeam} setSelectedTeam={setSelectedTeam} />
+      <HackathonTeamReadModal selectedTeam={selectedTeam} onClose={() => setSelectedTeam(null)} />
+      <HackathonTeamCreateModal
+        hackathonId={slug}
+        open={teamCreateModalOpen}
+        onClose={() => setTeamCreateModalOpen(false)}
+      />
+      <div className="flex w-full justify-end">
+        <button
+          onClick={() => setTeamCreateModalOpen(true)}
+          className="rounded bg-primary-main px-4 py-2 text-white transition-colors hover:bg-primary-dark"
+        >
+          팀 등록하기
+        </button>
+      </div>
       <div className="grid w-full grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {teams?.content.map((team) => (
           <button

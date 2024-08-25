@@ -4,15 +4,14 @@ import {
   HackathonInformationDto,
   HackathonPageableDto,
   HackathonPrizeDto,
-  HackathonTeamPageableDto,
   MilestoneHistoryDto,
   MilestoneHistoryOfStudentPageableDto,
   MilestoneHistoryPageableDto,
 } from '@/types/common.dto';
 import { MilestoneHistorySortCriteria, SortDirection } from '@/types/milestone';
 
+import { mockHackathonPrize } from '@/mocks/hackathon';
 import { removeEmptyField } from '../utils/utils';
-import { mockHackathonPrize, mockHackathonTeamPageableData } from '@/mocks/hackathon';
 
 export async function getMilestoneHistoriesOfStudent(
   memberId: number,
@@ -81,7 +80,7 @@ export async function getHackathons(page: number = 0, size: number = 10) {
         applyEndDate: '2022-01-31',
         hackathonStartDate: '2022-01-01',
         hackathonEndDate: '2022-01-31',
-        thumbnailImageName: 'test1.jpeg',
+        bannerImageName: 'test1.jpeg',
       },
       {
         id: 2,
@@ -91,7 +90,7 @@ export async function getHackathons(page: number = 0, size: number = 10) {
         applyEndDate: '2022-01-31',
         hackathonStartDate: '2022-01-01',
         hackathonEndDate: '2022-01-31',
-        thumbnailImageName: 'test2.jpeg',
+        bannerImageName: 'test2.jpeg',
       },
       {
         id: 3,
@@ -101,7 +100,7 @@ export async function getHackathons(page: number = 0, size: number = 10) {
         applyEndDate: '2022-01-31',
         hackathonStartDate: '2022-01-01',
         hackathonEndDate: '2022-01-31',
-        thumbnailImageName: 'test3.png',
+        bannerImageName: 'test3.png',
       },
       {
         id: 4,
@@ -111,7 +110,7 @@ export async function getHackathons(page: number = 0, size: number = 10) {
         applyEndDate: '2022-01-31',
         hackathonStartDate: '2022-01-01',
         hackathonEndDate: '2022-01-31',
-        thumbnailImageName: 'test1.jpeg',
+        bannerImageName: 'test1.jpeg',
       },
       {
         id: 5,
@@ -121,7 +120,7 @@ export async function getHackathons(page: number = 0, size: number = 10) {
         applyEndDate: '2022-01-31',
         hackathonStartDate: '2022-01-01',
         hackathonEndDate: '2022-01-31',
-        thumbnailImageName: 'test2.jpeg',
+        bannerImageName: 'test2.jpeg',
       },
     ],
     empty: false,
@@ -156,11 +155,11 @@ This is a **bold** text with some *italic* and [a link](https://example.com).
 - ㅁ렁ㄹㄴㄹ
 1. ㄹㄴㅇㄹㅁㄹ
 `,
-    thumbnailImageName: 'test1.jpeg',
+    bannerImageName: 'test1.jpeg',
   };
 }
 
-export async function getHackathonPrize(hackathonId:number){
+export async function getHackathonPrize(hackathonId: number) {
   const response = await server.get<HackathonPrizeDto[]>(`/hackathons/${hackathonId}/prizes`);
   //TODO : API 구현
   // return response?.data;

@@ -22,7 +22,7 @@ const TextInput = ({ isRequired = false, size = 'md', ...props }: TextInputProps
   const hasError = errorText !== undefined;
 
   return (
-    <div className="flex flex-col gap-1">
+    <div className="flex flex-grow flex-col gap-1">
       {label && (
         <label htmlFor={inputProps.name} className={`${FORM_SIZE[size].subTextSize} font-semibold`}>
           {label} {isRequired && <span className={`${FORM_SIZE[size].subTextSize} font-semibold text-red-400`}>*</span>}

@@ -1,26 +1,22 @@
 import Title from '@/components/Title';
+import { TeamMemberRole, teamMemberRoleInfo } from '@/data/hackathon';
 import useBodyScrollLock from '@/lib/hooks/useBodyScrollLock';
 import useOnClickOutside from '@/lib/hooks/useOnClickOutside';
 import { HackathonTeamDto } from '@/types/common.dto';
-import { Dispatch, SetStateAction, useCallback, useEffect, useRef } from 'react';
 import { VscHeart } from '@react-icons/all-files/vsc/VscHeart';
-import { TeamMemberRole, teamMemberRoleInfo } from '@/data/hackathon';
-import Image from 'next/image';
 import classNames from 'classnames';
+import Image from 'next/image';
+import { useEffect, useRef } from 'react';
 import ReadmeViewer from '../ReadmeViewer';
 
 interface HackathonTeamReadModalProps {
   selectedTeam: HackathonTeamDto | null;
-  setSelectedTeam: Dispatch<SetStateAction<HackathonTeamDto | null>>;
+  onClose: () => void;
 }
 
-const HackathonTeamReadModal = ({ selectedTeam, setSelectedTeam }: HackathonTeamReadModalProps) => {
+const HackathonTeamReadModal = ({ selectedTeam, onClose }: HackathonTeamReadModalProps) => {
   const ref = useRef<HTMLDivElement>(null);
   const { lockScroll, unlockScroll } = useBodyScrollLock();
-
-  const onClose = useCallback(() => {
-    setSelectedTeam(null);
-  }, [setSelectedTeam]);
 
   useOnClickOutside(ref, onClose);
 
@@ -39,10 +35,13 @@ const HackathonTeamReadModal = ({ selectedTeam, setSelectedTeam }: HackathonTeam
   }
   return (
     <div className="fixed inset-0 z-[51] flex items-center justify-center bg-black bg-opacity-30">
-      <div ref={ref} className="flex h-[600px] sm:h-[700px] w-full max-w-[900px] flex-col items-center gap-2 rounded bg-white p-5">
-        <div className="flex flex-wrap gap-y-2 w-full items-center justify-between">
+      <div
+        ref={ref}
+        className="flex h-[600px] w-full max-w-[900px] flex-col items-center gap-2 rounded bg-white p-5 sm:h-[700px]"
+      >
+        <div className="flex w-full flex-wrap items-center justify-between gap-y-2">
           <Title title={selectedTeam.name} />
-          <div className="flex gap-2 justify-end flex-grow">
+          <div className="flex flex-grow justify-end gap-2">
             <span className="flex items-center gap-1 font-bold text-primary-main">
               <VscHeart />
               {selectedTeam.voteCount}표 득표
@@ -50,10 +49,10 @@ const HackathonTeamReadModal = ({ selectedTeam, setSelectedTeam }: HackathonTeam
             <button className="rounded-lg bg-primary-main px-4 py-1 text-lg font-bold text-white">투표하기</button>
           </div>
         </div>
-        <div className="flex w-full flex-grow flex-col gap-4 sm:items-center overflow-auto py-4">
+        <div className="flex w-full flex-grow flex-col gap-4 overflow-auto py-4 sm:items-center">
           <div className="h-0 w-full border border-border" />
-          <div className="flex w-full gap-4 flex-wrap">
-            <div className="text-lg font-bold min-w-[4em]">팀 구성</div>
+          <div className="flex w-full flex-wrap gap-4">
+            <div className="min-w-[4em] text-lg font-bold">팀 구성</div>
             <div className="flex flex-grow flex-col gap-1 text-xs sm:text-base">
               {Object.values(TeamMemberRole)
                 .filter((role) => selectedTeam.teamMembers[role])
@@ -68,7 +67,7 @@ const HackathonTeamReadModal = ({ selectedTeam, setSelectedTeam }: HackathonTeam
                         <tr key={member.id} className={classNames(member.isLeader && 'font-bold')}>
                           <td className="min-w-[4em]">{member.name}</td>
                           <td className="min-w-[10em]">{member.id}</td>
-                          <td className="min-w-[10em] hidden md:table-cell">{member.majorName}</td>
+                          <td className="hidden min-w-[10em] md:table-cell">{member.majorName}</td>
                           {member.isLeader && <td className="min-w-[4em]">(팀장)</td>}
                         </tr>
                       ))}
@@ -78,7 +77,7 @@ const HackathonTeamReadModal = ({ selectedTeam, setSelectedTeam }: HackathonTeam
             </div>
           </div>
           <div className="h-0 w-full border border-border" />
-          <ReadmeViewer repoUrl={selectedTeam.githubUrl} />          
+          <ReadmeViewer repoUrl={selectedTeam.githubUrl} />
         </div>
         <button onClick={onClose} className="rounded bg-background-base px-4 py-2">
           닫기

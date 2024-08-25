@@ -5,6 +5,7 @@ import { client } from '@/lib/api/client.axios';
 import { useAxiosMutation, useAxiosQuery } from '@/lib/hooks/useAxios';
 import {
   CollegeDto,
+  HackathonTeamCreateDto,
   HackathonTeamPageableDto,
   MilestoneByGroupDto,
   MilestoneHistoryCreateDto,
@@ -209,6 +210,22 @@ export function useMilestoneHistoryDeleteMutation() {
   return useAxiosMutation({
     mutationFn: async (id: number) => {
       await client.delete(`/milestones/histories/${id}`);
+    },
+  });
+}
+
+export function useRegisterTeamMutation() {
+  return useAxiosMutation({
+    mutationFn: async ({ hackathonId, image, name, work, githubUrl, members, password }: HackathonTeamCreateDto) => {
+      const formdata = new FormData();
+      formdata.append('image', image!);
+      const blob = new Blob([JSON.stringify({ name, work, githubUrl, members, password })], {
+        type: 'application/json',
+      });
+      formdata.append('request', blob);
+      await client.post(`/hackathons/${hackathonId}/teams`, formdata, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
     },
   });
 }
