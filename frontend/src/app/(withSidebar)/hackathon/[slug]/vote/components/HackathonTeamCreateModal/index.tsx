@@ -104,7 +104,7 @@ const HackathonTeamCreateModal = ({ hackathonId, open, onClose }: HackathonTeamC
       <div ref={ref} className="flex w-full max-w-[900px] flex-col items-center gap-5 rounded bg-white p-5">
         <div className="flex w-full justify-between">
           <Title title="팀 등록하기" />
-          <button className="text-comment">
+          <button onClick={onClose} className="text-comment">
             <VscClose className="h-8 w-8" />
           </button>
         </div>
@@ -141,7 +141,7 @@ const HackathonTeamCreateModal = ({ hackathonId, open, onClose }: HackathonTeamC
                 icon={MdImage}
                 label="대표 이미지"
                 inputElement={
-                  <div className="h-[120px] w-[210px]">
+                  <div className="mx-auto h-[120px] w-[210px] md:m-0">
                     <ImageUploader
                       name="image"
                       label=""
@@ -206,9 +206,9 @@ const HackathonTeamCreateModal = ({ hackathonId, open, onClose }: HackathonTeamC
                 label="팀원 구성"
                 inputElement={
                   <div className="flex flex-col gap-2">
-                    <div className="flex items-center">
-                      <p className="h-full w-[2em] shrink-0 pt-[10px]">팀장</p>
-                      <div className="grid flex-grow grid-cols-[3fr_2fr_3fr_2fr] gap-2">
+                    <div className="flex flex-col md:flex-row md:items-center">
+                      <p className="h-full w-[2em] shrink-0 font-bold md:pt-[10px]">팀장</p>
+                      <div className="grid flex-grow grid-cols-[3fr_2fr] gap-2 sm:grid-cols-[3fr_2fr_2fr] md:grid-cols-[3fr_2fr_3fr_2fr]">
                         <TeamMemberInput
                           fieldName="leader"
                           student={values.leader}
@@ -224,11 +224,14 @@ const HackathonTeamCreateModal = ({ hackathonId, open, onClose }: HackathonTeamC
                         />
                       </div>
                     </div>
-                    <div className="flex items-center">
-                      <p className="h-full w-[2em] shrink-0 pt-[10px]">팀원</p>
+                    <div className="flex flex-col md:flex-row md:items-center">
+                      <p className="h-full w-[2em] shrink-0 pt-[10px] font-bold">팀원</p>
                       <div className="flex w-full flex-col gap-2">
                         {values.members.map((_, index) => (
-                          <div key={index} className="grid flex-grow grid-cols-[3fr_2fr_3fr_2fr_1fr] gap-2">
+                          <div
+                            key={index}
+                            className="grid flex-grow grid-cols-[3fr_2fr] gap-2 sm:grid-cols-[3fr_2fr_2fr_1fr] md:grid-cols-[3fr_2fr_3fr_2fr_1fr]"
+                          >
                             <TeamMemberInput
                               fieldName={`members[${index}]`}
                               student={values.members[index]}

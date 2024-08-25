@@ -44,7 +44,9 @@ const TeamMemberInput = ({ fieldName, student, onChange, onBlur, errorText, setF
         placeholder="학번을 입력해주세요."
       />
       <TextInput style={{ width: '100%' }} name="member-name" value={studentInfo?.name} disabled />
-      <TextInput style={{ width: '100%' }} name="member-major" value={studentInfo?.major} disabled />
+      <div className="hidden md:block">
+        <TextInput style={{ width: '100%' }} name="member-major" value={studentInfo?.major} disabled />
+      </div>
       <Dropdown
         name={`${fieldName}.role`}
         options={memberRoleOptions}

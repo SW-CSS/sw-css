@@ -8,12 +8,12 @@ interface TeamCreateInputSectionProps {
 
 const TeamCreateInputSection = ({ icon: Icon, label, inputElement }: TeamCreateInputSectionProps) => {
   return (
-    <div className="flex gap-4">
-      <p className="flex min-w-[140px] items-center gap-3 font-bold">
+    <div className="flex flex-col gap-2 md:flex-row md:gap-4">
+      <p className="flex min-w-[120px] items-center gap-3 font-bold">
         <Icon className="h-5 w-5" />
         {label}
       </p>
-      <div className="w-0 border border-border" />
+      <div className="border border-border md:w-0" />
       {inputElement}
     </div>
   );
