@@ -40,6 +40,7 @@ public class SignInApiDocsTest extends RestDocsTest {
                 fieldWithPath("email").type(JsonFieldType.STRING).description("부산대학교 이메일"),
                 fieldWithPath("name").type(JsonFieldType.STRING).description("실명"),
                 fieldWithPath("role").type(JsonFieldType.STRING).description("회원의 역할 (ADMIN, MEMBER)"),
+                fieldWithPath("is_moderator").type(JsonFieldType.BOOLEAN).description("관리자 인지 판별"),
                 fieldWithPath("token").type(JsonFieldType.STRING).description("회원의 토큰")
         );
 
@@ -51,7 +52,7 @@ public class SignInApiDocsTest extends RestDocsTest {
         final String token = "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwicm9sZSI6IlJPTEVfTUVNQkVSIiwiaWF0IjoxNzI0MjIxMDI0LCJleHAiOjE3MjQyNTcwMjR9.i1zj-_jRjkdO89_5ixKVgZXWr1V8e0PMr-958YGQAQQ";
 
         final SignInRequest request = new SignInRequest(email, password);
-        final SignInResponse response = new SignInResponse(member_id, email, name, role, token);
+        final SignInResponse response = new SignInResponse(member_id, email, name, role, false, token);
 
         // when
         when(authSignInService.signIn(email, password)).thenReturn(response);

@@ -19,15 +19,20 @@ const MilestoneHistoryTable = async ({ pageNumber }: MilestoneHistoryTableProp) 
   const pathname = headersList.get('x-pathname') || '';
 
   const auth = getAuthFromCookie();
-  const milestoneHistories = await getMilestoneHistoriesOfStudent(
-    auth.uid,
-    undefined,
-    undefined,
-    undefined,
-    MilestoneHistorySortCriteria.CREATED_AT,
-    SortDirection.DESC,
-    pageNumber - 1,
-  );
+  let milestoneHistories;
+  try {
+    milestoneHistories = await getMilestoneHistoriesOfStudent(
+      auth.id,
+      undefined,
+      undefined,
+      undefined,
+      MilestoneHistorySortCriteria.CREATED_AT,
+      SortDirection.DESC,
+      pageNumber - 1,
+    );
+  } catch (e) {
+    // TODO: server api error handling...
+  }
 
   return (
     <div className="flex flex-col gap-4">

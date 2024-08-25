@@ -14,16 +14,21 @@ const MilestoneHistorySection = async () => {
   // TODO - auth에 학번 정보 저장하도록 하기
   const auth = getAuthFromCookie();
 
-  const milestoneHistoriesOfStudent = await getMilestoneHistoriesOfStudent(
-    auth.uid,
-    undefined,
-    undefined,
-    undefined,
-    MilestoneHistorySortCriteria.ACTIVATED_AT,
-    SortDirection.DESC,
-    0,
-    5,
-  );
+  let milestoneHistoriesOfStudent;
+  try {
+    milestoneHistoriesOfStudent = await getMilestoneHistoriesOfStudent(
+      auth.id,
+      undefined,
+      undefined,
+      undefined,
+      MilestoneHistorySortCriteria.ACTIVATED_AT,
+      SortDirection.DESC,
+      0,
+      5,
+    );
+  } catch (err) {
+    // TODO: server api error handling...
+  }
 
   return (
     <div className="relative w-full min-w-[260px] flex-1 rounded-sm bg-white p-5 lg:max-w-[280px]">

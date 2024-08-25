@@ -19,7 +19,7 @@ interface MilestoneOverviewProps {
 const MilestoneOverview = ({ searchFilterPeriod }: MilestoneOverviewProps) => {
   const auth = useAppSelector((state) => state.auth).value;
   const { data: milestoneScoresOfStudent } = useMilestoneScoresOfStudentQuery(
-    auth.uid,
+    auth.id,
     searchFilterPeriod.startDate,
     searchFilterPeriod.endDate,
   );

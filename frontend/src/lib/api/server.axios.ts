@@ -6,7 +6,5 @@ export const server = axios.create({ baseURL: process.env.NEXT_PUBLIC_SERVER_URL
 
 server.interceptors.response.use(
   (response) => response,
-  (error) => {
-    Promise.reject(categorizeError(error));
-  },
+  (error) => Promise.reject(categorizeError(error)),
 );

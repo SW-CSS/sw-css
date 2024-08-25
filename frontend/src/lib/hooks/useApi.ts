@@ -14,7 +14,9 @@ import {
 import { BusinessError } from '@/types/error';
 import { MilestoneHistorySortCriteria, SortDirection } from '@/types/milestone';
 
-import { removeEmptyField } from '../utils/utils';
+import { convertNumToCareer, removeEmptyField } from '../utils/utils';
+import { FirstInfo } from '@/app/(auth)/sign-up/components/SignUpFirstPage';
+import { SecondInfo } from '@/app/(auth)/sign-up/components/SignUpSecondPage';
 
 export const useCollegeQuery = () =>
   useAxiosQuery({
@@ -163,5 +165,49 @@ export function useMilestoneHistoryDeleteMutation() {
     mutationFn: async (id: number) => {
       await client.delete(`/milestones/histories/${id}`);
     },
+  });
+}
+
+export function useSignUpMutation() {
+  return useAxiosMutation({
+    mutationFn: async (userInfo: FirstInfo & SecondInfo) => {
+      const data = {
+        email: userInfo.email + '@pusan.ac.kr',
+        password: userInfo.password,
+        name: userInfo.name,
+        student_id: userInfo.studentId,
+        phone_number: userInfo.phoneNumber,
+        major_id: userInfo.majorId,
+        minor_id: userInfo.minorId === 0 ? null : userInfo.minorId,
+        double_major_id: userInfo.doubleMajorId === 0 ? null : userInfo.doubleMajorId,
+        career: convertNumToCareer(userInfo.career),
+        career_detail: userInfo.careerDetail,
+        auth_code: userInfo.authCode,
+      };
+      await client
+        .post(`/sign-up`, data)
+        .then((res) => res.data)
+        .catch((err) => Promise.reject(err));
+    },
+  });
+}
+
+export function useSendAuthCodeMutation() {
+  return useAxiosMutation({
+    mutationFn: async (email: string) =>
+      await client
+        .post(`/sign-up/send-auth-code`, { email })
+        .then((res) => res.data)
+        .catch((err) => Promise.reject(err)),
+  });
+}
+
+export function useSignInMutation() {
+  return useAxiosMutation({
+    mutationFn: async ({ email, password }: { email: string; password: string }) =>
+      await client
+        .post(`/sign-in`, { email: email + '@pusan.ac.kr', password })
+        .then((res) => res.data)
+        .catch((err) => Promise.reject(err)),
   });
 }

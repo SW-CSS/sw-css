@@ -39,10 +39,11 @@ public class AuthSignInService {
         }
 
         String role = loadMemberRole(member);
-        
+        boolean isModerator = role.equals(Role.ROLE_ADMIN.toString());
+
         String accessToken = jwtTokenProvider.createToken(member.getId(), role);
 
-        return SignInResponse.of(member, role, accessToken);
+        return SignInResponse.of(member, role, isModerator, accessToken);
     }
 
     public void resetPassword(String email, String name) {
