@@ -1,8 +1,11 @@
 package sw_css.restdocs.docs;
 
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
+import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
+import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -11,13 +14,17 @@ import static sw_css.member.domain.CareerType.GRADUATE_SCHOOL;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.http.HttpHeaders;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.restdocs.payload.PayloadDocumentation;
+import org.springframework.restdocs.payload.RequestFieldsSnippet;
 import org.springframework.restdocs.payload.ResponseFieldsSnippet;
 import org.springframework.restdocs.request.PathParametersSnippet;
 import sw_css.member.api.MemberController;
+import sw_css.member.application.dto.request.ChangePasswordRequest;
 import sw_css.member.application.dto.response.StudentMemberResponse;
+import sw_css.member.domain.Member;
 import sw_css.restdocs.RestDocsTest;
 
 @WebMvcTest(MemberController.class)
@@ -54,5 +61,33 @@ public class MemberApiDocsTest extends RestDocsTest {
         mockMvc.perform(RestDocumentationRequestBuilders.get("/members/{memberId}", memberId))
                 .andExpect(status().isOk())
                 .andDo(document("student-find", pathParameters, responseFields));
+    }
+
+    @Test
+    @DisplayName("[성공] 비밀번호를 변경할 수 있다.")
+    public void changePassword() throws Exception {
+        // given
+        final RequestFieldsSnippet requestFields = requestFields(
+                fieldWithPath("oldPassword").type(JsonFieldType.STRING).description("이전 비밀번호"),
+                fieldWithPath("newPassword").type(JsonFieldType.STRING).description("새로운 비밀번호")
+        );
+
+        final Member me = new Member(1L, "ddang@pusan.ac.kr", "ddang", "qwer1234!", "01012341234", false);
+        final String oldPassword = "qwer1234!";
+        final String newPassword = "asdf1234!";
+        final String token = "Bearer AccessToken";
+
+        final ChangePasswordRequest request = new ChangePasswordRequest(oldPassword, newPassword);
+
+        // when
+        doNothing().when(memberQueryService).changePassword(me, oldPassword, newPassword);
+
+        // then
+        mockMvc.perform(RestDocumentationRequestBuilders.patch("/members/change-password")
+                        .contentType(APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request))
+                        .header(HttpHeaders.AUTHORIZATION, token))
+                .andExpect(status().isNoContent())
+                .andDo(document("member-change-password", requestFields));
     }
 }

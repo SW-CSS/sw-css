@@ -43,13 +43,28 @@ export const convertMilestoneHistoryStatus = (status: string) => {
   }
 };
 
-export const convertCareer = (enumValue: string) => {
+export const convertNumToCareer = (num: number) => {
+  switch (num) {
+    case 1:
+      return 'GRADUATE_SCHOOL';
+    case 2:
+      return 'EMPLOYMENT_COMPANY';
+    case 3:
+      return 'EMPLOYMENT_PUBLIC_INSTITUTION';
+    case 4:
+      return 'FOUNDATION';
+    default:
+      return 'ETC';
+  }
+};
+
+export const convertCareerToStr = (enumValue: string) => {
   switch (enumValue) {
     case 'GRADUATE_SCHOOL':
       return '대학원 진학';
     case 'EMPLOYMENT_COMPANY':
       return '취업(기업체)';
-    case 'EMPLOYMENT_PUBLIC_"INSTITUTION':
+    case 'EMPLOYMENT_PUBLIC_INSTITUTION':
       return '취업(공공기관)';
     case 'FOUNDATION':
       return '취업(창업)';

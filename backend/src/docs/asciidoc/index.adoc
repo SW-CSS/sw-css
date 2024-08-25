@@ -39,6 +39,17 @@ include::{snippets}/student-find-all/http-response.adoc[]
 .Response Body
 include::{snippets}/student-find-all/response-fields.adoc[]
 
+=== `PATCH`: 비밀번호 수정
+
+.HTTP Request
+include::{snippets}/member-change-password/http-request.adoc[]
+
+.Request Body
+include::{snippets}/member-change-password/request-fields.adoc[]
+
+.HTTP Response
+include::{snippets}/member-change-password/http-response.adoc[]
+
 == 학과
 
 === `GET`: 단과대학 목록 조회
@@ -222,3 +233,98 @@ include::{snippets}/download-score-file/query-parameters.adoc[]
 
 .HTTP Response
 include::{snippets}/download-score-file/http-response.adoc[]
+
+== 인증
+
+=== `POST`: 회원가입
+
+.HTTP Request
+include::{snippets}/auth-sign-up/http-request.adoc[]
+
+.Request Body
+include::{snippets}/auth-sign-up/request-fields.adoc[]
+
+.HTTP Response
+include::{snippets}/auth-sign-up/http-response.adoc[]
+
+=== `POST`: 부산대 메일 인증 코드 발송
+
+.HTTP Request
+include::{snippets}/auth-send-auth-code/http-request.adoc[]
+
+.Request Body
+include::{snippets}/auth-send-auth-code/request-fields.adoc[]
+
+.HTTP Response
+include::{snippets}/auth-send-auth-code/http-response.adoc[]
+
+.Response Body
+include::{snippets}/auth-send-auth-code/response-fields.adoc[]
+
+=== `GET`: 이메일 중복 확인
+
+.HTTP Request
+include::{snippets}/auth-check-duplicate-email/http-request.adoc[]
+
+.Path Parameters
+include::{snippets}/auth-check-duplicate-email/query-parameters.adoc[]
+
+.HTTP Response
+include::{snippets}/auth-check-duplicate-email/http-response.adoc[]
+
+.Response Body
+include::{snippets}/auth-check-duplicate-email/response-fields.adoc[]
+
+=== `GET`: 학번 중복 확인
+
+.HTTP Request
+include::{snippets}/auth-check-duplicate-student-id/http-request.adoc[]
+
+.Path Parameters
+include::{snippets}/auth-check-duplicate-student-id/query-parameters.adoc[]
+
+.HTTP Response
+include::{snippets}/auth-check-duplicate-student-id/http-response.adoc[]
+
+.Response Body
+include::{snippets}/auth-check-duplicate-student-id/response-fields.adoc[]
+
+=== `GET`: 전화번호 중복 확인
+
+.HTTP Request
+include::{snippets}/auth-check-duplicate-phone-number/http-request.adoc[]
+
+.Path Parameters
+include::{snippets}/auth-check-duplicate-phone-number/query-parameters.adoc[]
+
+.HTTP Response
+include::{snippets}/auth-check-duplicate-phone-number/http-response.adoc[]
+
+.Response Body
+include::{snippets}/auth-check-duplicate-phone-number/response-fields.adoc[]
+
+=== `POST`: 로그인
+
+.HTTP Request
+include::{snippets}/auth-sign-in/http-request.adoc[]
+
+.Request Body
+include::{snippets}/auth-sign-in/request-fields.adoc[]
+
+.HTTP Response
+include::{snippets}/auth-sign-in/http-response.adoc[]
+
+.Response Body
+include::{snippets}/auth-sign-in/response-fields.adoc[]
+
+=== `PATCH`: 임시 비밀번호 발급
+
+.HTTP Request
+include::{snippets}/auth-reset-password/http-request.adoc[]
+
+.Request Body
+include::{snippets}/auth-reset-password/request-fields.adoc[]
+
+.HTTP Response
+include::{snippets}/auth-reset-password/http-response.adoc[]
+

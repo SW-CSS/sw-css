@@ -8,7 +8,7 @@ const UserName = () => {
 
   return (
     <span style={{ font: FONT_STYLE.xs.normal, color: COLOR.comment, display: 'flex', alignItems: 'center' }}>
-      반갑습니다! <span style={{ color: COLOR.primary.main }}>{auth.username}</span>님
+      반갑습니다! <span style={{ color: COLOR.primary.main }}>{auth.name}</span>님
     </span>
   );
 };

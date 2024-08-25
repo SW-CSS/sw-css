@@ -448,10 +448,16 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#_api_목록">API 목록</a></li>
+<li><a href="#_파일">파일</a>
+<ul class="sectlevel2">
+<li><a href="#_get_파일_다운로드"><code>GET</code>: 파일 다운로드</a></li>
+</ul>
+</li>
 <li><a href="#_회원">회원</a>
 <ul class="sectlevel2">
 <li><a href="#_get_학생_정보_조회"><code>GET</code>: 학생 정보 조회</a></li>
 <li><a href="#_get_학생_목록_조회"><code>GET</code>: 학생 목록 조회</a></li>
+<li><a href="#_patch_비밀번호_수정"><code>PATCH</code>: 비밀번호 수정</a></li>
 </ul>
 </li>
 <li><a href="#_학과">학과</a>
@@ -468,9 +474,24 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <li><a href="#_get_특정_학생의_마일스톤_실적_목록_조회"><code>GET</code> 특정 학생의 마일스톤 실적 목록 조회</a></li>
 <li><a href="#_patch_마일스톤_실적_승인"><code>PATCH</code> 마일스톤 실적 승인</a></li>
 <li><a href="#_patch_마일스톤_실적_반려"><code>PATCH</code> 마일스톤 실적 반려</a></li>
+<li><a href="#_patch_마일스톤_실적_승인반려_취소"><code>PATCH</code> 마일스톤 실적 승인/반려 취소</a></li>
 <li><a href="#_get_전체_마일스톤_실적_목록_조회"><code>GET</code> 전체 마일스톤 실적 목록 조회</a></li>
+<li><a href="#_get_전체_마일스톤_실적_목록_엑셀_파일로_다운로드"><code>GET</code> 전체 마일스톤 실적 목록 엑셀 파일로 다운로드</a></li>
+<li><a href="#_get_전체_마일스톤_실적_단건_조회"><code>GET</code> 전체 마일스톤 실적 단건 조회</a></li>
 <li><a href="#_post_마일스톤_실적_일괄_등록"><code>POST</code> 마일스톤 실적 일괄 등록</a></li>
 <li><a href="#_get_전체_마일스톤_점수_목록_조회"><code>GET</code> 전체 마일스톤 점수 목록 조회</a></li>
+<li><a href="#_get_전체_마일스톤_점수_목록_엑셀_파일로_다운로드"><code>GET</code> 전체 마일스톤 점수 목록 엑셀 파일로 다운로드</a></li>
+</ul>
+</li>
+<li><a href="#_인증">인증</a>
+<ul class="sectlevel2">
+<li><a href="#_post_회원가입"><code>POST</code>: 회원가입</a></li>
+<li><a href="#_post_부산대_메일_인증_코드_발송"><code>POST</code>: 부산대 메일 인증 코드 발송</a></li>
+<li><a href="#_get_이메일_중복_확인"><code>GET</code>: 이메일 중복 확인</a></li>
+<li><a href="#_get_학번_중복_확인"><code>GET</code>: 학번 중복 확인</a></li>
+<li><a href="#_get_전화번호_중복_확인"><code>GET</code>: 전화번호 중복 확인</a></li>
+<li><a href="#_post_로그인"><code>POST</code>: 로그인</a></li>
+<li><a href="#_patch_임시_비밀번호_발급"><code>PATCH</code>: 임시 비밀번호 발급</a></li>
 </ul>
 </li>
 </ul>
@@ -481,6 +502,31 @@ body.book #toc,body.book #preamble,body.book h1.sect0,body.book .sect1>h2{page-b
 <h2 id="_api_목록">API 목록</h2>
 <div class="sectionbody">
 
+</div>
+</div>
+<div class="sect1">
+<h2 id="_파일">파일</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_get_파일_다운로드"><code>GET</code>: 파일 다운로드</h3>
+<div class="listingblock">
+<div class="title">HTTP Request</div>
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /files/test-file.jpeg HTTP/1.1
+Host: localhost:8080</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">HTTP Response</div>
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Type: application/octet-stream;charset=UTF-8</code></pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -705,6 +751,60 @@ Content-Length: 516
 </tbody>
 </table>
 </div>
+<div class="sect2">
+<h3 id="_patch_비밀번호_수정"><code>PATCH</code>: 비밀번호 수정</h3>
+<div class="listingblock">
+<div class="title">HTTP Request</div>
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">PATCH /members/change-password HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Authorization: Bearer AccessToken
+Content-Length: 64
+Host: localhost:8080
+
+{
+  "oldPassword" : "qwer1234!",
+  "newPassword" : "asdf1234!"
+}</code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 4. Request Body</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>oldPassword</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">이전 비밀번호</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>newPassword</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">새로운 비밀번호</p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
+<div class="title">HTTP Response</div>
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 204 No Content
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers</code></pre>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -741,7 +841,7 @@ Content-Length: 181
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 4. Response Body</caption>
+<caption class="title">Table 5. Response Body</caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -783,7 +883,7 @@ Host: localhost:8080</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 5. /colleges/{collegeId}/majors</caption>
+<caption class="title">Table 6. /colleges/{collegeId}/majors</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -823,7 +923,7 @@ Content-Length: 184
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 6. Response Body</caption>
+<caption class="title">Table 7. Response Body</caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -877,45 +977,47 @@ Vary: Origin
 Vary: Access-Control-Request-Method
 Vary: Access-Control-Request-Headers
 Content-Type: application/json;charset=UTF-8
-Content-Length: 570
+Content-Length: 653
 
-[ {
-  "id" : 1,
-  "name" : "SW 관련 창업",
-  "group" : "ACTIVITY",
-  "limitScore" : 100,
-  "milestones" : [ {
+{
+  "ACTIVITY" : [ {
     "id" : 1,
-    "name" : "창업",
-    "score" : 100,
-    "limitCount" : 1
+    "name" : "SW 관련 창업",
+    "group" : "ACTIVITY",
+    "limitScore" : 100,
+    "milestones" : [ {
+      "id" : 1,
+      "name" : "창업",
+      "score" : 100,
+      "limitCount" : 1
+    }, {
+      "id" : 2,
+      "name" : "교과",
+      "score" : 50,
+      "limitCount" : 2
+    } ]
   }, {
     "id" : 2,
-    "name" : "교과",
-    "score" : 50,
-    "limitCount" : 2
+    "name" : "TOPCIT",
+    "group" : "ACTIVITY",
+    "limitScore" : 60,
+    "milestones" : [ {
+      "id" : 3,
+      "name" : "수준 3 이상",
+      "score" : 60,
+      "limitCount" : 0
+    }, {
+      "id" : 4,
+      "name" : "수준 2 이상",
+      "score" : 50,
+      "limitCount" : 0
+    } ]
   } ]
-}, {
-  "id" : 2,
-  "name" : "TOPCIT",
-  "group" : "ACTIVITY",
-  "limitScore" : 60,
-  "milestones" : [ {
-    "id" : 3,
-    "name" : "수준 3 이상",
-    "score" : 60,
-    "limitCount" : 0
-  }, {
-    "id" : 4,
-    "name" : "수준 2 이상",
-    "score" : 50,
-    "limitCount" : 0
-  } ]
-} ]</code></pre>
+}</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 7. Response Body</caption>
+<caption class="title">Table 8. Response Body</caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -930,42 +1032,42 @@ Content-Length: 570
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>*[].id</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">마일스톤의 카테고리 id</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].name</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>*[].name</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">마일스톤의 카테고리 이름</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].group</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>*[].group</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">마일스톤의 카테고리 유형</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].limitScore</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>*[].limitScore</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">마일스톤 카테고리의 최대 점수</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].milestones[].id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>*[].milestones[].id</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">마일스톤 id</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].milestones[].name</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>*[].milestones[].name</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">마일스톤 이름</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].milestones[].score</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>*[].milestones[].score</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">마일스톤 활동 점수</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>[].milestones[].limitCount</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>*[].milestones[].limitCount</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">마일스톤 활동 상한 횟수</p></td>
 </tr>
@@ -991,7 +1093,7 @@ Host: localhost:8080
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 8. Request Body</caption>
+<caption class="title">Table 9. Request Body</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -1009,7 +1111,7 @@ Host: localhost:8080
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>file</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">증빙 자료 파일</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">증빙 자료 파일(jpg, jpeg, png, pdf)</p></td>
 </tr>
 </tbody>
 </table>
@@ -1034,7 +1136,7 @@ Host: localhost:8080</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 9. /milestones/histories/{historyId}</caption>
+<caption class="title">Table 10. /milestones/histories/{historyId}</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -1072,7 +1174,7 @@ Host: localhost:8080</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 10. /milestones/histories/members/{memberId}</caption>
+<caption class="title">Table 11. /milestones/histories/members/{memberId}</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -1091,7 +1193,7 @@ Host: localhost:8080</code></pre>
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 11. Query Parameters</caption>
+<caption class="title">Table 12. Query Parameters</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -1183,8 +1285,8 @@ Content-Length: 1085
   "number" : 0,
   "sort" : {
     "empty" : true,
-    "unsorted" : true,
-    "sorted" : false
+    "sorted" : false,
+    "unsorted" : true
   },
   "pageable" : "INSTANCE",
   "numberOfElements" : 2,
@@ -1195,7 +1297,7 @@ Content-Length: 1085
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 12. Response Body</caption>
+<caption class="title">Table 13. Response Body</caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -1347,7 +1449,7 @@ Host: localhost:8080</code></pre>
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 13. /admin/milestones/histories/{historyId}/approve</caption>
+<caption class="title">Table 14. /admin/milestones/histories/{historyId}/approve</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -1391,7 +1493,7 @@ Host: localhost:8080
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 14. /admin/milestones/histories/{historyId}/reject</caption>
+<caption class="title">Table 15. /admin/milestones/histories/{historyId}/reject</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -1410,7 +1512,7 @@ Host: localhost:8080
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 15. Request Body</caption>
+<caption class="title">Table 16. Request Body</caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -1442,6 +1544,44 @@ Vary: Access-Control-Request-Headers</code></pre>
 </div>
 </div>
 <div class="sect2">
+<h3 id="_patch_마일스톤_실적_승인반려_취소"><code>PATCH</code> 마일스톤 실적 승인/반려 취소</h3>
+<div class="listingblock">
+<div class="title">HTTP Request</div>
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">PATCH /admin/milestones/histories/1/cancel HTTP/1.1
+Host: localhost:8080</code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 17. /admin/milestones/histories/{historyId}/cancel</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>historyId</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">마일스톤 실적의 id</p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
+<div class="title">HTTP Response</div>
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 204 No Content
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
 <h3 id="_get_전체_마일스톤_실적_목록_조회"><code>GET</code> 전체 마일스톤 실적 목록 조회</h3>
 <div class="listingblock">
 <div class="title">HTTP Request</div>
@@ -1450,6 +1590,29 @@ Vary: Access-Control-Request-Headers</code></pre>
 Host: localhost:8080</code></pre>
 </div>
 </div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 18. Path Parameters</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>field</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">검색 필드 번호(option)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>keyword</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">검색할 키워드(option)</p></td>
+</tr>
+</tbody>
+</table>
 <div class="listingblock">
 <div class="title">HTTP Response</div>
 <div class="content">
@@ -1458,12 +1621,12 @@ Vary: Origin
 Vary: Access-Control-Request-Method
 Vary: Access-Control-Request-Headers
 Content-Type: application/json;charset=UTF-8
-Content-Length: 1765
+Content-Length: 1956
 
 {
   "totalPages" : 1,
   "totalElements" : 3,
-  "size" : 3,
+  "size" : 10,
   "content" : [ {
     "id" : 1,
     "milestone" : {
@@ -1528,10 +1691,21 @@ Content-Length: 1765
   "number" : 0,
   "sort" : {
     "empty" : true,
-    "unsorted" : true,
-    "sorted" : false
+    "sorted" : false,
+    "unsorted" : true
   },
-  "pageable" : "INSTANCE",
+  "pageable" : {
+    "pageNumber" : 0,
+    "pageSize" : 10,
+    "sort" : {
+      "empty" : true,
+      "sorted" : false,
+      "unsorted" : true
+    },
+    "offset" : 0,
+    "paged" : true,
+    "unpaged" : false
+  },
   "numberOfElements" : 3,
   "first" : true,
   "last" : true,
@@ -1540,7 +1714,7 @@ Content-Length: 1765
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 16. Response Body</caption>
+<caption class="title">Table 19. Response Body</caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -1600,9 +1774,44 @@ Content-Length: 1765
 <td class="tableblock halign-left valign-top"><p class="tableblock">마지막 페이지인지 여부</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>pageable</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>pageable.pageNumber</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">요청한 페이지번호</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>pageable.pageSize</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">요청한 페이지크기</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>pageable.sort.empty</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">요청한 데이터가 비었는지 여부</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>pageable.sort.sorted</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">요청한 데이터 정렬 기준 존재 여부</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>pageable.sort.unsorted</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">요청한 데이터 정렬 기준 존재 여부</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>pageable.offset</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">요청한 페이지오프셋</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>pageable.paged</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">페이징 여부</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>pageable.unpaged</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">페이징 여부</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>numberOfElements</code></p></td>
@@ -1693,6 +1902,185 @@ Content-Length: 1765
 </table>
 </div>
 <div class="sect2">
+<h3 id="_get_전체_마일스톤_실적_목록_엑셀_파일로_다운로드"><code>GET</code> 전체 마일스톤 실적 목록 엑셀 파일로 다운로드</h3>
+<div class="listingblock">
+<div class="title">HTTP Request</div>
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /admin/milestones/histories/files?field=1&amp;keyword=202055558 HTTP/1.1
+Host: localhost:8080</code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 20. Path Parameters</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>field</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">검색 필드 번호(option)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>keyword</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">검색할 키워드(option)</p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
+<div class="title">HTTP Response</div>
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Disposition: attachment; filename="%EB%A7%88%EC%9D%BC%EC%8A%A4%ED%86%A4_%EB%82%B4%EC%97%AD_%EB%AA%A9%EB%A1%9D.xlsx"; filename*=UTF-8''%EB%A7%88%EC%9D%BC%EC%8A%A4%ED%86%A4_%EB%82%B4%EC%97%AD_%EB%AA%A9%EB%A1%9D.xlsx
+Content-Type: application/octet-stream;charset=UTF-8</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_get_전체_마일스톤_실적_단건_조회"><code>GET</code> 전체 마일스톤 실적 단건 조회</h3>
+<div class="listingblock">
+<div class="title">HTTP Request</div>
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /admin/milestones/histories/1 HTTP/1.1
+Host: localhost:8080</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">HTTP Response</div>
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Type: application/json;charset=UTF-8
+Content-Length: 452
+
+{
+  "id" : 1,
+  "milestone" : {
+    "id" : 1,
+    "name" : "창업",
+    "categoryName" : "SW 관련 창업",
+    "categoryGroup" : "ACTIVITY",
+    "score" : 100
+  },
+  "student" : {
+    "id" : 202055558,
+    "name" : "홍길동"
+  },
+  "description" : "창업했습니다.",
+  "fileUrl" : "https://skfdlfjeklf.png",
+  "status" : "PENDING",
+  "rejectReason" : null,
+  "count" : 1,
+  "activatedAt" : "2024-06-06",
+  "createdAt" : "2024-06-05 00:00:00"
+}</code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 21. Response Body</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">마일스톤 실적 id</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>milestone.id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">마일스톤 실적의 마일스톤 id</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>milestone.name</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">마일스톤 실적의 마일스톤 명칭</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>milestone.categoryName</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">마일스톤 실적의 마일스톤 카테고리 이름</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>milestone.categoryGroup</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">마일스톤 실적의 마일스톤 카테고리 유형</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>milestone.score</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">마일스톤 실적의 마일스톤 점수</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>student.id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">실적을 등록한 학생의 id</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>student.name</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">실적을 등록한 학생의 이름</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>description</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">마일스톤 활동에 대한 설명</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>fileUrl</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">마일스톤 실적 등록 시 첨부된 파일 접근 url</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>status</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">마일스톤 실적의 처리 상태</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>rejectReason</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">마일스톤 실적 반려 사유</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>count</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">마일스톤 활동 횟수</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>activatedAt</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">마일스톤 활동을 한 날짜(yyyy-MM-dd)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>createdAt</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">마일스톤 실적이 등록된 날짜(yyyy-MM-dd HH:mm:ss)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
 <h3 id="_post_마일스톤_실적_일괄_등록"><code>POST</code> 마일스톤 실적 일괄 등록</h3>
 <div class="listingblock">
 <div class="title">HTTP Request</div>
@@ -1711,7 +2099,7 @@ example
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 17. Request Body</caption>
+<caption class="title">Table 22. Request Body</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -1745,7 +2133,7 @@ Location: /milestones/histories</code></pre>
 <div class="listingblock">
 <div class="title">HTTP Request</div>
 <div class="content">
-<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /admin/milestones/histories/scores?start_date=2024-06-01&amp;end_date=2024-06-08 HTTP/1.1
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /admin/milestones/histories/scores?start_date=2024-06-01&amp;end_date=2024-06-08&amp;page=0&amp;size=10 HTTP/1.1
 Host: localhost:8080</code></pre>
 </div>
 </div>
@@ -1757,50 +2145,65 @@ Vary: Origin
 Vary: Access-Control-Request-Method
 Vary: Access-Control-Request-Headers
 Content-Type: application/json;charset=UTF-8
-Content-Length: 892
+Content-Length: 1173
 
 {
   "totalPages" : 1,
   "totalElements" : 2,
-  "size" : 2,
+  "size" : 10,
   "content" : [ {
     "student" : {
       "id" : 202055558,
       "name" : "홍길동"
     },
-    "milestoneScores" : [ {
-      "id" : 1,
-      "name" : "SW 관련 창업",
-      "group" : "ACTIVITY",
-      "limitScore" : 100,
-      "score" : 50
-    }, {
-      "id" : 2,
-      "name" : "TOPCIT",
-      "group" : "ACTIVITY",
-      "limitScore" : 60,
-      "score" : 0
-    } ]
+    "milestoneScores" : {
+      "ACTIVITY" : [ {
+        "id" : 1,
+        "name" : "SW 관련 창업",
+        "group" : "ACTIVITY",
+        "limitScore" : 100,
+        "score" : 50
+      }, {
+        "id" : 2,
+        "name" : "TOPCIT",
+        "group" : "ACTIVITY",
+        "limitScore" : 60,
+        "score" : 0
+      } ]
+    }
   }, {
     "student" : {
       "id" : 202000000,
       "name" : "김아무개"
     },
-    "milestoneScores" : [ {
-      "id" : 1,
-      "name" : "SW 관련 창업",
-      "group" : "ACTIVITY",
-      "limitScore" : 100,
-      "score" : 50
-    } ]
+    "milestoneScores" : {
+      "ACTIVITY" : [ {
+        "id" : 1,
+        "name" : "SW 관련 창업",
+        "group" : "ACTIVITY",
+        "limitScore" : 100,
+        "score" : 50
+      } ]
+    }
   } ],
   "number" : 0,
   "sort" : {
     "empty" : true,
-    "unsorted" : true,
-    "sorted" : false
+    "sorted" : false,
+    "unsorted" : true
   },
-  "pageable" : "INSTANCE",
+  "pageable" : {
+    "pageNumber" : 0,
+    "pageSize" : 10,
+    "sort" : {
+      "empty" : true,
+      "sorted" : false,
+      "unsorted" : true
+    },
+    "offset" : 0,
+    "paged" : true,
+    "unpaged" : false
+  },
   "numberOfElements" : 2,
   "first" : true,
   "last" : true,
@@ -1809,7 +2212,7 @@ Content-Length: 892
 </div>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 18. Response Body</caption>
+<caption class="title">Table 23. Response Body</caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -1869,9 +2272,44 @@ Content-Length: 892
 <td class="tableblock halign-left valign-top"><p class="tableblock">마지막 페이지인지 여부</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>pageable</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
-<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>pageable.pageNumber</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">요청한 페이지번호</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>pageable.pageSize</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">요청한 페이지크기</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>pageable.sort.empty</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">요청한 데이터가 비었는지 여부</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>pageable.sort.sorted</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">요청한 데이터 정렬 기준 존재 여부</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>pageable.sort.unsorted</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">요청한 데이터 정렬 기준 존재 여부</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>pageable.offset</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">요청한 페이지오프셋</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>pageable.paged</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">페이징 여부</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>pageable.unpaged</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">페이징 여부</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>numberOfElements</code></p></td>
@@ -1894,32 +2332,620 @@ Content-Length: 892
 <td class="tableblock halign-left valign-top"><p class="tableblock">학생의 이름</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>content[].milestoneScores[].id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>content[].milestoneScores.*[].id</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">마일스톤 카테고리 id</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>content[].milestoneScores[].name</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>content[].milestoneScores.*[].name</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">마일스톤 카테고리 이름</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>content[].milestoneScores[].group</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>content[].milestoneScores.*[].group</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">마일스톤 카테고리 유형</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>content[].milestoneScores[].limitScore</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>content[].milestoneScores.*[].limitScore</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">마일스톤 최대 점수</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>content[].milestoneScores[].score</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>content[].milestoneScores.*[].score</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">마일스톤 점수</p></td>
 </tr>
 </tbody>
 </table>
+</div>
+<div class="sect2">
+<h3 id="_get_전체_마일스톤_점수_목록_엑셀_파일로_다운로드"><code>GET</code> 전체 마일스톤 점수 목록 엑셀 파일로 다운로드</h3>
+<div class="listingblock">
+<div class="title">HTTP Request</div>
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /admin/milestones/histories/scores/files?start_date=2024-06-01&amp;end_date=2024-06-08 HTTP/1.1
+Host: localhost:8080</code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 24. Path Parameters</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>start_date</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">조회할 마일스톤 점수 현황의 시작일</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>end_date</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">조회할 마일스톤 점수 현황의 종료일</p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
+<div class="title">HTTP Response</div>
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Disposition: attachment; filename="%EB%A7%88%EC%9D%BC%EC%8A%A4%ED%86%A4_%EC%A0%90%EC%88%98_%ED%98%84%ED%99%A9.xlsx"; filename*=UTF-8''%EB%A7%88%EC%9D%BC%EC%8A%A4%ED%86%A4_%EC%A0%90%EC%88%98_%ED%98%84%ED%99%A9.xlsx
+Content-Type: application/octet-stream;charset=UTF-8</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_인증">인증</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_post_회원가입"><code>POST</code>: 회원가입</h3>
+<div class="listingblock">
+<div class="title">HTTP Request</div>
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /sign-up HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Content-Length: 322
+Host: localhost:8080
+
+{
+  "email" : "ddang@pusan.ac.kr",
+  "password" : "qwer1234!",
+  "name" : "이다은",
+  "student_id" : "202012345",
+  "phone_number" : "01012345678",
+  "major_id" : 100,
+  "minor_id" : 100,
+  "double_major_id" : 100,
+  "career" : "GRADUATE_SCHOOL",
+  "career_detail" : "IT 기업 개발자",
+  "auth_code" : "auth code"
+}</code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 25. Request Body</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>email</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">부산대학교 이메일</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>password</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">비밀번호</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>name</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">실명</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>student_id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">학번</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>phone_number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">전화번호</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>major_id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">주전공</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>minor_id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">부전공</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>double_major_id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">복수전공</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>career</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">직로 계획</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>career_detail</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">진로 상세 계획</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>auth_code</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">메일 인증 코드</p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
+<div class="title">HTTP Response</div>
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 201 Created
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Location: /members/1</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_post_부산대_메일_인증_코드_발송"><code>POST</code>: 부산대 메일 인증 코드 발송</h3>
+<div class="listingblock">
+<div class="title">HTTP Request</div>
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /sign-up/send-auth-code HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Content-Length: 35
+Host: localhost:8080
+
+{
+  "email" : "ddang@pusan.ac.kr"
+}</code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 26. Request Body</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>email</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">부산대학교 이메일</p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
+<div class="title">HTTP Response</div>
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Type: application/json;charset=UTF-8
+Content-Length: 29
+
+{
+  "expired_seconds" : 600
+}</code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 27. Response Body</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>expired_seconds</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">인증 코드 유효 기간</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_get_이메일_중복_확인"><code>GET</code>: 이메일 중복 확인</h3>
+<div class="listingblock">
+<div class="title">HTTP Request</div>
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /sign-up/exists/email?email=ddang%40pusan.ac.kr HTTP/1.1
+Host: localhost:8080</code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 28. Path Parameters</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>email</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">부산대학교 이메일</p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
+<div class="title">HTTP Response</div>
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Type: application/json;charset=UTF-8
+Content-Length: 28
+
+{
+  "is_duplicate" : false
+}</code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 29. Response Body</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>is_duplicate</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">중복 여부</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_get_학번_중복_확인"><code>GET</code>: 학번 중복 확인</h3>
+<div class="listingblock">
+<div class="title">HTTP Request</div>
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /sign-up/exists/student-id?student_id=202012345 HTTP/1.1
+Host: localhost:8080</code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 30. Path Parameters</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>student_id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">부산대학교 학번</p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
+<div class="title">HTTP Response</div>
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Type: application/json;charset=UTF-8
+Content-Length: 28
+
+{
+  "is_duplicate" : false
+}</code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 31. Response Body</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>is_duplicate</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">중복 여부</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_get_전화번호_중복_확인"><code>GET</code>: 전화번호 중복 확인</h3>
+<div class="listingblock">
+<div class="title">HTTP Request</div>
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">GET /sign-up/exists/phone-number?phone_number=01012341234 HTTP/1.1
+Host: localhost:8080</code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 32. Path Parameters</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Parameter</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>phone_number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">전화번호</p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
+<div class="title">HTTP Response</div>
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Type: application/json;charset=UTF-8
+Content-Length: 28
+
+{
+  "is_duplicate" : false
+}</code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 33. Response Body</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>is_duplicate</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Boolean</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">중복 여부</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_post_로그인"><code>POST</code>: 로그인</h3>
+<div class="listingblock">
+<div class="title">HTTP Request</div>
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">POST /sign-in HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Content-Length: 63
+Host: localhost:8080
+
+{
+  "email" : "ddang@pusan.ac.kr",
+  "password" : "qwer1234!"
+}</code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 34. Request Body</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>email</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">부산대학교 이메일</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>password</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">비밀번호</p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
+<div class="title">HTTP Response</div>
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 200 OK
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers
+Content-Type: application/json;charset=UTF-8
+Content-Length: 284
+
+{
+  "member_id" : 1,
+  "name" : "ddang@pusan.ac.kr",
+  "email" : "asdf",
+  "role" : "ROLE_MEMBER",
+  "token" : "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIxIiwicm9sZSI6IlJPTEVfTUVNQkVSIiwiaWF0IjoxNzI0MjIxMDI0LCJleHAiOjE3MjQyNTcwMjR9.i1zj-_jRjkdO89_5ixKVgZXWr1V8e0PMr-958YGQAQQ"
+}</code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 35. Response Body</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>member_id</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>Number</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">회원의 아이디</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>email</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">부산대학교 이메일</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>name</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">실명</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>role</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">회원의 역할 (ADMIN, MEMBER)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>token</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">회원의 토큰</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_patch_임시_비밀번호_발급"><code>PATCH</code>: 임시 비밀번호 발급</h3>
+<div class="listingblock">
+<div class="title">HTTP Request</div>
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">PATCH /sign-in/reset-password HTTP/1.1
+Content-Type: application/json;charset=UTF-8
+Content-Length: 54
+Host: localhost:8080
+
+{
+  "email" : "ddang@pusan.ac.kr",
+  "name" : "asdf"
+}</code></pre>
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 36. Request Body</caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>email</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">부산대학교 이메일</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>name</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>String</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">회원의 실명</p></td>
+</tr>
+</tbody>
+</table>
+<div class="listingblock">
+<div class="title">HTTP Response</div>
+<div class="content">
+<pre class="highlightjs highlight nowrap"><code class="language-http hljs" data-lang="http">HTTP/1.1 204 No Content
+Vary: Origin
+Vary: Access-Control-Request-Method
+Vary: Access-Control-Request-Headers</code></pre>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -1927,7 +2953,7 @@ Content-Length: 892
 <div id="footer">
 <div id="footer-text">
 Version 0.0.1-SNAPSHOT<br>
-Last updated 2024-07-17 01:27:41 +0900
+Last updated 2024-08-21 17:34:03 +0900
 </div>
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/highlight.min.js"></script>
