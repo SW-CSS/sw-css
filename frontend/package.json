@@ -16,6 +16,7 @@
     "@tanstack/react-query-next-experimental": "^5.48.0",
     "axios": "^1.7.2",
     "babel-plugin-styled-components": "^2.1.4",
+    "classnames": "^2.5.1",
     "formik": "^2.4.6",
     "luxon": "^3.4.4",
     "next": "14.2.3",
