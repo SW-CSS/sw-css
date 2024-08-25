@@ -60,16 +60,6 @@ export async function getMilestoneHistory(historyId: number) {
   return response;
 }
 
-export async function getFile(fileName: string | null) {
-  const response = await server
-    .get<Blob>(`/files/${fileName}`, {
-      responseType: 'blob',
-    })
-    .then((res) => res.data)
-    .catch((err) => Promise.reject(err));
-  return response;
-}
-
 export async function getValidationStudentId(studentId: string) {
   const response = await server
     .get(`/sign-up/exists/student-id`, {
