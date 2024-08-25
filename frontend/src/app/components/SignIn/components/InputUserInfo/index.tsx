@@ -7,45 +7,66 @@ import { useAppDispatch } from '@/lib/hooks/redux';
 import { signIn } from '@/store/auth.slice';
 
 import { FixedEmail, InputID, InputPW, SignInButton } from './styled';
+import { useSignInMutation } from '@/lib/hooks/useApi';
+import { toast } from 'react-toastify';
 
 const InputUserInfo = () => {
-  const [userID, setUserID] = useState<string>('');
-  const [userPW, setUserPW] = useState<string>('');
+  const [userInfo, setUserInfo] = useState({
+    email: '',
+    password: '',
+  });
+
+  const { mutate: signInMutation } = useSignInMutation();
 
   const router = useRouter();
   const dispatch = useAppDispatch();
 
-  const handleSignInClick = () => {
-    // TODO: api 연결
-    dispatch(
-      signIn({
-        token: 'token',
-        username: 'name',
-        uid: 202055558,
-        isModerator: true,
-      }),
-    );
-    setTimeout(() => {
-      router.refresh();
-    }, 0);
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUserInfo((prev) => {
+      return {
+        ...prev,
+        [e.target.id]: e.target.value,
+      };
+    });
+  };
+
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    signInMutation(userInfo, {
+      onSuccess(data, variables, context) {
+        dispatch(
+          signIn({
+            id: data.member_id,
+            token: `Bearer ${data.token}`,
+            name: data.name,
+            email: data.email,
+            isModerator: data.is_moderator,
+          }),
+        );
+        router.refresh();
+      },
+      onError(error, variables, context) {
+        toast.error(error.message);
+      },
+    });
   };
 
   return (
-    <div style={{ display: 'flex', gap: '20px' }}>
+    <form onSubmit={handleSubmit} style={{ display: 'flex', gap: '20px' }}>
       <div style={{ display: 'flex', flexDirection: 'column', flexGrow: '1', position: 'relative' }}>
-        <InputID placeholder="아이디 입력" value={userID} onChange={(e) => setUserID(e.target.value)} />
+        <InputID placeholder="아이디 입력" id="email" value={userInfo.email} onChange={handleInputChange} />
         <InputPW
           placeholder="비밀번호 입력"
           type="password"
-          value={userPW}
-          onChange={(e) => setUserPW(e.target.value)}
+          id="password"
+          value={userInfo.password}
+          onChange={handleInputChange}
         />
         <FixedEmail>@pusan.ac.kr</FixedEmail>
       </div>
-      <SignInButton type="button" onClick={handleSignInClick}>
-        로그인
-      </SignInButton>
-    </div>
+      <SignInButton type="submit">로그인</SignInButton>
+    </form>
   );
 };
 

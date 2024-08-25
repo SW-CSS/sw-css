@@ -5,100 +5,100 @@ import { AxiosError } from 'axios';
 export class ApplicationError extends Error {
   originalError?: AxiosError<any>;
 
-  constructor(error?: AxiosError) {
+  constructor(error?: AxiosError, message?: string) {
     super();
     this.originalError = error;
     this.name = 'ApplicationError';
-    this.message = 'ApplicationError';
+    this.message = message ? message : 'ApplicationError';
   }
 }
 
 export class BusinessError extends Error {
   originalError?: AxiosError<any>;
 
-  constructor(error?: AxiosError) {
+  constructor(error?: AxiosError, message?: string) {
     super();
     this.originalError = error;
     this.name = 'BusinessError';
-    this.message = 'BusinessError';
+    this.message = message ? message : 'MemberRoleNotMatchedError';
   }
 }
 
 export class AuthError extends BusinessError {
-  constructor(error?: AxiosError) {
-    super(error);
+  constructor(error?: AxiosError, message?: string) {
+    super(error, message);
     this.name = 'AuthError';
-    this.message = 'AuthError';
+    this.message = message ? message : 'MemberRoleNotMatchedError';
   }
 }
 
 export class NotFoundError extends AuthError {
-  constructor(error?: AxiosError) {
-    super(error);
+  constructor(error?: AxiosError, message?: string) {
+    super(error, message);
     this.name = 'NotFoundError';
-    this.message = 'NotFoundError';
+    this.message = message ? message : 'MemberRoleNotMatchedError';
   }
 }
 
 export class AccessDeniedError extends AuthError {
-  constructor(error?: AxiosError) {
-    super(error);
+  constructor(error?: AxiosError, message?: string) {
+    super(error, message);
     this.name = 'AccessDeniedError';
-    this.message = 'AccessDeniedError';
+    this.message = message ? message : 'MemberRoleNotMatchedError';
   }
 }
 
 export class UnauthorizedError extends AuthError {
-  constructor(error?: AxiosError) {
-    super(error);
+  constructor(error?: AxiosError, message?: string) {
+    super(error, message);
     this.name = 'UnauthorizedError';
-    this.message = 'UnauthorizedError';
+    this.message = message ? message : 'MemberRoleNotMatchedError';
   }
 }
 
 export class MemberRoleNotMatchedError extends AuthError {
-  constructor(error?: AxiosError) {
-    super(error);
+  constructor(error?: AxiosError, message?: string) {
+    super(error, message);
     this.name = 'MemberRoleNotMatchedError';
-    this.message = 'MemberRoleNotMatchedError';
+    this.message = message ? message : 'MemberRoleNotMatchedError';
   }
 }
 
 export class MemberNotFoundError extends AuthError {
-  constructor(error?: AxiosError) {
-    super(error);
+  constructor(error?: AxiosError, message?: string) {
+    super(error, message);
     this.name = 'MemberNotFoundError';
-    this.message = 'MemberNotFoundError';
+    this.message = message ? message : 'MemberNotFoundError';
   }
 }
 
 export const categorizeError = (error: Error) => {
   if (error instanceof AxiosError && error.response) {
     if (error.response.status === 401) {
-      return new UnauthorizedError(error);
+      return new UnauthorizedError(error, error.response.data.message);
     }
 
     if (error.response.status === 403) {
-      return new AccessDeniedError(error);
+      return new AccessDeniedError(error, error.response.data.message);
     }
 
     if (error.response.status === 404) {
       if (error.response.data.title === 'MEMBER_NOT_FOUND') {
-        return new MemberNotFoundError(error);
+        return new MemberNotFoundError(error, error.response.data.message);
       }
-      return new NotFoundError(error);
+      return new NotFoundError(error, error.response.data.message);
     }
 
     if (error.response.status === 409 && error.response.data.title === 'MEMBER_ROLE_NOT_MATCHED') {
-      return new MemberRoleNotMatchedError(error);
+      return new MemberRoleNotMatchedError(error, error.response.data.message);
     }
 
     if (error.response.status >= 400 && error.response.status < 500) {
-      return new BusinessError(error);
+      return new BusinessError(error, error.response.data.message);
     }
 
     if (error.response.status >= 500) {
-      return new ApplicationError(error);
+      return new ApplicationError(error, error.response.data.message);
     }
   }
   return error;

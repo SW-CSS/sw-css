@@ -39,4 +39,5 @@ export const QueryKeys = {
   HACKATHON_TEAMS: (hackathonId: number, page: number, size: number) => ['hackathon-teams', hackathonId, page, size],
   HACKATHON_PRIZE: (hackathonId: number) => ['hackathon-prize', hackathonId],
   GITHUB_README: (owner: string, repo: string) => ['github-readme', owner, repo],
+  DUPLICATE_STUDENT_ID: ['duplicate_student_id'],
 };

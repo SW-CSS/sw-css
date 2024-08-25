@@ -29,7 +29,7 @@ const MilestoneSection = () => {
   };
   const [selectedInfoType, setSelectedInfoType] = useState<MilestoneInfoType>(MilestoneInfoType.TOTAL);
   const { data: milestoneScores } = useMilestoneScoresOfStudentQuery(
-    auth.uid,
+    auth.id,
     searchFilterPeriod.startDate,
     searchFilterPeriod.endDate,
   );

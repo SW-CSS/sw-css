@@ -19,7 +19,7 @@ const MilestoneHistoryTable = ({ searchFilterPeriod, pageNumber, pageSize }: Mil
   const pathname = usePathname();
   const auth = useAppSelector((state) => state.auth).value;
   const { data: milestoneHistoriesOfStudent } = useMilestoneHistoriesOfStudentQuery(
-    auth.uid,
+    auth.id,
     searchFilterPeriod.startDate,
     searchFilterPeriod.endDate,
     MilestoneHistoryStatus.APPROVED,

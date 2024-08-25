@@ -24,3 +24,9 @@ export const memberRoleOptions = [
   { id: TeamMemberRole.PLANNER, name: '기획자' },
   { id: TeamMemberRole.OTHER, name: '기타' },
 ];
+
+export enum HackathonState {
+  UPCOMING = '예정',
+  IN_PROGRESS = '진행중',
+  COMPLETED = '종료',
+}
