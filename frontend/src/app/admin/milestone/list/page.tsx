@@ -17,12 +17,7 @@ const Page = async ({ searchParams }: { searchParams?: { [key: string]: string |
   const field = searchParams?.field ? parseInt(searchParams.field, 10) : 0;
   const keyword = searchParams?.keyword ? searchParams.keyword : '';
 
-  let milestoneHistories;
-  try {
-    milestoneHistories = await getMilestoneHistories(field, keyword, page - 1);
-  } catch {
-    // TODO: server api error handling...
-  }
+  const milestoneHistories = await getMilestoneHistories(field, keyword, page - 1);
 
   return (
     <div>

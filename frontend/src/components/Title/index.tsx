@@ -17,7 +17,7 @@ const Title = ({ title, description, urlText, url }: TitleProps) => (
         </Link>
       )}
     </div>
-    <div className="text-comment">{description}</div>
+    {description && <div className="text-comment">{description}</div>}
   </div>
 );
 

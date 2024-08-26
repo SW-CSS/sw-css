@@ -1,22 +1,25 @@
 /* eslint-disable implicit-arrow-linebreak */
+import { FirstInfo } from '@/app/(auth)/sign-up/components/SignUpFirstPage';
+import { SecondInfo } from '@/app/(auth)/sign-up/components/SignUpSecondPage';
 import { MilestoneHistoryStatus } from '@/data/milestone';
 import { QueryKeys } from '@/data/queryKey';
 import { client } from '@/lib/api/client.axios';
 import { useAxiosMutation, useAxiosQuery } from '@/lib/hooks/useAxios';
+import { mockHackathonTeamPageableData } from '@/mocks/hackathon';
 import {
   CollegeDto,
-  MilestoneScoreDto,
-  MilestoneHistoryCreateDto,
-  StudentMemberDto,
-  MilestoneHistoryOfStudentPageableDto,
+  HackathonTeamCreateDto,
+  HackathonTeamPageableDto,
   MilestoneByGroupDto,
+  MilestoneHistoryCreateDto,
+  MilestoneHistoryOfStudentPageableDto,
+  MilestoneScoreDto,
+  StudentMemberDto,
 } from '@/types/common.dto';
 import { BusinessError } from '@/types/error';
 import { MilestoneHistorySortCriteria, SortDirection } from '@/types/milestone';
-
+import { github } from '../api/github.axios';
 import { convertNumToCareer, removeEmptyField } from '../utils/utils';
-import { FirstInfo } from '@/app/(auth)/sign-up/components/SignUpFirstPage';
-import { SecondInfo } from '@/app/(auth)/sign-up/components/SignUpSecondPage';
 
 export const useCollegeQuery = () =>
   useAxiosQuery({
@@ -111,12 +114,22 @@ export function useMilestoneQuery() {
   });
 }
 
-export function useStudentMemberQuery(memberId: number) {
+export function useStudentMemberQuery(memberId: number, options?: { enabled?: boolean }) {
   return useAxiosQuery({
+    ...options,
     queryKey: QueryKeys.STUDENT(memberId),
     queryFn: async (): Promise<StudentMemberDto> => {
       const response = await client.get(`/members/${memberId}`);
       return response.data;
+    },
+  });
+}
+
+export function useStudentMemberMutation() {
+  return useAxiosMutation({
+    mutationFn: async (memberId: number): Promise<StudentMemberDto | null> => {
+      const response = await client.get<StudentMemberDto>(`/members/${memberId}`);
+      return response?.data;
     },
   });
 }
@@ -127,6 +140,63 @@ export function useStudentMembersQuery() {
     queryFn: async (): Promise<StudentMemberDto[]> => {
       const response = await client.get('/admin/members');
       return response.data;
+    },
+  });
+}
+
+export function useFileQuery(fileName: string | null) {
+  return useAxiosQuery({
+    queryKey: QueryKeys.FILE(fileName),
+    queryFn: async (): Promise<Blob | null> => {
+      const response = await client.get(`/files/${fileName}`, { responseType: 'blob' });
+      if (response?.status !== 200) {
+        return null;
+      }
+      return response?.data;
+    },
+  });
+}
+
+export function useHackathonTeamsQuery(
+  hackathonId: number,
+  page: number = 0,
+  size: number = 10,
+  options?: { enabled?: boolean },
+) {
+  return useAxiosQuery({
+    ...options,
+    queryKey: QueryKeys.HACKATHON_TEAMS(hackathonId, page, size),
+    queryFn: async (): Promise<HackathonTeamPageableDto> => {
+      // TODO : API 구현
+      //const response = await client.get(`/hackathons/${hackathonId}/teams`);
+      //return response?.data;
+      return mockHackathonTeamPageableData;
+    },
+  });
+}
+
+export function useGithubReadmeQuery(owner: string, repo: string, options?: { enabled?: boolean }) {
+  return useAxiosQuery({
+    queryKey: QueryKeys.GITHUB_README(repo, repo),
+    queryFn: async (): Promise<string | null> => {
+      try {
+        const response = await github.get(`/repos/${owner}/${repo}/readme`, {
+          headers: { Accept: 'application/vnd.github.v3+json' },
+        });
+        const binaryString = atob(response.data.content);
+        const bytes = new Uint8Array(binaryString.length);
+
+        for (let i = 0; i < binaryString.length; i++) {
+          bytes[i] = binaryString.charCodeAt(i);
+        }
+        const decodedContent = new TextDecoder('utf-8').decode(bytes);
+        return decodedContent;
+      } catch (error) {
+        if (error instanceof BusinessError) {
+          return null;
+        }
+        throw error;
+      }
     },
   });
 }
@@ -151,6 +221,22 @@ export function useMilestoneHistoryDeleteMutation() {
   return useAxiosMutation({
     mutationFn: async (id: number) => {
       await client.delete(`/milestones/histories/${id}`);
+    },
+  });
+}
+
+export function useRegisterTeamMutation() {
+  return useAxiosMutation({
+    mutationFn: async ({ hackathonId, image, name, work, githubUrl, members, password }: HackathonTeamCreateDto) => {
+      const formdata = new FormData();
+      formdata.append('image', image!);
+      const blob = new Blob([JSON.stringify({ name, work, githubUrl, members, password })], {
+        type: 'application/json',
+      });
+      formdata.append('request', blob);
+      await client.post(`/hackathons/${hackathonId}/teams`, formdata, {
+        headers: { 'Content-Type': 'multipart/form-data' },
+      });
     },
   });
 }

@@ -3,13 +3,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { VscChevronDown } from '@react-icons/all-files/vsc/VscChevronDown';
 import { VscChevronUp } from '@react-icons/all-files/vsc/VscChevronUp';
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 import { FORM_SIZE } from '@/constants';
 import useDivSize from '@/lib/hooks/useDivSize';
 
 export interface DropdownOption {
-  id: number;
+  id: number | string;
   name: string;
 }
 
@@ -18,7 +18,7 @@ export interface DropdownProps {
   label?: string;
   options: DropdownOption[];
   selectOptionText: string;
-  selectedId: number;
+  selectedId: number | string;
   setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void;
   isRequired?: boolean;
   errorText?: string;
@@ -44,7 +44,7 @@ const Dropdown = ({ isRequired = false, size = 'md', ...props }: DropdownProps) 
       )}
       <div className="relative w-full" ref={componentRef}>
         <button
-          className={`m-0 w-full rounded-sm border-[1px] ${isAdmin ? 'border-admin-border' : 'border-border'} bg-white ${FORM_SIZE[size].padding} text-left ${FORM_SIZE[size].textSize} ${hasError && 'border-red-400'} ${selectedId <= 0 && 'text-comment'}`}
+          className={`m-0 w-full rounded-sm border-[1px] ${isAdmin ? 'border-admin-border' : 'border-border'} bg-white ${FORM_SIZE[size].padding} text-left ${FORM_SIZE[size].textSize} ${hasError && 'border-red-400'} ${typeof selectedId === 'number' && selectedId <= 0 && 'text-comment'}`}
           type="button"
           onClick={() => setIsOpen(true)}
         >

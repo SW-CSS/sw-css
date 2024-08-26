@@ -1,5 +1,6 @@
 import { MilestoneGroup } from '@/data/milestone';
 
+import { TeamMemberRole } from '@/data/hackathon';
 import { Milestone } from './milestone';
 
 interface PageSort {
@@ -171,9 +172,62 @@ export interface HackathonOverviewDto {
   applyEndDate: string;
   hackathonStartDate: string;
   hackathonEndDate: string;
-  thumbnailImageName: string;
+  bannerImageName: string;
 }
 
 export interface HackathonPageableDto extends Pageable {
   content: HackathonOverviewDto[];
+}
+
+export interface HackathonInformationDto {
+  name: string;
+  content: string;
+  bannerImageName: string;
+}
+
+interface TeamMemberDto {
+  [key: string]: { id: number; name: string; majorName: string; isLeader: boolean }[];
+}
+
+export interface HackathonTeamDto {
+  id: number;
+  name: string;
+  work: string;
+  githubUrl: string;
+  teamMembers: TeamMemberDto;
+  thumbnailImageName: string;
+  voteCount: number;
+}
+
+export interface TeamMember {
+  id: number|null;
+  role: TeamMemberRole;
+  isLeader: boolean;
+}
+
+export interface HackathonTeamCreateDto {
+  hackathonId: number;
+  image?: File;
+  name: string;
+  work: string;
+  githubUrl: string;
+  members: TeamMember[];
+  password: string;
+}
+
+export interface HackathonTeamPageableDto extends Pageable {
+  content: HackathonTeamDto[];
+}
+
+interface HackathonTeamReferenceDto {
+  name: string;
+  memberCount: number;
+  work: string;
+}
+
+export interface HackathonPrizeDto {
+  id: number;
+  name: string;
+  rank: number;
+  teams: HackathonTeamReferenceDto[];
 }

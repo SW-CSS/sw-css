@@ -36,6 +36,7 @@ const Page = async ({ searchParams }: { searchParams?: { [key: string]: string |
         return '';
     }
   };
+
   return (
     <div className="flex w-full flex-col gap-4 rounded-sm bg-white p-5">
       <Title
@@ -53,7 +54,7 @@ const Page = async ({ searchParams }: { searchParams?: { [key: string]: string |
             >
               <div className="relative h-40 w-full">
                 <Image
-                  src={process.env.NEXT_PUBLIC_FILE_URL + '/' + hackathon.thumbnailImageName}
+                  src={process.env.NEXT_PUBLIC_FILE_URL + '/' + hackathon.bannerImageName}
                   alt={'해커톤 섬네일'}
                   className={classname(
                     'rounded-t-sm',
