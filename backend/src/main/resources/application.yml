@@ -26,3 +26,11 @@ data:
   client-url: http://localhost:3000
   file-path-prefix: /backend/src/main/resources/static/files
   file-storage-path: /절대 경로/
+
+
+---
+spring:
+  config:
+    import: classpath:config/application-prod.yml
+    activate:
+      on-profile: prod
