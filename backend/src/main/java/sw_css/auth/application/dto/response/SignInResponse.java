@@ -11,7 +11,7 @@ public record SignInResponse(
         String token
 ) {
 
-    public static SignInResponse of(Member member, String role, Boolean isModerator, String token) {
-        return new SignInResponse(member.getId(), member.getName(), member.getEmail(), role, isModerator, token);
+    public static SignInResponse of(Member member, long member_id, String role, Boolean isModerator, String token) {
+        return new SignInResponse(member_id, member.getName(), member.getEmail(), role, isModerator, token);
     }
 }
