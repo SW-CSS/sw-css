@@ -3,14 +3,17 @@ package sw_css.auth.application;
 
 import jakarta.transaction.Transactional;
 import java.security.SecureRandom;
+import java.util.Optional;
 import java.util.regex.Pattern;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import sw_css.auth.application.dto.response.SignInResponse;
 import sw_css.auth.exception.AuthException;
 import sw_css.auth.exception.AuthExceptionType;
+import sw_css.member.domain.FacultyMember;
 import sw_css.member.domain.Member;
 import sw_css.member.domain.Role;
+import sw_css.member.domain.StudentMember;
 import sw_css.member.domain.embedded.Password;
 import sw_css.member.domain.repository.FacultyMemberRepository;
 import sw_css.member.domain.repository.MemberRepository;
@@ -38,12 +41,23 @@ public class AuthSignInService {
             throw new AuthException(AuthExceptionType.MEMBER_WRONG_ID_OR_PASSWORD);
         }
 
-        String role = loadMemberRole(member);
-        boolean isModerator = role.equals(Role.ROLE_ADMIN.toString());
+        Object memberDetail = loadMemberDetail(member);
+        if (memberDetail instanceof StudentMember studentMember) {
+            String role = Role.ROLE_MEMBER.toString();
 
-        String accessToken = jwtTokenProvider.createToken(member.getId(), role);
+            String accessToken = jwtTokenProvider.createToken(member.getId(), role);
 
-        return SignInResponse.of(member, role, isModerator, accessToken);
+            return SignInResponse.of(member, studentMember.getId(), role, false, accessToken);
+
+        } else if (memberDetail instanceof FacultyMember facultyMember) {
+            String role = Role.ROLE_ADMIN.toString();
+
+            String accessToken = jwtTokenProvider.createToken(member.getId(), role);
+
+            return SignInResponse.of(member, facultyMember.getId(), role, true, accessToken);
+        }
+
+        throw new AuthException(AuthExceptionType.MEMBER_EMAIL_NOT_FOUND);
     }
 
     public void resetPassword(String email, String name) {
@@ -63,13 +77,16 @@ public class AuthSignInService {
         authEmailService.sendNewPassword(email, newPassword);
     }
 
-    private String loadMemberRole(Member member) {
+    private Object loadMemberDetail(Member member) {
         Long memberId = member.getId();
-        if (studentMemberRepository.existsByMemberId(memberId)) {
-            return Role.ROLE_MEMBER.toString();
+        Optional<StudentMember> studentMember = studentMemberRepository.findByMemberId(memberId);
+        if (studentMember.isPresent()) {
+            return studentMember.get();
         }
-        if (facultyMemberRepository.existsByMemberId(memberId)) {
-            return Role.ROLE_ADMIN.toString();
+
+        Optional<FacultyMember> facultyMember = facultyMemberRepository.findByMemberId(memberId);
+        if (facultyMember.isPresent()) {
+            return facultyMember.get();
         }
         throw new AuthException(AuthExceptionType.MEMBER_NOT_FOUND);
     }
