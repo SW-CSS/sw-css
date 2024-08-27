@@ -4,9 +4,8 @@ spring:
       enabled: true
       max-file-size: 100MB
       max-request-size: 100MB
-  config:
-    activate:
-      on-profile: default
+  profiles:
+    default: dev
 
 ---
 spring:
