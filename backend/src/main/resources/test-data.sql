@@ -1,24 +1,24 @@
 ## member(student)
 insert into member (email, name, password, phone_number, is_deleted)
-values ('songsy405@pusan.ac.kr', '송세연', '$2a$10$YyiOL/E5WjKrZPkB6eQSK.PwZtAO.z3JimFbq/Ky3u3rFf3XTGrWK', '010-0000-0000',
+values ('admin@pusan.ac.kr', '관리자', '$2a$10$YyiOL/E5WjKrZPkB6eQSK.PwZtAO.z3JimFbq/Ky3u3rFf3XTGrWK', '01000000000',
+        false);
+
+insert into faculty_member (member_id)
+values (1);
+
+insert into member (email, name, password, phone_number, is_deleted)
+values ('songsy405@pusan.ac.kr', '송세연', '$2a$10$YyiOL/E5WjKrZPkB6eQSK.PwZtAO.z3JimFbq/Ky3u3rFf3XTGrWK', '01000000000',
         false);
 
 insert into student_member (id, member_id, major_id, minor_id, double_major_id, career, career_detail)
-values (202055558, 1, 1, null, null, 'EMPLOYMENT_COMPANY', 'IT 기업 개발자');
+values (202055558, 2, 1, null, null, 'EMPLOYMENT_COMPANY', 'IT 기업 개발자');
 
 insert into member (email, name, password, phone_number, is_deleted)
-values ( 'ddang@pusan.ac.kr', '이다은', '$2a$10$YyiOL/E5WjKrZPkB6eQSK.PwZtAO.z3JimFbq/Ky3u3rFf3XTGrWK', '010-0000-0000'
+values ( 'ddang@pusan.ac.kr', '이다은', '$2a$10$YyiOL/E5WjKrZPkB6eQSK.PwZtAO.z3JimFbq/Ky3u3rFf3XTGrWK', '01000000000'
        , false);
 
 insert into student_member (id, member_id, major_id, minor_id, double_major_id, career, career_detail)
-values (202055555, 2, 1, null, null, 'GRADUATE_SCHOOL', 'IT 기업 개발자');
-
-insert into member (email, name, password, phone_number, is_deleted)
-values ( 'hayun@pusan.ac.kr', '김하윤', '$2a$10$YyiOL/E5WjKrZPkB6eQSK.PwZtAO.z3JimFbq/Ky3u3rFf3XTGrWK', '010-0000-0000'
-       , false);
-
-insert into faculty_member (id, member_id)
-values (1, 3);
+values (202055555, 3, 1, null, null, 'GRADUATE_SCHOOL', 'IT 기업 개발자');
 
 ## milestone histories
 INSERT INTO sw_css.milestone_history (id, milestone_id, student_id, description, file_url, status, reject_reason, count,
