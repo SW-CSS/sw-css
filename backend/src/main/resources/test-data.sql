@@ -7,7 +7,7 @@ insert into student_member (id, member_id, major_id, minor_id, double_major_id, 
 values (202055558, 1, 1, null, null, 'EMPLOYMENT_COMPANY', 'IT 기업 개발자');
 
 insert into member (email, name, password, phone_number, is_deleted)
-values ( 'iddang@pusan.ac.kr', '이다은', '$2a$10$YyiOL/E5WjKrZPkB6eQSK.PwZtAO.z3JimFbq/Ky3u3rFf3XTGrWK', '010-0000-0000'
+values ( 'ddang@pusan.ac.kr', '이다은', '$2a$10$YyiOL/E5WjKrZPkB6eQSK.PwZtAO.z3JimFbq/Ky3u3rFf3XTGrWK', '010-0000-0000'
        , false);
 
 insert into student_member (id, member_id, major_id, minor_id, double_major_id, career, career_detail)
@@ -32,7 +32,7 @@ INSERT INTO sw_css.milestone_history (id, milestone_id, student_id, description,
 VALUES (3, 5, 202055558, 'TOPCIT 수준 2', null, 'APPROVED', null, 1, '2024-06-03', 0, '2024-07-01 18:35:47.563444');
 INSERT INTO sw_css.milestone_history (id, milestone_id, student_id, description, file_url, status, reject_reason, count,
                                       activated_at, is_deleted, created_at)
-VALUES (4, 6, 202000000, 'PCC lv3', null, 'APPROVED', null, 1, '2024-06-04', 0, '2024-07-01 18:35:47.566673');
+VALUES (4, 6, 202055555, 'PCC lv3', null, 'APPROVED', null, 1, '2024-06-04', 0, '2024-07-01 18:35:47.566673');
 INSERT INTO sw_css.milestone_history (id, milestone_id, student_id, description, file_url, status, reject_reason, count,
                                       activated_at, is_deleted, created_at)
 VALUES (5, 7, 202055558, 'PCC lv2', null, 'APPROVED', null, 1, '2024-06-05', 0, '2024-07-01 18:35:47.569843');
@@ -50,12 +50,12 @@ INSERT INTO sw_css.milestone_history (id, milestone_id, student_id, description,
 VALUES (9, 15, 202055558, '글로벌 행사 참여', null, 'PENDING', null, 1, '2024-06-08', 0, '2024-07-01 18:35:47.580376');
 INSERT INTO sw_css.milestone_history (id, milestone_id, student_id, description, file_url, status, reject_reason, count,
                                       activated_at, is_deleted, created_at)
-VALUES (10, 7, 202000000, 'PCC lv2', null, 'PENDING', null, 1, '2024-06-11', 0, '2024-07-01 18:35:47.580376');
+VALUES (10, 7, 202055555, 'PCC lv2', null, 'PENDING', null, 1, '2024-06-11', 0, '2024-07-01 18:35:47.580376');
 
 INSERT INTO sw_css.milestone_history (id, milestone_id, student_id, description, file_url, status, reject_reason, count,
                                       activated_at, is_deleted, created_at)
-VALUES (11, 15, 202000000, '글로벌 행사 참여', null, 'APPROVED', null, 1, '2024-06-08', 0, '2024-07-01 18:35:47.580376');
+VALUES (11, 15, 202055555, '글로벌 행사 참여', null, 'APPROVED', null, 1, '2024-06-08', 0, '2024-07-01 18:35:47.580376');
 
 INSERT INTO sw_css.milestone_history (id, milestone_id, student_id, description, file_url, status, reject_reason, count,
                                       activated_at, is_deleted, created_at)
-VALUES (12, 3, 202000000, '비교과 SW 관련 창업', null, 'APPROVED', null, 2, '2024-06-08', 0, '2024-07-01 18:35:47.580376');
+VALUES (12, 3, 202055555, '비교과 SW 관련 창업', null, 'APPROVED', null, 2, '2024-06-08', 0, '2024-07-01 18:35:47.580376');
