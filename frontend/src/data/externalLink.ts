@@ -20,7 +20,7 @@ export const externalLinkInfos: { title: string; url: string; img: string }[] = 
     url: 'http://bd.pusan.ac.kr/',
     img: '/images/main/external_link_5_pnu_achieve.png',
   },
-  { title: 'PNU<br/>Online Judge', url: 'http://code.pusan.ac.kr/', img: '/images/main/external_link_6_pnu_oj.png' },
+  { title: 'PNU<br/>Code Place', url: 'http://code.pusan.ac.kr/', img: '/images/main/external_link_6_pnu_oj.png' },
 ];
 
 export const pnuLinkInfos: { title: string; url: string; img: string }[] = [
