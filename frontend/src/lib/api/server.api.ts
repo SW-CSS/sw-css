@@ -7,6 +7,7 @@ import {
   MilestoneHistoryDto,
   MilestoneHistoryOfStudentPageableDto,
   MilestoneHistoryPageableDto,
+  MilestoneScoreDto,
 } from '@/types/common.dto';
 import { MilestoneHistorySortCriteria, SortDirection } from '@/types/milestone';
 
@@ -23,7 +24,7 @@ export async function getMilestoneHistoriesOfStudent(
   page: number = 0,
   size: number = 10,
 ) {
-  const response = await server
+  return await server
     .get<MilestoneHistoryOfStudentPageableDto>(`/milestones/histories/members/${memberId}`, {
       params: removeEmptyField({
         start_date: startDate,
@@ -37,11 +38,10 @@ export async function getMilestoneHistoriesOfStudent(
     })
     .then((res) => res.data)
     .catch((err) => Promise.reject(err));
-  return response;
 }
 
 export async function getMilestoneHistories(field?: number, keyword?: string, page: number = 0, size: number = 10) {
-  const response = await server
+  return await server
     .get<MilestoneHistoryPageableDto>('/admin/milestones/histories', {
       params: removeEmptyField({
         field,
@@ -52,28 +52,36 @@ export async function getMilestoneHistories(field?: number, keyword?: string, pa
     })
     .then((res) => res.data)
     .catch((err) => Promise.reject(err));
-  return response;
 }
 
 export async function getMilestoneHistory(historyId: number) {
-  const response = await server
+  return await server
     .get<MilestoneHistoryDto>(`/admin/milestones/histories/${historyId}`)
     .then((res) => res.data)
     .catch((err) => Promise.reject(err));
-  return response;
 }
 
 export async function getValidationStudentId(studentId: string) {
-  const response = await server
+  return await server
     .get(`/sign-up/exists/student-id`, {
       params: removeEmptyField({
         student_id: studentId,
       }),
     })
     .then((res) => res.data)
-    .catch((err) => {
-      return Promise.reject(err);
-    });
+    .catch((err) => Promise.reject(err));
+}
+
+export async function getMyMilestoneHistory(studentId: number, startDate: string, endDate: string) {
+  const response = await server
+    .get<MilestoneScoreDto[]>(`/milestones/histories/scores/members/${studentId}`, {
+      params: removeEmptyField({
+        start_date: startDate,
+        end_date: endDate,
+      }),
+    })
+    .then((res) => res.data)
+    .catch((err) => Promise.reject(err));
 
   return response;
 }
