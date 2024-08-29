@@ -3,6 +3,7 @@
 
 'use client';
 
+import { VscSettingsGear } from '@react-icons/all-files/vsc/VscSettingsGear';
 import { VscAccount } from '@react-icons/all-files/vsc/VscAccount';
 import { VscSignIn } from '@react-icons/all-files/vsc/VscSignIn';
 import { VscSignOut } from '@react-icons/all-files/vsc/VscSignOut';
@@ -49,12 +50,19 @@ const Header = () => {
               ),
           )}
         </div>
-        {auth.isAuth ? (
+        {auth.isAuth && auth.isModerator && (
+          <>
+            <IconButton icon={<VscSettingsGear />} title="관리" size="sm" link="/admin" />
+            <IconButton icon={<VscSignOut />} title="로그아웃" size="sm" link="/sign-out" />
+          </>
+        )}
+        {auth.isAuth && !auth.isModerator && (
           <>
             <IconButton icon={<VscAccount />} title="마이페이지" size="sm" link="/my-page" />
             <IconButton icon={<VscSignOut />} title="로그아웃" size="sm" link="/sign-out" />
           </>
-        ) : (
+        )}
+        {!auth.isAuth && (
           <S.SignButton>
             <S.SignText>
               <Link href="/sign-in">로그인</Link> /<Link href="/sign-up">회원가입</Link>
@@ -66,6 +74,7 @@ const Header = () => {
         style={{ display: `${isSidebarOpen ? 'block' : 'none'}` }}
         onClick={() => setIsSideBarOpen(false)}
       />
+
       <S.HeaderTabletLayout>
         <Link href="/" style={{ width: 'fit-content', height: '50px', padding: '5px 10px' }}>
           <Image
@@ -77,14 +86,19 @@ const Header = () => {
           />
         </Link>
         <div style={{ display: 'flex' }}>
-          {auth.isAuth ? (
+          {auth.isAuth && auth.isModerator && (
+            <>
+              <IconButton icon={<VscSettingsGear />} title="관리" size="sm" link="/admin" />
+              <IconButton icon={<VscSignOut />} title="로그아웃" size="sm" link="/sign-out" />
+            </>
+          )}
+          {auth.isAuth && !auth.isModerator && (
             <>
               <IconButton icon={<VscAccount />} title="마이페이지" size="sm" link="/my-page" />
               <IconButton icon={<VscSignOut />} title="로그아웃" size="sm" link="/sign-out" />
             </>
-          ) : (
-            <IconButton icon={<VscSignIn />} title="로그인" size="sm" link="/sign-in" />
           )}
+          {!auth.isAuth && <IconButton icon={<VscSignIn />} title="로그인" size="sm" link="/sign-in" />}
           <Sidebar open={isSidebarOpen} handleOpen={setIsSideBarOpen} headerInfos={headerInfos} />
         </div>
       </S.HeaderTabletLayout>
