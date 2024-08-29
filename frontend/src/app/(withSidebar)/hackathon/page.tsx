@@ -13,7 +13,12 @@ const Page = async ({ searchParams }: { searchParams?: { [key: string]: string |
 
   const page = searchParams?.page ? parseInt(searchParams.page, 10) : 1;
 
-  const hackathons = await getHackathons(page, 6);
+  let hackathons;
+  try {
+    hackathons = await getHackathons(page, 6);
+  } catch (err) {
+    // TODO: server api error handling
+  }
 
   const getHackathonState = (startDate: string, endDate: string) => {
     const now = Date.now();
@@ -44,7 +49,10 @@ const Page = async ({ searchParams }: { searchParams?: { [key: string]: string |
         description="소프트웨어융합교육원에서는 2018년부터 매년 창의융합 SW 해커톤을 개최해오고 있습니다."
       />
       <div className="h-0 w-full border border-border" />
-      {hackathons?.content && hackathons.content.length > 0 ? (
+
+      <div className="flex h-40 w-full items-center justify-center text-comment">개발 중인 기능입니다.</div>
+
+      {/* {hackathons?.content && hackathons.content.length > 0 ? (
         <div className="grid grid-cols-1 gap-6 py-4 sm:grid-cols-2 md:grid-cols-3">
           {hackathons.content.map((hackathon) => (
             <Link
@@ -96,7 +104,7 @@ const Page = async ({ searchParams }: { searchParams?: { [key: string]: string |
         <div className="flex h-40 w-full items-center justify-center text-comment">해커톤 정보가 없습니다.</div>
       )}
 
-      <Pagination currentPage={page} totalItems={hackathons?.totalElements ?? 0} pathname={pathname} pageSize={6} />
+      <Pagination currentPage={page} totalItems={hackathons?.totalElements ?? 0} pathname={pathname} pageSize={6} /> */}
     </div>
   );
 };
