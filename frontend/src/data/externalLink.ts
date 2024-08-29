@@ -10,8 +10,8 @@ export const externalLinkInfos: { title: string; url: string; img: string }[] = 
     img: '/images/main/external_link_2_plato.png',
   },
   {
-    title: '온라인강좌<br/>(edwith)',
-    url: 'http://edwith.org/ptnr/pnuswedu',
+    title: '온라인강좌<br/>(Inflearn)',
+    url: 'https://www.inflearn.com/users/1370319',
     img: '/images/main/external_link_3_edwith.png',
   },
   { title: 'TOPCIT', url: 'http://topcit.or.kr/', img: '/images/main/external_link_4_topcit.png' },
@@ -20,7 +20,7 @@ export const externalLinkInfos: { title: string; url: string; img: string }[] = 
     url: 'http://bd.pusan.ac.kr/',
     img: '/images/main/external_link_5_pnu_achieve.png',
   },
-  { title: 'PNU<br/>Online Judge', url: 'http://oj.pusan.ac.kr/', img: '/images/main/external_link_6_pnu_oj.png' },
+  { title: 'PNU<br/>Online Judge', url: 'http://code.pusan.ac.kr/', img: '/images/main/external_link_6_pnu_oj.png' },
 ];
 
 export const pnuLinkInfos: { title: string; url: string; img: string }[] = [
