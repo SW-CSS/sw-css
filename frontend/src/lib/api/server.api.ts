@@ -75,6 +75,17 @@ export async function getValidationStudentId(studentId: string) {
       return Promise.reject(err);
     });
 
+export async function getMyMilestoneHistory(studentId: number, startDate: string, endDate: string) {
+  const response = await server
+    .get<MilestoneScoreDto[]>(`/milestones/histories/scores/members/${studentId}`, {
+      params: removeEmptyField({
+        start_date: startDate,
+        end_date: endDate,
+      }),
+    })
+    .then((res) => res.data)
+    .catch((err) => Promise.reject(err));
+
   return response;
 }
 
