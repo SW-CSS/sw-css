@@ -34,6 +34,13 @@ public class RegisterController {
     }
 
     // TODO: excel을 이용한 다중 등록
+    @PostMapping("/files")
+    public ResponseEntity<Void> registerFaculties(
+            @Admin FacultyMember facultyMember,
+            @RequestPart(value = "file") final MultipartFile file) {
+        authAdminQueryService.registerFaculties(file);
+        return ResponseEntity.created(URI.create("/admin/faculties")).build();
+    }
 
     // TODO: root 권한자만 교직원 삭제
 

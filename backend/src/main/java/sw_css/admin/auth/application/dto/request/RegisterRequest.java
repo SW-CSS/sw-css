@@ -5,7 +5,6 @@ import jakarta.validation.constraints.Pattern;
 import sw_css.member.domain.FacultyMember;
 import sw_css.member.domain.Member;
 import sw_css.member.domain.embedded.EmailAddress;
-import sw_css.member.domain.embedded.Password;
 import sw_css.member.domain.embedded.RealName;
 
 public record RegisterRequest(
@@ -15,16 +14,16 @@ public record RegisterRequest(
         @Pattern(regexp = RealName.NAME_REGEX, message = RealName.NAME_INVALID)
         String name) {
 
-    public Member toMember() {
-        return new Member(email, name, Password.encode("asdf"), "01000000000", false);
+    public Member toMember(String password) {
+        return new Member(email, name, password, "01000000000", false);
     }
 
-    public Member toMember(Long memberId) {
-        return new Member(memberId, email, name, Password.encode("asdf"), "01000000000", false);
+    public Member toMember(Long memberId, String password) {
+        return new Member(memberId, email, name, password, "01000000000", false);
     }
 
-    public FacultyMember toFacultyMember(Long memberId) {
-        final Member member = toMember(memberId);
+    public FacultyMember toFacultyMember(Long memberId, String password) {
+        final Member member = toMember(memberId, password);
         return new FacultyMember(null, member);
     }
 }

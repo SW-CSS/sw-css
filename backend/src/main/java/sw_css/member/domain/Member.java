@@ -19,6 +19,7 @@ import sw_css.member.domain.embedded.Password;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Member extends BaseEntity {
     @Id
+    @Setter(AccessLevel.PUBLIC)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
