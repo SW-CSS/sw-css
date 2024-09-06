@@ -35,7 +35,7 @@ public class AuthSignInService {
 
     public SignInResponse signIn(String email, String rawPassword) {
         Member member = memberRepository.findByEmail(email)
-                .orElseThrow(() -> new AuthException(AuthExceptionType.MEMBER_EMAIL_NOT_FOUND));
+                .orElseThrow(() -> new AuthException(AuthExceptionType.MEMBER_NOT_REGISTER));
 
         checkIsMemberDeleted(member);
         checkIsValidPassword(member, rawPassword);
@@ -46,7 +46,7 @@ public class AuthSignInService {
             String accessToken = jwtTokenProvider.createToken(member.getId(), role);
 
             return SignInResponse.of(member, studentMember.getId(), role, false, accessToken);
-            
+
         } else if (memberDetail instanceof FacultyMember facultyMember) {
             String role = Role.ROLE_ADMIN.toString();
             String accessToken = jwtTokenProvider.createToken(member.getId(), role);
@@ -54,7 +54,7 @@ public class AuthSignInService {
             return SignInResponse.of(member, facultyMember.getId(), role, true, accessToken);
         }
 
-        throw new AuthException(AuthExceptionType.MEMBER_EMAIL_NOT_FOUND);
+        throw new AuthException(AuthExceptionType.MEMBER_NOT_REGISTER);
     }
 
     public void resetPassword(String email, String name) {
@@ -118,7 +118,7 @@ public class AuthSignInService {
         if (!member.isDeleted()) {
             return;
         }
-        throw new AuthException(AuthExceptionType.MEMBER_NOT_FOUND);
+        throw new AuthException(AuthExceptionType.MEMBER_NOT_REGISTER);
     }
 
     private void checkIsValidPassword(Member member, String password) {
