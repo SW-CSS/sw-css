@@ -23,7 +23,7 @@ import sw_css.utils.annotation.SuperAdmin;
 @RequestMapping("/admin/auth")
 @RestController
 @RequiredArgsConstructor
-public class RegisterController {
+public class AdminAuthController {
 
     private final AuthAdminQueryService authAdminQueryService;
 
