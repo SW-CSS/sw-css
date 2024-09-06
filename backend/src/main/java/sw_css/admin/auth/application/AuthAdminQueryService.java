@@ -16,7 +16,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-import sw_css.admin.auth.application.dto.request.RegisterRequest;
+import sw_css.admin.auth.application.dto.request.RegisterFacultyRequest;
 import sw_css.admin.auth.exception.AdminAuthException;
 import sw_css.admin.auth.exception.AdminAuthExceptionType;
 import sw_css.auth.application.AuthCheckDuplicateService;
@@ -40,7 +40,7 @@ public class AuthAdminQueryService {
     private String password;
 
     @Transactional
-    public Long registerFaculty(RegisterRequest request) {
+    public Long registerFaculty(RegisterFacultyRequest request) {
         checkIsDuplicateEmail(request.email());
 
         final String encodedPassword = Password.encode(password);
@@ -78,6 +78,16 @@ public class AuthAdminQueryService {
         }
 
         checkFailedData(failedData);
+    }
+
+    @Transactional
+    public void deleteFaculty(Long memberId) {
+        Member member = memberRepository.findById(memberId)
+                .orElseThrow(() -> new AdminAuthException(AdminAuthExceptionType.MEMBER_NOT_FOUND));
+        checkIsMemberDeleted(member);
+
+        member.setDeleted(true);
+        memberRepository.save(member);
     }
 
     private void checkIsDuplicateEmail(String email) {
@@ -133,6 +143,14 @@ public class AuthAdminQueryService {
         exceptionType.setErrorMessage(ids + "번째 줄의 관리자를 등록하는데 실패했습니다.");
 
         throw new AdminAuthException(exceptionType);
+    }
+
+    private void checkIsMemberDeleted(final Member member) {
+        if (!member.isDeleted()) {
+            return;
+        }
+        throw new AdminAuthException(AdminAuthExceptionType.MEMBER_NOT_FOUND);
+
     }
 
 }

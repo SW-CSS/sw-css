@@ -36,6 +36,7 @@ public class Member extends BaseEntity {
     @Column(nullable = false)
     private String phoneNumber;
 
+    @Setter(AccessLevel.PUBLIC)
     @Column(nullable = false)
     private boolean isDeleted;
 

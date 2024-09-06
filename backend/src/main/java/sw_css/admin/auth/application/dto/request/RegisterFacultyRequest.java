@@ -7,7 +7,7 @@ import sw_css.member.domain.Member;
 import sw_css.member.domain.embedded.EmailAddress;
 import sw_css.member.domain.embedded.RealName;
 
-public record RegisterRequest(
+public record RegisterFacultyRequest(
         @Email(message = "이메일 형식을 확인해주세요.")
         @Pattern(regexp = EmailAddress.EMAIL_ADDRESS_REGEX, message = EmailAddress.EMAIL_ADDRESS_INVALID)
         String email,
