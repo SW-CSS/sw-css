@@ -3,6 +3,7 @@ package sw_css.admin.auth.application;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -41,9 +42,14 @@ public class AuthAdminQueryService {
 
     @Transactional
     public Long registerFaculty(RegisterFacultyRequest request) {
-        checkIsDuplicateEmail(request.email());
-
         final String encodedPassword = Password.encode(password);
+
+        Member member = memberRepository.findByEmail(request.email()).orElse(null);
+        if (member != null && !member.isDeleted()) {
+            throw new AdminAuthException(AdminAuthExceptionType.MEMBER_EMAIL_DUPLICATE);
+        } else if (member != null) {
+            return saveExistFaculty(request.email(), request.name(), member, encodedPassword);
+        }
 
         final long memberId = memberRepository.save(request.toMember(encodedPassword)).getId();
         facultyMemberRepository.save(request.toFacultyMember(memberId, encodedPassword));
@@ -74,7 +80,14 @@ public class AuthAdminQueryService {
                 continue;
             }
 
-            saveFaculty(email, name, encodedPassword);
+            Member member = memberRepository.findByEmail(email).orElse(null);
+            if (member == null) {
+                saveFaculty(email, name, encodedPassword);
+            } else if (member.isDeleted()) {
+                saveExistFaculty(email, name, member, encodedPassword);
+            } else {
+                failedData.add(i + 1);
+            }
         }
 
         checkFailedData(failedData);
@@ -88,6 +101,18 @@ public class AuthAdminQueryService {
 
         member.setDeleted(true);
         memberRepository.save(member);
+    }
+
+    private long saveExistFaculty(String email, String name, Member oldMember, String password) {
+        Member newMember = new Member(email, name, password, "01000000000", false);
+        newMember.setId(oldMember.getId());
+        memberRepository.save(newMember);
+
+        FacultyMember facultyMember = facultyMemberRepository.findByMemberId(newMember.getId()).orElse(null);
+        facultyMemberRepository.save(Objects.requireNonNullElseGet(facultyMember,
+                () -> new FacultyMember(null, newMember)));
+
+        return newMember.getId();
     }
 
     private void checkIsDuplicateEmail(String email) {
@@ -119,16 +144,10 @@ public class AuthAdminQueryService {
 
     private boolean isInvalidInput(final String email, final String name) {
         if (Pattern.matches(EmailAddress.EMAIL_ADDRESS_REGEX, email) &&
-                Pattern.matches(RealName.NAME_REGEX, name) &&
-                !isDuplicateEmail(email)) {
+                Pattern.matches(RealName.NAME_REGEX, name)) {
             return false;
         }
         return true;
-    }
-
-
-    private boolean isDuplicateEmail(String email) {
-        return authCheckDuplicateService.isDuplicateEmail(email);
     }
 
     private void checkFailedData(final List<Integer> failedData) {

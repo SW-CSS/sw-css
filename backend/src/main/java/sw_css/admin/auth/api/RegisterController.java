@@ -27,7 +27,6 @@ public class RegisterController {
 
     private final AuthAdminQueryService authAdminQueryService;
 
-    // TODO: 단일 등록
     @PostMapping
     public ResponseEntity<Void> registerFaculty(
             @Admin FacultyMember facultyMember,
@@ -36,7 +35,6 @@ public class RegisterController {
         return ResponseEntity.created(URI.create("/members/" + memberId)).build();
     }
 
-    // TODO: excel을 이용한 다중 등록
     @PostMapping("/files")
     public ResponseEntity<Void> registerFaculties(
             @Admin FacultyMember facultyMember,
@@ -45,7 +43,6 @@ public class RegisterController {
         return ResponseEntity.created(URI.create("/admin/faculties")).build();
     }
 
-    // TODO: root 권한자만 교직원 삭제
     @DeleteMapping()
     public ResponseEntity<Void> deleteFaculty(
             @SuperAdmin FacultyMember facultyMember,
