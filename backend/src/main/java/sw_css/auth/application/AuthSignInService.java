@@ -37,21 +37,18 @@ public class AuthSignInService {
         Member member = memberRepository.findByEmail(email)
                 .orElseThrow(() -> new AuthException(AuthExceptionType.MEMBER_EMAIL_NOT_FOUND));
 
-        if (member.isWrongPassword(rawPassword)) {
-            throw new AuthException(AuthExceptionType.MEMBER_WRONG_ID_OR_PASSWORD);
-        }
+        checkIsMemberDeleted(member);
+        checkIsValidPassword(member, rawPassword);
 
         Object memberDetail = loadMemberDetail(member);
         if (memberDetail instanceof StudentMember studentMember) {
             String role = Role.ROLE_MEMBER.toString();
-
             String accessToken = jwtTokenProvider.createToken(member.getId(), role);
 
             return SignInResponse.of(member, studentMember.getId(), role, false, accessToken);
-
+            
         } else if (memberDetail instanceof FacultyMember facultyMember) {
             String role = Role.ROLE_ADMIN.toString();
-
             String accessToken = jwtTokenProvider.createToken(member.getId(), role);
 
             return SignInResponse.of(member, facultyMember.getId(), role, true, accessToken);
@@ -115,5 +112,19 @@ public class AuthSignInService {
         char c = (char) i;
         String availableSpecialCharacters = "!@#%^&*";
         return availableSpecialCharacters.indexOf(c) != -1;
+    }
+
+    private void checkIsMemberDeleted(Member member) {
+        if (!member.isDeleted()) {
+            return;
+        }
+        throw new AuthException(AuthExceptionType.MEMBER_NOT_FOUND);
+    }
+
+    private void checkIsValidPassword(Member member, String password) {
+        if (!member.isWrongPassword(password)) {
+            return;
+        }
+        throw new AuthException(AuthExceptionType.MEMBER_WRONG_ID_OR_PASSWORD);
     }
 }
