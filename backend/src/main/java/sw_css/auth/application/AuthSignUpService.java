@@ -49,16 +49,8 @@ public class AuthSignUpService {
         return memberId;
     }
 
-    public CheckDuplicateResponse isDuplicateEmail(String email) {
-        return CheckDuplicateResponse.from(authCheckDuplicateService.isDuplicateEmail(email));
-    }
-
     public CheckDuplicateResponse isDuplicateStudentId(String studentId) {
         return CheckDuplicateResponse.from(authCheckDuplicateService.isDuplicateStudentID(studentId));
-    }
-
-    public CheckDuplicateResponse isDuplicatePhoneNumber(String phoneNumber) {
-        return CheckDuplicateResponse.from(authCheckDuplicateService.isDuplicatePhoneNumber(phoneNumber));
     }
 
     private void checkIsDuplicateEmail(String email) {

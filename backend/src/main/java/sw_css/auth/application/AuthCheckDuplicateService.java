@@ -21,8 +21,4 @@ public class AuthCheckDuplicateService {
         Long studentId = Long.parseLong(studentIdStr);
         return studentMemberRepository.existsById(studentId);
     }
-
-    public boolean isDuplicatePhoneNumber(String phoneNumber) {
-        return memberRepository.existsByPhoneNumber(phoneNumber);
-    }
 }

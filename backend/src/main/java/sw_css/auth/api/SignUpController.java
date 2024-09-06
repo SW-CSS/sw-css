@@ -40,21 +40,9 @@ public class SignUpController {
         return ResponseEntity.ok(authEmailService.emailAuth(request.email()));
     }
 
-    @GetMapping("/exists/email")
-    public ResponseEntity<CheckDuplicateResponse> checkDuplicateEmail(
-            @RequestParam(value = "email") @NotBlank final String email) {
-        return ResponseEntity.ok(authSignUpService.isDuplicateEmail(email));
-    }
-
     @GetMapping("/exists/student-id")
     public ResponseEntity<CheckDuplicateResponse> checkDuplicateStudentId(
             @RequestParam(value = "student_id") @NotBlank final String studentId) {
         return ResponseEntity.ok(authSignUpService.isDuplicateStudentId(studentId));
-    }
-
-    @GetMapping("/exists/phone-number")
-    public ResponseEntity<CheckDuplicateResponse> checkDuplicatePhoneNumber(
-            @RequestParam(value = "phone_number") @NotBlank final String phoneNumber) {
-        return ResponseEntity.ok(authSignUpService.isDuplicatePhoneNumber(phoneNumber));
     }
 }
