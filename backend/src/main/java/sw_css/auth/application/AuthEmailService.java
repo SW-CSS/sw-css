@@ -10,6 +10,8 @@ import sw_css.auth.domain.EmailAuthRedis;
 import sw_css.auth.domain.repository.EmailAuthRedisRepository;
 import sw_css.auth.exception.AuthException;
 import sw_css.auth.exception.AuthExceptionType;
+import sw_css.member.domain.Member;
+import sw_css.member.domain.repository.MemberRepository;
 import sw_css.utils.MailUtil;
 
 @Service
@@ -23,6 +25,7 @@ public class AuthEmailService {
     private final MailUtil mailUtil;
     private final EmailAuthRedisRepository emailAuthRedisRepository;
     private final AuthCheckDuplicateService authCheckDuplicateService;
+    private final MemberRepository memberRepository;
 
     public SendAuthCodeResponse emailAuth(String email) {
         checkIsDuplicateEmail(email);
@@ -59,8 +62,10 @@ public class AuthEmailService {
     }
 
     private void checkIsDuplicateEmail(String email) {
-        if (authCheckDuplicateService.isDuplicateEmail(email)) {
-            throw new AuthException(AuthExceptionType.MEMBER_EMAIL_DUPLICATE);
+        Member member = memberRepository.findByEmail(email).orElse(null);
+        if (member == null || member.isDeleted()) {
+            return;
         }
+        throw new AuthException(AuthExceptionType.MEMBER_EMAIL_DUPLICATE);
     }
 }
