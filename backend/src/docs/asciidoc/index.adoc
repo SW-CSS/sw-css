@@ -300,3 +300,38 @@ include::{snippets}/auth-reset-password/request-fields.adoc[]
 .HTTP Response
 include::{snippets}/auth-reset-password/http-response.adoc[]
 
+== 관리자 인증
+
+=== `POST`: 관리자 단일 등록
+
+.HTTP Request
+include::{snippets}/admin-auth-register/http-request.adoc[]
+
+.Request Body
+include::{snippets}/admin-auth-register/request-body.adoc[]
+
+.HTTP Response
+include::{snippets}/admin-auth-register/http-response.adoc[]
+
+=== `POST`: 파일을 이용한 관리자 다중 등록
+
+.HTTP Request
+include::{snippets}/admin-auth-register-by-file/http-request.adoc[]
+
+.Request Body
+include::{snippets}/admin-auth-register-by-file/request-parts.adoc[]
+
+.HTTP Response
+include::{snippets}/admin-auth-register-by-file/http-response.adoc[]
+
+=== `DELETE`: 관리자 삭제
+
+.HTTP Request
+include::{snippets}/admin-auth-delete/http-request.adoc[]
+
+.Request Body
+include::{snippets}/admin-auth-delete/request-body.adoc[]
+
+.HTTP Response
+include::{snippets}/admin-auth-delete/http-response.adoc[]
+
