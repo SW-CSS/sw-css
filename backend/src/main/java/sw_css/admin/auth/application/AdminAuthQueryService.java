@@ -31,7 +31,7 @@ import sw_css.member.domain.repository.MemberRepository;
 
 @Service
 @RequiredArgsConstructor
-public class AuthAdminQueryService {
+public class AdminAuthQueryService {
 
     private final MemberRepository memberRepository;
     private final FacultyMemberRepository facultyMemberRepository;
@@ -95,8 +95,11 @@ public class AuthAdminQueryService {
 
     @Transactional
     public void deleteFaculty(Long memberId) {
-        Member member = memberRepository.findById(memberId)
+        FacultyMember facultyMember = facultyMemberRepository.findById(memberId)
                 .orElseThrow(() -> new AdminAuthException(AdminAuthExceptionType.MEMBER_NOT_FOUND));
+
+        Member member = facultyMember.getMember();
+
         checkIsMemberDeleted(member);
 
         member.setDeleted(true);
