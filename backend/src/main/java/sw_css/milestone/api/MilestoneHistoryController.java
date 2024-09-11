@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import sw_css.member.domain.Member;
 import sw_css.member.domain.StudentMember;
 import sw_css.milestone.application.MilestoneHistoryCommandService;
 import sw_css.milestone.application.MilestoneHistoryQueryService;
@@ -26,6 +27,7 @@ import sw_css.milestone.application.dto.response.MilestoneHistoryOfStudentRespon
 import sw_css.milestone.application.dto.response.MilestoneScoreOfStudentResponse;
 import sw_css.milestone.domain.MilestoneHistorySortCriteria;
 import sw_css.milestone.domain.MilestoneStatus;
+import sw_css.utils.annotation.MemberInterface;
 import sw_css.utils.annotation.StudentInterface;
 
 @Validated
@@ -46,7 +48,6 @@ public class MilestoneHistoryController {
         return ResponseEntity.created(URI.create("/milestones/histories/" + registeredMilestoneHistoryId)).build();
     }
 
-    // TODO 학생만 호출할 수 있도록 권한 설정
     @DeleteMapping("/{historyId}")
     public ResponseEntity<Void> deleteMilestoneHistory(
             @StudentInterface StudentMember student, @PathVariable("historyId") final Long historyId) {
@@ -54,10 +55,10 @@ public class MilestoneHistoryController {
         return ResponseEntity.noContent().build();
     }
 
-    // TODO 학생 본인 혹은 관리자만 호출할 수 있도록 권한 설정
     @GetMapping("/members/{memberId}")
     public ResponseEntity<Page<MilestoneHistoryOfStudentResponse>> findAllMilestoneHistories(
             final Pageable pageable,
+            @MemberInterface Member me,
             @PathVariable("memberId") final Long memberId,
             @RequestParam(value = "start_date", required = false) final String startDate,
             @RequestParam(value = "end_date", required = false) final String endDate,

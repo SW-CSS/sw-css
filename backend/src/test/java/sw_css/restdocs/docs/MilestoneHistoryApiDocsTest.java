@@ -178,6 +178,7 @@ public class MilestoneHistoryApiDocsTest extends RestDocsTest {
         final Long memberId = 1L;
         final String startDate = "2024-06-01";
         final String endDate = "2024-06-08";
+        final String token = "Bearer AccessToken";
 
         //when
         when(milestoneHistoryQueryService.findAllMilestoneHistories(eq(memberId), eq(startDate), eq(endDate), any(),
@@ -186,7 +187,8 @@ public class MilestoneHistoryApiDocsTest extends RestDocsTest {
         //then
         mockMvc.perform(RestDocumentationRequestBuilders.get("/milestones/histories/members/{memberId}", memberId)
                         .param("start_date", startDate)
-                        .param("end_date", endDate))
+                        .param("end_date", endDate)
+                        .header(HttpHeaders.AUTHORIZATION, token))
                 .andExpect(status().isOk())
                 .andDo(document("milestone-history-of-student-find-all", pathParameters, queryParameters,
                         responseBodySnippet));
