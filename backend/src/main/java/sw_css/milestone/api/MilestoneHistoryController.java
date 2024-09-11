@@ -71,10 +71,9 @@ public class MilestoneHistoryController {
                         sortDirection, pageable));
     }
 
-
-    // TODO 학생 본인 혹은 관리자만 호출할 수 있도록 권한 설정
     @GetMapping("/scores/members/{memberId}")
     public ResponseEntity<List<MilestoneScoreOfStudentResponse>> findAllMilestoneHistoryScores(
+            @MemberInterface Member me,
             @PathVariable("memberId") final Long memberId,
             @RequestParam(value = "start_date") final String startDate,
             @RequestParam(value = "end_date") final String endDate) {
