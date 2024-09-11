@@ -29,7 +29,6 @@ import sw_css.restdocs.RestDocsTest;
 
 @WebMvcTest(AdminAuthController.class)
 public class AdminAuthApiDocsTest extends RestDocsTest {
-
     @Test
     @DisplayName("[성공] 관리자 단일 등록을 할 수 있다.")
     public void registerFacultyMemberInfo() throws Exception {
@@ -46,7 +45,7 @@ public class AdminAuthApiDocsTest extends RestDocsTest {
         final String token = "Bearer AccessToken";
 
         // when
-        when(adminAuthQueryService.registerFaculty(request)).thenReturn(1L);
+        when(adminAuthCommandService.registerFaculty(request)).thenReturn(1L);
 
         // then
         mockMvc.perform(post("/admin/auth")
@@ -58,7 +57,7 @@ public class AdminAuthApiDocsTest extends RestDocsTest {
     }
 
     @Test
-    @DisplayName("[성공] 관리자 단중 등록을 할 수 있다.")
+    @DisplayName("[성공] 관리자 다중 등록을 할 수 있다.")
     public void registerFaculties() throws Exception {
         // given
         final RequestPartsSnippet requestPartsSnippet = requestParts(
@@ -71,7 +70,7 @@ public class AdminAuthApiDocsTest extends RestDocsTest {
         final String token = "Bearer AccessToken";
 
         // when
-        doNothing().when(adminAuthQueryService).registerFaculties(request);
+        doNothing().when(adminAuthCommandService).registerFaculties(request);
 
         // then
         mockMvc.perform(multipart("/admin/auth/files").file(request)
@@ -84,7 +83,7 @@ public class AdminAuthApiDocsTest extends RestDocsTest {
     }
 
     @Test
-    @DisplayName("[성공] 관리자 단중 등록을 할 수 있다.")
+    @DisplayName("[성공] 관리자 삭제할 수 있다.")
     public void deleteFaculty() throws Exception {
         // given
         final RequestFieldsSnippet requestFieldsSnippet = requestFields(
@@ -97,7 +96,7 @@ public class AdminAuthApiDocsTest extends RestDocsTest {
         final String token = "Bearer AccessToken";
 
         // when
-        doNothing().when(adminAuthQueryService).deleteFaculty(request.member_id());
+        doNothing().when(adminAuthCommandService).deleteFaculty(request.member_id());
 
         // then
         mockMvc.perform(RestDocumentationRequestBuilders.delete("/admin/auth")

@@ -7,13 +7,6 @@ insert into faculty_member (member_id)
 values (1);
 
 insert into member (email, name, password, phone_number, is_deleted)
-values ('songsy405@pusan.ac.kr', '송세연', '$2a$10$YyiOL/E5WjKrZPkB6eQSK.PwZtAO.z3JimFbq/Ky3u3rFf3XTGrWK', '01000000000',
-        false);
-
-insert into student_member (id, member_id, major_id, minor_id, double_major_id, career, career_detail)
-values (202055558, 2, 1, null, null, 'EMPLOYMENT_COMPANY', 'IT 기업 개발자');
-
-insert into member (email, name, password, phone_number, is_deleted)
 values ( 'ddang@pusan.ac.kr', '이다은', '$2a$10$YyiOL/E5WjKrZPkB6eQSK.PwZtAO.z3JimFbq/Ky3u3rFf3XTGrWK', '01000000000'
        , false);
 

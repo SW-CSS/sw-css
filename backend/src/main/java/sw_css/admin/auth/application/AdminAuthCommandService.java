@@ -3,7 +3,6 @@ package sw_css.admin.auth.application;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -31,7 +30,7 @@ import sw_css.member.domain.repository.MemberRepository;
 
 @Service
 @RequiredArgsConstructor
-public class AdminAuthQueryService {
+public class AdminAuthCommandService {
 
     private final MemberRepository memberRepository;
     private final FacultyMemberRepository facultyMemberRepository;
@@ -42,14 +41,9 @@ public class AdminAuthQueryService {
 
     @Transactional
     public Long registerFaculty(RegisterFacultyRequest request) {
-        final String encodedPassword = Password.encode(password);
+        validateDuplicateEmail(request.email());
 
-        Member member = memberRepository.findByEmail(request.email()).orElse(null);
-        if (member != null && !member.isDeleted()) {
-            throw new AdminAuthException(AdminAuthExceptionType.MEMBER_EMAIL_DUPLICATE);
-        } else if (member != null) {
-            return saveExistFaculty(request.email(), request.name(), member, encodedPassword);
-        }
+        final String encodedPassword = Password.encode(password);
 
         final long memberId = memberRepository.save(request.toMember(encodedPassword)).getId();
         facultyMemberRepository.save(request.toFacultyMember(memberId, encodedPassword));
@@ -80,14 +74,7 @@ public class AdminAuthQueryService {
                 continue;
             }
 
-            Member member = memberRepository.findByEmail(email).orElse(null);
-            if (member == null) {
-                saveFaculty(email, name, encodedPassword);
-            } else if (member.isDeleted()) {
-                saveExistFaculty(email, name, member, encodedPassword);
-            } else {
-                failedData.add(i + 1);
-            }
+            saveFaculty(email, name, encodedPassword);
         }
 
         checkFailedData(failedData);
@@ -104,24 +91,6 @@ public class AdminAuthQueryService {
 
         member.setDeleted(true);
         memberRepository.save(member);
-    }
-
-    private long saveExistFaculty(String email, String name, Member oldMember, String password) {
-        Member newMember = new Member(email, name, password, "01000000000", false);
-        newMember.setId(oldMember.getId());
-        memberRepository.save(newMember);
-
-        FacultyMember facultyMember = facultyMemberRepository.findByMemberId(newMember.getId()).orElse(null);
-        facultyMemberRepository.save(Objects.requireNonNullElseGet(facultyMember,
-                () -> new FacultyMember(null, newMember)));
-
-        return newMember.getId();
-    }
-
-    private void checkIsDuplicateEmail(String email) {
-        if (authCheckDuplicateService.isDuplicateEmail(email)) {
-            throw new AdminAuthException(AdminAuthExceptionType.MEMBER_EMAIL_DUPLICATE);
-        }
     }
 
     private Workbook generateWorkbook(final MultipartFile file, String extension) {
@@ -145,9 +114,19 @@ public class AdminAuthQueryService {
         facultyMemberRepository.save(facultyMember);
     }
 
+    private void validateDuplicateEmail(String email) {
+        if (authCheckDuplicateService.isDuplicateEmail(email)) {
+            throw new AdminAuthException(AdminAuthExceptionType.MEMBER_EMAIL_DUPLICATE);
+        }
+    }
+
+    private boolean isDuplicateEmail(String email) {
+        return authCheckDuplicateService.isDuplicateEmail(email);
+    }
+
     private boolean isInvalidInput(final String email, final String name) {
         if (Pattern.matches(EmailAddress.EMAIL_ADDRESS_REGEX, email) &&
-                Pattern.matches(RealName.NAME_REGEX, name)) {
+                Pattern.matches(RealName.NAME_REGEX, name) && !isDuplicateEmail(email)) {
             return false;
         }
         return true;
