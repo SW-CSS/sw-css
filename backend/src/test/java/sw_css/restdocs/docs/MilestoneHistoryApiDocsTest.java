@@ -22,6 +22,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
@@ -59,21 +60,28 @@ public class MilestoneHistoryApiDocsTest extends RestDocsTest {
                 partWithName("file").description("증빙 자료 파일(jpg, jpeg, png, pdf)")
 
         );
+        final StudentMember student = new StudentMember(202055500L,
+                new Member(1L, "abc@naver.com", "홍길동", "password", "010-0000-0000", false),
+                new Major(1L, new College(1L, "인문대학"), "사회학과"), null, null, CareerType.EMPLOYMENT_COMPANY,
+                "IT 사기업 개발자로 취업");
         final MockMultipartFile file = new MockMultipartFile("file", "test.png", "multipart/form-data",
                 "example".getBytes());
         final MilestoneHistoryCreateRequest request = new MilestoneHistoryCreateRequest(1L, "대회 수상했습니다.", 3,
                 LocalDate.parse("2024-06-05"));
         final MockMultipartFile requestFile = new MockMultipartFile("request", null, "application/json",
                 objectMapper.writeValueAsString(request).getBytes());
+        final String token = "Bearer AccessToken";
+
         // when
-        when(milestoneHistoryCommandService.registerMilestoneHistory(file, request)).thenReturn(1L);
+        when(milestoneHistoryCommandService.registerMilestoneHistory(student, file, request)).thenReturn(1L);
 
         // then
         mockMvc.perform(multipart("/milestones/histories")
                         .file(file)
                         .file(requestFile)
                         .contentType(MediaType.MULTIPART_MIXED)
-                        .content(objectMapper.writeValueAsString(request)))
+                        .content(objectMapper.writeValueAsString(request))
+                        .header(HttpHeaders.AUTHORIZATION, token))
                 .andExpect(status().isCreated())
                 .andDo(document("milestone-history-create", requestPartsSnippet));
     }

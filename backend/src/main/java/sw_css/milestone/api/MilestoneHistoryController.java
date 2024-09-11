@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import sw_css.member.domain.StudentMember;
 import sw_css.milestone.application.MilestoneHistoryCommandService;
 import sw_css.milestone.application.MilestoneHistoryQueryService;
 import sw_css.milestone.application.dto.request.MilestoneHistoryCreateRequest;
@@ -25,6 +26,7 @@ import sw_css.milestone.application.dto.response.MilestoneHistoryOfStudentRespon
 import sw_css.milestone.application.dto.response.MilestoneScoreOfStudentResponse;
 import sw_css.milestone.domain.MilestoneHistorySortCriteria;
 import sw_css.milestone.domain.MilestoneStatus;
+import sw_css.utils.annotation.StudentInterface;
 
 @Validated
 @RequestMapping("/milestones/histories")
@@ -34,12 +36,12 @@ public class MilestoneHistoryController {
     private final MilestoneHistoryCommandService milestoneHistoryCommandService;
     private final MilestoneHistoryQueryService milestoneHistoryQueryService;
 
-    // TODO 학생만 호출할 수 있도록 권한 설정
     @PostMapping
     public ResponseEntity<Void> registerMilestoneHistory(
+            @StudentInterface StudentMember student,
             @RequestPart(value = "file", required = false) final MultipartFile file,
             @RequestPart(value = "request") @Valid final MilestoneHistoryCreateRequest request) {
-        final Long registeredMilestoneHistoryId = milestoneHistoryCommandService.registerMilestoneHistory(file,
+        final Long registeredMilestoneHistoryId = milestoneHistoryCommandService.registerMilestoneHistory(student, file,
                 request);
         return ResponseEntity.created(URI.create("/milestones/histories/" + registeredMilestoneHistoryId)).build();
     }
