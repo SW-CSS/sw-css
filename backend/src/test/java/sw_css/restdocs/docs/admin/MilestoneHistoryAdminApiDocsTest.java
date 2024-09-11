@@ -28,6 +28,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
@@ -65,13 +66,15 @@ public class MilestoneHistoryAdminApiDocsTest extends RestDocsTest {
                 parameterWithName("historyId").description("마일스톤 실적의 id")
         );
         final Long historyId = 1L;
+        final String token = "Bearer AccessToken";
 
         // when
         doNothing().when(milestoneHistoryAdminCommandService).approveMilestoneHistory(historyId);
 
         // then
         mockMvc.perform(
-                        RestDocumentationRequestBuilders.patch("/admin/milestones/histories/{historyId}/approve", historyId))
+                        RestDocumentationRequestBuilders.patch("/admin/milestones/histories/{historyId}/approve", historyId)
+                                .header(HttpHeaders.AUTHORIZATION, token))
                 .andExpect(status().isNoContent())
                 .andDo(document("milestone-history-approve", pathParameters));
     }
@@ -89,6 +92,7 @@ public class MilestoneHistoryAdminApiDocsTest extends RestDocsTest {
         final MilestoneHistoryRejectRequest request = new MilestoneHistoryRejectRequest("증빙자료 불충분");
 
         final Long historyId = 1L;
+        final String token = "Bearer AccessToken";
 
         // when
         doNothing().when(milestoneHistoryAdminCommandService).rejectMilestoneHistory(historyId, request);
@@ -97,7 +101,8 @@ public class MilestoneHistoryAdminApiDocsTest extends RestDocsTest {
         mockMvc.perform(
                         RestDocumentationRequestBuilders.patch("/admin/milestones/histories/{historyId}/reject", historyId)
                                 .contentType(MediaType.APPLICATION_JSON)
-                                .content(objectMapper.writeValueAsString(request)))
+                                .content(objectMapper.writeValueAsString(request))
+                                .header(HttpHeaders.AUTHORIZATION, token))
                 .andExpect(status().isNoContent())
                 .andDo(document("milestone-history-reject", pathParameters, requestBodySnippet));
     }
@@ -110,13 +115,15 @@ public class MilestoneHistoryAdminApiDocsTest extends RestDocsTest {
                 parameterWithName("historyId").description("마일스톤 실적의 id")
         );
         final Long historyId = 1L;
+        final String token = "Bearer AccessToken";
 
         // when
         doNothing().when(milestoneHistoryAdminCommandService).cancelMilestoneHistory(historyId);
 
         // then
         mockMvc.perform(
-                        RestDocumentationRequestBuilders.patch("/admin/milestones/histories/{historyId}/cancel", historyId))
+                        RestDocumentationRequestBuilders.patch("/admin/milestones/histories/{historyId}/cancel", historyId)
+                                .header(HttpHeaders.AUTHORIZATION, token))
                 .andExpect(status().isNoContent())
                 .andDo(document("milestone-history-cancel", pathParameters));
     }
@@ -163,13 +170,15 @@ public class MilestoneHistoryAdminApiDocsTest extends RestDocsTest {
 
         final MilestoneHistoryResponse response = MilestoneHistoryResponse.from(history);
         final Long historyId = 1L;
+        final String token = "Bearer AccessToken";
 
         //when
         when(milestoneHistoryAdminQueryService.findMilestoneHistory(historyId)).thenReturn(response);
 
         //then
         mockMvc.perform(
-                        RestDocumentationRequestBuilders.get("/admin/milestones/histories/" + historyId))
+                        RestDocumentationRequestBuilders.get("/admin/milestones/histories/" + historyId)
+                                .header(HttpHeaders.AUTHORIZATION, token))
                 .andExpect(status().isOk())
                 .andDo(document("milestone-history-find", responseBodySnippet));
 
@@ -249,13 +258,15 @@ public class MilestoneHistoryAdminApiDocsTest extends RestDocsTest {
         ));
 
         final Page<MilestoneHistoryResponse> response = MilestoneHistoryResponse.from(milestones, pageable);
+        final String token = "Bearer AccessToken";
 
         //when
         when(milestoneHistoryAdminQueryService.findAllMilestoneHistories(any(), any(), any())).thenReturn(response);
 
         //then
         mockMvc.perform(
-                        RestDocumentationRequestBuilders.get("/admin/milestones/histories"))
+                        RestDocumentationRequestBuilders.get("/admin/milestones/histories")
+                                .header(HttpHeaders.AUTHORIZATION, token))
                 .andExpect(status().isOk())
                 .andDo(document("milestone-history-find-all", queryParameters, responseBodySnippet));
 
@@ -272,6 +283,7 @@ public class MilestoneHistoryAdminApiDocsTest extends RestDocsTest {
         );
         final String field = "1";
         final String keyword = "202055558";
+        final String token = "Bearer AccessToken";
 
         // when
         when(milestoneHistoryAdminQueryService.downloadMilestoneHistory(any(), any())).thenReturn(response);
@@ -279,7 +291,8 @@ public class MilestoneHistoryAdminApiDocsTest extends RestDocsTest {
         // then
         mockMvc.perform(RestDocumentationRequestBuilders.get("/admin/milestones/histories/files")
                         .param("field", field)
-                        .param("keyword", keyword))
+                        .param("keyword", keyword)
+                        .header(HttpHeaders.AUTHORIZATION, token))
                 .andExpect(status().isOk())
                 .andDo(document("download-history-file", queryParameters));
     }
@@ -294,6 +307,7 @@ public class MilestoneHistoryAdminApiDocsTest extends RestDocsTest {
 
         final MockMultipartFile request = new MockMultipartFile("file", "test.xls", "multipart/form-data",
                 "example".getBytes());
+        final String token = "Bearer AccessToken";
 
         // when
         doNothing().when(milestoneHistoryAdminCommandService).registerMilestoneHistoriesInBatches(any());
@@ -302,7 +316,8 @@ public class MilestoneHistoryAdminApiDocsTest extends RestDocsTest {
         mockMvc.perform(multipart("/admin/milestones/histories").file(request)
                         .contentType(MediaType.MULTIPART_FORM_DATA)
                         .accept(MediaType.APPLICATION_JSON)
-                        .characterEncoding("UTF-8"))
+                        .characterEncoding("UTF-8")
+                        .header(HttpHeaders.AUTHORIZATION, token))
                 .andExpect(status().isCreated())
                 .andDo(document("milestone-history-create-in-batch", requestPartsSnippet));
     }
@@ -372,6 +387,7 @@ public class MilestoneHistoryAdminApiDocsTest extends RestDocsTest {
                                         ACTIVITY, 100, null), 50))))), PageRequest.of(0, 10), 3);
         final String startDate = "2024-06-01";
         final String endDate = "2024-06-08";
+        final String token = "Bearer AccessToken";
 
         //when
         when(milestoneHistoryAdminQueryService.findAllMilestoneHistoryScores(eq(startDate), eq(endDate),
@@ -383,7 +399,8 @@ public class MilestoneHistoryAdminApiDocsTest extends RestDocsTest {
                                 .param("start_date", startDate)
                                 .param("end_date", endDate)
                                 .param("page", "0")
-                                .param("size", "10"))
+                                .param("size", "10")
+                                .header(HttpHeaders.AUTHORIZATION, token))
                 .andExpect(status().isOk())
                 .andDo(document("milestone-history-score-find-all", queryParameters,
                         responseBodySnippet));
@@ -400,6 +417,7 @@ public class MilestoneHistoryAdminApiDocsTest extends RestDocsTest {
         );
         final String startDate = "2024-06-01";
         final String endDate = "2024-06-08";
+        final String token = "Bearer AccessToken";
 
         // when
         when(milestoneHistoryAdminQueryService.downloadMilestoneHistoryScore(any(), any())).thenReturn(response);
@@ -407,7 +425,8 @@ public class MilestoneHistoryAdminApiDocsTest extends RestDocsTest {
         // then
         mockMvc.perform(RestDocumentationRequestBuilders.get("/admin/milestones/histories/scores/files")
                         .param("start_date", startDate)
-                        .param("end_date", endDate))
+                        .param("end_date", endDate)
+                        .header(HttpHeaders.AUTHORIZATION, token))
                 .andExpect(status().isOk())
                 .andDo(document("download-score-file", queryParameters));
     }
