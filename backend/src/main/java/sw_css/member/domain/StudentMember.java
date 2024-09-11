@@ -12,12 +12,10 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import sw_css.base.BaseEntity;
 import sw_css.major.domain.Major;
 
 @Entity
-@Setter(AccessLevel.PUBLIC)
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)

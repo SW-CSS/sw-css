@@ -21,7 +21,6 @@ import sw_css.member.domain.embedded.Password;
 @SQLRestriction("is_deleted = false")
 public class Member extends BaseEntity {
     @Id
-    @Setter(AccessLevel.PUBLIC)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 

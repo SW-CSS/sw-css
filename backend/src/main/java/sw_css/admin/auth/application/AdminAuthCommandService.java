@@ -107,10 +107,9 @@ public class AdminAuthCommandService {
     private void saveFaculty(final String email, final String name, final String password) {
         Member member = new Member(email, name, password, "01000000000", false);
 
-        final long memberId = memberRepository.save(member).getId();
-        member.setId(memberId);
+        final Member savedMember = memberRepository.save(member);
 
-        FacultyMember facultyMember = new FacultyMember(null, member);
+        FacultyMember facultyMember = new FacultyMember(null, savedMember);
         facultyMemberRepository.save(facultyMember);
     }
 
