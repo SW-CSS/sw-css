@@ -30,8 +30,7 @@ public class AuthSignUpService {
         checkIsDuplicateEmail(request.email());
         checkIsDuplicateStudentId(request.student_id());
 
-        String actualAuthCode = loadActualAuthCode(request.email());
-        checkAuthCodeMatch(request.auth_code(), actualAuthCode);
+        checkIsValidAuthCode(request.email(), request.auth_code());
 
         Major major = majorRepository.findById(request.major_id())
                 .orElseThrow(() -> new AuthException(AuthExceptionType.MAJOR_NOT_EXIST));
@@ -49,16 +48,8 @@ public class AuthSignUpService {
         return memberId;
     }
 
-    public CheckDuplicateResponse isDuplicateEmail(String email) {
-        return CheckDuplicateResponse.from(authCheckDuplicateService.isDuplicateEmail(email));
-    }
-
     public CheckDuplicateResponse isDuplicateStudentId(String studentId) {
         return CheckDuplicateResponse.from(authCheckDuplicateService.isDuplicateStudentID(studentId));
-    }
-
-    public CheckDuplicateResponse isDuplicatePhoneNumber(String phoneNumber) {
-        return CheckDuplicateResponse.from(authCheckDuplicateService.isDuplicatePhoneNumber(phoneNumber));
     }
 
     private void checkIsDuplicateEmail(String email) {
@@ -73,12 +64,6 @@ public class AuthSignUpService {
         }
     }
 
-    private void checkIsDuplicatePhoneNumber(String phoneNumber) {
-        if (authCheckDuplicateService.isDuplicatePhoneNumber(phoneNumber)) {
-            throw new AuthException(AuthExceptionType.MEMBER_PHONE_NUMBER_DUPLICATE);
-        }
-    }
-
     private void checkAuthCodeMatch(String requestAuthCode, String actualAuthCode) {
         if (!actualAuthCode.equals(requestAuthCode)) {
             throw new AuthException(AuthExceptionType.AUTH_CODE_MISMATCH);
@@ -89,5 +74,10 @@ public class AuthSignUpService {
         return emailAuthRedisRepository.findById(email)
                 .orElseThrow(() -> new AuthException(AuthExceptionType.AUTH_CODE_EXPIRED))
                 .getAuthCode();
+    }
+
+    private void checkIsValidAuthCode(String email, String authCode) {
+        String actualAuthCode = loadActualAuthCode(email);
+        checkAuthCodeMatch(authCode, actualAuthCode);
     }
 }

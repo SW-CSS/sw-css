@@ -1,5 +1,6 @@
 package sw_css.auth.application;
 
+import jakarta.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -10,10 +11,12 @@ import sw_css.auth.domain.EmailAuthRedis;
 import sw_css.auth.domain.repository.EmailAuthRedisRepository;
 import sw_css.auth.exception.AuthException;
 import sw_css.auth.exception.AuthExceptionType;
+import sw_css.member.domain.repository.MemberRepository;
 import sw_css.utils.MailUtil;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(rollbackOn = Exception.class)
 public class AuthEmailService {
     public static final int EMAIL_EXPIRED_SECONDS = 600; // 10분
     public static final int AUTH_CODE_LENGTH = 10;
@@ -23,6 +26,7 @@ public class AuthEmailService {
     private final MailUtil mailUtil;
     private final EmailAuthRedisRepository emailAuthRedisRepository;
     private final AuthCheckDuplicateService authCheckDuplicateService;
+    private final MemberRepository memberRepository;
 
     public SendAuthCodeResponse emailAuth(String email) {
         checkIsDuplicateEmail(email);

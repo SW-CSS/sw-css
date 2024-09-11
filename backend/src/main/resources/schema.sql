@@ -32,7 +32,7 @@ create table student_member
 
 create table faculty_member
 (
-    id         bigint primary key,
+    id         bigint auto_increment primary key,
     member_id  bigint      not null,
     created_at datetime(6) not null default current_timestamp(6)
 );

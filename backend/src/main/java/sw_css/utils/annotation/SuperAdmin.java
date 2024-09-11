@@ -7,7 +7,6 @@ import java.lang.annotation.Target;
 
 @Target(ElementType.PARAMETER)
 @Retention(RetentionPolicy.RUNTIME)
-public @interface JwtAuthorization {
-
+public @interface SuperAdmin {
     boolean required() default true;
 }

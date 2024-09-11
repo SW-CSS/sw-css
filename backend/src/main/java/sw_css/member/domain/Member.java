@@ -10,6 +10,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.SQLRestriction;
 import sw_css.base.BaseEntity;
 import sw_css.member.domain.embedded.Password;
 
@@ -17,6 +18,7 @@ import sw_css.member.domain.embedded.Password;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@SQLRestriction("is_deleted = false")
 public class Member extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,6 +37,7 @@ public class Member extends BaseEntity {
     @Column(nullable = false)
     private String phoneNumber;
 
+    @Setter(AccessLevel.PUBLIC)
     @Column(nullable = false)
     private boolean isDeleted;
 
