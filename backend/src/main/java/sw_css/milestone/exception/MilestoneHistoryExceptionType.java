@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 import sw_css.base.BaseExceptionType;
 
 public enum MilestoneHistoryExceptionType implements BaseExceptionType {
+    REMOVE_NOT_ALLOWED(HttpStatus.FORBIDDEN, "해당 마일스톤에 대한 삭제 권한이 없습니다."),
     NOT_FOUND_MILESTONE_HISTORY(HttpStatus.NOT_FOUND, "해당하는 마일스톤 실적이 존재하지 않습니다."),
     ALREADY_PROCESSED(HttpStatus.BAD_REQUEST, "해당 마일스톤 실적은 이미 처리된 상태입니다."),
     NOT_PROCESSED(HttpStatus.BAD_REQUEST, "해당 마일스톤 실적은 처리되지 않은 상태입니다."),

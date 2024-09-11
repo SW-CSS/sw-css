@@ -93,13 +93,19 @@ public class MilestoneHistoryApiDocsTest extends RestDocsTest {
         final PathParametersSnippet pathParameters = pathParameters(
                 parameterWithName("historyId").description("마일스톤 실적의 id")
         );
+        final StudentMember student = new StudentMember(202055500L,
+                new Member(1L, "abc@naver.com", "홍길동", "password", "010-0000-0000", false),
+                new Major(1L, new College(1L, "인문대학"), "사회학과"), null, null, CareerType.EMPLOYMENT_COMPANY,
+                "IT 사기업 개발자로 취업");
         final Long historyId = 1L;
+        final String token = "Bearer AccessToken";
 
         // when
-        doNothing().when(milestoneHistoryCommandService).deleteMilestoneHistory(historyId);
+        doNothing().when(milestoneHistoryCommandService).deleteMilestoneHistory(student, historyId);
 
         // then
-        mockMvc.perform(RestDocumentationRequestBuilders.delete("/milestones/histories/{historyId}", historyId))
+        mockMvc.perform(RestDocumentationRequestBuilders.delete("/milestones/histories/{historyId}", historyId)
+                        .header(HttpHeaders.AUTHORIZATION, token))
                 .andExpect(status().isNoContent())
                 .andDo(document("milestone-history-delete", pathParameters));
     }

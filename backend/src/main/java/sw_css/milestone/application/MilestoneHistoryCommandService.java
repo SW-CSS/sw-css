@@ -93,11 +93,13 @@ public class MilestoneHistoryCommandService {
         }
     }
 
-    public void deleteMilestoneHistory(final Long historyId) {
+    public void deleteMilestoneHistory(final StudentMember student, final Long historyId) {
         final MilestoneHistory history = milestoneHistoryRepository.findById(historyId)
                 .orElseThrow(
                         () -> new MilestoneHistoryException(MilestoneHistoryExceptionType.NOT_FOUND_MILESTONE_HISTORY));
-
+        if (!history.getStudentId().equals(student.getId())) {
+            throw new MilestoneHistoryException(MilestoneHistoryExceptionType.REMOVE_NOT_ALLOWED);
+        }
         history.delete();
     }
 }

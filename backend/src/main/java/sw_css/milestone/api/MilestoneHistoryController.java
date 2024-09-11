@@ -48,8 +48,9 @@ public class MilestoneHistoryController {
 
     // TODO 학생만 호출할 수 있도록 권한 설정
     @DeleteMapping("/{historyId}")
-    public ResponseEntity<Void> deleteMilestoneHistory(@PathVariable("historyId") final Long historyId) {
-        milestoneHistoryCommandService.deleteMilestoneHistory(historyId);
+    public ResponseEntity<Void> deleteMilestoneHistory(
+            @StudentInterface StudentMember student, @PathVariable("historyId") final Long historyId) {
+        milestoneHistoryCommandService.deleteMilestoneHistory(student, historyId);
         return ResponseEntity.noContent().build();
     }
 
