@@ -21,7 +21,8 @@ const Page = ({ searchParams }: { searchParams?: { [key: string]: string | undef
 
   return (
     <div className="w-full">
-      <div className="flex items-center rounded-sm border-[1px] border-admin-border bg-admin-background-light px-5 py-3 text-sm">
+      <div className="flex h-40 w-full items-center justify-center text-comment">개발 중인 기능입니다.</div>
+      {/* <div className="flex items-center rounded-sm border-[1px] border-admin-border bg-admin-background-light px-5 py-3 text-sm">
         <span className="mr-20">
           총 <span className="text-admin-primary-main">{members.length}</span>명의 회원이 있습니다.
         </span>
@@ -33,7 +34,7 @@ const Page = ({ searchParams }: { searchParams?: { [key: string]: string | undef
         totalItems={members.length}
         pathname={pathname}
         query={JSON.stringify(searchParams)}
-      />
+      /> */}
     </div>
   );
 };
