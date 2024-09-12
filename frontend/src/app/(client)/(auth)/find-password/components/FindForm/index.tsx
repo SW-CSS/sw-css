@@ -1,18 +1,12 @@
 'use client';
 
 import { Form, Formik } from 'formik';
-import * as Yup from 'yup';
 
 import EmailTextInput from '@/components/Formik/EmailTextInput';
 import TextInput from '@/components/Formik/TextInput';
-
-const validationSchema = Yup.object().shape({
-  email: Yup.string()
-    .required('필수 입력란입니다. 이메일을 입력해주세요.')
-    .matches(/^((?!@).)*$/, '부산대 이메일만 가입 가능합니다. 이메일 도메인 부분을 삭제해주세요.')
-    .matches(/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*$/, '존재하는 이메일인지 확인해주세요.'),
-  name: Yup.string().required('필수 입력란입니다. 이름을 입력해주세요.'),
-});
+import { useResetPasswordMutation } from '@/lib/hooks/useApi';
+import { toast } from 'react-toastify';
+import { useRouter } from 'next/navigation';
 
 interface FormType {
   email: string;
@@ -25,15 +19,29 @@ const initialValues: FormType = {
 };
 
 const FindForm = () => {
+  const { mutate: resetPasswordMutation } = useResetPasswordMutation();
+  const router = useRouter();
+
   const handleSubmitButtonClick = (values: FormType) => {
-    // TODO: 메일 발송 api 호출
-    console.log(JSON.stringify(values));
+    resetPasswordMutation(
+      { email: values.email, name: values.name },
+      {
+        onSuccess(data, variables, context) {
+          toast.info('임시비밀번호 메일이 발송되었습니다.');
+          setTimeout(function () {
+            router.push('/sign-in');
+          }, 2000);
+        },
+        onError(error, variables, context) {
+          toast.error(error.message);
+        },
+      },
+    );
   };
 
   return (
     <Formik
       initialValues={initialValues}
-      validationSchema={validationSchema}
       onSubmit={(values, { setSubmitting }) => {
         setSubmitting(false);
         handleSubmitButtonClick(values);
