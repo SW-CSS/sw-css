@@ -16,8 +16,8 @@ import sw_css.admin.auth.application.AdminAuthCommandService;
 import sw_css.admin.auth.application.dto.request.DeleteFacultyRequest;
 import sw_css.admin.auth.application.dto.request.RegisterFacultyRequest;
 import sw_css.member.domain.FacultyMember;
-import sw_css.utils.annotation.Admin;
-import sw_css.utils.annotation.SuperAdmin;
+import sw_css.utils.annotation.AdminInterface;
+import sw_css.utils.annotation.SuperAdminInterface;
 
 @Validated
 @RequestMapping("/admin/auth")
@@ -29,7 +29,7 @@ public class AdminAuthController {
 
     @PostMapping
     public ResponseEntity<Void> registerFaculty(
-            @Admin FacultyMember facultyMember,
+            @AdminInterface FacultyMember facultyMember,
             @RequestBody @Valid RegisterFacultyRequest request) {
         Long memberId = adminAuthCommandService.registerFaculty(request);
         return ResponseEntity.created(URI.create("/members/" + memberId)).build();
@@ -37,7 +37,7 @@ public class AdminAuthController {
 
     @PostMapping("/files")
     public ResponseEntity<Void> registerFaculties(
-            @Admin FacultyMember facultyMember,
+            @AdminInterface FacultyMember facultyMember,
             @RequestPart(value = "file") final MultipartFile file) {
         adminAuthCommandService.registerFaculties(file);
         return ResponseEntity.created(URI.create("/admin/faculties")).build();
@@ -45,7 +45,7 @@ public class AdminAuthController {
 
     @DeleteMapping()
     public ResponseEntity<Void> deleteFaculty(
-            @SuperAdmin FacultyMember facultyMember,
+            @SuperAdminInterface FacultyMember facultyMember,
             @RequestBody @Valid DeleteFacultyRequest request) {
         adminAuthCommandService.deleteFaculty(request.member_id());
         return ResponseEntity.noContent().build();

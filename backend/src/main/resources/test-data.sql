@@ -11,7 +11,7 @@ values ( 'ddang@pusan.ac.kr', '이다은', '$2a$10$YyiOL/E5WjKrZPkB6eQSK.PwZtAO.
        , false);
 
 insert into student_member (id, member_id, major_id, minor_id, double_major_id, career, career_detail)
-values (202055555, 3, 1, null, null, 'GRADUATE_SCHOOL', 'IT 기업 개발자');
+values (202055555, 2, 1, null, null, 'GRADUATE_SCHOOL', 'IT 기업 개발자');
 
 ## milestone histories
 INSERT INTO sw_css.milestone_history (id, milestone_id, student_id, description, file_url, status, reject_reason, count,

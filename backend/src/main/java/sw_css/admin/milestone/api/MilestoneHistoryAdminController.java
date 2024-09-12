@@ -26,6 +26,8 @@ import sw_css.admin.milestone.application.MilestoneHistoryAdminQueryService;
 import sw_css.admin.milestone.application.dto.request.MilestoneHistoryRejectRequest;
 import sw_css.admin.milestone.application.dto.response.MilestoneHistoryResponse;
 import sw_css.admin.milestone.application.dto.response.MilestoneScoreResponse;
+import sw_css.member.domain.FacultyMember;
+import sw_css.utils.annotation.AdminInterface;
 
 @Validated
 @RequestMapping("/admin/milestones/histories")
@@ -35,10 +37,9 @@ public class MilestoneHistoryAdminController {
     private final MilestoneHistoryAdminCommandService milestoneHistoryAdminCommandService;
     private final MilestoneHistoryAdminQueryService milestoneHistoryAdminQueryService;
 
-    // TODO 관리자만 호출할 수 있도록 권한 설정
-
     @GetMapping
     public ResponseEntity<Page<MilestoneHistoryResponse>> findAllMilestoneHistory(
+            @AdminInterface FacultyMember facultyMember,
             @RequestParam(value = "field", required = false) final Integer field,
             @RequestParam(value = "keyword", required = false) final String keyword,
             final Pageable pageable) {
@@ -47,6 +48,7 @@ public class MilestoneHistoryAdminController {
 
     @GetMapping("/files")
     public ResponseEntity<byte[]> downloadAllMilestoneHistoryExcelFile(
+            @AdminInterface FacultyMember facultyMember,
             @RequestParam(value = "field", required = false) final Integer field,
             @RequestParam(value = "keyword", required = false) final String keyword
     ) {
@@ -62,38 +64,44 @@ public class MilestoneHistoryAdminController {
 
     @GetMapping("/{historyId}")
     public ResponseEntity<MilestoneHistoryResponse> findAllMilestoneHistory(
+            @AdminInterface FacultyMember facultyMember,
             @PathVariable("historyId") final Long historyId) {
         return ResponseEntity.ok(milestoneHistoryAdminQueryService.findMilestoneHistory(historyId));
     }
 
     @PostMapping
     public ResponseEntity<Void> registerMilestoneHistoriesInBatches(
+            @AdminInterface FacultyMember facultyMember,
             @RequestPart(value = "file") final MultipartFile file) {
         milestoneHistoryAdminCommandService.registerMilestoneHistoriesInBatches(file);
         return ResponseEntity.created(URI.create("/milestones/histories")).build();
     }
 
     @PatchMapping("/{historyId}/approve")
-    public ResponseEntity<Void> approveMilestoneHistory(@PathVariable("historyId") final Long historyId) {
+    public ResponseEntity<Void> approveMilestoneHistory(
+            @AdminInterface FacultyMember facultyMember, @PathVariable("historyId") final Long historyId) {
         milestoneHistoryAdminCommandService.approveMilestoneHistory(historyId);
         return ResponseEntity.noContent().build();
     }
 
     @PatchMapping("/{historyId}/reject")
-    public ResponseEntity<Void> approveMilestoneHistory(@PathVariable("historyId") final Long historyId,
-                                                        @RequestBody @Valid final MilestoneHistoryRejectRequest request) {
+    public ResponseEntity<Void> approveMilestoneHistory(
+            @AdminInterface FacultyMember facultyMember, @PathVariable("historyId") final Long historyId,
+            @RequestBody @Valid final MilestoneHistoryRejectRequest request) {
         milestoneHistoryAdminCommandService.rejectMilestoneHistory(historyId, request);
         return ResponseEntity.noContent().build();
     }
 
     @PatchMapping("/{historyId}/cancel")
-    public ResponseEntity<Void> cancelMilestoneHistory(@PathVariable("historyId") final Long historyId) {
+    public ResponseEntity<Void> cancelMilestoneHistory(
+            @AdminInterface FacultyMember facultyMember, @PathVariable("historyId") final Long historyId) {
         milestoneHistoryAdminCommandService.cancelMilestoneHistory(historyId);
         return ResponseEntity.noContent().build();
     }
 
     @GetMapping("/scores")
     public ResponseEntity<Page<MilestoneScoreResponse>> findAllMilestoneHistoryScores(
+            @AdminInterface FacultyMember facultyMember,
             @RequestParam(value = "start_date") final String startDate,
             @RequestParam(value = "end_date") final String endDate,
             final Pageable pageable) {
@@ -103,6 +111,7 @@ public class MilestoneHistoryAdminController {
 
     @GetMapping("/scores/files")
     public ResponseEntity<byte[]> downloadMilestoneHistoryScoreExcelFile(
+            @AdminInterface FacultyMember facultyMember,
             @RequestParam(value = "start_date") final String startDate,
             @RequestParam(value = "end_date") final String endDate) {
         String filename = "마일스톤_점수_현황.xlsx";

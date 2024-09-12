@@ -13,9 +13,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import sw_css.member.domain.StudentMember;
-import sw_css.member.domain.repository.StudentMemberRepository;
-import sw_css.member.exception.MemberException;
-import sw_css.member.exception.MemberExceptionType;
 import sw_css.milestone.application.dto.request.MilestoneHistoryCreateRequest;
 import sw_css.milestone.domain.Milestone;
 import sw_css.milestone.domain.MilestoneHistory;
@@ -35,19 +32,15 @@ public class MilestoneHistoryCommandService {
     private String filePathPrefix;
 
     // TODO 테스트 작성
-    private final StudentMemberRepository studentMemberRepository;
     private final MilestoneRepository milestoneRepository;
     private final MilestoneHistoryRepository milestoneHistoryRepository;
 
-    public Long registerMilestoneHistory(final MultipartFile file, final MilestoneHistoryCreateRequest request) {
+    public Long registerMilestoneHistory(final StudentMember student, final MultipartFile file,
+                                         final MilestoneHistoryCreateRequest request) {
         validateFileType(file);
 
         final Milestone milestone = milestoneRepository.findById(request.milestoneId())
                 .orElseThrow(() -> new MilestoneException(MilestoneExceptionType.NOT_FOUND_MILESTONE));
-        // TODO 요청자의 학번을 불러오는 로직 추가
-        final StudentMember student = studentMemberRepository.findById(202055558L).orElseThrow(
-                () -> new MemberException(MemberExceptionType.NOT_FOUND_STUDENT)
-        );
 
         final String newFilePath = generateFilePath(file);
         final MilestoneHistory newMilestoneHistory = new MilestoneHistory(milestone, student, request.description(),
@@ -100,11 +93,13 @@ public class MilestoneHistoryCommandService {
         }
     }
 
-    public void deleteMilestoneHistory(final Long historyId) {
+    public void deleteMilestoneHistory(final StudentMember student, final Long historyId) {
         final MilestoneHistory history = milestoneHistoryRepository.findById(historyId)
                 .orElseThrow(
                         () -> new MilestoneHistoryException(MilestoneHistoryExceptionType.NOT_FOUND_MILESTONE_HISTORY));
-
+        if (!history.getStudentId().equals(student.getId())) {
+            throw new MilestoneHistoryException(MilestoneHistoryExceptionType.REMOVE_NOT_ALLOWED);
+        }
         history.delete();
     }
 }

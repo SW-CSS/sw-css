@@ -9,24 +9,24 @@ import org.springframework.web.context.request.NativeWebRequest;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 import sw_css.member.domain.Member;
-import sw_css.member.domain.repository.FacultyMemberRepository;
 import sw_css.member.domain.repository.MemberRepository;
+import sw_css.member.domain.repository.StudentMemberRepository;
 import sw_css.member.exception.MemberException;
 import sw_css.member.exception.MemberExceptionType;
 import sw_css.utils.JwtToken.exception.JwtTokenException;
 import sw_css.utils.JwtToken.exception.JwtTokenExceptionType;
-import sw_css.utils.annotation.SuperAdminInterface;
+import sw_css.utils.annotation.StudentInterface;
 
 @Component
 @RequiredArgsConstructor
-public class SuperAdminArgumentResolver implements HandlerMethodArgumentResolver {
+public class StudentArgumentResolver implements HandlerMethodArgumentResolver {
     private final MemberRepository memberRepository;
-    private final FacultyMemberRepository facultyMemberRepository;
     private final JwtTokenProvider jwtTokenProvider;
+    private final StudentMemberRepository studentMemberRepository;
 
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
-        return parameter.hasParameterAnnotation(SuperAdminInterface.class);
+        return parameter.hasParameterAnnotation(StudentInterface.class);
     }
 
     @Override
@@ -49,12 +49,7 @@ public class SuperAdminArgumentResolver implements HandlerMethodArgumentResolver
         Member member = memberRepository.findById(userId)
                 .orElseThrow(() -> new MemberException(MemberExceptionType.MEMBER_NOT_FOUND));
 
-        if (member.getId() != 1) {
-            throw new JwtTokenException(JwtTokenExceptionType.JWT_TOKEN_EMPTY);
-        }
-
-        return facultyMemberRepository.findByMemberId(member.getId())
+        return studentMemberRepository.findByMemberId(member.getId())
                 .orElseThrow(() -> new JwtTokenException(JwtTokenExceptionType.JWT_TOKEN_INACCESSIBLE));
     }
 }
-

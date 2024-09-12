@@ -13,18 +13,18 @@ import sw_css.member.exception.MemberException;
 import sw_css.member.exception.MemberExceptionType;
 import sw_css.utils.JwtToken.exception.JwtTokenException;
 import sw_css.utils.JwtToken.exception.JwtTokenExceptionType;
-import sw_css.utils.annotation.JwtAuthorization;
+import sw_css.utils.annotation.MemberInterface;
 
 @Component
 @RequiredArgsConstructor
-public class JwtAuthorizationArgumentResolver implements HandlerMethodArgumentResolver {
+public class MemberArgumentResolver implements HandlerMethodArgumentResolver {
 
     private final MemberRepository memberRepository;
     private final JwtTokenProvider jwtTokenProvider;
 
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
-        return parameter.hasParameterAnnotation(JwtAuthorization.class);
+        return parameter.hasParameterAnnotation(MemberInterface.class);
     }
 
     @Override

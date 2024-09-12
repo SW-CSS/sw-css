@@ -14,7 +14,7 @@ import sw_css.member.application.MemberQueryService;
 import sw_css.member.application.dto.request.ChangePasswordRequest;
 import sw_css.member.application.dto.response.StudentMemberResponse;
 import sw_css.member.domain.Member;
-import sw_css.utils.annotation.JwtAuthorization;
+import sw_css.utils.annotation.MemberInterface;
 
 @Validated
 @RequestMapping("/members")
@@ -29,7 +29,7 @@ public class MemberController {
     }
 
     @PatchMapping("/change-password")
-    public ResponseEntity<Void> changeMemberPassword(@JwtAuthorization Member me,
+    public ResponseEntity<Void> changeMemberPassword(@MemberInterface Member me,
                                                      @RequestBody @Valid ChangePasswordRequest request) {
         memberQueryService.changePassword(me, request.oldPassword(), request.newPassword());
         return ResponseEntity.noContent().build();

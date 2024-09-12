@@ -31,7 +31,8 @@ import sw_css.milestone.application.MilestoneHistoryCommandService;
 import sw_css.milestone.application.MilestoneHistoryQueryService;
 import sw_css.milestone.application.MilestoneQueryService;
 import sw_css.utils.JwtToken.AdminArgumentResolver;
-import sw_css.utils.JwtToken.JwtAuthorizationArgumentResolver;
+import sw_css.utils.JwtToken.MemberArgumentResolver;
+import sw_css.utils.JwtToken.StudentArgumentResolver;
 import sw_css.utils.JwtToken.SuperAdminArgumentResolver;
 
 @Import(RestDocsConfiguration.class)
@@ -84,7 +85,10 @@ public abstract class RestDocsTest extends ApiTestHelper {
     protected MemberRepository memberRepository;
 
     @MockBean
-    protected JwtAuthorizationArgumentResolver jwtAuthorizationArgumentResolver;
+    protected MemberArgumentResolver memberArgumentResolver;
+
+    @MockBean
+    protected StudentArgumentResolver studentArgumentResolver;
 
     @MockBean
     protected AdminArgumentResolver adminArgumentResolver;

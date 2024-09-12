@@ -40,9 +40,16 @@ export async function getMilestoneHistoriesOfStudent(
     .catch((err) => Promise.reject(err));
 }
 
-export async function getMilestoneHistories(field?: number, keyword?: string, page: number = 0, size: number = 10) {
+export async function getMilestoneHistories(
+  token: string,
+  field?: number,
+  keyword?: string,
+  page: number = 0,
+  size: number = 10,
+) {
   return await server
     .get<MilestoneHistoryPageableDto>('/admin/milestones/histories', {
+      headers: { Authorization: token },
       params: removeEmptyField({
         field,
         keyword,
@@ -54,9 +61,9 @@ export async function getMilestoneHistories(field?: number, keyword?: string, pa
     .catch((err) => Promise.reject(err));
 }
 
-export async function getMilestoneHistory(historyId: number) {
+export async function getMilestoneHistory(historyId: number, token: string) {
   return await server
-    .get<MilestoneHistoryDto>(`/admin/milestones/histories/${historyId}`)
+    .get<MilestoneHistoryDto>(`/admin/milestones/histories/${historyId}`, { headers: { Authorization: token } })
     .then((res) => res.data)
     .catch((err) => Promise.reject(err));
 }

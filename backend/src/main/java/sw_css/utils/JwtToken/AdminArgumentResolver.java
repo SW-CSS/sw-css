@@ -15,7 +15,7 @@ import sw_css.member.exception.MemberException;
 import sw_css.member.exception.MemberExceptionType;
 import sw_css.utils.JwtToken.exception.JwtTokenException;
 import sw_css.utils.JwtToken.exception.JwtTokenExceptionType;
-import sw_css.utils.annotation.Admin;
+import sw_css.utils.annotation.AdminInterface;
 
 @Component
 @RequiredArgsConstructor
@@ -26,7 +26,7 @@ public class AdminArgumentResolver implements HandlerMethodArgumentResolver {
 
     @Override
     public boolean supportsParameter(MethodParameter parameter) {
-        return parameter.hasParameterAnnotation(Admin.class);
+        return parameter.hasParameterAnnotation(AdminInterface.class);
     }
 
     @Override

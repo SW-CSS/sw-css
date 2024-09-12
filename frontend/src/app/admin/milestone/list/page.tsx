@@ -8,16 +8,20 @@ import { getMilestoneHistories } from '@/lib/api/server.api';
 
 import MilestoneHistoryTable from './components/MilestoneHistoryTable';
 import MilestoneHistoryExcelFileDownloadButton from './components/MilestoneHistoryTable/MilestoneHistoryExcelFileDownloadButton.tsx';
+import { AuthSliceState } from '@/store/auth.slice';
+import { getAuthFromCookie } from '@/lib/utils/auth';
 
 const Page = async ({ searchParams }: { searchParams?: { [key: string]: string | undefined } }) => {
   const headersList = headers();
   const pathname = headersList.get('x-pathname') || '';
 
+  const auth: AuthSliceState = getAuthFromCookie();
+
   const page = searchParams?.page ? parseInt(searchParams.page, 10) : 1;
   const field = searchParams?.field ? parseInt(searchParams.field, 10) : 0;
   const keyword = searchParams?.keyword ? searchParams.keyword : '';
 
-  const milestoneHistories = await getMilestoneHistories(field, keyword, page - 1);
+  const milestoneHistories = await getMilestoneHistories(auth.token, field, keyword, page - 1);
 
   return (
     <div>
