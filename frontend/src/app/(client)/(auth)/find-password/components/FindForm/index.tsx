@@ -1,21 +1,12 @@
 'use client';
 
 import { Form, Formik } from 'formik';
-import * as Yup from 'yup';
 
 import EmailTextInput from '@/components/Formik/EmailTextInput';
 import TextInput from '@/components/Formik/TextInput';
 import { useResetPasswordMutation } from '@/lib/hooks/useApi';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
-
-const validationSchema = Yup.object().shape({
-  email: Yup.string()
-    .required('필수 입력란입니다. 이메일을 입력해주세요.')
-    .matches(/^((?!@).)*$/, '부산대 이메일만 가입 가능합니다. 이메일 도메인 부분을 삭제해주세요.')
-    .matches(/^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*$/, '존재하는 이메일인지 확인해주세요.'),
-  name: Yup.string().required('필수 입력란입니다. 이름을 입력해주세요.'),
-});
 
 interface FormType {
   email: string;
@@ -51,7 +42,6 @@ const FindForm = () => {
   return (
     <Formik
       initialValues={initialValues}
-      validationSchema={validationSchema}
       onSubmit={(values, { setSubmitting }) => {
         setSubmitting(false);
         handleSubmitButtonClick(values);
