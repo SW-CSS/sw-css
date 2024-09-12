@@ -8,6 +8,8 @@ import { convertMilestoneHistoryStatus } from '@/lib/utils/utils';
 import FilePreview from './components/FilePreview';
 import MilestoneHistoryStatusChangeButton from './components/MilestoneHistoryStatusChangeButton';
 import { notFound } from 'next/navigation';
+import { AuthSliceState } from '@/store/auth.slice';
+import { getAuthFromCookie } from '@/lib/utils/auth';
 
 interface MilestoneHistoryDetailPageProps {
   params: {
@@ -16,9 +18,10 @@ interface MilestoneHistoryDetailPageProps {
 }
 
 const Page = async ({ params: { slug } }: MilestoneHistoryDetailPageProps) => {
+  const auth: AuthSliceState = getAuthFromCookie();
   let history;
   try {
-    history = await getMilestoneHistory(slug);
+    history = await getMilestoneHistory(slug, auth.token);
   } catch (e) {
     // TODO: server api error handling...
   }
