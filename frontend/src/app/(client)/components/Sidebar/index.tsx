@@ -33,6 +33,7 @@ const Sidebar = () => {
 
   useEffect(() => {
     setCurrentCategory(headerInfos.filter((headerInfo) => pathname.startsWith(headerInfo.url))[0]);
+    setIsOpenNavigationBar(false);
   }, [pathname]);
 
   useEffect(() => {

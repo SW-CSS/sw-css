@@ -45,7 +45,7 @@ export const SidebarCategoryList = styled.div<SidebarCategoryListProps>`
   display: flex;
   margin-top: 30px;
   flex-direction: column;
-  z-index: 0;
+  z-index: 49;
 
   @media screen and (max-width: ${RESPONSIVE_WIDTH.desktop}) {
     transition: all 0.6s ease-in-out;
@@ -105,7 +105,7 @@ export const SidebarMobileButton = styled.button`
   background-color: ${COLOR.secondary.main};
   color: ${COLOR.white};
   padding: 0px 15px;
-  z-index: 0;
+  z-index: 49;
 
   @media screen and (max-width: ${RESPONSIVE_WIDTH.desktop}) {
     display: flex;
