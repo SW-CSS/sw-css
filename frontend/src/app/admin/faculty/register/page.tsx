@@ -67,6 +67,8 @@ const Page = () => {
     }
   };
 
+  return <div className="flex h-40 w-full items-center justify-center text-comment">개발 중인 기능입니다.</div>;
+
   return (
     <>
       <div className="mb-10 rounded-sm border-[1px] border-admin-border bg-admin-background-light px-5 py-3">

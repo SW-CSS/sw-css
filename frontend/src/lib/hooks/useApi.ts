@@ -286,3 +286,13 @@ export function useSignInMutation() {
         .catch((err) => Promise.reject(err)),
   });
 }
+
+export function useResetPasswordMutation() {
+  return useAxiosMutation({
+    mutationFn: async ({ email, name }: { email: string; name: string }) =>
+      await client
+        .patch(`/sign-in/reset-password`, { email: email + '@pusan.ac.kr', name })
+        .then((res) => res.data)
+        .catch((err) => Promise.reject(err)),
+  });
+}
