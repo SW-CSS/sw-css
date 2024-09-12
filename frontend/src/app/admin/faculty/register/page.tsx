@@ -60,7 +60,7 @@ const Page = () => {
 
   const handlePasswordCopyButtonClick = async () => {
     try {
-      await navigator.clipboard.writeText(process.env.FACULTY_PASSWORD ?? '');
+      await navigator.clipboard.writeText(process.env.NEXT_PUBLIC_FACULTY_PASSWORD ?? '');
       toast.info('비밀번호가 복사되었습니다.');
     } catch (e) {
       toast.error('복사에 실패했습니다.');
@@ -88,7 +88,7 @@ const Page = () => {
           <li>
             임시비밀번호는{' '}
             <span className="cursor-pointer text-red-400" onClick={handlePasswordCopyButtonClick}>
-              {process.env.FACULTY_PASSWORD}
+              {process.env.NEXT_PUBLIC_FACULTY_PASSWORD}
             </span>
             입니다.
           </li>
@@ -121,7 +121,7 @@ const Page = () => {
           <li>
             임시비밀번호는{' '}
             <span className="cursor-pointer text-red-400" onClick={handlePasswordCopyButtonClick}>
-              {process.env.FACULTY_PASSWORD}
+              {process.env.NEXT_PUBLIC_FACULTY_PASSWORD}
             </span>
             입니다.
           </li>

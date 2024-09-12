@@ -24,47 +24,26 @@ import { convertNumToCareer, removeEmptyField } from '../utils/utils';
 export const useCollegeQuery = () =>
   useAxiosQuery({
     queryKey: QueryKeys.COLLEGES,
-    queryFn: async (): Promise<CollegeDto[] | null> => {
-      try {
-        const response = await client.get('/colleges');
-        return response.data;
-      } catch (error) {
-        if (error instanceof BusinessError) {
-          return null;
-        }
-        throw error;
-      }
-    },
-  });
-
-export const useMajorQuery = (collegeId: number) =>
-  useAxiosQuery({
-    queryKey: QueryKeys.COLLEGES,
-    queryFn: async (): Promise<CollegeDto[] | null> => {
-      try {
-        const response = await client.get(`/colleges/${collegeId}/majors`);
-        return response.data;
-      } catch (error) {
-        if (error instanceof BusinessError) {
-          return null;
-        }
-        throw error;
-      }
-    },
+    queryFn: async (): Promise<CollegeDto[] | null> =>
+      await client
+        .get('/colleges')
+        .then((res) => res.data)
+        .catch((err) => Promise.reject(err)),
   });
 
 export const useMilestoneScoresOfStudentQuery = (memberId: number, startDate: string, endDate: string) =>
   useAxiosQuery({
     queryKey: QueryKeys.MILESTONE_SCORES_OF_STUDENT(memberId, startDate, endDate),
-    queryFn: async (): Promise<MilestoneScoreDto[]> => {
-      const response = await client.get(`/milestones/histories/scores/members/${memberId}`, {
-        params: removeEmptyField({
-          start_date: startDate,
-          end_date: endDate,
-        }),
-      });
-      return response?.data;
-    },
+    queryFn: async (): Promise<MilestoneScoreDto[]> =>
+      await client
+        .get(`/milestones/histories/scores/members/${memberId}`, {
+          params: removeEmptyField({
+            start_date: startDate,
+            end_date: endDate,
+          }),
+        })
+        .then((res) => res.data)
+        .catch((err) => Promise.reject(err)),
   });
 
 export const useMilestoneHistoriesOfStudentQuery = (
@@ -88,29 +67,31 @@ export const useMilestoneHistoriesOfStudentQuery = (
       page,
       size,
     ),
-    queryFn: async (): Promise<MilestoneHistoryOfStudentPageableDto> => {
-      const response = await client.get(`/milestones/histories/members/${memberId}`, {
-        params: removeEmptyField({
-          start_date: startDate,
-          end_date: endDate,
-          filter,
-          sort_by: sortBy,
-          sort_direction: sortDirection,
-          page,
-          size,
-        }),
-      });
-      return response?.data;
-    },
+    queryFn: async (): Promise<MilestoneHistoryOfStudentPageableDto> =>
+      await client
+        .get(`/milestones/histories/members/${memberId}`, {
+          params: removeEmptyField({
+            start_date: startDate,
+            end_date: endDate,
+            filter,
+            sort_by: sortBy,
+            sort_direction: sortDirection,
+            page,
+            size,
+          }),
+        })
+        .then((res) => res.data)
+        .catch((err) => Promise.reject(err)),
   });
 
 export function useMilestoneQuery() {
   return useAxiosQuery({
     queryKey: QueryKeys.MILESTONES,
-    queryFn: async (): Promise<MilestoneByGroupDto> => {
-      const response = await client.get('/milestones');
-      return response?.data;
-    },
+    queryFn: async (): Promise<MilestoneByGroupDto> =>
+      await client
+        .get('/milestones')
+        .then((res) => res.data)
+        .catch((err) => Promise.reject(err)),
   });
 }
 
@@ -118,42 +99,39 @@ export function useStudentMemberQuery(memberId: number, options?: { enabled?: bo
   return useAxiosQuery({
     ...options,
     queryKey: QueryKeys.STUDENT(memberId),
-    queryFn: async (): Promise<StudentMemberDto> => {
-      const response = await client.get(`/members/${memberId}`);
-      return response.data;
-    },
+    queryFn: async (): Promise<StudentMemberDto> => await client.get(`/members/${memberId}`),
   });
 }
 
 export function useStudentMemberMutation() {
   return useAxiosMutation({
-    mutationFn: async (memberId: number): Promise<StudentMemberDto | null> => {
-      const response = await client.get<StudentMemberDto>(`/members/${memberId}`);
-      return response?.data;
-    },
+    mutationFn: async (memberId: number): Promise<StudentMemberDto | null> =>
+      await client
+        .get<StudentMemberDto>(`/members/${memberId}`)
+        .then((res) => res.data)
+        .catch((err) => Promise.reject(err)),
   });
 }
 
 export function useStudentMembersQuery() {
   return useAxiosQuery({
     queryKey: QueryKeys.STUDENTS,
-    queryFn: async (): Promise<StudentMemberDto[]> => {
-      const response = await client.get('/admin/members');
-      return response.data;
-    },
+    queryFn: async (): Promise<StudentMemberDto[]> =>
+      await client
+        .get('/admin/members')
+        .then((res) => res.data)
+        .catch((err) => Promise.reject(err)),
   });
 }
 
 export function useFileQuery(fileName: string | null) {
   return useAxiosQuery({
     queryKey: QueryKeys.FILE(fileName),
-    queryFn: async (): Promise<Blob | null> => {
-      const response = await client.get(`/files/${fileName}`, { responseType: 'blob' });
-      if (response?.status !== 200) {
-        return null;
-      }
-      return response?.data;
-    },
+    queryFn: async (): Promise<Blob | null> =>
+      await client
+        .get(`/files/${fileName}`, { responseType: 'blob' })
+        .then((res) => res.data)
+        .catch((err) => Promise.reject(err)),
   });
 }
 
@@ -166,12 +144,11 @@ export function useHackathonTeamsQuery(
   return useAxiosQuery({
     ...options,
     queryKey: QueryKeys.HACKATHON_TEAMS(hackathonId, page, size),
-    queryFn: async (): Promise<HackathonTeamPageableDto> => {
-      // TODO : API 구현
-      //const response = await client.get(`/hackathons/${hackathonId}/teams`);
-      //return response?.data;
-      return mockHackathonTeamPageableData;
-    },
+    queryFn: async (): Promise<HackathonTeamPageableDto> =>
+      await client
+        .get(`/hackathons/${hackathonId}/teams`)
+        .then((res) => res.data)
+        .catch((err) => Promise.reject(err)),
   });
 }
 
@@ -204,39 +181,49 @@ export function useGithubReadmeQuery(owner: string, repo: string, options?: { en
 export function useMilestoneHistoryCreateMutation() {
   return useAxiosMutation({
     mutationFn: async ({ milestoneId, description, count, file, activatedAt }: MilestoneHistoryCreateDto) => {
-      const formdata = new FormData();
-      formdata.append('file', file!);
+      const formData = new FormData();
+      formData.append('file', file!);
       const blob = new Blob([JSON.stringify({ milestoneId, description, count, activatedAt })], {
         type: 'application/json',
       });
-      formdata.append('request', blob);
-      await client.post('/milestones/histories', formdata, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      });
+      formData.append('request', blob);
+
+      return await client
+        .post('/milestones/histories', formData, {
+          headers: { 'Content-Type': 'multipart/form-data' },
+        })
+        .then((res) => res.data)
+        .catch((err) => Promise.reject(err));
     },
   });
 }
 
 export function useMilestoneHistoryDeleteMutation() {
   return useAxiosMutation({
-    mutationFn: async (id: number) => {
-      await client.delete(`/milestones/histories/${id}`);
-    },
+    mutationFn: async (id: number) =>
+      await client
+        .delete(`/milestones/histories/${id}`)
+        .then((res) => res.data)
+        .catch((err) => Promise.reject(err)),
   });
 }
 
 export function useRegisterTeamMutation() {
   return useAxiosMutation({
     mutationFn: async ({ hackathonId, image, name, work, githubUrl, members, password }: HackathonTeamCreateDto) => {
-      const formdata = new FormData();
-      formdata.append('image', image!);
+      const formData = new FormData();
+      formData.append('image', image!);
       const blob = new Blob([JSON.stringify({ name, work, githubUrl, members, password })], {
         type: 'application/json',
       });
-      formdata.append('request', blob);
-      await client.post(`/hackathons/${hackathonId}/teams`, formdata, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      });
+      formData.append('request', blob);
+
+      return await client
+        .post(`/hackathons/${hackathonId}/teams`, formData, {
+          headers: { 'Content-Type': 'multipart/form-data' },
+        })
+        .then((res) => res.data)
+        .catch((err) => Promise.reject(err));
     },
   });
 }
@@ -257,7 +244,8 @@ export function useSignUpMutation() {
         career_detail: userInfo.careerDetail,
         auth_code: userInfo.authCode,
       };
-      await client
+
+      return await client
         .post(`/sign-up`, data)
         .then((res) => res.data)
         .catch((err) => Promise.reject(err));
