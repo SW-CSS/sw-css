@@ -6,8 +6,6 @@ import ReactQueryProvider from '@/lib/utils/reactQueryProvider';
 import ReduxProvider from '@/lib/utils/reduxProvider';
 import StyledComponentsRegistry from '@/theme/StyledComponentsRegistry';
 
-import CustomLayout from './CustomLayout';
-
 import './globals.css';
 
 export const metadata: Metadata = {
@@ -27,7 +25,7 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => (
       <ReactQueryProvider>
         <ReduxProvider>
           <StyledComponentsRegistry>
-            <CustomLayout>{children}</CustomLayout>
+            {children}
             <ToastContainer autoClose={1500} position="bottom-right" />
           </StyledComponentsRegistry>
         </ReduxProvider>
