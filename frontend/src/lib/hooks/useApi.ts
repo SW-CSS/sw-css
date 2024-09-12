@@ -1,6 +1,6 @@
 /* eslint-disable implicit-arrow-linebreak */
-import { FirstInfo } from '@/app/(auth)/sign-up/components/SignUpFirstPage';
-import { SecondInfo } from '@/app/(auth)/sign-up/components/SignUpSecondPage';
+import { FirstInfo } from '@/app/(client)/(auth)/sign-up/components/SignUpFirstPage';
+import { SecondInfo } from '@/app/(client)/(auth)/sign-up/components/SignUpSecondPage';
 import { MilestoneHistoryStatus } from '@/data/milestone';
 import { QueryKeys } from '@/data/queryKey';
 import { client } from '@/lib/api/client.axios';
