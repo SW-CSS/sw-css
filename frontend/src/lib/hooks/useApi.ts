@@ -5,7 +5,6 @@ import { MilestoneHistoryStatus } from '@/data/milestone';
 import { QueryKeys } from '@/data/queryKey';
 import { client } from '@/lib/api/client.axios';
 import { useAxiosMutation, useAxiosQuery } from '@/lib/hooks/useAxios';
-import { mockHackathonTeamPageableData } from '@/mocks/hackathon';
 import {
   CollegeDto,
   HackathonTeamCreateDto,
@@ -20,6 +19,7 @@ import { BusinessError } from '@/types/error';
 import { MilestoneHistorySortCriteria, SortDirection } from '@/types/milestone';
 import { github } from '../api/github.axios';
 import { convertNumToCareer, removeEmptyField } from '../utils/utils';
+import { useAppSelector } from './redux';
 
 export const useCollegeQuery = () =>
   useAxiosQuery({
@@ -31,20 +31,26 @@ export const useCollegeQuery = () =>
         .catch((err) => Promise.reject(err)),
   });
 
-export const useMilestoneScoresOfStudentQuery = (memberId: number, startDate: string, endDate: string) =>
-  useAxiosQuery({
+export const useMilestoneScoresOfStudentQuery = (memberId: number, startDate: string, endDate: string) => {
+  const auth = useAppSelector((state) => state.auth).value;
+  return useAxiosQuery({
     queryKey: QueryKeys.MILESTONE_SCORES_OF_STUDENT(memberId, startDate, endDate),
-    queryFn: async (): Promise<MilestoneScoreDto[]> =>
-      await client
+    queryFn: async (): Promise<MilestoneScoreDto[]> => {
+      return await client
         .get(`/milestones/histories/scores/members/${memberId}`, {
           params: removeEmptyField({
             start_date: startDate,
             end_date: endDate,
           }),
+          headers: {
+            Authorization: auth.token,
+          },
         })
         .then((res) => res.data)
-        .catch((err) => Promise.reject(err)),
+        .catch((err) => Promise.reject(err));
+    },
   });
+};
 
 export const useMilestoneHistoriesOfStudentQuery = (
   memberId: number,
@@ -55,8 +61,9 @@ export const useMilestoneHistoriesOfStudentQuery = (
   sortDirection: SortDirection | undefined = undefined,
   page: number = 0,
   size: number = 10,
-) =>
-  useAxiosQuery({
+) => {
+  const auth = useAppSelector((state) => state.auth).value;
+  return useAxiosQuery({
     queryKey: QueryKeys.MILESTONE_HISTORIES_OF_STUDENT(
       memberId,
       startDate,
@@ -67,8 +74,8 @@ export const useMilestoneHistoriesOfStudentQuery = (
       page,
       size,
     ),
-    queryFn: async (): Promise<MilestoneHistoryOfStudentPageableDto> =>
-      await client
+    queryFn: async (): Promise<MilestoneHistoryOfStudentPageableDto> => {
+      return await client
         .get(`/milestones/histories/members/${memberId}`, {
           params: removeEmptyField({
             start_date: startDate,
@@ -79,10 +86,13 @@ export const useMilestoneHistoriesOfStudentQuery = (
             page,
             size,
           }),
+          headers: { Authorization: auth.token },
         })
         .then((res) => res.data)
-        .catch((err) => Promise.reject(err)),
+        .catch((err) => Promise.reject(err));
+    },
   });
+};
 
 export function useMilestoneQuery() {
   return useAxiosQuery({
@@ -179,6 +189,8 @@ export function useGithubReadmeQuery(owner: string, repo: string, options?: { en
 }
 
 export function useMilestoneHistoryCreateMutation() {
+  const auth = useAppSelector((state) => state.auth).value;
+
   return useAxiosMutation({
     mutationFn: async ({ milestoneId, description, count, file, activatedAt }: MilestoneHistoryCreateDto) => {
       const formData = new FormData();
@@ -190,7 +202,7 @@ export function useMilestoneHistoryCreateMutation() {
 
       return await client
         .post('/milestones/histories', formData, {
-          headers: { 'Content-Type': 'multipart/form-data' },
+          headers: { 'Content-Type': 'multipart/form-data', Authorization: auth.token },
         })
         .then((res) => res.data)
         .catch((err) => Promise.reject(err));
@@ -199,12 +211,14 @@ export function useMilestoneHistoryCreateMutation() {
 }
 
 export function useMilestoneHistoryDeleteMutation() {
+  const auth = useAppSelector((state) => state.auth).value;
   return useAxiosMutation({
-    mutationFn: async (id: number) =>
-      await client
-        .delete(`/milestones/histories/${id}`)
+    mutationFn: async (id: number) => {
+      return await client
+        .delete(`/milestones/histories/${id}`, { headers: { Authorization: auth.token } })
         .then((res) => res.data)
-        .catch((err) => Promise.reject(err)),
+        .catch((err) => Promise.reject(err));
+    },
   });
 }
 
