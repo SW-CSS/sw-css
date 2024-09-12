@@ -15,6 +15,7 @@ import { mockHackathonPrize } from '@/mocks/hackathon';
 import { removeEmptyField } from '../utils/utils';
 
 export async function getMilestoneHistoriesOfStudent(
+  token: string,
   memberId: number,
   startDate: string | undefined = undefined,
   endDate: string | undefined = undefined,
@@ -26,6 +27,7 @@ export async function getMilestoneHistoriesOfStudent(
 ) {
   return await server
     .get<MilestoneHistoryOfStudentPageableDto>(`/milestones/histories/members/${memberId}`, {
+      headers: { Authorization: token },
       params: removeEmptyField({
         start_date: startDate,
         end_date: endDate,
@@ -79,9 +81,10 @@ export async function getValidationStudentId(studentId: string) {
     .catch((err) => Promise.reject(err));
 }
 
-export async function getMyMilestoneHistory(studentId: number, startDate: string, endDate: string) {
+export async function getMyMilestoneHistory(token: string, studentId: number, startDate: string, endDate: string) {
   const response = await server
     .get<MilestoneScoreDto[]>(`/milestones/histories/scores/members/${studentId}`, {
+      headers: { Authorization: token },
       params: removeEmptyField({
         start_date: startDate,
         end_date: endDate,

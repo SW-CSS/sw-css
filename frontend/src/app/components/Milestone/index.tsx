@@ -13,10 +13,11 @@ import { MilestoneOverviewScore } from '@/types/milestone';
 import { initialMilestoneOverview } from '@/data/milestone';
 
 const getMilestoneScores = async (studentId: number) => {
+  const auth = getAuthFromCookie();
   const startDate = DateTime.now().minus({ years: 1 }).toFormat('yyyy-MM-dd');
   const endDate = DateTime.now().toFormat('yyyy-MM-dd');
   try {
-    const milestoneScores = await getMyMilestoneHistory(studentId, startDate, endDate);
+    const milestoneScores = await getMyMilestoneHistory(auth.token, studentId, startDate, endDate);
     return milestoneScores;
   } catch (err) {
     // TODO: server api error handling

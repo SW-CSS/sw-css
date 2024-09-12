@@ -22,6 +22,7 @@ const MilestoneHistoryTable = async ({ pageNumber }: MilestoneHistoryTableProp) 
   let milestoneHistories;
   try {
     milestoneHistories = await getMilestoneHistoriesOfStudent(
+      auth.token,
       auth.id,
       undefined,
       undefined,
