@@ -5,7 +5,7 @@ const nextConfig = {
     styledComponents: true,
   },
   images: {
-    domains: ['localhost'],
+    domains: ['localhost', 'swcss.pusan.ac.kr'],
   },
 };
 
