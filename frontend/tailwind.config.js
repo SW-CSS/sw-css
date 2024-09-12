@@ -13,6 +13,10 @@ module.exports = {
         md: '768px',
         lg: '1200px',
       },
+      padding: {
+        adminSidebarWidth: '220px',
+        adminHeaderHeight: '55px',
+      },
       colors: {
         white: '#FFFFFF',
         black: '#333333',
