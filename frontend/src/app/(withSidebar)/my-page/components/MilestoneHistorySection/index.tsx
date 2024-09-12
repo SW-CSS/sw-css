@@ -11,12 +11,12 @@ import { MilestoneHistorySortCriteria, SortDirection } from '@/types/milestone';
 import MilestoneHistoryStatusLabel from '../MilestoneHistoryStatusLabel';
 
 const MilestoneHistorySection = async () => {
-  // TODO - auth에 학번 정보 저장하도록 하기
   const auth = getAuthFromCookie();
 
   let milestoneHistoriesOfStudent;
   try {
     milestoneHistoriesOfStudent = await getMilestoneHistoriesOfStudent(
+      auth.token,
       auth.id,
       undefined,
       undefined,
