@@ -5,6 +5,8 @@ import * as Yup from 'yup';
 
 import EmailTextInput from '@/components/Formik/EmailTextInput';
 import TextInput from '@/components/Formik/TextInput';
+import { useResetPasswordMutation } from '@/lib/hooks/useApi';
+import { toast } from 'react-toastify';
 
 const validationSchema = Yup.object().shape({
   email: Yup.string()
@@ -25,9 +27,20 @@ const initialValues: FormType = {
 };
 
 const FindForm = () => {
+  const { mutate: resetPasswordMutation } = useResetPasswordMutation();
+
   const handleSubmitButtonClick = (values: FormType) => {
-    // TODO: 메일 발송 api 호출
-    console.log(JSON.stringify(values));
+    resetPasswordMutation(
+      { email: values.email, name: values.name },
+      {
+        onSuccess(data, variables, context) {
+          toast.info('임시비밀번호 메일이 발송되었습니다.');
+        },
+        onError(error, variables, context) {
+          toast.error(error.message);
+        },
+      },
+    );
   };
 
   return (
