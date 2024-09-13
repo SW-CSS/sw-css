@@ -36,17 +36,17 @@ const Dropdown = ({ isRequired = false, size = 'md', ...props }: DropdownProps) 
   const selectedValue = options.filter((option) => option.id === selectedId);
 
   return (
-    <div className="flex flex-col gap-1">
+    <div className="relative flex flex-col gap-1" ref={componentRef}>
       {label && (
         <label htmlFor={dropdownProps.name} className={`${FORM_SIZE[size].subTextSize} font-semibold`}>
           {label} {isRequired && <span className={`${FORM_SIZE[size].subTextSize} font-semibold text-red-400`}>*</span>}
         </label>
       )}
-      <div className="relative w-full" ref={componentRef}>
+      <div className="relative w-full">
         <button
           className={`m-0 w-full rounded-sm border-[1px] ${isAdmin ? 'border-admin-border' : 'border-border'} bg-white ${FORM_SIZE[size].padding} text-left ${FORM_SIZE[size].textSize} ${hasError && 'border-red-400'} ${typeof selectedId === 'number' && selectedId <= 0 && 'text-comment'}`}
           type="button"
-          onClick={() => setIsOpen(true)}
+          onClick={() => setIsOpen((prev) => !prev)}
         >
           {selectedValue[0]?.name ?? selectOptionText}
         </button>
@@ -56,18 +56,13 @@ const Dropdown = ({ isRequired = false, size = 'md', ...props }: DropdownProps) 
         )}
       </div>
       {isOpen && (
-        <div
-          role="presentation"
-          className="absolute left-0 top-0 z-[80] h-[100vh] w-[100vw]"
-          onClick={() => setIsOpen(false)}
-        >
+        <div role="presentation" className="absolute left-0 top-0 z-[50]" onClick={() => setIsOpen(false)}>
           <div
             style={{
               width: `${divSize.width}px`,
-              top: `${divSize.positionY + divSize.height + 10}px`,
-              left: `${divSize.positionX}px`,
+              top: `${divSize.height + 10}px`,
             }}
-            className="absolute max-h-[215px] min-h-4 overflow-auto rounded-sm border-[1px] border-border bg-white p-2 shadow-md"
+            className="absolute max-h-[215px] min-h-4 overflow-auto rounded-sm border border-border bg-white p-2 shadow-md"
           >
             {options.map((option) => (
               <button
