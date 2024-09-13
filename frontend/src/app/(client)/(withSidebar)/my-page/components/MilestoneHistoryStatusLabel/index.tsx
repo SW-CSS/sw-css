@@ -17,7 +17,7 @@ const MilestoneHistoryStatusLabel = ({ status, rejectReason }: MilestoneHistoryS
         <div className="relative flex w-fit items-center gap-1 rounded-sm bg-red-100 px-2 py-1 text-xs text-red-500">
           <span>반려</span>
           <VscInfo className="peer h-[14px] w-[14px]" />
-          <div className="absolute left-1/2 top-0 hidden -translate-x-1/2 -translate-y-[calc(100%+4px)] rounded border bg-white p-2 peer-hover:block">
+          <div className="absolute left-1/2 top-0 hidden -translate-x-1/2 -translate-y-[calc(100%+4px)] whitespace-nowrap rounded border bg-white p-2 peer-hover:block">
             {rejectReason}
           </div>
         </div>
