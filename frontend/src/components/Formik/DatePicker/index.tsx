@@ -1,3 +1,5 @@
+import { VscInfo } from '@react-icons/all-files/vsc/VscInfo';
+
 type BuiltInInputProps = React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
 
 interface CustomInputProps {
@@ -5,18 +7,29 @@ interface CustomInputProps {
   label: string;
   isRequired?: boolean;
   errorText?: string;
+  tooltip?: string;
   onChangeText?(text: string): void;
 }
 
 export type DatePickerProps = BuiltInInputProps & CustomInputProps;
 
 export const DatePicker = ({ isRequired = false, ...props }: DatePickerProps) => {
-  const { label, errorText, onChangeText, ...inputProps } = props;
+  const { label, errorText, tooltip, onChangeText, ...inputProps } = props;
   const hasError = errorText !== undefined;
 
   return (
     <div className="flex flex-col gap-1">
-      <label htmlFor={inputProps.id || inputProps.name} className="text-sm font-semibold">
+      <label htmlFor={inputProps.id || inputProps.name} className="flex items-center text-sm font-semibold">
+        {tooltip && (
+          <div className="relative flex items-center gap-1 px-2 py-1 text-xs">
+            <VscInfo className="peer h-[14px] w-[14px]" />
+            <div className="absolute left-1/2 top-1 hidden -translate-x-1/2 -translate-y-[calc(100%+4px)] whitespace-nowrap break-keep rounded border bg-white p-2 peer-hover:block">
+              {tooltip.split('\\n').map((data) => (
+                <div>{data}</div>
+              ))}
+            </div>
+          </div>
+        )}
         {label} {isRequired && <span className="text-sm font-semibold text-red-400">*</span>}
       </label>
       <input

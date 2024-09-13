@@ -141,6 +141,7 @@ const Page = () => {
                 name="description"
                 label="등록 상세 제목"
                 placeholder="예) 제 5회 창의융합해커톤 수상"
+                tooltip="해당 마일스톤 실적의 핵심 내용을 간단명료하게 입력해주세요."
                 type="text"
                 value={values.description}
                 onChange={handleChange}
@@ -151,6 +152,7 @@ const Page = () => {
                 type="date"
                 name="activatedAt"
                 label="활동 인정일"
+                tooltip="마일스톤 실적이 공식적으로 인정된 날짜를 선택해주세요.\n ex) 대회 수상일, 자격증 취득일, 프로젝트 완료일."
                 value={values.activatedAt}
                 onChange={handleChange}
                 onBlur={handleBlur}
