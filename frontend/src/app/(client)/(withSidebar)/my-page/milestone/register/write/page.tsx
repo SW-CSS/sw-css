@@ -141,6 +141,7 @@ const Page = () => {
                 name="description"
                 label="등록 상세 제목"
                 placeholder="예) 제 5회 창의융합해커톤 수상"
+                tooltip="해당 마일스톤 실적의 핵심 내용을 간단명료하게 입력해주세요."
                 type="text"
                 value={values.description}
                 onChange={handleChange}
@@ -151,6 +152,7 @@ const Page = () => {
                 type="date"
                 name="activatedAt"
                 label="활동 인정일"
+                tooltip="마일스톤 실적이 공식적으로 인정된 날짜를 선택해주세요.\n ex) 대회 수상일, 자격증 취득일, 프로젝트 완료일."
                 value={values.activatedAt}
                 onChange={handleChange}
                 onBlur={handleBlur}
@@ -174,12 +176,13 @@ const Page = () => {
                 </li>
                 <li>
                   영어성적은 부산대학교 학생지원시스템에 접속하여{' '}
-                  <Link
-                    href="https://e-onestop.pusan.ac.kr/menu/common/contents?menuld=2000070107&rMenu=07"
+                  <a
+                    href="https://doc.pusan.ac.kr:8443/SynapDocViewServer/viewer/doc.html?key=fb3fcfcf20eb427c84ccc1a5c45b3481&convType=img&convLocale=ko_KR&contextPath=/SynapDocViewServer"
                     className="font-bold text-blue-400 underline"
+                    target="_blank"
                   >
                     {'<주요 공인 영어 시험 간 성적 환산표>'}
-                  </Link>
+                  </a>
                   에 따라 TOEIC 점수로 환산하여 입력
                 </li>
                 <li>
