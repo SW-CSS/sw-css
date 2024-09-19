@@ -109,7 +109,11 @@ export function useStudentMemberQuery(memberId: number, options?: { enabled?: bo
   return useAxiosQuery({
     ...options,
     queryKey: QueryKeys.STUDENT(memberId),
-    queryFn: async (): Promise<StudentMemberDto> => await client.get(`/members/${memberId}`),
+    queryFn: async (): Promise<StudentMemberDto> =>
+      await client
+        .get(`/members/${memberId}`)
+        .then((res) => res.data)
+        .catch((err) => Promise.reject(err)),
   });
 }
 
