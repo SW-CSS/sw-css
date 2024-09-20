@@ -2,6 +2,8 @@ package sw_css.admin.member.application;
 
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sw_css.admin.member.application.dto.response.FacultyMemberResponse;
@@ -23,8 +25,9 @@ public class MemberAdminQueryService {
         return students.stream().map(StudentMemberResponse::from).toList();
     }
 
-    public List<FacultyMemberResponse> findFacultyMembers() {
-        final List<FacultyMember> faculties = facultyMemberRepository.findAll();
-        return faculties.stream().map(FacultyMemberResponse::from).toList();
+    public Page<FacultyMemberResponse> findFacultyMembers(final Integer field, final String keyword, final Pageable pageable) {
+        final Page<FacultyMember> facultyMembers = facultyMemberRepository.findFacultyMembersBy(field, keyword, pageable);
+
+        return FacultyMemberResponse.from(facultyMembers, pageable);
     }
 }
