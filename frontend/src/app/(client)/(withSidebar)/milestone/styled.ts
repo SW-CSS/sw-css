@@ -25,7 +25,6 @@ export const Title = styled.div`
 
 export const Description = styled.div`
   text-align: center;
-  margin-bottom: 50px;
 `;
 
 export const InformationList = styled.ul`
