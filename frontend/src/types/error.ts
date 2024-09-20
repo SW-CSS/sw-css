@@ -20,7 +20,7 @@ export class BusinessError extends Error {
     super();
     this.originalError = error;
     this.name = 'BusinessError';
-    this.message = message ? message : 'MemberRoleNotMatchedError';
+    this.message = message ? message : 'BusinessError';
   }
 }
 
@@ -28,7 +28,7 @@ export class AuthError extends BusinessError {
   constructor(error?: AxiosError, message?: string) {
     super(error, message);
     this.name = 'AuthError';
-    this.message = message ? message : 'MemberRoleNotMatchedError';
+    this.message = message ? message : 'AuthError';
   }
 }
 
@@ -36,7 +36,7 @@ export class NotFoundError extends AuthError {
   constructor(error?: AxiosError, message?: string) {
     super(error, message);
     this.name = 'NotFoundError';
-    this.message = message ? message : 'MemberRoleNotMatchedError';
+    this.message = message ? message : 'NotFoundError';
   }
 }
 
@@ -44,7 +44,7 @@ export class AccessDeniedError extends AuthError {
   constructor(error?: AxiosError, message?: string) {
     super(error, message);
     this.name = 'AccessDeniedError';
-    this.message = message ? message : 'MemberRoleNotMatchedError';
+    this.message = message ? message : 'AccessDeniedError';
   }
 }
 
@@ -52,7 +52,7 @@ export class UnauthorizedError extends AuthError {
   constructor(error?: AxiosError, message?: string) {
     super(error, message);
     this.name = 'UnauthorizedError';
-    this.message = message ? message : 'MemberRoleNotMatchedError';
+    this.message = message ? message : 'UnauthorizedError';
   }
 }
 
