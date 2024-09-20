@@ -1,6 +1,7 @@
 import Image from 'next/image';
 
 import * as S from './styled';
+import Link from 'next/link';
 
 const Page = () => (
   <S.Content>
@@ -14,6 +15,15 @@ const Page = () => (
       학생들은 교내외 여러 활동들을 통하여 실전적 SW역량, 글로벌 역량, 커뮤니케이션 역량을 균형있게 함양하고
       SW중심대학사업단에서는 학생들의 적립된 마일스톤 점수에 따라 매년 장학생을 선발하고 있습니다.
     </S.Description>
+    <div className="mb-10 mt-6 flex flex-col items-center">
+      <Link
+        href="/my-page/milestone/register"
+        className="mt-2 block w-fit rounded-sm bg-primary-main p-3 text-lg font-semibold tracking-wide text-white"
+        type="button"
+      >
+        마일스톤 등록하러 가기
+      </Link>
+    </div>
     <S.ImageWrapper maxWidth="429px" maxHeight="208px" backgroundImage="/images/milestone/milestone_img02_bg.png">
       <Image src="/images/milestone/milestone_img02.png" priority={false} alt="" fill />
     </S.ImageWrapper>

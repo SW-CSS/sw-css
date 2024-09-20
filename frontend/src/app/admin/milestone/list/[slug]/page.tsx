@@ -97,6 +97,12 @@ const Page = async ({ params: { slug } }: MilestoneHistoryDetailPageProps) => {
               <span className="w-[8em]">승인 상태</span>
               <span className="flex-grow">{convertMilestoneHistoryStatus(history.status)}</span>
             </p>
+            {history.rejectReason && (
+              <p className="flex">
+                <span className="w-[8em]">반려 이유</span>
+                <span className="flex-grow">{history.rejectReason}</span>
+              </p>
+            )}
             <MilestoneHistoryStatusChangeButton historyId={history.id} status={history.status} />
           </div>
         </div>
