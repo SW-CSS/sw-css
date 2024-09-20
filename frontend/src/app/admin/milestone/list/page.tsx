@@ -10,6 +10,8 @@ import MilestoneHistoryTable from './components/MilestoneHistoryTable';
 import MilestoneHistoryExcelFileDownloadButton from './components/MilestoneHistoryTable/MilestoneHistoryExcelFileDownloadButton.tsx';
 import { AuthSliceState } from '@/store/auth.slice';
 import { getAuthFromCookie } from '@/lib/utils/auth';
+import { BusinessError } from '@/types/error';
+import { redirect } from 'next/navigation';
 
 const Page = async ({ searchParams }: { searchParams?: { [key: string]: string | undefined } }) => {
   const headersList = headers();
@@ -21,7 +23,12 @@ const Page = async ({ searchParams }: { searchParams?: { [key: string]: string |
   const field = searchParams?.field ? parseInt(searchParams.field, 10) : 0;
   const keyword = searchParams?.keyword ? searchParams.keyword : '';
 
-  const milestoneHistories = await getMilestoneHistories(auth.token, field, keyword, page - 1);
+  let milestoneHistories;
+  try {
+    milestoneHistories = await getMilestoneHistories(auth.token, field, keyword, page - 1);
+  } catch (err) {
+    // TODO: server api error handling...
+  }
 
   return (
     <div>

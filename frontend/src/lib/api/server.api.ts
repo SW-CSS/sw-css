@@ -13,6 +13,7 @@ import { MilestoneHistorySortCriteria, SortDirection } from '@/types/milestone';
 
 import { mockHackathonPrize } from '@/mocks/hackathon';
 import { removeEmptyField } from '../utils/utils';
+import { BusinessError } from '@/types/error';
 
 export async function getMilestoneHistoriesOfStudent(
   token: string,
@@ -60,7 +61,10 @@ export async function getMilestoneHistories(
       }),
     })
     .then((res) => res.data)
-    .catch((err) => Promise.reject(err));
+    .catch((err) => {
+      location.replace('/sign-out');
+      return Promise.reject(err);
+    });
 }
 
 export async function getMilestoneHistory(historyId: number, token: string) {
