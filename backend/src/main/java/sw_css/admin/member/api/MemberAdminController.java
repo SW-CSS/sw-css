@@ -17,7 +17,7 @@ import sw_css.member.domain.FacultyMember;
 import sw_css.utils.annotation.AdminInterface;
 
 @Validated
-@RequestMapping("/admin/members")
+@RequestMapping("/admin/member")
 @RestController
 @RequiredArgsConstructor
 public class MemberAdminController {

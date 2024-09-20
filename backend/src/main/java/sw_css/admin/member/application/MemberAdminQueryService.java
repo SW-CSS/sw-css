@@ -26,8 +26,8 @@ public class MemberAdminQueryService {
     }
 
     public Page<FacultyMemberResponse> findFacultyMembers(final Integer field, final String keyword, final Pageable pageable) {
-        final Page<FacultyMember> facultyMembers = facultyMemberRepository.findFacultyMembersBy(field, keyword, pageable);
+        final Page<FacultyMember> faculties = facultyMemberRepository.findFacultyMembersBy(field, keyword, pageable);
 
-        return FacultyMemberResponse.from(facultyMembers, pageable);
+        return FacultyMemberResponse.from(faculties, pageable);
     }
 }

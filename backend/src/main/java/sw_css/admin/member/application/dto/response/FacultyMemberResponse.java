@@ -9,12 +9,14 @@ public record FacultyMemberResponse(
         Long id,
         Long facultyId,
         String email,
+        String name,
         String phoneNumber) {
     public static FacultyMemberResponse from(final FacultyMember facultyMember) {
         return new FacultyMemberResponse(
                 facultyMember.getMember().getId(),
                 facultyMember.getId(),
                 facultyMember.getMember().getEmail(),
+                facultyMember.getMember().getName(),
                 facultyMember.getMember().getPhoneNumber()
         );
     }
