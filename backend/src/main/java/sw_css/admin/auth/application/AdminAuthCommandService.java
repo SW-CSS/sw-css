@@ -81,8 +81,8 @@ public class AdminAuthCommandService {
     }
 
     @Transactional
-    public void deleteFaculty(Long memberId) {
-        FacultyMember facultyMember = facultyMemberRepository.findById(memberId)
+    public void deleteFaculty(Long facultyId) {
+        FacultyMember facultyMember = facultyMemberRepository.findById(facultyId)
                 .orElseThrow(() -> new AdminAuthException(AdminAuthExceptionType.MEMBER_NOT_FOUND));
 
         if(facultyMember.getId() == 1) throw  new AdminAuthException(AdminAuthExceptionType.MEMBER_NOT_FOUND);
