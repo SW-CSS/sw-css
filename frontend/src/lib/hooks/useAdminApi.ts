@@ -132,3 +132,18 @@ export const useRegisterHistoryInBatchMutation = () => {
     },
   });
 };
+
+export const useRegisterFacultyMutation = () => {
+  const auth = useAppSelector((state) => state.auth).value;
+  return useAxiosMutation({
+    mutationFn: async ({ email, name }: { email: string; name: string }) => {
+      await client.post(
+        '/admin/auth',
+        { email: email + '@pusan.ac.kr', name },
+        {
+          headers: { Authorization: auth.token },
+        },
+      );
+    },
+  });
+};

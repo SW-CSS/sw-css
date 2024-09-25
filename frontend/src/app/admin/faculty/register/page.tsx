@@ -16,6 +16,7 @@ import * as Yup from 'yup';
 import 'react-toastify/dist/ReactToastify.css';
 import EmailTextInput from '@/components/Formik/EmailTextInput';
 import TextInput from '@/components/Formik/TextInput';
+import { useRegisterFacultyMutation } from '@/lib/hooks/useAdminApi';
 
 interface FormType {
   email: string;
@@ -36,9 +37,17 @@ const validationSchema = Yup.object().shape({
 });
 
 const Page = () => {
+  const { mutate: registerFaculty } = useRegisterFacultyMutation();
+
   const handleSubmitButtonClick = (values: FormType) => {
-    // TODO: 등록 api 호출;
-    console.log(values.email, values.name);
+    registerFaculty(values, {
+      onSuccess(data, variables, context) {
+        toast.info('교직원 등록에 성공했습니다.');
+      },
+      onError(error, variables, context) {
+        toast.error(error.message);
+      },
+    });
   };
 
   const handleFilesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -66,8 +75,6 @@ const Page = () => {
       toast.error('복사에 실패했습니다.');
     }
   };
-
-  return <div className="flex h-40 w-full items-center justify-center text-comment">개발 중인 기능입니다.</div>;
 
   return (
     <>
@@ -131,9 +138,12 @@ const Page = () => {
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
-          onSubmit={(values, { setSubmitting }) => {
+          onSubmit={(values, { setSubmitting, resetForm }) => {
             setSubmitting(false);
             handleSubmitButtonClick(values);
+            resetForm({
+              values: initialValues,
+            });
           }}
           className="w-full"
         >
