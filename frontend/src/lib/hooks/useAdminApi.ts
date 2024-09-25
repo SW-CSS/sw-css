@@ -147,3 +147,16 @@ export const useRegisterFacultyMutation = () => {
     },
   });
 };
+
+export const useRegisterFacultiesByFileMutation = () => {
+  const auth = useAppSelector((state) => state.auth).value;
+  return useAxiosMutation({
+    mutationFn: async (file?: File) => {
+      const formData = new FormData();
+      formData.append('file', file!);
+      await client.post('/admin/auth/files', formData, {
+        headers: { 'Content-Type': 'multipart/form-data', Authorization: auth.token },
+      });
+    },
+  });
+};

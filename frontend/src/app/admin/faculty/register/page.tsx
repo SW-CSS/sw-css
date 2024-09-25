@@ -16,7 +16,8 @@ import * as Yup from 'yup';
 import 'react-toastify/dist/ReactToastify.css';
 import EmailTextInput from '@/components/Formik/EmailTextInput';
 import TextInput from '@/components/Formik/TextInput';
-import { useRegisterFacultyMutation } from '@/lib/hooks/useAdminApi';
+import { useRegisterFacultiesByFileMutation, useRegisterFacultyMutation } from '@/lib/hooks/useAdminApi';
+import { useState } from 'react';
 
 interface FormType {
   email: string;
@@ -38,6 +39,8 @@ const validationSchema = Yup.object().shape({
 
 const Page = () => {
   const { mutate: registerFaculty } = useRegisterFacultyMutation();
+  const { mutate: registerFacultiesByFile } = useRegisterFacultiesByFileMutation();
+  const [errorMessage, setErrorMessage] = useState<String>();
 
   const handleSubmitButtonClick = (values: FormType) => {
     registerFaculty(values, {
@@ -54,8 +57,14 @@ const Page = () => {
     const target = e.currentTarget;
     const file = (target.files as FileList)[0];
 
-    // TODO: 일괄 등록 api 호출.
-    console.log(file);
+    registerFacultiesByFile(file, {
+      onSuccess(data, variables, context) {
+        toast.info('교직원 등록에 성공했습니다.');
+      },
+      onError(error, variables, context) {
+        setErrorMessage(error.message);
+      },
+    });
   };
 
   const handleSampleButtonClick = () => {
@@ -122,6 +131,7 @@ const Page = () => {
             className="m-0 flex-grow cursor-pointer rounded-sm border-[1px] border-admin-border bg-white p-2 text-base file:m-0 file:h-0 file:w-0 file:border-0 file:p-0"
           />
         </div>
+        <p className="px-4 py-2 text-sm text-admin-semantic-error-light">{errorMessage}</p>
       </div>
       <div className="rounded-sm border-[1px] border-admin-border bg-admin-background-light p-5">
         <p className="text-lg font-semibold">교직원 등록 방법</p>
