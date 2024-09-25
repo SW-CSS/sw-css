@@ -160,6 +160,10 @@ export interface StudentMemberDto extends MemberDto {
   careerDetail: string;
 }
 
+export interface FacultyMemberDto extends MemberDto {
+  facultyId: number;
+}
+
 interface StudentMemberReferenceDto {
   id: number;
   name: string;
