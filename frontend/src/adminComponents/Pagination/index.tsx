@@ -8,15 +8,15 @@ import Link from 'next/link';
 export interface PaginationProps {
   currentPage: number;
   totalItems: number;
-  pagePerItem?: number;
+  itemPerPage?: number;
   pathname: string;
   query?: string;
 }
 
-const Pagination = ({ currentPage, totalItems, pagePerItem = 10, pathname, query }: PaginationProps) => {
+const Pagination = ({ currentPage, totalItems, itemPerPage = 10, pathname, query }: PaginationProps) => {
   const buttonPerPage = 10;
 
-  const totalPageCount = Math.ceil(totalItems / pagePerItem);
+  const totalPageCount = Math.ceil(totalItems / itemPerPage);
   const totalPages = Array.from({ length: totalPageCount }, (v, i) => i + 1);
 
   const showIdx = Math.floor((currentPage - 1) / buttonPerPage);
