@@ -1,6 +1,7 @@
 import { MilestoneHistoryStatus } from '@/data/milestone';
 import { server } from '@/lib/api/server.axios';
 import {
+  FacultyMemberPageableDto,
   HackathonInformationDto,
   HackathonPageableDto,
   HackathonPrizeDto,
@@ -199,4 +200,25 @@ export async function getHackathonPrize(hackathonId: number) {
   //TODO : API 구현
   // return response?.data;
   return mockHackathonPrize;
+}
+
+export async function getFacultyMembers(
+  token: string,
+  field?: number,
+  keyword?: string,
+  page: number = 0,
+  size: number = 10,
+) {
+  return await server
+    .get<FacultyMemberPageableDto>('/admin/member/faculties', {
+      headers: { Authorization: token },
+      params: removeEmptyField({
+        field,
+        keyword,
+        page,
+        size,
+      }),
+    })
+    .then((res) => res.data)
+    .catch((err) => Promise.reject(err));
 }

@@ -200,7 +200,7 @@ export interface HackathonTeamDto {
 }
 
 export interface TeamMember {
-  id: number|null;
+  id: number | null;
   role: TeamMemberRole;
   isLeader: boolean;
 }
@@ -230,4 +230,16 @@ export interface HackathonPrizeDto {
   name: string;
   rank: number;
   teams: HackathonTeamReferenceDto[];
+}
+
+export interface FacultyMemberDto {
+  id: number;
+  facultyId: number;
+  name: string;
+  email: string;
+  phoneNumber: string;
+}
+
+export interface FacultyMemberPageableDto extends Pageable {
+  content: FacultyMemberDto[];
 }
