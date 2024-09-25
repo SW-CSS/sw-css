@@ -85,6 +85,8 @@ public class AdminAuthCommandService {
         FacultyMember facultyMember = facultyMemberRepository.findById(memberId)
                 .orElseThrow(() -> new AdminAuthException(AdminAuthExceptionType.MEMBER_NOT_FOUND));
 
+        if(facultyMember.getId() == 1) throw  new AdminAuthException(AdminAuthExceptionType.MEMBER_NOT_FOUND);
+
         Member member = facultyMember.getMember();
 
         checkIsMemberDeleted(member);
