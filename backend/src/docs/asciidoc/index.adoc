@@ -39,6 +39,21 @@ include::{snippets}/student-find-all/http-response.adoc[]
 .Response Body
 include::{snippets}/student-find-all/response-fields.adoc[]
 
+=== `GET`: 교직원 목록 조회
+
+.HTTP Request
+include::{snippets}/faculty-find-all/http-request.adoc[]
+
+.Path Parameters
+include::{snippets}/faculty-find-all/query-parameters.adoc[]
+
+.HTTP Response
+include::{snippets}/faculty-find-all/http-response.adoc[]
+
+.Response Body
+include::{snippets}/faculty-find-all/response-fields.adoc[]
+
+
 === `PATCH`: 비밀번호 수정
 
 .HTTP Request
@@ -334,4 +349,3 @@ include::{snippets}/admin-auth-delete/request-body.adoc[]
 
 .HTTP Response
 include::{snippets}/admin-auth-delete/http-response.adoc[]
-

@@ -5,8 +5,6 @@ import { useAxiosMutation, useAxiosQuery } from '@/lib/hooks/useAxios';
 import { MilestoneScoreOfStudentPageableDto } from '@/types/common.dto';
 import { BusinessError } from '@/types/error';
 import { useAppSelector } from './redux';
-import { headerInfos } from '@/data/clientCategory';
-import { stat } from 'fs';
 
 export function useMilestoneHistoryExcelFileQuery(field: number | null, keyword: string | null) {
   const auth = useAppSelector((state) => state.auth).value;
@@ -129,6 +127,51 @@ export const useRegisterHistoryInBatchMutation = () => {
       await client.post('/admin/milestones/histories', formdata, {
         headers: { 'Content-Type': 'multipart/form-data', Authorization: auth.token },
       });
+    },
+  });
+};
+
+export const useRegisterFacultyMutation = () => {
+  const auth = useAppSelector((state) => state.auth).value;
+  return useAxiosMutation({
+    mutationFn: async ({ email, name }: { email: string; name: string }) => {
+      await client.post(
+        '/admin/auth',
+        { email: email + '@pusan.ac.kr', name },
+        {
+          headers: { Authorization: auth.token },
+        },
+      );
+    },
+  });
+};
+
+export const useRegisterFacultiesByFileMutation = () => {
+  const auth = useAppSelector((state) => state.auth).value;
+  return useAxiosMutation({
+    mutationFn: async (file?: File) => {
+      const formData = new FormData();
+      formData.append('file', file!);
+      await client.post('/admin/auth/files', formData, {
+        headers: { 'Content-Type': 'multipart/form-data', Authorization: auth.token },
+      });
+    },
+  });
+};
+
+export const useDeleteFacultyMutation = () => {
+  const auth = useAppSelector((state) => state.auth).value;
+  return useAxiosMutation({
+    mutationFn: async (faculty_id: number) => {
+      return await client
+        .delete(`/admin/auth`, {
+          data: {
+            faculty_id,
+          },
+          headers: { Authorization: auth.token },
+        })
+        .then((res) => res.data)
+        .catch((err) => Promise.reject(err));
     },
   });
 };

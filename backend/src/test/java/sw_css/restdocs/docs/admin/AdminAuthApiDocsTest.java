@@ -87,7 +87,7 @@ public class AdminAuthApiDocsTest extends RestDocsTest {
     public void deleteFaculty() throws Exception {
         // given
         final RequestFieldsSnippet requestFieldsSnippet = requestFields(
-                fieldWithPath("member_id").type(JsonFieldType.NUMBER).description("관리자의 id")
+                fieldWithPath("faculty_id").type(JsonFieldType.NUMBER).description("교직원 번호")
         );
 
         final long faculty_id = 1L;
@@ -96,7 +96,7 @@ public class AdminAuthApiDocsTest extends RestDocsTest {
         final String token = "Bearer AccessToken";
 
         // when
-        doNothing().when(adminAuthCommandService).deleteFaculty(request.member_id());
+        doNothing().when(adminAuthCommandService).deleteFaculty(request.faculty_id());
 
         // then
         mockMvc.perform(RestDocumentationRequestBuilders.delete("/admin/auth")

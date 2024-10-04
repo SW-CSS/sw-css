@@ -1,6 +1,6 @@
 package sw_css.admin.auth.application.dto.request;
 
 public record DeleteFacultyRequest(
-        Long member_id
+        Long faculty_id
 ) {
 }

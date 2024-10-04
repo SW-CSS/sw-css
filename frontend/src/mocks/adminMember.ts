@@ -1,5 +1,11 @@
 import { StudentMemberDto } from '@/types/common.dto';
 
+export const facultyFieldCategories = [
+  { id: 1, name: '교직원번호' },
+  { id: 2, name: '이름' },
+  { id: 3, name: '이메일' },
+];
+
 export const fieldCategories = [
   { id: 1, name: '아이디' },
   { id: 2, name: '이름' },
