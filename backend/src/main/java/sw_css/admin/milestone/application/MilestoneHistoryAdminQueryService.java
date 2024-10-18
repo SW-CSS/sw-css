@@ -8,9 +8,11 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.IntStream;
 import lombok.RequiredArgsConstructor;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
@@ -30,6 +32,7 @@ import org.springframework.transaction.annotation.Transactional;
 import sw_css.admin.milestone.application.dto.response.MilestoneHistoryResponse;
 import sw_css.admin.milestone.application.dto.response.MilestoneScoreResponse;
 import sw_css.admin.milestone.persistence.StudentAndMilestoneScoreInfo;
+import sw_css.admin.milestone.persistence.StudentAndMilestoneTotalScoreInfoMapping;
 import sw_css.member.application.dto.response.StudentMemberReferenceResponse;
 import sw_css.milestone.application.dto.response.MilestoneScoreOfStudentResponse;
 import sw_css.milestone.domain.MilestoneCategory;
@@ -173,31 +176,31 @@ public class MilestoneHistoryAdminQueryService {
                                                                       final Pageable pageable) {
         final LocalDate parsedStartDate = parseDate(startDate);
         final LocalDate parsedEndDate = parseDate(endDate);
-        final long categoryCount = milestoneCategoryRepository.count();
-        final List<StudentAndMilestoneScoreInfo> milestoneHistoryInfos = milestoneScoreRepository.findMilestoneScoresWithStudentInfoByPeriod(
-                parsedStartDate, parsedEndDate, pageable.getPageNumber() * pageable.getPageSize() * categoryCount,
-                pageable.getPageSize() * categoryCount);
+        final List<StudentAndMilestoneTotalScoreInfoMapping> milestoneHistoryInfos = milestoneScoreRepository.findMilestoneScoresWithStudentInfoByPeriod(
+                parsedStartDate, parsedEndDate, pageable.getPageNumber() * pageable.getPageSize() * 1L, pageable.getPageSize() * 1L);
+
+        System.out.println(milestoneHistoryInfos);
+
         final Long totalMilestoneHistoryInfoCount = milestoneScoreRepository.countAllMilestoneScoresWithStudentInfoByPeriod();
-        final Map<StudentMemberReferenceResponse, List<StudentAndMilestoneScoreInfo>> groupedMilestoneScoresByStudentId = milestoneHistoryInfos.stream()
-                .collect(groupingBy(
-                        (info -> new StudentMemberReferenceResponse(info.studentId(), info.studentName()))));
-        final List<MilestoneScoreResponse> content = groupedMilestoneScoresByStudentId.entrySet()
-                .stream()
-                .map(entry -> new MilestoneScoreResponse(
-                        entry.getKey(),
-                        entry.getValue()
-                                .stream()
-                                .map(info -> new MilestoneScoreOfStudentResponse(
-                                        info.categoryId(), info.categoryName(), info.milestoneGroup(),
-                                        info.limitScore(), info.score()))
-                                .collect(groupingBy(MilestoneScoreOfStudentResponse::group))))
-                .sorted(Comparator.comparing(
-                        (MilestoneScoreResponse response) -> response.milestoneScores().entrySet().stream()
-                                .flatMap(entry -> entry.getValue().stream())
-                                .mapToInt(MilestoneScoreOfStudentResponse::score)
-                                .sum()
-                ).reversed())
-                .toList();
+
+        final List<MilestoneScoreResponse> content = milestoneHistoryInfos.stream().map(entry -> {
+            Long[] categoryIds = Arrays.stream(entry.categoryIds().split(",")).map(Long::valueOf).toArray(Long[]::new);
+            String[] categoryNames = entry.categoryNames().split(",");
+            MilestoneGroup[] milestoneGroups = Arrays.stream(entry.milestoneGroups().split(",")).map(MilestoneGroup::valueOf).toArray(MilestoneGroup[]::new);
+            Integer[] scores = Arrays.stream(entry.scores().split(",")).map(Integer::valueOf).toArray(Integer[]::new);
+            Integer[] limitScores = Arrays.stream(entry.limitScores().split(",")).map(Integer::valueOf).toArray(Integer[]::new);
+
+            return new MilestoneScoreResponse(
+                    new StudentMemberReferenceResponse(entry.studentId(), entry.studentName()),
+                    IntStream.range(0, categoryIds.length).mapToObj(i -> new MilestoneScoreOfStudentResponse(
+                            categoryIds[i], categoryNames[i], milestoneGroups[i], limitScores[i], scores[i]))
+                            .sorted(Comparator.comparing(MilestoneScoreOfStudentResponse::id))
+                            .collect(groupingBy(MilestoneScoreOfStudentResponse::group))
+            );
+        }).toList();
+
+        System.out.println(content);
+
         return new PageImpl<>(content, pageable, totalMilestoneHistoryInfoCount);
     }
 

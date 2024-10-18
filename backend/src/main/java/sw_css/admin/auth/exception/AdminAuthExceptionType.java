@@ -10,6 +10,7 @@ public enum AdminAuthExceptionType implements BaseExceptionType {
     FAILED_REGISTER_FACULTY(HttpStatus.BAD_REQUEST, ""),
     MEMBER_EMAIL_DUPLICATE(HttpStatus.CONFLICT, "이메일이 중복됩니다."),
     MEMBER_NOT_FOUND(HttpStatus.NOT_FOUND, "해당 회원을 찾을 수 없습니다."),
+    CANNOT_DELETE_SUPER_ADMIN(HttpStatus.FORBIDDEN, "최고 관리자는 삭제할 수 없습니다.")
     ;
 
     private final HttpStatus httpStatus;

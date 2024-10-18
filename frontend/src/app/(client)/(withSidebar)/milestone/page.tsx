@@ -46,7 +46,7 @@ const Page = () => (
         로그인 후, 메인 페이지와 마이페이지에서 확인하실 수 있습니다.
       </S.Information>
     </S.InformationList>
-    <S.ImageWrapper maxWidth="890px" maxHeight="1028px">
+    <S.ImageWrapper maxWidth="800px" maxHeight="10000">
       <Image src="/images/milestone/milestone_img03.png" priority={false} alt="" fill />
     </S.ImageWrapper>
   </S.Content>

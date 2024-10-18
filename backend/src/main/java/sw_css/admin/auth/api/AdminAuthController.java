@@ -47,7 +47,7 @@ public class AdminAuthController {
     public ResponseEntity<Void> deleteFaculty(
             @SuperAdminInterface FacultyMember facultyMember,
             @RequestBody @Valid DeleteFacultyRequest request) {
-        adminAuthCommandService.deleteFaculty(request.member_id());
+        adminAuthCommandService.deleteFaculty(request.faculty_id());
         return ResponseEntity.noContent().build();
     }
 
