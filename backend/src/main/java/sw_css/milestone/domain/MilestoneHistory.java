@@ -18,10 +18,12 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Array;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.SQLRestriction;
 import sw_css.admin.milestone.domain.MilestoneHistoryExcelData;
 import sw_css.admin.milestone.persistence.StudentAndMilestoneScoreInfo;
+import sw_css.admin.milestone.persistence.StudentAndMilestoneTotalScoreInfoMapping;
 import sw_css.base.BaseEntity;
 import sw_css.member.domain.StudentMember;
 import sw_css.milestone.exception.MilestoneHistoryException;
@@ -45,6 +47,21 @@ import sw_css.milestone.exception.MilestoneHistoryExceptionType;
                         @ColumnResult(name = "milestoneGroup", type = MilestoneGroup.class),
                         @ColumnResult(name = "limitScore", type = Integer.class),
                         @ColumnResult(name = "score", type = Integer.class)
+                }
+        ))
+@SqlResultSetMapping(
+        name = "StudentAndMilestoneTotalScoreInfoMapping",
+        classes = @ConstructorResult(
+                targetClass = StudentAndMilestoneTotalScoreInfoMapping.class,
+                columns = {
+                        @ColumnResult(name = "studentId", type = Long.class),
+                        @ColumnResult(name = "studentName", type = String.class),
+                        @ColumnResult(name = "categoryIds", type = String.class),
+                        @ColumnResult(name = "categoryNames", type = String.class),
+                        @ColumnResult(name = "milestoneGroups", type = String.class),
+                        @ColumnResult(name = "limitScores", type = String.class),
+                        @ColumnResult(name = "scores", type = String.class),
+                        @ColumnResult(name = "totalScore", type = Long.class),
                 }
         ))
 public class MilestoneHistory extends BaseEntity {
