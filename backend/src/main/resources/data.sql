@@ -281,11 +281,11 @@ values (1, '비교과', 20, 2);
 insert into milestone (category_id, name, score, limit_count)
 values (2, '수준3 이상', 60, 0);
 insert into milestone (category_id, name, score, limit_count)
-values (2, '수준2 이상', 50, 0);
+values (2, '수준2 이상', 30, 0);
 insert into milestone (category_id, name, score, limit_count)
 values (3, 'PCCP Lv.3 이상', 60, 0);
 insert into milestone (category_id, name, score, limit_count)
-values (3, 'PCCP Lv.1 이상', 50, 0);
+values (3, 'PCCP Lv.1 이상', 40, 0);
 insert into milestone (category_id, name, score, limit_count)
 values (4, 'SW관련 경진대회 및 공모전 수상', 20, 3);
 insert into milestone (category_id, name, score, limit_count)
