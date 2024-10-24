@@ -7,7 +7,7 @@
 'use client';
 
 import { DateTime } from 'luxon';
-import { usePathname } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 import { useMemo, useState } from 'react';
 
 import Pagination from '@/adminComponents/Pagination';
@@ -19,14 +19,16 @@ import { convertMilestoneGroup } from '@/lib/utils/utils';
 import { Period } from '@/types/common';
 import { toast } from 'react-toastify';
 
-const Page = ({ searchParams }: { searchParams?: { [key: string]: string | undefined } }) => {
+const Page = () => {
   const [filterPeriod, setFilterPeriod] = useState<Period>({
     startDate: DateTime.now().minus({ years: 1 }).toFormat('yyyy-MM-dd'),
     endDate: DateTime.now().toFormat('yyyy-MM-dd'),
   });
   const [searchFilterPeriod, setSearchFilterPeriod] = useState<Period>(filterPeriod);
+  const searchParams = useSearchParams();
   const pathname = usePathname();
-  const page = searchParams?.page ? parseInt(searchParams.page, 10) : 1;
+  const page = parseInt(searchParams.get('page') || '1', 10);
+  console.log(page);
 
   const { data: excelFile } = useMilestoneHistoryScoreExcelFileQuery(
     searchFilterPeriod.startDate,

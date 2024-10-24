@@ -10,8 +10,6 @@ import MilestoneHistoryTable from './components/MilestoneHistoryTable';
 import MilestoneHistoryExcelFileDownloadButton from './components/MilestoneHistoryTable/MilestoneHistoryExcelFileDownloadButton.tsx';
 import { AuthSliceState } from '@/store/auth.slice';
 import { getAuthFromCookie } from '@/lib/utils/auth';
-import { BusinessError } from '@/types/error';
-import { redirect } from 'next/navigation';
 
 const Page = async ({ searchParams }: { searchParams?: { [key: string]: string | undefined } }) => {
   const headersList = headers();
@@ -47,7 +45,12 @@ const Page = async ({ searchParams }: { searchParams?: { [key: string]: string |
       <div className="flex justify-end">
         <MilestoneHistoryExcelFileDownloadButton field={field} keyword={keyword} />
       </div>
-      <Pagination currentPage={page} totalItems={milestoneHistories?.totalElements || 0} pathname={pathname} />
+      <Pagination
+        currentPage={page}
+        totalItems={milestoneHistories?.totalElements || 0}
+        pathname={pathname}
+        query={JSON.stringify({ field, keyword })}
+      />
     </div>
   );
 };

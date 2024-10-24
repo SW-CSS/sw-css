@@ -74,7 +74,7 @@ public class MilestoneHistoryCommandService {
         if (file == null) {
             return null;
         }
-        return UUID.randomUUID() + "_" + file.getOriginalFilename();
+        return UUID.randomUUID() + "_" + file.getOriginalFilename().replaceAll("\\[|\\]", "");
     }
 
     private void uploadFile(final MultipartFile file, final String newFilePath) {
