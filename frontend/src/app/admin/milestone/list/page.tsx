@@ -10,8 +10,6 @@ import MilestoneHistoryTable from './components/MilestoneHistoryTable';
 import MilestoneHistoryExcelFileDownloadButton from './components/MilestoneHistoryTable/MilestoneHistoryExcelFileDownloadButton.tsx';
 import { AuthSliceState } from '@/store/auth.slice';
 import { getAuthFromCookie } from '@/lib/utils/auth';
-import { BusinessError } from '@/types/error';
-import { redirect } from 'next/navigation';
 
 const Page = async ({ searchParams }: { searchParams?: { [key: string]: string | undefined } }) => {
   const headersList = headers();
