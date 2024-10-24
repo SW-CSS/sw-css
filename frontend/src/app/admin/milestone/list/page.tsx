@@ -47,7 +47,12 @@ const Page = async ({ searchParams }: { searchParams?: { [key: string]: string |
       <div className="flex justify-end">
         <MilestoneHistoryExcelFileDownloadButton field={field} keyword={keyword} />
       </div>
-      <Pagination currentPage={page} totalItems={milestoneHistories?.totalElements || 0} pathname={pathname} />
+      <Pagination
+        currentPage={page}
+        totalItems={milestoneHistories?.totalElements || 0}
+        pathname={pathname}
+        query={JSON.stringify({ field, keyword })}
+      />
     </div>
   );
 };
