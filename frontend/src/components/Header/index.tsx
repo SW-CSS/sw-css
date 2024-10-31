@@ -17,7 +17,7 @@ import { useAppSelector } from '@/lib/hooks/redux';
 import HeaderAccordion from './HeaderAccordion';
 import Sidebar from './Sidebar';
 import * as S from './styled';
-import IconButton from '../IconButton';
+import IconButton from '@/components2/common/IconButton';
 
 const Header = () => {
   const [isSidebarOpen, setIsSideBarOpen] = useState<boolean>(false);

@@ -2,8 +2,7 @@
 import React from 'react';
 
 import { FONT_STYLE } from '@/constants';
-
-import { IconButtonWrapper } from './styled';
+import Link from 'next/link';
 
 export interface IconButtonProps {
   icon: React.ReactElement;
@@ -24,7 +23,10 @@ const IconButton = ({ icon, title, size, link }: IconButtonProps) => {
   });
 
   return (
-    <IconButtonWrapper href={link}>
+    <Link
+      className="mr-2 flex h-[50px] w-[60px] cursor-pointer flex-col content-center items-center border-none bg-transparent"
+      href={link}
+    >
       {Icon}
       <span
         style={{
@@ -35,7 +37,7 @@ const IconButton = ({ icon, title, size, link }: IconButtonProps) => {
       >
         {title}
       </span>
-    </IconButtonWrapper>
+    </Link>
   );
 };
 
