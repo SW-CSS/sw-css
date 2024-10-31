@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-page-custom-font */
 
-import Footer from '@/components/Footer';
+import Footer from '@/components2/ui/Footer';
 import Header from '@/components/Header';
 
 import { PageWrapper } from './layout-styled';
