@@ -3,15 +3,14 @@
 'use client';
 
 import { Form, Formik } from 'formik';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
 
-import { DatePicker } from '@/components/Formik/DatePicker';
-import { FileUploader } from '@/components/Formik/FileUploader';
-import { TextInput } from '@/app/(client)/components/Formik/TextInput';
+import { DatePicker } from '@/components2/common/formik/DatePicker';
+import { FileUploader } from '@/components2/common/formik/FileUploader';
+import { TextInput } from '@/components2/common/formik/TextInputDdang';
 import PageTitle from '@/app/(client)/components/PageTitle';
 import { useMilestoneHistoryCreateMutation } from '@/lib/hooks/useApi';
 import { MilestoneHistoryCreateDto } from '@/types/common.dto';

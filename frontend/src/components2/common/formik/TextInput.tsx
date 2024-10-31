@@ -40,7 +40,7 @@ const TextInput = ({ isRequired = false, size = 'md', ...props }: TextInputProps
           inputProps.onChange?.(e);
           onChangeText?.(e.target.value);
         }}
-        className={`rounded-sm border-[1px] outline-none ${isAdmin ? 'border-admin-border' : 'border-border'} ${FORM_SIZE[size].padding} ${FORM_SIZE[size].textSize} ${hasError && 'border-red-400'}`}
+        className={`rounded-sm border-[1px] ${isAdmin ? 'border-admin-border' : 'border-border'} outline-none ${FORM_SIZE[size].padding} ${FORM_SIZE[size].textSize} ${hasError && 'border-red-400'}`}
       />
       {errorText && <span className="pl-1 text-xs text-red-400">{errorText}</span>}
     </div>

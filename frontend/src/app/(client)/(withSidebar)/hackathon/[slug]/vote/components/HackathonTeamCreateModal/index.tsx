@@ -1,5 +1,5 @@
-import ImageUploader from '@/components/Formik/ImageUploader';
-import TextInput from '@/components/Formik/TextInput';
+import ImageUploader from '@/components2/common/formik/ImageUploader';
+import TextInput from '@/components2/common/formik/TextInput';
 import Title from '@/components/Title';
 import { TeamMemberRole } from '@/data/hackathon';
 import { useRegisterTeamMutation } from '@/lib/hooks/useApi';

@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 
-import TextInput from '@/components/Formik/TextInput';
+import TextInput from '@/components2/common/formik/TextInput';
 import { MilestoneHistoryStatus } from '@/data/milestone';
 import {
   useMilestoneHistoryStatusApproveMutation,
@@ -83,7 +83,7 @@ const MilestoneHistoryStatusChangeButton = ({ historyId, status }: MilestoneHist
             <button
               type="button"
               onClick={handleRejectButtonClick}
-              className="hover:bg-admin-semantic-error-main bg-admin-semantic-error-light rounded-sm py-2 text-white"
+              className="rounded-sm bg-admin-semantic-error-light py-2 text-white hover:bg-admin-semantic-error-main"
             >
               반려
             </button>

@@ -5,8 +5,8 @@
 import { Form, Formik } from 'formik';
 import { useRouter } from 'next/navigation';
 
-import Dropdown from '@/components/Formik/Dropdown';
-import TextInput from '@/components/Formik/TextInput';
+import Dropdown from '@/components2/common/formik/Dropdown';
+import TextInput from '@/components2/common/formik/TextInput';
 import { FORM_SIZE } from '@/constants';
 
 interface SearchFormProps {

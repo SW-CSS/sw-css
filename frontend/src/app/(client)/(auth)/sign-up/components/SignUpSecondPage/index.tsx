@@ -6,8 +6,8 @@
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 
-import { Dropdown } from '@/app/(client)/components/Formik/Dropdown';
-import { TextInput } from '@/app/(client)/components/Formik/TextInput';
+import { Dropdown } from '@/components2/common/formik/DropdownDdang';
+import { TextInput } from '@/components2/common/formik/TextInputDdang';
 import { careerCategory } from '@/data/signUp';
 
 import MajorDropdown from './components/MajorDropdown';
