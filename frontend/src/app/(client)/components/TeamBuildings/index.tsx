@@ -1,4 +1,4 @@
-import TeamBuilding from '@/components/TeamBuilding';
+import TeamBuildingCard from '@/components2/ui/team-building/TeamBuildingCard';
 import { teamBuildingInfos } from '@/mocks/teamBuilding';
 
 import { AlertComment, AlertDescription, AlertLink, AlertTitle, TeamBuildingWrapper } from './styled';
@@ -23,7 +23,7 @@ const TeamBuildings = () => (
         </AlertComment>
       )}
       {teamBuildingInfos.map((team) => (
-        <TeamBuilding
+        <TeamBuildingCard
           id={team.id}
           category={team.category}
           status={team.status}
