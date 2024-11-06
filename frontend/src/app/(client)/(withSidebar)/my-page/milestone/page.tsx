@@ -9,7 +9,7 @@ import { Period } from '@/types/common';
 import MilestoneHistoryTable from './components/MilestoneHistoryTable';
 import MilestoneOverview from './components/MilestoneOverview';
 import { Content, SubTitle } from './styled';
-import MilestonePeriodSearchForm from '@/components/MilestonePeriodSearchForm';
+import PeriodSearchBox from '@/components2/common/PeriodSearchBox';
 import { useSearchParams } from 'next/navigation';
 
 const Page = () => {
@@ -32,11 +32,7 @@ const Page = () => {
     <Content>
       <div className="mb-6 flex flex-wrap justify-between gap-4">
         <p className="min-w-[10em] text-xl font-bold">마일스톤 획득 내역</p>
-        <MilestonePeriodSearchForm
-          setFilterPeriod={setFilterPeriod}
-          filterPeriod={filterPeriod}
-          setSearchFilterPeriod={setSearchFilterPeriod}
-        />
+        <PeriodSearchBox setPeriod={setFilterPeriod} period={filterPeriod} setSearchPeriod={setSearchFilterPeriod} />
       </div>
       <SubTitle>전체 현황</SubTitle>
       <MilestoneOverview searchFilterPeriod={searchFilterPeriod} />

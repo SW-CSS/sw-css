@@ -11,7 +11,7 @@ import { usePathname, useSearchParams } from 'next/navigation';
 import { useMemo, useState } from 'react';
 
 import Pagination from '@/adminComponents/Pagination';
-import MilestonePeriodSearchForm from '@/components/MilestonePeriodSearchForm';
+import PeriodSearchBox from '@/components2/common/PeriodSearchBox';
 import { MilestoneGroup } from '@/data/milestone';
 import { useMilestoneHistoryScoreExcelFileQuery, useMilestoneScoresQuery } from '@/lib/hooks/useAdminApi';
 import { useMilestoneQuery } from '@/lib/hooks/useApi';
@@ -62,11 +62,7 @@ const Page = () => {
   return (
     <div>
       <div className="mb-8 flex justify-end">
-        <MilestonePeriodSearchForm
-          filterPeriod={filterPeriod}
-          setFilterPeriod={setFilterPeriod}
-          setSearchFilterPeriod={setSearchFilterPeriod}
-        />
+        <PeriodSearchBox period={filterPeriod} setPeriod={setFilterPeriod} setSearchPeriod={setSearchFilterPeriod} />
       </div>
       <div className="mb-8 min-h-[426px] w-full overflow-x-scroll text-xs">
         <table className="border-collapse text-center">
