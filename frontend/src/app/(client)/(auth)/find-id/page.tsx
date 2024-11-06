@@ -1,4 +1,4 @@
-import PageTitle from '@/app/(client)/components/PageTitle';
+import PageTitle from '@/components/common/PageTitle';
 import SignPageTabButton from '@/components/ui/auth/SignPageTabButton';
 
 import FindFooter from '../components/FindFooter';
@@ -11,7 +11,7 @@ const findTabs = [
 const Page = () => (
   <main className="mx-auto w-sign max-w-full pb-10 pt-20 lg:pt-28">
     <div className="flex w-full flex-col items-center gap-10 p-5">
-      <PageTitle title="아이디/비밀번호 찾기" description="아이디 또는 비밀번호가 생각나지 않나요?" urlText="" url="" />
+      <PageTitle title="아이디/비밀번호 찾기" description="아이디 또는 비밀번호가 생각나지 않나요?" />
       <SignPageTabButton tabs={findTabs} />
       <div className="flex w-full flex-col items-center gap-5">
         <span className="text-center font-semibold">

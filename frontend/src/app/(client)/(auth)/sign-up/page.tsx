@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 
-import PageTitle from '@/app/(client)/components/PageTitle';
+import PageTitle from '@/components/common/PageTitle';
 import { SignUpPhase } from '@/data/signUp';
 
 import SignUpFirstPage, { FirstInfo } from './components/SignUpFirstPage';
@@ -63,7 +63,7 @@ const Page = () => {
   return (
     <div className="mx-auto w-sign max-w-full pb-10 pt-14 lg:pt-20">
       <div className="flex w-full flex-col gap-10 p-5">
-        <PageTitle title="회원가입" description="PNU SW역량시스템 첫 사용시 회원가입이 필요합니다." urlText="" url="" />
+        <PageTitle title="회원가입" description="PNU SW역량시스템 첫 사용시 회원가입이 필요합니다." />
         {phase === SignUpPhase.one && (
           <SignUpFirstPage initialValues={userInfo} handleNextButtonClick={handleNextButtonClick} />
         )}

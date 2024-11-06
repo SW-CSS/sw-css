@@ -11,7 +11,7 @@ import { toast } from 'react-toastify';
 import { DatePicker } from '@/components/common/formik/DatePicker';
 import { FileUploader } from '@/components/common/formik/FileUploader';
 import { TextInput } from '@/components/common/formik/TextInputDdang';
-import PageTitle from '@/app/(client)/components/PageTitle';
+import PageTitle from '@/components/common/PageTitle';
 import { useMilestoneHistoryCreateMutation } from '@/lib/hooks/useApi';
 import { MilestoneHistoryCreateDto } from '@/types/common.dto';
 import { Milestone, MilestoneCategory } from '@/types/milestone';
@@ -71,7 +71,7 @@ const Page = () => {
 
   return (
     <div className="rounded-sm bg-white p-5">
-      <PageTitle title="실적 등록" description="" urlText="" url="" />
+      <PageTitle title="실적 등록" />
       <p className="mb-10 mt-6 flex items-center justify-between border-b border-black py-4 text-lg font-bold">
         실적 등록하기
       </p>

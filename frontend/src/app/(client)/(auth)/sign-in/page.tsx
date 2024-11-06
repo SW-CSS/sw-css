@@ -2,14 +2,14 @@ import { FONT_STYLE } from '@/constants';
 
 import InputUserInfo from './components/InputUserInfo';
 import { Divisor, FindLink, SignInContentWrapper, SignInPageWrapper, SignUpLink, SuggestionComment } from './styled';
-import { Description, Title, TitleContent } from '../styled';
+import { TitleContent } from '../styled';
+import PageTitle from '@/components/common/PageTitle';
 
 const Page = () => (
   <SignInPageWrapper>
     <SignInContentWrapper>
       <TitleContent>
-        <Title>로그인</Title>
-        <Description>PNU SW역량시스템 첫 사용시 회원가입이 필요합니다.</Description>
+        <PageTitle title="로그인" description="PNU SW역량시스템 첫 사용시 회원가입이 필요합니다." />
       </TitleContent>
       <InputUserInfo />
       <SuggestionComment>
