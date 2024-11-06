@@ -1,4 +1,4 @@
-import SubTitle from '@/components/SubTitle';
+import PageSubTitle from '@/components2/common/PageSubTitle';
 
 import MilestoneHistorySection from './components/MilestoneHistorySection';
 import MilestoneSection from './components/MilestoneSection';
@@ -10,7 +10,7 @@ const Page = () => (
     <MilestoneSection />
     <MilestoneHistorySection />
     <div className="flex-grow rounded-sm bg-white p-5">
-      <SubTitle title="내가 쓴 팀빌딩 글" urlText="전체보기" url="/my-page/team-building" />
+      <PageSubTitle title="내가 쓴 팀빌딩 글" urlText="전체보기" url="/my-page/team-building" />
       <div className="p-20 text-center text-comment">아직 준비중인 기능이에요.</div>
     </div>
   </div>

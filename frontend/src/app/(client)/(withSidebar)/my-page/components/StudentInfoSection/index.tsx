@@ -2,7 +2,7 @@
 
 'use client';
 
-import SubTitle from '@/components/SubTitle';
+import PageSubTitle from '@/components2/common/PageSubTitle';
 import { useAppSelector } from '@/lib/hooks/redux';
 import { useStudentMemberQuery } from '@/lib/hooks/useApi';
 import { appendDashPhoneNumber, convertCareerToStr } from '@/lib/utils/utils';
@@ -21,7 +21,7 @@ const StudentInfoSection = () => {
   }
   return (
     <div className="relative flex-grow rounded-sm bg-white p-5">
-      <SubTitle title="내 정보" urlText="수정" url="/my-page/edit" />
+      <PageSubTitle title="내 정보" urlText="수정" url="/my-page/edit" />
       {member ? (
         <div className="my-5">
           <div className="mb-5 flex flex-wrap items-end gap-4">

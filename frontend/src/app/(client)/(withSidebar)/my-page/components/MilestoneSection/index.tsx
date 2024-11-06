@@ -10,7 +10,7 @@ import { useMemo, useState } from 'react';
 
 import MilestoneChart from '@/components/MilestoneChart';
 import MilestoneTable from '@/components/MilestoneTable';
-import SubTitle from '@/components/SubTitle';
+import PageSubTitle from '@/components2/common/PageSubTitle';
 import { MilestoneInfoType, initialMilestoneOverview, milestoneInfoTypes } from '@/data/milestone';
 import { useAppSelector } from '@/lib/hooks/redux';
 import { useMilestoneScoresOfStudentQuery } from '@/lib/hooks/useApi';
@@ -49,7 +49,7 @@ const MilestoneSection = () => {
 
   return (
     <div className="w-full flex-1 rounded-sm bg-white p-5 sm:min-w-[630px] lg:max-w-[630px]">
-      <SubTitle title="내 마일스톤 상세" urlText="전체보기" url="/my-page/milestone" />
+      <PageSubTitle title="내 마일스톤 상세" urlText="전체보기" url="/my-page/milestone" />
       <div className="my-5 flex items-center justify-center gap-2 sm:justify-end">
         <span className="rounded-lg bg-border px-4 py-1">{searchFilterPeriod.startDate}</span>~
         <span className="rounded-lg bg-border px-4 py-1">{searchFilterPeriod.endDate}</span>
