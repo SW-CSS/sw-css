@@ -18,9 +18,9 @@ const Page = () => (
     <ContentWrapper>
       <ExternalLink />
     </ContentWrapper>
-    {/* TODO: 팀빌딩 구현 완료 되면 주석 풀기
-    <ContentWrapper>
-       <TeamBuildings />
+    {/* TODO: 팀빌딩 구현 완료 되면 주석 풀기 */}
+    {/* <ContentWrapper>
+      <TeamBuildings />
     </ContentWrapper> */}
     <ContentWrapper>
       <PnuLink />

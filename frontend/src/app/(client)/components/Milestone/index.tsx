@@ -4,7 +4,7 @@ import { getAuthFromCookie } from '@/lib/utils/auth';
 import { AuthSliceState } from '@/store/auth.slice';
 
 import { MilestoneChartWrapper } from './styled';
-import GoPageIcon from '../GoPageIcon';
+import GoPageIcon from '@/components2/ui/home/GoPageIcon';
 import SignIn from '../SignIn';
 import { Description, Title, TitleContent, TitleWrapper } from '../styled';
 import { getMyMilestoneHistory } from '@/lib/api/server.api';

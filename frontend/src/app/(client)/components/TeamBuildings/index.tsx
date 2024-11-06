@@ -2,7 +2,7 @@ import TeamBuilding from '@/components/TeamBuilding';
 import { teamBuildingInfos } from '@/mocks/teamBuilding';
 
 import { AlertComment, AlertDescription, AlertLink, AlertTitle, TeamBuildingWrapper } from './styled';
-import GoPageIcon from '../GoPageIcon';
+import GoPageIcon from '@/components2/ui/home/GoPageIcon';
 import { Description, Title, TitleContent, TitleWrapper } from '../styled';
 
 const TeamBuildings = () => (
