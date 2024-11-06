@@ -1,5 +1,5 @@
 import PageTitle from '@/app/(client)/components/PageTitle';
-import TabButton from '@/components/TabButton';
+import SignPageTabButton from '@/components2/ui/auth/SignPageTabButton';
 
 import FindForm from './components/FindForm';
 import FindFooter from '../components/FindFooter';
@@ -18,7 +18,7 @@ const Page = () => (
         urlText=""
         url=""
       />
-      <TabButton tabs={findTabs} />
+      <SignPageTabButton tabs={findTabs} />
       <FindForm />
       <FindFooter />
     </div>

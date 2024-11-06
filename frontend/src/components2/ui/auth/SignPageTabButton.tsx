@@ -4,11 +4,11 @@
 
 import { usePathname } from 'next/navigation';
 
-export interface PageTabProps {
+export interface SignPageTabButtonProps {
   tabs: { name: string; url: string }[];
 }
 
-const PageTab = ({ tabs }: PageTabProps) => {
+export default function SignPageTabButton({ tabs }: SignPageTabButtonProps) {
   const pathname = usePathname();
 
   return (
@@ -24,6 +24,4 @@ const PageTab = ({ tabs }: PageTabProps) => {
       ))}
     </div>
   );
-};
-
-export default PageTab;
+}
