@@ -1,10 +1,10 @@
-import MilestoneCircleChart from '@/components2/ui/milestone/MilestoneCircleChart';
-import MilestoneOverviewTable from '@/components2/ui/milestone/MilestoneOverviewTable';
+import MilestoneCircleChart from '@/components/ui/milestone/MilestoneCircleChart';
+import MilestoneOverviewTable from '@/components/ui/milestone/MilestoneOverviewTable';
 import { getAuthFromCookie } from '@/lib/utils/auth';
 import { AuthSliceState } from '@/store/auth.slice';
 
 import { MilestoneChartWrapper } from './styled';
-import GoPageIcon from '@/components2/ui/home/GoPageIcon';
+import GoPageIcon from '@/components/ui/home/GoPageIcon';
 import SignIn from '../SignIn';
 import { Description, Title, TitleContent, TitleWrapper } from '../styled';
 import { getMyMilestoneHistory } from '@/lib/api/server.api';

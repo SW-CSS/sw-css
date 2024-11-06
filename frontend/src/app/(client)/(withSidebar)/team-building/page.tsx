@@ -1,4 +1,4 @@
-import PageTitle from '@/components2/common/PageTitle';
+import PageTitle from '@/components/common/PageTitle';
 
 const Page = () => {
   return (

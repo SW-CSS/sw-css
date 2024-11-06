@@ -1,4 +1,4 @@
-import PageTitle from '@/components2/common/PageTitle';
+import PageTitle from '@/components/common/PageTitle';
 import { TeamMemberRole, teamMemberRoleInfo } from '@/data/hackathon';
 import useBodyScrollLock from '@/lib/hooks/useBodyScrollLock';
 import useOnClickOutside from '@/lib/hooks/useOnClickOutside';

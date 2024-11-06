@@ -2,7 +2,7 @@
 
 'use client';
 
-import PageSubTitle from '@/components2/common/PageSubTitle';
+import PageSubTitle from '@/components/common/PageSubTitle';
 import { useAppSelector } from '@/lib/hooks/redux';
 import { useStudentMemberQuery } from '@/lib/hooks/useApi';
 import { appendDashPhoneNumber, convertCareerToStr } from '@/lib/utils/utils';

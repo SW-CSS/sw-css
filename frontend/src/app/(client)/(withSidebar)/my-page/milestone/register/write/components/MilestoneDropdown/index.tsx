@@ -2,7 +2,7 @@
 /* eslint-disable implicit-arrow-linebreak */
 import { Dispatch, SetStateAction, useEffect, useMemo, useState } from 'react';
 
-import { Dropdown, DropdownOption, DropdownProps } from '@/components2/common/formik/DropdownDdang';
+import { Dropdown, DropdownOption, DropdownProps } from '@/components/common/formik/DropdownDdang';
 import { MilestoneGroup } from '@/data/milestone';
 import { useMilestoneQuery } from '@/lib/hooks/useApi';
 import { Milestone, MilestoneCategory } from '@/types/milestone';

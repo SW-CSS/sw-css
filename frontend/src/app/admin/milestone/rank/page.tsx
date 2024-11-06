@@ -11,7 +11,7 @@ import { usePathname, useSearchParams } from 'next/navigation';
 import { useMemo, useState } from 'react';
 
 import Pagination from '@/adminComponents/Pagination';
-import PeriodSearchBox from '@/components2/common/PeriodSearchBox';
+import PeriodSearchBox from '@/components/common/PeriodSearchBox';
 import { MilestoneGroup } from '@/data/milestone';
 import { useMilestoneHistoryScoreExcelFileQuery, useMilestoneScoresQuery } from '@/lib/hooks/useAdminApi';
 import { useMilestoneQuery } from '@/lib/hooks/useApi';

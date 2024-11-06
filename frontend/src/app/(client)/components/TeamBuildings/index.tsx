@@ -1,8 +1,8 @@
-import TeamBuildingCard from '@/components2/ui/team-building/TeamBuildingCard';
+import TeamBuildingCard from '@/components/ui/team-building/TeamBuildingCard';
 import { teamBuildingInfos } from '@/mocks/teamBuilding';
 
 import { AlertComment, AlertDescription, AlertLink, AlertTitle, TeamBuildingWrapper } from './styled';
-import GoPageIcon from '@/components2/ui/home/GoPageIcon';
+import GoPageIcon from '@/components/ui/home/GoPageIcon';
 import { Description, Title, TitleContent, TitleWrapper } from '../styled';
 
 const TeamBuildings = () => (

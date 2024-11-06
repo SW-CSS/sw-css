@@ -1,5 +1,5 @@
 import PageTitle from '@/app/(client)/components/PageTitle';
-import SignPageTabButton from '@/components2/ui/auth/SignPageTabButton';
+import SignPageTabButton from '@/components/ui/auth/SignPageTabButton';
 
 import FindForm from './components/FindForm';
 import FindFooter from '../components/FindFooter';

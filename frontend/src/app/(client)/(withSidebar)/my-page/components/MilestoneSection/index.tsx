@@ -8,9 +8,9 @@
 import { DateTime } from 'luxon';
 import { useMemo, useState } from 'react';
 
-import MilestoneCircleChart from '@/components2/ui/milestone/MilestoneCircleChart';
-import MilestoneOverviewTable from '@/components2/ui/milestone/MilestoneOverviewTable';
-import PageSubTitle from '@/components2/common/PageSubTitle';
+import MilestoneCircleChart from '@/components/ui/milestone/MilestoneCircleChart';
+import MilestoneOverviewTable from '@/components/ui/milestone/MilestoneOverviewTable';
+import PageSubTitle from '@/components/common/PageSubTitle';
 import { MilestoneInfoType, initialMilestoneOverview, milestoneInfoTypes } from '@/data/milestone';
 import { useAppSelector } from '@/lib/hooks/redux';
 import { useMilestoneScoresOfStudentQuery } from '@/lib/hooks/useApi';

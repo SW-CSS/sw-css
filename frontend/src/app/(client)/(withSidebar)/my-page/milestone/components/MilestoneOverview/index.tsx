@@ -1,8 +1,8 @@
 /* eslint-disable implicit-arrow-linebreak */
 import { useMemo } from 'react';
 
-import MilestoneCircleChart from '@/components2/ui/milestone/MilestoneCircleChart';
-import MilestoneOverviewTable from '@/components2/ui/milestone/MilestoneOverviewTable';
+import MilestoneCircleChart from '@/components/ui/milestone/MilestoneCircleChart';
+import MilestoneOverviewTable from '@/components/ui/milestone/MilestoneOverviewTable';
 import { initialMilestoneOverview } from '@/data/milestone';
 import { useAppSelector } from '@/lib/hooks/redux';
 import { useMilestoneScoresOfStudentQuery } from '@/lib/hooks/useApi';

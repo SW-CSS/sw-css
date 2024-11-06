@@ -2,8 +2,8 @@
 
 import { Form, Formik } from 'formik';
 
-import EmailTextInput from '@/components2/common/formik/EmailTextInput';
-import TextInput from '@/components2/common/formik/TextInput';
+import EmailTextInput from '@/components/common/formik/EmailTextInput';
+import TextInput from '@/components/common/formik/TextInput';
 import { useResetPasswordMutation } from '@/lib/hooks/useApi';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';

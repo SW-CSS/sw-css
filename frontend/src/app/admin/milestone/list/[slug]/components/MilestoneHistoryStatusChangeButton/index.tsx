@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 
-import TextInput from '@/components2/common/formik/TextInput';
+import TextInput from '@/components/common/formik/TextInput';
 import { MilestoneHistoryStatus } from '@/data/milestone';
 import {
   useMilestoneHistoryStatusApproveMutation,

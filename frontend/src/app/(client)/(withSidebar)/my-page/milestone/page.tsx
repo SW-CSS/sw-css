@@ -9,7 +9,7 @@ import { Period } from '@/types/common';
 import MilestoneHistoryTable from './components/MilestoneHistoryTable';
 import MilestoneOverview from './components/MilestoneOverview';
 import { Content, SubTitle } from './styled';
-import PeriodSearchBox from '@/components2/common/PeriodSearchBox';
+import PeriodSearchBox from '@/components/common/PeriodSearchBox';
 import { useSearchParams } from 'next/navigation';
 
 const Page = () => {

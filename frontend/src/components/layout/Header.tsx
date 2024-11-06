@@ -17,7 +17,7 @@ import { headerInfos } from '@/data/clientCategory';
 import { useAppSelector } from '@/lib/hooks/redux';
 import { CategoryDto } from '@/types/common.dto';
 import { AuthSliceState } from '@/store/auth.slice';
-import IconButton from '@/components2/common/IconButton';
+import IconButton from '@/components/common/IconButton';
 
 interface HeaderUIProps {
   auth: AuthSliceState;

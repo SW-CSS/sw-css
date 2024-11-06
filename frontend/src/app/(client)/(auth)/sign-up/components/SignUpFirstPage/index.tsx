@@ -5,7 +5,7 @@
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 
-import { TextInput } from '@/components2/common/formik/TextInputDdang';
+import { TextInput } from '@/components/common/formik/TextInputDdang';
 
 import EmailTextInput from './components/EmailTextInput';
 import { useState } from 'react';

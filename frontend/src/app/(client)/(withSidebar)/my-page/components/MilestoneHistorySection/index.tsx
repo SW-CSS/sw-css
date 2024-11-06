@@ -3,7 +3,7 @@
 /* eslint-disable operator-linebreak */
 /* eslint-disable react/jsx-wrap-multilines */
 
-import PageSubTitle from '@/components2/common/PageSubTitle';
+import PageSubTitle from '@/components/common/PageSubTitle';
 import { getMilestoneHistoriesOfStudent } from '@/lib/api/server.api';
 import { getAuthFromCookie } from '@/lib/utils/auth';
 import { MilestoneHistorySortCriteria, SortDirection } from '@/types/milestone';

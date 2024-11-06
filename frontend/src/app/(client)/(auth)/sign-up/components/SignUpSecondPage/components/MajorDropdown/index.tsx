@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect, useState } from 'react';
 
-import Dropdown, { DropdownProps } from '@/components2/common/formik/Dropdown';
+import Dropdown, { DropdownProps } from '@/components/common/formik/Dropdown';
 import { useCollegeQuery } from '@/lib/hooks/useApi';
 import { getColleges } from '@/mocks/college';
 import { CollegeDto, MajorDto } from '@/types/common.dto';

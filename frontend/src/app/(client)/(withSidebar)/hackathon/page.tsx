@@ -1,5 +1,5 @@
 import Pagination from '@/app/(client)/components/Pagination';
-import PageTitle from '@/components2/common/PageTitle';
+import PageTitle from '@/components/common/PageTitle';
 import { HackathonState } from '@/data/hackathon';
 import { getHackathons } from '@/lib/api/server.api';
 import classname from 'classnames';

@@ -10,7 +10,7 @@ import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 
-import { FileUploader } from '@/components2/common/formik/FileUploader';
+import { FileUploader } from '@/components/common/formik/FileUploader';
 import { useRegisterHistoryInBatchMutation } from '@/lib/hooks/useAdminApi';
 
 const validationSchema = Yup.object().shape({

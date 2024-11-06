@@ -14,8 +14,8 @@ import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 
 import 'react-toastify/dist/ReactToastify.css';
-import EmailTextInput from '@/components2/common/formik/EmailTextInput';
-import TextInput from '@/components2/common/formik/TextInput';
+import EmailTextInput from '@/components/common/formik/EmailTextInput';
+import TextInput from '@/components/common/formik/TextInput';
 import { useRegisterFacultiesByFileMutation, useRegisterFacultyMutation } from '@/lib/hooks/useAdminApi';
 import { useState } from 'react';
 

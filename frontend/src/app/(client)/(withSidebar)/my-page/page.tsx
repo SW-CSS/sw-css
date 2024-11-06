@@ -1,4 +1,4 @@
-import PageSubTitle from '@/components2/common/PageSubTitle';
+import PageSubTitle from '@/components/common/PageSubTitle';
 
 import MilestoneHistorySection from './components/MilestoneHistorySection';
 import MilestoneSection from './components/MilestoneSection';

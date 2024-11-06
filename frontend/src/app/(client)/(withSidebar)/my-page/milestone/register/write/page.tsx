@@ -8,9 +8,9 @@ import { useState } from 'react';
 import * as Yup from 'yup';
 import { toast } from 'react-toastify';
 
-import { DatePicker } from '@/components2/common/formik/DatePicker';
-import { FileUploader } from '@/components2/common/formik/FileUploader';
-import { TextInput } from '@/components2/common/formik/TextInputDdang';
+import { DatePicker } from '@/components/common/formik/DatePicker';
+import { FileUploader } from '@/components/common/formik/FileUploader';
+import { TextInput } from '@/components/common/formik/TextInputDdang';
 import PageTitle from '@/app/(client)/components/PageTitle';
 import { useMilestoneHistoryCreateMutation } from '@/lib/hooks/useApi';
 import { MilestoneHistoryCreateDto } from '@/types/common.dto';

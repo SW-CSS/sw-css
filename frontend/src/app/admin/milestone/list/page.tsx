@@ -2,7 +2,7 @@
 import { headers } from 'next/headers';
 
 import Pagination from '@/adminComponents/Pagination';
-import SearchBox from '@/components2/common/admin/SearchBox';
+import SearchBox from '@/components/common/admin/SearchBox';
 import { milestoneHistorySearchField } from '@/data/milestone';
 import { getMilestoneHistories } from '@/lib/api/server.api';
 

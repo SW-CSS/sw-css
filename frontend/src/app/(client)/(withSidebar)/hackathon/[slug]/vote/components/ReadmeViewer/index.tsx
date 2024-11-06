@@ -1,5 +1,5 @@
 import { useGithubReadme } from '@/lib/hooks/useGithubReadme';
-import MarkdownViewer from '@/components2/ui/hackathon/MarkdownViewer';
+import MarkdownViewer from '@/components/ui/hackathon/MarkdownViewer';
 
 interface ReadmeViewerProps {
   repoUrl: string;

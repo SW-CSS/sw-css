@@ -1,6 +1,6 @@
-import ImageUploader from '@/components2/common/formik/ImageUploader';
-import TextInput from '@/components2/common/formik/TextInput';
-import PageTitle from '@/components2/common/PageTitle';
+import ImageUploader from '@/components/common/formik/ImageUploader';
+import TextInput from '@/components/common/formik/TextInput';
+import PageTitle from '@/components/common/PageTitle';
 import { TeamMemberRole } from '@/data/hackathon';
 import { useRegisterTeamMutation } from '@/lib/hooks/useApi';
 import useBodyScrollLock from '@/lib/hooks/useBodyScrollLock';

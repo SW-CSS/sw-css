@@ -1,6 +1,6 @@
 import RSSParser from 'rss-parser';
 
-import GoPageIcon from '@/components2/ui/home/GoPageIcon';
+import GoPageIcon from '@/components/ui/home/GoPageIcon';
 
 import { AnnouncementDate, AnnouncementItem, AnnouncementTitle } from './styled';
 import { Description, Title, TitleContent, TitleWrapper } from '../styled';

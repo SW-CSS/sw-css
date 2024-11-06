@@ -1,5 +1,5 @@
-import Dropdown from '@/components2/common/formik/Dropdown';
-import TextInput from '@/components2/common/formik/TextInput';
+import Dropdown from '@/components/common/formik/Dropdown';
+import TextInput from '@/components/common/formik/TextInput';
 import { memberRoleOptions, teamMemberRoleInfo } from '@/data/hackathon';
 import { useStudentMemberMutation } from '@/lib/hooks/useApi';
 import useDebounce from '@/lib/hooks/useDebounce';
