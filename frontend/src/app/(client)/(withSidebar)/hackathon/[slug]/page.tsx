@@ -1,4 +1,4 @@
-import MarkdownViewer from '@/components/MarkdownViewer';
+import MarkdownViewer from '@/components2/ui/hackathon/MarkdownViewer';
 import { getHackathonInformation } from '@/lib/api/server.api';
 import Image from 'next/image';
 

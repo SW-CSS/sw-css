@@ -17,13 +17,13 @@ import { EditorContent, useEditor } from '@tiptap/react';
 import { StarterKit } from '@tiptap/starter-kit';
 import { common, createLowlight } from 'lowlight';
 import { Markdown } from 'tiptap-markdown';
-import './markdown.css';
+import './MarkdownViewer.css';
 
 interface MarkdownViewerProps {
   content: string;
 }
 
-const MarkdownViewer = ({ content }: MarkdownViewerProps) => {
+export default function MarkdownViewer({ content }: MarkdownViewerProps) {
   const editor = useEditor({
     extensions: [
       StarterKit.configure({
@@ -69,6 +69,4 @@ const MarkdownViewer = ({ content }: MarkdownViewerProps) => {
       <EditorContent editor={editor} />
     </div>
   );
-};
-
-export default MarkdownViewer;
+}
