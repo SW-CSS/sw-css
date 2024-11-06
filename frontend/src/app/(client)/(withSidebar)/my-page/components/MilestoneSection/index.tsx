@@ -8,7 +8,7 @@
 import { DateTime } from 'luxon';
 import { useMemo, useState } from 'react';
 
-import MilestoneChart from '@/components/MilestoneChart';
+import MilestoneCircleChart from '@/components2/ui/milestone/MilestoneCircleChart';
 import MilestoneOverviewTable from '@/components2/ui/milestone/MilestoneOverviewTable';
 import PageSubTitle from '@/components2/common/PageSubTitle';
 import { MilestoneInfoType, initialMilestoneOverview, milestoneInfoTypes } from '@/data/milestone';
@@ -69,7 +69,7 @@ const MilestoneSection = () => {
       <div className="p-4">
         {selectedInfoType === MilestoneInfoType.TOTAL && (
           <div className="flex flex-wrap gap-y-5 py-1 sm:py-10">
-            <MilestoneChart chartSize={180} fontSize="lg" milestoneOverviewScore={milestoneOverviewScore} />
+            <MilestoneCircleChart chartSize={180} fontSize="lg" milestoneOverviewScore={milestoneOverviewScore} />
             <MilestoneOverviewTable milestoneOverviewScore={milestoneOverviewScore} />
           </div>
         )}

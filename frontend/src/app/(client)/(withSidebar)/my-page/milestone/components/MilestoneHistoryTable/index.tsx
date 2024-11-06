@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
 /* eslint-disable max-len */
 import Pagination from '@/app/(client)/components/Pagination';
-import MilestoneGroupLabel from '@/components2/common/milestone/MilestoneGroupLabel';
+import MilestoneGroupLabel from '@/components2/ui/milestone/MilestoneGroupLabel';
 import { MilestoneHistoryStatus } from '@/data/milestone';
 import { useAppSelector } from '@/lib/hooks/redux';
 import { useMilestoneHistoriesOfStudentQuery } from '@/lib/hooks/useApi';

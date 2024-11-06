@@ -1,7 +1,7 @@
 /* eslint-disable implicit-arrow-linebreak */
 import { useMemo } from 'react';
 
-import MilestoneChart from '@/components/MilestoneChart';
+import MilestoneCircleChart from '@/components2/ui/milestone/MilestoneCircleChart';
 import MilestoneOverviewTable from '@/components2/ui/milestone/MilestoneOverviewTable';
 import { initialMilestoneOverview } from '@/data/milestone';
 import { useAppSelector } from '@/lib/hooks/redux';
@@ -39,7 +39,7 @@ const MilestoneOverview = ({ searchFilterPeriod }: MilestoneOverviewProps) => {
   return (
     <div className="flex flex-wrap justify-center gap-4 md:flex-nowrap">
       <MilestoneWrapper>
-        <MilestoneChart chartSize={180} fontSize="lg" milestoneOverviewScore={milestoneOverviewScore} />
+        <MilestoneCircleChart chartSize={180} fontSize="lg" milestoneOverviewScore={milestoneOverviewScore} />
         <MilestoneOverviewTable milestoneOverviewScore={milestoneOverviewScore} />
       </MilestoneWrapper>
       <MilestoneDetail startDate={searchFilterPeriod.startDate} endDate={searchFilterPeriod.endDate} />
