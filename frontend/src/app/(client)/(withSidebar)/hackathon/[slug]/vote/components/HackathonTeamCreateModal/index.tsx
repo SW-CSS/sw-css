@@ -1,6 +1,6 @@
 import ImageUploader from '@/components2/common/formik/ImageUploader';
 import TextInput from '@/components2/common/formik/TextInput';
-import Title from '@/components/Title';
+import PageTitle from '@/components2/common/PageTitle';
 import { TeamMemberRole } from '@/data/hackathon';
 import { useRegisterTeamMutation } from '@/lib/hooks/useApi';
 import useBodyScrollLock from '@/lib/hooks/useBodyScrollLock';
@@ -103,7 +103,7 @@ const HackathonTeamCreateModal = ({ hackathonId, open, onClose }: HackathonTeamC
     <div className="fixed inset-0 z-[51] flex items-center justify-center bg-black bg-opacity-30">
       <div ref={ref} className="flex w-full max-w-[900px] flex-col items-center gap-5 rounded bg-white p-5">
         <div className="flex w-full justify-between">
-          <Title title="팀 등록하기" />
+          <PageTitle title="팀 등록하기" />
           <button onClick={onClose} className="text-comment">
             <VscClose className="h-8 w-8" />
           </button>

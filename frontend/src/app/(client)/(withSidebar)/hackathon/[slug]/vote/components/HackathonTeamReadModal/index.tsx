@@ -1,4 +1,4 @@
-import Title from '@/components/Title';
+import PageTitle from '@/components2/common/PageTitle';
 import { TeamMemberRole, teamMemberRoleInfo } from '@/data/hackathon';
 import useBodyScrollLock from '@/lib/hooks/useBodyScrollLock';
 import useOnClickOutside from '@/lib/hooks/useOnClickOutside';
@@ -40,7 +40,7 @@ const HackathonTeamReadModal = ({ selectedTeam, onClose }: HackathonTeamReadModa
         className="flex h-[600px] w-full max-w-[900px] flex-col items-center gap-2 rounded bg-white p-5 sm:h-[700px]"
       >
         <div className="flex w-full flex-wrap items-center justify-between gap-y-2">
-          <Title title={selectedTeam.name} />
+          <PageTitle title={selectedTeam.name} />
           <div className="flex flex-grow justify-end gap-2">
             <span className="flex items-center gap-1 font-bold text-primary-main">
               <VscHeart />

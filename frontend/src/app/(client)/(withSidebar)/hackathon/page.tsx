@@ -1,5 +1,5 @@
 import Pagination from '@/app/(client)/components/Pagination';
-import Title from '@/components/Title';
+import PageTitle from '@/components2/common/PageTitle';
 import { HackathonState } from '@/data/hackathon';
 import { getHackathons } from '@/lib/api/server.api';
 import classname from 'classnames';
@@ -44,7 +44,7 @@ const Page = async ({ searchParams }: { searchParams?: { [key: string]: string |
 
   return (
     <div className="flex w-full flex-col gap-4 rounded-sm bg-white p-5">
-      <Title
+      <PageTitle
         title="창의융합SW해커톤"
         description="소프트웨어융합교육원에서는 2018년부터 매년 창의융합 SW 해커톤을 개최해오고 있습니다."
       />
