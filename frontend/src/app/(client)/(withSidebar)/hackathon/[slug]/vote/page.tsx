@@ -1,6 +1,6 @@
 'use client';
 
-import Pagination from '@/app/(client)/components/Pagination';
+import Pagination from '@/components/common/Pagination';
 import { useHackathonTeamsQuery } from '@/lib/hooks/useApi';
 import { HackathonTeamDto } from '@/types/common.dto';
 import Image from 'next/image';

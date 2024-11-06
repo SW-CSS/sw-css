@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/control-has-associated-label */
 /* eslint-disable max-len */
-import Pagination from '@/app/(client)/components/Pagination';
+import Pagination from '@/components/common/Pagination';
 import MilestoneGroupLabel from '@/components/ui/milestone/MilestoneGroupLabel';
 import { MilestoneHistoryStatus } from '@/data/milestone';
 import { useAppSelector } from '@/lib/hooks/redux';

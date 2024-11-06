@@ -13,7 +13,7 @@ export interface PaginationProps {
   query?: string;
 }
 
-const Pagination = ({ currentPage, pageSize, totalItems, pathname, query }: PaginationProps) => {
+export default function Pagination({ currentPage, pageSize, totalItems, pathname, query }: PaginationProps) {
   const buttonPerPage = 10;
 
   const totalPageCount = Math.ceil(totalItems / pageSize);
@@ -47,6 +47,4 @@ const Pagination = ({ currentPage, pageSize, totalItems, pathname, query }: Pagi
       </Link>
     </div>
   );
-};
-
-export default Pagination;
+}

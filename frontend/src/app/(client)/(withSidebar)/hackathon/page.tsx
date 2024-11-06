@@ -1,4 +1,4 @@
-import Pagination from '@/app/(client)/components/Pagination';
+import Pagination from '@/components/common/Pagination';
 import PageTitle from '@/components/common/PageTitle';
 import { HackathonState } from '@/data/hackathon';
 import { getHackathons } from '@/lib/api/server.api';

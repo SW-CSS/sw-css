@@ -7,7 +7,7 @@ import { getAuthFromCookie } from '@/lib/utils/auth';
 import { MilestoneHistorySortCriteria, SortDirection } from '@/types/milestone';
 
 import MilestoneHistoryDeleteButton from '../MilestoneHistoryDeleteButton';
-import Pagination from '@/app/(client)/components/Pagination';
+import Pagination from '@/components/common/Pagination';
 import { headers } from 'next/headers';
 
 interface MilestoneHistoryTableProp {
