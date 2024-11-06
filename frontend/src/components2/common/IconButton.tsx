@@ -24,7 +24,7 @@ const IconButton = ({ icon, title, size, link }: IconButtonProps) => {
 
   return (
     <Link
-      className="mr-2 flex h-[50px] w-[60px] cursor-pointer flex-col content-center items-center border-none bg-transparent"
+      className="mr-2 flex h-[50px] w-[60px] cursor-pointer flex-col items-center justify-center border-none bg-transparent"
       href={link}
     >
       {Icon}
