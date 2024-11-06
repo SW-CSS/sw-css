@@ -103,9 +103,21 @@ module.exports = {
       width: {
         sign: '500px',
         client_max: '1200px',
+        'client-sidebar': '50px',
+        'client-sidebar-open': '200px',
+      },
+      maxWidth: {
+        'client-max': '1200px',
       },
       minWidth: {
         admin: '1150px',
+      },
+      height: {
+        'client-header': '50px',
+        'client-lg-header': '76px',
+      },
+      lineHeight: {
+        'client-lg-header': '76px',
       },
     },
   },
