@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 import Link from 'next/link';
 
-import MilestoneGroupLabel from '@/components/MilestoneGroupLabel';
+import MilestoneGroupLabel from '@/components2/common/milestone/MilestoneGroupLabel';
 import { getMilestoneHistory } from '@/lib/api/server.api';
 import { convertMilestoneHistoryStatus } from '@/lib/utils/utils';
 

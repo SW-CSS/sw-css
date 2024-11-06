@@ -1,12 +1,13 @@
 import { MilestoneGroup } from '@/data/milestone';
 import { convertMilestoneGroup } from '@/lib/utils/utils';
 
-interface MilestoneGroupLabelProps {
+export interface MilestoneGroupLabelProps {
   group: string;
 }
 
-const MilestoneGroupLabel = ({ group }: MilestoneGroupLabelProps) => {
+export default function MilestoneGroupLabel({ group }: MilestoneGroupLabelProps) {
   const labelText = convertMilestoneGroup(group);
+
   switch (group) {
     case MilestoneGroup.ACTIVITY:
       return (
@@ -29,6 +30,4 @@ const MilestoneGroupLabel = ({ group }: MilestoneGroupLabelProps) => {
     default:
       return <span className="rounded-sm bg-milestone-gray-light px-2 py-1 text-xs">{labelText}</span>;
   }
-};
-
-export default MilestoneGroupLabel;
+}
