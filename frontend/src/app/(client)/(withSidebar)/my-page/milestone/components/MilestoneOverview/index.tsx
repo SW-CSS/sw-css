@@ -2,7 +2,7 @@
 import { useMemo } from 'react';
 
 import MilestoneChart from '@/components/MilestoneChart';
-import MilestoneTable from '@/components/MilestoneTable';
+import MilestoneOverviewTable from '@/components2/ui/milestone/MilestoneOverviewTable';
 import { initialMilestoneOverview } from '@/data/milestone';
 import { useAppSelector } from '@/lib/hooks/redux';
 import { useMilestoneScoresOfStudentQuery } from '@/lib/hooks/useApi';
@@ -40,7 +40,7 @@ const MilestoneOverview = ({ searchFilterPeriod }: MilestoneOverviewProps) => {
     <div className="flex flex-wrap justify-center gap-4 md:flex-nowrap">
       <MilestoneWrapper>
         <MilestoneChart chartSize={180} fontSize="lg" milestoneOverviewScore={milestoneOverviewScore} />
-        <MilestoneTable milestoneOverviewScore={milestoneOverviewScore} />
+        <MilestoneOverviewTable milestoneOverviewScore={milestoneOverviewScore} />
       </MilestoneWrapper>
       <MilestoneDetail startDate={searchFilterPeriod.startDate} endDate={searchFilterPeriod.endDate} />
     </div>

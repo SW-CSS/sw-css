@@ -1,5 +1,5 @@
 import MilestoneChart from '@/components/MilestoneChart';
-import MilestoneTable from '@/components/MilestoneTable';
+import MilestoneOverviewTable from '@/components2/ui/milestone/MilestoneOverviewTable';
 import { getAuthFromCookie } from '@/lib/utils/auth';
 import { AuthSliceState } from '@/store/auth.slice';
 
@@ -56,7 +56,7 @@ const Milestone = async () => {
       {auth.isAuth && (
         <MilestoneChartWrapper>
           <MilestoneChart chartSize={120} fontSize="sm" milestoneOverviewScore={milestoneOverviewScore} />
-          <MilestoneTable milestoneOverviewScore={milestoneOverviewScore} />
+          <MilestoneOverviewTable milestoneOverviewScore={milestoneOverviewScore} />
         </MilestoneChartWrapper>
       )}
       {!auth.isAuth && <SignIn />}

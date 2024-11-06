@@ -9,7 +9,7 @@ import { DateTime } from 'luxon';
 import { useMemo, useState } from 'react';
 
 import MilestoneChart from '@/components/MilestoneChart';
-import MilestoneTable from '@/components/MilestoneTable';
+import MilestoneOverviewTable from '@/components2/ui/milestone/MilestoneOverviewTable';
 import PageSubTitle from '@/components2/common/PageSubTitle';
 import { MilestoneInfoType, initialMilestoneOverview, milestoneInfoTypes } from '@/data/milestone';
 import { useAppSelector } from '@/lib/hooks/redux';
@@ -70,7 +70,7 @@ const MilestoneSection = () => {
         {selectedInfoType === MilestoneInfoType.TOTAL && (
           <div className="flex flex-wrap gap-y-5 py-1 sm:py-10">
             <MilestoneChart chartSize={180} fontSize="lg" milestoneOverviewScore={milestoneOverviewScore} />
-            <MilestoneTable milestoneOverviewScore={milestoneOverviewScore} />
+            <MilestoneOverviewTable milestoneOverviewScore={milestoneOverviewScore} />
           </div>
         )}
         {(selectedInfoType === MilestoneInfoType.ACTIVITY ||
