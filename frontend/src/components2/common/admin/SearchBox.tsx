@@ -20,7 +20,7 @@ export interface SearchBoxProps {
   path: string;
 }
 
-const SearchBox = ({ initialValues, fieldCategories, path }: SearchBoxProps) => {
+export default function SearchBox({ initialValues, fieldCategories, path }: SearchBoxProps) {
   const router = useRouter();
 
   const handleSearchButtonClick = (values: SearchFormProps) => {
@@ -67,6 +67,4 @@ const SearchBox = ({ initialValues, fieldCategories, path }: SearchBoxProps) => 
       )}
     </Formik>
   );
-};
-
-export default SearchBox;
+}
