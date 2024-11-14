@@ -1,15 +1,15 @@
 import HomeAnnouncement from '@/components/ui/home/HomeAnnouncement';
-import HomeTeamBuilding from '@/components/ui/home/HomeTeamBuilding';
-import Milestone from './components/Milestone';
-import HomePnuLink from '@/components/ui/home/HomePnuLink';
-import { AnnouncementContent, ContentWrapper, MilestoneWrapper, FlexWrapper, MainPageWrapper } from './styled';
 import HomeExternalLink from '@/components/ui/home/HomeExternalLink';
+import HomeMilestone from '@/components/ui/home/HomeMilestone';
+import HomePnuLink from '@/components/ui/home/HomePnuLink';
+import HomeTeamBuilding from '@/components/ui/home/HomeTeamBuilding';
+import { AnnouncementContent, ContentWrapper, MilestoneWrapper, FlexWrapper, MainPageWrapper } from './styled';
 
 const Page = () => (
   <MainPageWrapper>
     <FlexWrapper>
       <MilestoneWrapper>
-        <Milestone />
+        <HomeMilestone />
       </MilestoneWrapper>
       <AnnouncementContent>
         <HomeAnnouncement />
