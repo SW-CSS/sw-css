@@ -8,7 +8,7 @@ import { CategoryDto, SubCategoryDto } from '@/types/common.dto';
 
 import Link from 'next/link';
 
-const Sidebar = () => {
+export default function Sidebar() {
   const pathname = usePathname();
   const [currentCategory, setCurrentCategory] = useState<CategoryDto | null>();
   const [currentSubCategory, setCurrentSubCategory] = useState<SubCategoryDto | null>();
@@ -54,6 +54,4 @@ const Sidebar = () => {
       </div>
     </div>
   );
-};
-
-export default Sidebar;
+}
