@@ -5,7 +5,7 @@ import { AuthSliceState } from '@/store/auth.slice';
 
 import { MilestoneChartWrapper } from './styled';
 import GoPageIcon from '@/components/ui/home/GoPageIcon';
-import SignIn from '../SignIn';
+import HomeSignIn from '@/components/ui/home/HomeSignIn';
 import { Description, Title, TitleContent, TitleWrapper } from '../styled';
 import { getMyMilestoneHistory } from '@/lib/api/server.api';
 import { DateTime } from 'luxon';
@@ -59,7 +59,7 @@ const Milestone = async () => {
           <MilestoneOverviewTable milestoneOverviewScore={milestoneOverviewScore} />
         </MilestoneChartWrapper>
       )}
-      {!auth.isAuth && <SignIn />}
+      {!auth.isAuth && <HomeSignIn />}
     </div>
   );
 };
