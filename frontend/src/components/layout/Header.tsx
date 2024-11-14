@@ -1,8 +1,4 @@
 'use client';
-/**!SECTION
- *
- * TODO: Sidebar 위치 수정
- */
 
 import { VscSettingsGear } from '@react-icons/all-files/vsc/VscSettingsGear';
 import { VscAccount } from '@react-icons/all-files/vsc/VscAccount';

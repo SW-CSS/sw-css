@@ -1,6 +1,4 @@
-/* eslint-disable @next/next/no-page-custom-font */
-
-import Sidebar from '@/app/(client)/components/Sidebar';
+import Sidebar from '@/components/layout/Sidebar';
 
 import { Content, ContentWrapper, PageWithSidebarWrapper } from './styled';
 
