@@ -3,29 +3,28 @@ import HomeExternalLink from '@/components/ui/home/HomeExternalLink';
 import HomeMilestone from '@/components/ui/home/HomeMilestone';
 import HomePnuLink from '@/components/ui/home/HomePnuLink';
 import HomeTeamBuilding from '@/components/ui/home/HomeTeamBuilding';
-import { AnnouncementContent, ContentWrapper, MilestoneWrapper, FlexWrapper, MainPageWrapper } from './styled';
 
 const Page = () => (
-  <MainPageWrapper>
-    <FlexWrapper>
-      <MilestoneWrapper>
+  <div className="mx-auto flex max-w-client-max flex-col gap-10 px-10 pb-12 pt-12 lg:pt-20">
+    <div className="flex flex-col md:flex-row md:gap-3">
+      <div className="mt-10 w-full shrink-0 p-3 md:w-[380px] lg:w-[500px]">
         <HomeMilestone />
-      </MilestoneWrapper>
-      <AnnouncementContent>
+      </div>
+      <div className="mt-10 w-full min-w-0 grow p-3">
         <HomeAnnouncement />
-      </AnnouncementContent>
-    </FlexWrapper>
-    <ContentWrapper>
+      </div>
+    </div>
+    <div className="w-full p-3">
       <HomeExternalLink />
-    </ContentWrapper>
+    </div>
     {/* TODO: 팀빌딩 구현 완료 되면 주석 풀기 */}
-    {/* <ContentWrapper>
+    {/* <div className='w-full p-3'>
       <HomeTeamBuilding />
-    </ContentWrapper> */}
-    <ContentWrapper>
+    </div> */}
+    <div className="w-full p-3">
       <HomePnuLink />
-    </ContentWrapper>
-  </MainPageWrapper>
+    </div>
+  </div>
 );
 
 export default Page;
