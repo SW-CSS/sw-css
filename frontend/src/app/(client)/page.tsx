@@ -1,7 +1,7 @@
 import HomeAnnouncement from '@/components/ui/home/HomeAnnouncement';
 import HomeTeamBuilding from '@/components/ui/home/HomeTeamBuilding';
 import Milestone from './components/Milestone';
-import PnuLink from './components/PnuLink';
+import HomePnuLink from '@/components/ui/home/HomePnuLink';
 import { AnnouncementContent, ContentWrapper, MilestoneWrapper, FlexWrapper, MainPageWrapper } from './styled';
 import HomeExternalLink from '@/components/ui/home/HomeExternalLink';
 
@@ -23,7 +23,7 @@ const Page = () => (
       <HomeTeamBuilding />
     </ContentWrapper> */}
     <ContentWrapper>
-      <PnuLink />
+      <HomePnuLink />
     </ContentWrapper>
   </MainPageWrapper>
 );

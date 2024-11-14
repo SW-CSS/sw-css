@@ -5,14 +5,15 @@ import { useEffect, useState } from 'react';
 import { Autoplay, Scrollbar } from 'swiper/modules';
 import { Swiper, SwiperClass, SwiperSlide } from 'swiper/react';
 
+import { VscChevronLeft } from '@react-icons/all-files/vsc/VscChevronLeft';
+import { VscChevronRight } from '@react-icons/all-files/vsc/VscChevronRight';
 import { RESPONSIVE_WIDTH } from '@/constants';
 import { pnuLinkInfos } from '@/data/externalLink';
 
-import { ButtonWrapper, NextButton, PnuLinker, PrevButton } from './styled';
-
 import 'swiper/css';
+import Link from 'next/link';
 
-const PnuLink = () => {
+export default function HomePnuLink() {
   const [displayCount, setDisplayCount] = useState<number>(2);
   const [swiper, setSwiper] = useState<SwiperClass>();
   const [innerWidth, setInnerWidth] = useState<number>(window.innerWidth);
@@ -35,16 +36,21 @@ const PnuLink = () => {
   useEffect(() => {
     if (innerWidth > parseInt(RESPONSIVE_WIDTH.desktop, 10)) setDisplayCount(6);
     else if (innerWidth > parseInt(RESPONSIVE_WIDTH.tablet, 10)) setDisplayCount(4);
-    else if (innerWidth > parseInt(RESPONSIVE_WIDTH.mobile, 10)) setDisplayCount(3);
     else setDisplayCount(2);
   }, [innerWidth]);
 
   return (
     <div style={{ display: 'flex', gap: '20px' }}>
-      <ButtonWrapper>
-        <PrevButton onClick={handlePrevButtonClick} />
-        <NextButton onClick={handleNextButtonClick} />
-      </ButtonWrapper>
+      <div className="flex items-center gap-[10px]">
+        <VscChevronLeft
+          className="rounded-full border border-comment text-xl font-semibold text-black"
+          onClick={handlePrevButtonClick}
+        />
+        <VscChevronRight
+          className="rounded-full border border-comment text-xl font-semibold text-black"
+          onClick={handleNextButtonClick}
+        />
+      </div>
       <Swiper
         modules={[Scrollbar, Autoplay]}
         slidesPerView={displayCount}
@@ -54,14 +60,12 @@ const PnuLink = () => {
       >
         {pnuLinkInfos.map((link) => (
           <SwiperSlide key={link.url}>
-            <PnuLinker href={link.url} target="_blank">
+            <Link className="block h-[52px] w-[162px] border border-border" href={link.url} target="_blank">
               <Image width="160" height="50" src={link.img} alt={link.title} style={{ width: 'auto', height: 50 }} />
-            </PnuLinker>
+            </Link>
           </SwiperSlide>
         ))}
       </Swiper>
     </div>
   );
-};
-
-export default PnuLink;
+}
