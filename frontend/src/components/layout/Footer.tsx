@@ -4,7 +4,7 @@ import Link from 'next/link';
 export default function Footer() {
   return (
     <footer className="flex min-h-[200px] w-[100vw] items-center justify-center bg-background-base">
-      <div className="grid w-client_max grid-cols-1 justify-items-center gap-5 lg:grid-cols-[1fr_3fr_105px] lg:justify-items-start">
+      <div className="w-client-max grid grid-cols-1 justify-items-center gap-5 lg:grid-cols-[1fr_3fr_105px] lg:justify-items-start">
         <Image
           className="hidden lg:block"
           src="/images/logo/foot_logo.svg"

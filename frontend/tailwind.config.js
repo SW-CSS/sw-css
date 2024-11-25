@@ -101,7 +101,8 @@ module.exports = {
       },
       width: {
         sign: '500px',
-        client_max: '1200px',
+        'client-max': '1200px',
+        'client-content': '970px',
         'client-sidebar': '50px',
         'client-sidebar-open': '200px',
       },
