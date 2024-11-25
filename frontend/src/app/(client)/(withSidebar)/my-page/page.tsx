@@ -1,12 +1,12 @@
 import PageSubTitle from '@/components/common/PageSubTitle';
 
-import StudentInfoSection from './components/StudentInfoSection';
 import MyPageMilestoneHistory from '@/components/ui/my-page/MyPageMilestoneHistory';
 import MyPageMilestone from '@/components/ui/my-page/MyPageMilestone';
+import MyPageStudentInfo from '@/components/ui/my-page/MyPageStudentInfo';
 
 const Page = () => (
   <div className="flex w-full flex-wrap gap-5">
-    <StudentInfoSection />
+    <MyPageStudentInfo />
     <MyPageMilestone />
     <MyPageMilestoneHistory />
     <div className="flex-grow rounded-sm bg-white p-5">

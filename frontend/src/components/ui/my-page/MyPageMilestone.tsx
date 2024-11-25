@@ -14,7 +14,6 @@ import { Period } from '@/types/common';
 import { MilestoneOverviewScore } from '@/types/milestone';
 
 import MilestoneDetailTable from '@/components/ui/milestone/MilestoneDetailTable';
-import MilestoneRowBarTable from '@/app/(client)/(withSidebar)/my-page/components/MilestoneRowBarTable';
 import MilestoneHistoryTable from '@/app/(client)/(withSidebar)/my-page/milestone/components/MilestoneHistoryTable';
 
 export default function MyPageMilestone() {

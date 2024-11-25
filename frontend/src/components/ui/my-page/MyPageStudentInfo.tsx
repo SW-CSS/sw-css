@@ -1,6 +1,6 @@
-/* eslint-disable react/jsx-wrap-multilines */
-
 'use client';
+
+import { ReactNode } from 'react';
 
 import PageSubTitle from '@/components/common/PageSubTitle';
 import { useAppSelector } from '@/lib/hooks/redux';
@@ -8,10 +8,7 @@ import { useStudentMemberQuery } from '@/lib/hooks/useApi';
 import { appendDashPhoneNumber, convertCareerToStr } from '@/lib/utils/utils';
 import { VscWarning } from '@react-icons/all-files/vsc/VscWarning';
 
-import StudentInfoLabel from './StudentInfoLabel';
-
-const StudentInfoSection = () => {
-  // TODO - 관리자가 로그인한 경우에 대한 처린
+export default function MyPageStudentInfo() {
   const auth = useAppSelector((state) => state.auth).value;
   let member;
   try {
@@ -19,6 +16,7 @@ const StudentInfoSection = () => {
   } catch (err) {
     // TODO: server api error handling
   }
+
   return (
     <div className="relative flex-grow rounded-sm bg-white p-5">
       <PageSubTitle title="내 정보" urlText="수정" url="/my-page/edit" />
@@ -59,5 +57,18 @@ const StudentInfoSection = () => {
       )}
     </div>
   );
-};
-export default StudentInfoSection;
+}
+
+export interface StudentInfoLabelProps {
+  label: string;
+  value: ReactNode | string;
+}
+
+export function StudentInfoLabel({ label, value }: StudentInfoLabelProps) {
+  return (
+    <p className="flex sm:min-w-80 sm:flex-1">
+      <span className="mr-4 w-[4em]">{label}</span>
+      <b>{value}</b>
+    </p>
+  );
+}
