@@ -1,13 +1,13 @@
 import PageSubTitle from '@/components/common/PageSubTitle';
 
-import MilestoneSection from './components/MilestoneSection';
 import StudentInfoSection from './components/StudentInfoSection';
 import MyPageMilestoneHistory from '@/components/ui/my-page/MyPageMilestoneHistory';
+import MyPageMilestone from '@/components/ui/my-page/MyPageMilestone';
 
 const Page = () => (
   <div className="flex w-full flex-wrap gap-5">
     <StudentInfoSection />
-    <MilestoneSection />
+    <MyPageMilestone />
     <MyPageMilestoneHistory />
     <div className="flex-grow rounded-sm bg-white p-5">
       <PageSubTitle title="내가 쓴 팀빌딩 글" urlText="전체보기" url="/my-page/team-building" />

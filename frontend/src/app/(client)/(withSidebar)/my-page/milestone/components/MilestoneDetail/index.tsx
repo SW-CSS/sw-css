@@ -9,7 +9,7 @@ import { compareByIdAsc } from '@/lib/utils/utils';
 import { Period } from '@/types/common';
 
 import { GroupButton } from './styled';
-import MilestoneRowBarTable from '../../../components/MilestoneRowBarTable';
+import MilestoneDetailTable from '@/components/ui/milestone/MilestoneDetailTable';
 
 const MilestoneDetail = ({ startDate, endDate }: Period) => {
   const auth = useAppSelector((state) => state.auth).value;
@@ -29,10 +29,10 @@ const MilestoneDetail = ({ startDate, endDate }: Period) => {
           </GroupButton>
         ))}
       </div>
-      <MilestoneRowBarTable
-        milestoneScores={milestoneScores
-          ?.filter((milestoneScore) => milestoneScore.group === selectedGroup)
-          .sort(compareByIdAsc)}
+      <MilestoneDetailTable
+        milestoneScores={
+          milestoneScores?.filter((milestoneScore) => milestoneScore.group === selectedGroup).sort(compareByIdAsc) || []
+        }
       />
     </div>
   );

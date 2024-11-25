@@ -1,8 +1,3 @@
-/* eslint-disable implicit-arrow-linebreak */
-/* eslint-disable max-len */
-/* eslint-disable operator-linebreak */
-/* eslint-disable react/jsx-wrap-multilines */
-
 'use client';
 
 import { DateTime } from 'luxon';
@@ -18,10 +13,11 @@ import { compareByIdAsc } from '@/lib/utils/utils';
 import { Period } from '@/types/common';
 import { MilestoneOverviewScore } from '@/types/milestone';
 
-import MilestoneHistoryTable from '../../milestone/components/MilestoneHistoryTable';
-import MilestoneRowBarTable from '../MilestoneRowBarTable';
+import MilestoneDetailTable from '@/components/ui/milestone/MilestoneDetailTable';
+import MilestoneRowBarTable from '@/app/(client)/(withSidebar)/my-page/components/MilestoneRowBarTable';
+import MilestoneHistoryTable from '@/app/(client)/(withSidebar)/my-page/milestone/components/MilestoneHistoryTable';
 
-const MilestoneSection = () => {
+export default function MyPageMilestone() {
   const auth = useAppSelector((state) => state.auth).value;
   const searchFilterPeriod: Period = {
     startDate: DateTime.now().minus({ years: 1 }).toFormat('yyyy-MM-dd'),
@@ -76,7 +72,7 @@ const MilestoneSection = () => {
         {(selectedInfoType === MilestoneInfoType.ACTIVITY ||
           selectedInfoType === MilestoneInfoType.GLOBAL ||
           selectedInfoType === MilestoneInfoType.COMMUNITY) && (
-          <MilestoneRowBarTable
+          <MilestoneDetailTable
             milestoneScores={
               milestoneScores
                 ?.filter((milestoneScore) => milestoneScore.group === selectedInfoType)
@@ -85,10 +81,9 @@ const MilestoneSection = () => {
           />
         )}
         {selectedInfoType === MilestoneInfoType.HISTORY && (
-          <MilestoneHistoryTable searchFilterPeriod={searchFilterPeriod} pageNumber={0} pageSize={5} />
+          <MilestoneHistoryTable searchFilterPeriod={searchFilterPeriod} pageNumber={1} pageSize={5} />
         )}
       </div>
     </div>
   );
-};
-export default MilestoneSection;
+}

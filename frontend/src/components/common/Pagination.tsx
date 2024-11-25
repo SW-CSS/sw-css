@@ -1,6 +1,3 @@
-/* eslint-disable prettier/prettier */
-/* eslint-disable import/no-extraneous-dependencies */
-/* eslint-disable max-len */
 import { VscChevronLeft } from '@react-icons/all-files/vsc/VscChevronLeft';
 import { VscChevronRight } from '@react-icons/all-files/vsc/VscChevronRight';
 import Link from 'next/link';
@@ -25,7 +22,7 @@ export default function Pagination({ currentPage, pageSize, totalItems, pathname
   const queries = query ? JSON.parse(query) : null;
 
   const nextPageCalc = (showIdx + 1) * buttonPerPage + 1;
-  const prevPage = showIdx === 0 ? 1 : showIdx * buttonPerPage;
+  const prevPage = showIdx <= 1 ? 1 : showIdx * buttonPerPage;
   const nextPage = totalPageCount >= nextPageCalc ? nextPageCalc : totalPageCount;
 
   return (
