@@ -1,7 +1,3 @@
-/* eslint-disable jsx-a11y/control-has-associated-label */
-/* eslint-disable max-len */
-
-import MilestoneHistoryStatusLabel from '@/app/(client)/(withSidebar)/my-page/components/MilestoneHistoryStatusLabel';
 import { getMilestoneHistoriesOfStudent } from '@/lib/api/server.api';
 import { getAuthFromCookie } from '@/lib/utils/auth';
 import { MilestoneHistorySortCriteria, SortDirection } from '@/types/milestone';
@@ -9,6 +5,7 @@ import { MilestoneHistorySortCriteria, SortDirection } from '@/types/milestone';
 import MilestoneHistoryDeleteButton from '../MilestoneHistoryDeleteButton';
 import Pagination from '@/components/common/Pagination';
 import { headers } from 'next/headers';
+import MilestoneStatusLabel from '@/components/ui/milestone/MilestoneStatusLabel';
 
 interface MilestoneHistoryTableProp {
   pageNumber: number;
@@ -61,20 +58,14 @@ const MilestoneHistoryTable = async ({ pageNumber }: MilestoneHistoryTableProp) 
                 {milestoneHistory.createdAt.slice(0, 10).replaceAll('-', '.')}
               </td>
               <td className="hidden p-2 sm:table-cell" align="center">
-                <MilestoneHistoryStatusLabel
-                  status={milestoneHistory.status}
-                  rejectReason={milestoneHistory.rejectReason}
-                />
+                <MilestoneStatusLabel status={milestoneHistory.status} rejectReason={milestoneHistory.rejectReason} />
               </td>
               <td className="hidden p-2 sm:table-cell">
                 <MilestoneHistoryDeleteButton historyId={milestoneHistory.id} />
               </td>
               <td className="flex flex-col gap-1 p-2 sm:hidden">
                 <div className="flex items-center justify-start gap-1">
-                  <MilestoneHistoryStatusLabel
-                    status={milestoneHistory.status}
-                    rejectReason={milestoneHistory.rejectReason}
-                  />
+                  <MilestoneStatusLabel status={milestoneHistory.status} rejectReason={milestoneHistory.rejectReason} />
                   <div className="flex-grow text-left font-bold">{milestoneHistory.description}</div>
                 </div>
                 <div className="flex justify-between text-xs text-comment">
