@@ -1,16 +1,11 @@
-/* eslint-disable implicit-arrow-linebreak */
-/* eslint-disable max-len */
-/* eslint-disable operator-linebreak */
-/* eslint-disable react/jsx-wrap-multilines */
-
 import PageSubTitle from '@/components/common/PageSubTitle';
 import { getMilestoneHistoriesOfStudent } from '@/lib/api/server.api';
 import { getAuthFromCookie } from '@/lib/utils/auth';
 import { MilestoneHistorySortCriteria, SortDirection } from '@/types/milestone';
 
-import MilestoneHistoryStatusLabel from '../MilestoneHistoryStatusLabel';
+import MilestoneStatusLabel from '@/components/ui/milestone/MilestoneStatusLabel';
 
-const MilestoneHistorySection = async () => {
+export default async function MyPageMilestoneHistory() {
   const auth = getAuthFromCookie();
 
   let milestoneHistoriesOfStudent;
@@ -24,7 +19,7 @@ const MilestoneHistorySection = async () => {
       MilestoneHistorySortCriteria.ACTIVATED_AT,
       SortDirection.DESC,
       0,
-      5,
+      6,
     );
   } catch (err) {
     // TODO: server api error handling...
@@ -37,13 +32,10 @@ const MilestoneHistorySection = async () => {
         {milestoneHistoriesOfStudent ? (
           milestoneHistoriesOfStudent.content.map((milestoneHistory) => (
             <div key={milestoneHistory.id} className="flex flex-col gap-[2px] border-b border-border py-2">
-              <p>{milestoneHistory.description}</p>
+              <p className="overflow-hidden text-ellipsis whitespace-nowrap pr-2">{milestoneHistory.description}</p>
               <p className="flex items-end justify-between">
                 <span className="text-xs text-comment">활동일: {milestoneHistory.activatedAt}</span>
-                <MilestoneHistoryStatusLabel
-                  status={milestoneHistory.status}
-                  rejectReason={milestoneHistory.rejectReason}
-                />
+                <MilestoneStatusLabel status={milestoneHistory.status} rejectReason={milestoneHistory.rejectReason} />
               </p>
             </div>
           ))
@@ -53,5 +45,4 @@ const MilestoneHistorySection = async () => {
       </div>
     </div>
   );
-};
-export default MilestoneHistorySection;
+}
