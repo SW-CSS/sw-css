@@ -14,25 +14,30 @@ export default function MilestoneOverviewTable({ milestoneOverviewScore }: Miles
   ];
 
   return (
-    <div className="grid max-w-[300px] flex-grow grid-cols-[70%_30%] content-center text-center text-comment">
-      <div className="border-b border-border p-[8px_4px] text-xs font-semibold text-black">역량 구분</div>
-      <div className="border-b border-border p-[8px_4px] text-xs font-semibold text-black">획득</div>
-      {scores.map((bar) => (
-        <>
-          <div
-            className="flex items-center gap-1 border-b border-border p-[8px_4px] pl-[14px] text-sm font-normal"
-            key={`${bar.title}-${bar.color}`}
-          >
-            <div className="h-3 w-3" style={{ backgroundColor: bar.color }} />
-            {bar.title}
-          </div>
-          <div className="border-t border-border p-[8px_4px] text-sm font-normal" key={`2-${bar.color}`}>
-            {bar.score}
-          </div>
-        </>
-      ))}
-      <div className="border-t border-black p-[8px_4px] text-sm font-normal">합계</div>
-      <div className="border-t border-black p-[8px_4px] text-sm font-normal">{totalScore}</div>
-    </div>
+    <table className="max-w-[300px] flex-grow text-center text-comment">
+      <thead>
+        <tr>
+          <th className="w-[70%] border-b border-border p-[8px_4px] text-xs font-semibold text-black">역량 구분</th>
+          <th className="w-[30%] border-b border-border p-[8px_4px] text-xs font-semibold text-black">획득</th>
+        </tr>
+      </thead>
+      <tbody>
+        {scores.map((score) => (
+          <tr className="h-0 border-b border-border text-sm font-normal" key={`${score.title}-${score.color}`}>
+            <td className="p-[8px_4px] pl-[14px] text-left align-middle leading-4">
+              <div className="mr-1 inline-block h-3 w-3" style={{ backgroundColor: score.color }} />
+              {score.title}
+            </td>
+            <td className="p-[8px_4px]">{score.score}</td>
+          </tr>
+        ))}
+      </tbody>
+      <tfoot>
+        <tr className="text-sm font-normal">
+          <td className="border-t border-black p-[8px_4px]">합계</td>
+          <td className="border-t border-black p-[8px_4px]">{totalScore}</td>
+        </tr>
+      </tfoot>
+    </table>
   );
 }
