@@ -8,7 +8,7 @@ import { useMilestoneScoresOfStudentQuery } from '@/lib/hooks/useApi';
 import { Period } from '@/types/common';
 import { MilestoneOverviewScore } from '@/types/milestone';
 
-import MilestoneDetail from '@/app/(client)/(withSidebar)/my-page/milestone/components/MilestoneDetail';
+import MyPageMilestoneDetail from './MyPageMilestoneDetail';
 
 export interface MyPageMilestoneOverviewProps {
   searchFilterPeriod: Period;
@@ -40,7 +40,7 @@ export default function MyPageMilestoneOverview({ searchFilterPeriod }: MyPageMi
         <MilestoneCircleChart chartSize={180} fontSize="lg" milestoneOverviewScore={milestoneOverviewScore} />
         <MilestoneOverviewTable milestoneOverviewScore={milestoneOverviewScore} />
       </div>
-      <MilestoneDetail startDate={searchFilterPeriod.startDate} endDate={searchFilterPeriod.endDate} />
+      <MyPageMilestoneDetail startDate={searchFilterPeriod.startDate} endDate={searchFilterPeriod.endDate} />
     </div>
   );
 }

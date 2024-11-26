@@ -8,25 +8,24 @@ import { useMilestoneScoresOfStudentQuery } from '@/lib/hooks/useApi';
 import { compareByIdAsc } from '@/lib/utils/utils';
 import { Period } from '@/types/common';
 
-import { GroupButton } from './styled';
 import MilestoneDetailTable from '@/components/ui/milestone/MilestoneDetailTable';
 
-const MilestoneDetail = ({ startDate, endDate }: Period) => {
+export default function MyPageMilestoneDetail({ startDate, endDate }: Period) {
   const auth = useAppSelector((state) => state.auth).value;
   const [selectedGroup, setSelectedGroup] = useState<string>(MilestoneGroup.ACTIVITY);
   const { data: milestoneScores } = useMilestoneScoresOfStudentQuery(auth.id, startDate, endDate);
 
   return (
-    <div style={{ display: 'flex', flexGrow: '1', flexDirection: 'column' }}>
+    <div className="flex grow flex-col">
       <div className="flex flex-wrap">
         {milestoneGroups.map((group) => (
-          <GroupButton
+          <button
             key={group.id}
-            isSelected={selectedGroup === group.id}
+            className={`h-[30px] grow border-0 border-black bg-white hover:border-b-2 hover:text-black ${selectedGroup === group.id ? 'border-b-2 text-black' : 'text-comment'}`}
             onClick={() => setSelectedGroup(group.id)}
           >
             {group.text}
-          </GroupButton>
+          </button>
         ))}
       </div>
       <MilestoneDetailTable
@@ -36,6 +35,4 @@ const MilestoneDetail = ({ startDate, endDate }: Period) => {
       />
     </div>
   );
-};
-
-export default MilestoneDetail;
+}
