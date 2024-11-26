@@ -7,10 +7,10 @@ import { COLOR } from '@/constants';
 import { Period } from '@/types/common';
 
 import MilestoneHistoryTable from './components/MilestoneHistoryTable';
-import MilestoneOverview from './components/MilestoneOverview';
 import { Content, SubTitle } from './styled';
 import PeriodSearchBox from '@/components/common/PeriodSearchBox';
 import { useSearchParams } from 'next/navigation';
+import MyPageMilestoneOverview from '@/components/ui/my-page/MyPageMilestoneOverview';
 
 const Page = () => {
   const searchParams = useSearchParams();
@@ -35,7 +35,7 @@ const Page = () => {
         <PeriodSearchBox setPeriod={setFilterPeriod} period={filterPeriod} setSearchPeriod={setSearchFilterPeriod} />
       </div>
       <SubTitle>전체 현황</SubTitle>
-      <MilestoneOverview searchFilterPeriod={searchFilterPeriod} />
+      <MyPageMilestoneOverview searchFilterPeriod={searchFilterPeriod} />
       <div style={{ borderBottom: `1px dotted ${COLOR.border}`, margin: '30px 0px' }} />
       <SubTitle>획득 내역</SubTitle>
       <MilestoneHistoryTable searchFilterPeriod={searchFilterPeriod} pageNumber={pageNumber} pageSize={5} />

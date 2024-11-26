@@ -1,4 +1,3 @@
-/* eslint-disable implicit-arrow-linebreak */
 import { useMemo } from 'react';
 
 import MilestoneCircleChart from '@/components/ui/milestone/MilestoneCircleChart';
@@ -9,14 +8,13 @@ import { useMilestoneScoresOfStudentQuery } from '@/lib/hooks/useApi';
 import { Period } from '@/types/common';
 import { MilestoneOverviewScore } from '@/types/milestone';
 
-import { MilestoneWrapper } from './styled';
-import MilestoneDetail from '../MilestoneDetail';
+import MilestoneDetail from '@/app/(client)/(withSidebar)/my-page/milestone/components/MilestoneDetail';
 
-interface MilestoneOverviewProps {
+export interface MyPageMilestoneOverviewProps {
   searchFilterPeriod: Period;
 }
 
-const MilestoneOverview = ({ searchFilterPeriod }: MilestoneOverviewProps) => {
+export default function MyPageMilestoneOverview({ searchFilterPeriod }: MyPageMilestoneOverviewProps) {
   const auth = useAppSelector((state) => state.auth).value;
   const { data: milestoneScoresOfStudent } = useMilestoneScoresOfStudentQuery(
     auth.id,
@@ -38,13 +36,11 @@ const MilestoneOverview = ({ searchFilterPeriod }: MilestoneOverviewProps) => {
   );
   return (
     <div className="flex flex-wrap justify-center gap-4 md:flex-nowrap">
-      <MilestoneWrapper>
+      <div className="flex min-w-[330px] flex-col gap-4">
         <MilestoneCircleChart chartSize={180} fontSize="lg" milestoneOverviewScore={milestoneOverviewScore} />
         <MilestoneOverviewTable milestoneOverviewScore={milestoneOverviewScore} />
-      </MilestoneWrapper>
+      </div>
       <MilestoneDetail startDate={searchFilterPeriod.startDate} endDate={searchFilterPeriod.endDate} />
     </div>
   );
-};
-
-export default MilestoneOverview;
+}
