@@ -6,14 +6,14 @@ export const headerInfos: CategoryDto[] = [
     url: '/milestone',
     description: '마일스톤이란?',
     inHeader: true,
-    sub: [{ title: '마일스톤이란?', url: '/milestone', key: '1_milestone' }],
+    sub: [{ title: '마일스톤이란?', url: '/milestone', key: 'milestone' }],
   },
   {
     title: '팀빌딩',
     url: '/team-building',
     description: '팀원을 모집하는 공간입니다.',
     inHeader: true,
-    sub: [{ title: '팀빌딩', url: '/', key: '2_teamBuilding' }],
+    sub: [{ title: '팀빌딩', url: '/team-building', key: 'teamBuilding' }],
   },
   {
     title: 'PNU 해커톤',
