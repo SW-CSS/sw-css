@@ -8,17 +8,17 @@ import { useMilestoneHistoriesOfStudentQuery } from '@/lib/hooks/useApi';
 import { Period } from '@/types/common';
 import { MilestoneHistorySortCriteria, SortDirection } from '@/types/milestone';
 
-interface MilestoneHistoryTableProps {
+export interface MilestoneAcceptedTableProps {
   searchFilterPeriod: Period;
   pageNumber: number;
   pageSize: number;
 }
 
-export default function MilestoneHistoryTable({
+export default function MilestoneAcceptedTable({
   searchFilterPeriod,
   pageNumber,
   pageSize,
-}: MilestoneHistoryTableProps) {
+}: MilestoneAcceptedTableProps) {
   const pathname = usePathname();
   const auth = useAppSelector((state) => state.auth).value;
   const { data: milestoneHistoriesOfStudent } = useMilestoneHistoriesOfStudentQuery(

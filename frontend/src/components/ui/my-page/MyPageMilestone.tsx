@@ -14,7 +14,7 @@ import { Period } from '@/types/common';
 import { MilestoneOverviewScore } from '@/types/milestone';
 
 import MilestoneDetailTable from '@/components/ui/milestone/MilestoneDetailTable';
-import MilestoneHistoryTable from '@/components/ui/milestone/MilestoneHistoryTable';
+import MilestoneAcceptedTable from '@/components/ui/milestone/MilestoneAcceptedTable';
 
 export default function MyPageMilestone() {
   const auth = useAppSelector((state) => state.auth).value;
@@ -80,7 +80,7 @@ export default function MyPageMilestone() {
           />
         )}
         {selectedInfoType === MilestoneInfoType.HISTORY && (
-          <MilestoneHistoryTable searchFilterPeriod={searchFilterPeriod} pageNumber={1} pageSize={5} />
+          <MilestoneAcceptedTable searchFilterPeriod={searchFilterPeriod} pageNumber={1} pageSize={5} />
         )}
       </div>
     </div>

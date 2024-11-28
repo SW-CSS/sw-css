@@ -10,7 +10,7 @@ import { Period } from '@/types/common';
 import { Content, SubTitle } from './styled';
 import PeriodSearchBox from '@/components/common/PeriodSearchBox';
 import MyPageMilestoneOverview from '@/components/ui/my-page/MyPageMilestoneOverview';
-import MilestoneHistoryTable from '@/components/ui/milestone/MilestoneHistoryTable';
+import MilestoneAcceptedTable from '@/components/ui/milestone/MilestoneAcceptedTable';
 
 const Page = () => {
   const searchParams = useSearchParams();
@@ -38,7 +38,7 @@ const Page = () => {
       <MyPageMilestoneOverview searchFilterPeriod={searchFilterPeriod} />
       <div style={{ borderBottom: `1px dotted ${COLOR.border}`, margin: '30px 0px' }} />
       <SubTitle>획득 내역</SubTitle>
-      <MilestoneHistoryTable searchFilterPeriod={searchFilterPeriod} pageNumber={pageNumber} pageSize={5} />
+      <MilestoneAcceptedTable searchFilterPeriod={searchFilterPeriod} pageNumber={pageNumber} pageSize={5} />
     </Content>
   );
 };
