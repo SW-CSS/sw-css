@@ -13,7 +13,7 @@ export default function MilestonePage() {
       </div>
       <div className="mb-10 mt-6 flex flex-col items-center">
         <Link
-          href="/my-page/milestone/register"
+          href="/my-page/milestone-register"
           className="mt-2 block w-fit rounded-sm bg-primary-main p-3 text-lg font-semibold tracking-wide text-white"
           type="button"
         >

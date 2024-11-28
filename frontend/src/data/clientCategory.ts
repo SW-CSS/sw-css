@@ -32,8 +32,9 @@ export const headerInfos: CategoryDto[] = [
     inHeader: false,
     sub: [
       { title: '전체보기', url: '/my-page', key: 'dashboard' },
+      { title: '마일스톤 등록', url: '/my-page/milestone-register', key: 'register' },
       { title: '마일스톤 획득 내역', url: '/my-page/milestone', key: 'milestone' },
-      { title: '실적 등록', url: '/my-page/milestone/register', key: 'result' },
+      { title: '마일스톤 등록 내역', url: '/my-page/milestone-list', key: 'result' },
     ],
   },
 ];

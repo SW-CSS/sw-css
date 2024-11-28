@@ -1,5 +1,3 @@
-/* eslint-disable implicit-arrow-linebreak */
-
 'use client';
 
 import { Form, Formik } from 'formik';
@@ -10,7 +8,7 @@ import { toast } from 'react-toastify';
 
 import { DatePicker } from '@/components/common/formik/DatePicker';
 import { FileUploader } from '@/components/common/formik/FileUploader';
-import { TextInput } from '@/components/common/formik/TextInputDdang';
+import TextInput from '@/components/common/formik/TextInput';
 import PageTitle from '@/components/common/PageTitle';
 import { useMilestoneHistoryCreateMutation } from '@/lib/hooks/useApi';
 import { MilestoneHistoryCreateDto } from '@/types/common.dto';
@@ -51,7 +49,7 @@ const initialValues: MilestoneHistoryInfo = {
   activatedAt: '',
 };
 
-const Page = () => {
+export default function MilestoneRegisterPage() {
   const router = useRouter();
   const { mutate: createMilestoneHistory } = useMilestoneHistoryCreateMutation();
   const [selectedCategory, setSelectedCategory] = useState<MilestoneCategory>();
@@ -59,9 +57,10 @@ const Page = () => {
 
   const handleSubmitButtonClick = (values: MilestoneHistoryCreateDto) => {
     createMilestoneHistory(values, {
-      onSuccess: () => {
+      onSuccess: (res) => {
+        console.log(res);
         toast.info('실적 등록에 성공하였습니다.');
-        router.push('/my-page/milestone/register');
+        // router.push('/my-page/milestone-list');
       },
       onError: () => {
         toast.error('실적 등록에 실패하였습니다.');
@@ -128,8 +127,7 @@ const Page = () => {
                     name="totalScore"
                     label="총 점수"
                     type="text"
-                    defaultValue={0}
-                    value={(selectedMilestone?.score ?? 0) * values.count}
+                    value={!selectedMilestone?.score ? 0 : selectedMilestone.score * values.count}
                     disabled
                   />
                 </div>
@@ -199,6 +197,4 @@ const Page = () => {
       </Formik>
     </div>
   );
-};
-
-export default Page;
+}

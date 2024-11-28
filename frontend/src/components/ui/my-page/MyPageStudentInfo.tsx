@@ -19,7 +19,7 @@ export default function MyPageStudentInfo() {
 
   return (
     <div className="relative flex-grow rounded-sm bg-white p-5">
-      <PageSubTitle title="내 정보" urlText="수정" url="/my-page/edit" />
+      <PageSubTitle title="내 정보" urlText="수정" url="/my-page/info-edit" />
       {member ? (
         <div className="my-5">
           <div className="mb-5 flex flex-wrap items-end gap-4">

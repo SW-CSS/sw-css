@@ -27,7 +27,7 @@ export default async function MyPageMilestoneHistory() {
 
   return (
     <div className="relative w-full min-w-[260px] flex-1 rounded-sm bg-white p-5 lg:max-w-[280px]">
-      <PageSubTitle title="실적 관리" urlText="전체보기" url="/my-page/milestone/register" />
+      <PageSubTitle title="실적 관리" urlText="전체보기" url="/my-page/milestone-list" />
       <div className="mt-4">
         {milestoneHistoriesOfStudent ? (
           milestoneHistoriesOfStudent.content.map((milestoneHistory) => (
