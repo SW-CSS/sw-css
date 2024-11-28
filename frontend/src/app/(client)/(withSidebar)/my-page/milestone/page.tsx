@@ -1,16 +1,16 @@
 'use client';
 
-import { DateTime } from 'luxon';
 import { useEffect, useState } from 'react';
+import { DateTime } from 'luxon';
+import { useSearchParams } from 'next/navigation';
 
 import { COLOR } from '@/constants';
 import { Period } from '@/types/common';
 
-import MilestoneHistoryTable from './components/MilestoneHistoryTable';
 import { Content, SubTitle } from './styled';
 import PeriodSearchBox from '@/components/common/PeriodSearchBox';
-import { useSearchParams } from 'next/navigation';
 import MyPageMilestoneOverview from '@/components/ui/my-page/MyPageMilestoneOverview';
+import MilestoneHistoryTable from '@/components/ui/milestone/MilestoneHistoryTable';
 
 const Page = () => {
   const searchParams = useSearchParams();

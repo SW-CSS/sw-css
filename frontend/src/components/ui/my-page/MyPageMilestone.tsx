@@ -14,7 +14,7 @@ import { Period } from '@/types/common';
 import { MilestoneOverviewScore } from '@/types/milestone';
 
 import MilestoneDetailTable from '@/components/ui/milestone/MilestoneDetailTable';
-import MilestoneHistoryTable from '@/app/(client)/(withSidebar)/my-page/milestone/components/MilestoneHistoryTable';
+import MilestoneHistoryTable from '@/components/ui/milestone/MilestoneHistoryTable';
 
 export default function MyPageMilestone() {
   const auth = useAppSelector((state) => state.auth).value;

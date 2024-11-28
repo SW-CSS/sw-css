@@ -1,5 +1,5 @@
-/* eslint-disable jsx-a11y/control-has-associated-label */
-/* eslint-disable max-len */
+import { usePathname } from 'next/navigation';
+
 import Pagination from '@/components/common/Pagination';
 import MilestoneGroupLabel from '@/components/ui/milestone/MilestoneGroupLabel';
 import { MilestoneHistoryStatus } from '@/data/milestone';
@@ -7,7 +7,6 @@ import { useAppSelector } from '@/lib/hooks/redux';
 import { useMilestoneHistoriesOfStudentQuery } from '@/lib/hooks/useApi';
 import { Period } from '@/types/common';
 import { MilestoneHistorySortCriteria, SortDirection } from '@/types/milestone';
-import { usePathname } from 'next/navigation';
 
 interface MilestoneHistoryTableProps {
   searchFilterPeriod: Period;
@@ -15,7 +14,11 @@ interface MilestoneHistoryTableProps {
   pageSize: number;
 }
 
-const MilestoneHistoryTable = ({ searchFilterPeriod, pageNumber, pageSize }: MilestoneHistoryTableProps) => {
+export default function MilestoneHistoryTable({
+  searchFilterPeriod,
+  pageNumber,
+  pageSize,
+}: MilestoneHistoryTableProps) {
   const pathname = usePathname();
   const auth = useAppSelector((state) => state.auth).value;
   const { data: milestoneHistoriesOfStudent } = useMilestoneHistoriesOfStudentQuery(
@@ -64,6 +67,4 @@ const MilestoneHistoryTable = ({ searchFilterPeriod, pageNumber, pageSize }: Mil
       />
     </div>
   );
-};
-
-export default MilestoneHistoryTable;
+}
