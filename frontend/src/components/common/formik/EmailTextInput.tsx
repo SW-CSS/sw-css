@@ -15,7 +15,7 @@ const EmailTextInput = ({ ...props }: TextInputProps) => {
   const hasError = errorText !== undefined;
 
   return (
-    <div className="flex flex-col gap-1">
+    <div className="flex grow flex-col gap-1">
       <label htmlFor={inputProps.id || inputProps.name} className="text-sm font-semibold">
         {label} <span className="text-sm font-semibold text-red-400">*</span>{' '}
         <span className="text-xs text-comment">
