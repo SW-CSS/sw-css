@@ -1,3 +1,5 @@
+'use client';
+
 import { VscInfo } from '@react-icons/all-files/vsc/VscInfo';
 
 type BuiltInInputProps = React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>;
@@ -24,8 +26,8 @@ export const DatePicker = ({ isRequired = false, ...props }: DatePickerProps) =>
           <div className="relative flex items-center gap-1 px-2 py-1 text-xs">
             <VscInfo className="peer h-[14px] w-[14px]" />
             <div className="absolute left-1/2 top-1 hidden -translate-x-1/2 -translate-y-[calc(100%+4px)] whitespace-nowrap break-keep rounded border bg-white p-2 peer-hover:block">
-              {tooltip.split('\\n').map((data) => (
-                <div>{data}</div>
+              {tooltip.split('\\n').map((data, index) => (
+                <div key={`${index}-${data}`}>{data}</div>
               ))}
             </div>
           </div>
