@@ -1,5 +1,3 @@
-/* eslint-disable operator-linebreak */
-/* eslint-disable implicit-arrow-linebreak */
 import { Dispatch, SetStateAction, useEffect, useMemo, useState } from 'react';
 
 import { Dropdown, DropdownOption, DropdownProps } from '@/components/common/formik/DropdownDdang';
@@ -7,7 +5,7 @@ import { MilestoneGroup } from '@/data/milestone';
 import { useMilestoneQuery } from '@/lib/hooks/useApi';
 import { Milestone, MilestoneCategory } from '@/types/milestone';
 
-export interface MilestoneDropdownProps extends Omit<DropdownProps, 'options' | 'selectedId' | 'name'> {
+export interface MilestoneCategoryDropdownProps extends Omit<DropdownProps, 'options' | 'selectedId' | 'name'> {
   categoryId: number;
   milestoneId: number;
   categoryName: string;
@@ -17,7 +15,7 @@ export interface MilestoneDropdownProps extends Omit<DropdownProps, 'options' | 
   setSelectedMilestone: Dispatch<SetStateAction<Milestone | undefined>>;
 }
 
-const MilestoneDropdown = ({ ...props }: MilestoneDropdownProps) => {
+export default function MilestoneCategoryDropdown({ ...props }: MilestoneCategoryDropdownProps) {
   const { data: milestoneOverviews } = useMilestoneQuery();
   const {
     categoryId,
@@ -93,6 +91,4 @@ const MilestoneDropdown = ({ ...props }: MilestoneDropdownProps) => {
       </div>
     </div>
   );
-};
-
-export default MilestoneDropdown;
+}

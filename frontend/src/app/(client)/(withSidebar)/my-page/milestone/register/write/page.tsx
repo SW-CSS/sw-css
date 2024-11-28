@@ -16,7 +16,7 @@ import { useMilestoneHistoryCreateMutation } from '@/lib/hooks/useApi';
 import { MilestoneHistoryCreateDto } from '@/types/common.dto';
 import { Milestone, MilestoneCategory } from '@/types/milestone';
 
-import MilestoneDropdown from './components/MilestoneDropdown';
+import MilestoneCategoryDropdown from '@/components/ui/milestone/MilestoneCategoryDropdown';
 
 const validationSchema = Yup.object().shape({
   milestoneId: Yup.number().min(1, '활동 구분을 선택해주세요.'),
@@ -85,7 +85,7 @@ const Page = () => {
       >
         {({ isSubmitting, values, touched, handleChange, handleBlur, setFieldValue, errors }) => (
           <Form className="flex flex-col gap-4">
-            <MilestoneDropdown
+            <MilestoneCategoryDropdown
               label=""
               selectOptionText="선택"
               categoryId={values.categoryId}
