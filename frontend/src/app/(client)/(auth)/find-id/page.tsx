@@ -1,7 +1,6 @@
 import PageTitle from '@/components/common/PageTitle';
 import AuthFindPageTabButton from '@/components/ui/auth/AuthFindPageTabButton';
-
-import FindFooter from '../components/FindFooter';
+import AuthFindPageFooter from '@/components/ui/auth/AuthFindPageFooter';
 
 const Page = () => (
   <main className="mx-auto w-sign max-w-full pb-10 pt-20 lg:pt-28">
@@ -27,7 +26,7 @@ const Page = () => (
           에서 신청할 수 있습니다.
         </span>
         <hr className="w-full border-b-[1px] border-border" />
-        <FindFooter />
+        <AuthFindPageFooter />
       </div>
     </div>
   </main>
