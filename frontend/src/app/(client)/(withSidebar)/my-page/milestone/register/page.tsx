@@ -1,8 +1,7 @@
 import Link from 'next/link';
 
 import PageTitle from '@/components/common/PageTitle';
-
-import MilestoneHistoryTable from './components/MilestoneHistoryTable';
+import MilestoneHistoryTable from '@/components/ui/milestone/MilestoneHistoryTable';
 
 const Page = async ({ searchParams }: { searchParams?: { [key: string]: string | undefined } }) => {
   const pageNumber = searchParams?.page ? parseInt(searchParams.page, 10) : 1;
