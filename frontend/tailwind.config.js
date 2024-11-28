@@ -108,6 +108,7 @@ module.exports = {
       },
       maxWidth: {
         'client-max': '1200px',
+        'sign-max': '500px',
       },
       minWidth: {
         admin: '1150px',
