@@ -6,7 +6,7 @@ import { MilestoneHistorySortCriteria, SortDirection } from '@/types/milestone';
 
 import Pagination from '@/components/common/Pagination';
 import MilestoneStatusLabel from '@/components/ui/milestone/MilestoneStatusLabel';
-import MilestoneHistoryDeleteButton from '@/app/(client)/(withSidebar)/my-page/milestone/register/components/MilestoneHistoryDeleteButton';
+import MilestoneDeleteButton from '@/components/ui/milestone/MilestoneDeleteButton';
 
 export interface MilestoneHistoryTableProps {
   pageNumber: number;
@@ -62,7 +62,7 @@ export default async function MilestoneHistoryTable({ pageNumber }: MilestoneHis
                 <MilestoneStatusLabel status={milestoneHistory.status} rejectReason={milestoneHistory.rejectReason} />
               </td>
               <td className="hidden p-2 md:table-cell">
-                <MilestoneHistoryDeleteButton historyId={milestoneHistory.id} />
+                <MilestoneDeleteButton historyId={milestoneHistory.id} />
               </td>
               <td className="flex flex-col gap-1 p-2 md:hidden">
                 <div className="flex items-center justify-start gap-1">
@@ -73,7 +73,7 @@ export default async function MilestoneHistoryTable({ pageNumber }: MilestoneHis
                   <div>활동: {milestoneHistory.activatedAt.replaceAll('-', '.')}</div>
                   <div>등록: {milestoneHistory.createdAt.slice(0, 10).replaceAll('-', '.')}</div>
                 </div>
-                <MilestoneHistoryDeleteButton historyId={milestoneHistory.id} />
+                <MilestoneDeleteButton historyId={milestoneHistory.id} />
               </td>
             </tr>
           ))}

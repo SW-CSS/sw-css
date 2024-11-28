@@ -5,11 +5,11 @@ import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 import { useMilestoneHistoryDeleteMutation } from '@/lib/hooks/useApi';
 
-interface MilestoneHistoryDeleteButtonProps {
+export interface MilestoneDeleteButtonProps {
   historyId: number;
 }
 
-const MilestoneHistoryDeleteButton = ({ historyId }: MilestoneHistoryDeleteButtonProps) => {
+export default function MilestoneDeleteButton({ historyId }: MilestoneDeleteButtonProps) {
   const router = useRouter();
   const { mutate: deleteMilestoneHistory } = useMilestoneHistoryDeleteMutation();
 
@@ -30,11 +30,9 @@ const MilestoneHistoryDeleteButton = ({ historyId }: MilestoneHistoryDeleteButto
     <button
       type="button"
       onClick={handleHistoryDeleteButtonClick}
-      className="rounded-sm bg-red-400 px-4 py-2 text-white"
+      className="rounded-sm bg-red-400 px-4 py-1 text-sm text-white"
     >
       삭제
     </button>
   );
-};
-
-export default MilestoneHistoryDeleteButton;
+}
