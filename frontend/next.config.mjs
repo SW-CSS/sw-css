@@ -5,7 +5,19 @@ const nextConfig = {
     styledComponents: true,
   },
   images: {
-    domains: ['localhost', 'swcss.pusan.ac.kr'],
+    // domains: ['localhost', 'swcss.pusan.ac.kr'],
+    remotePatterns: [
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+        pathname: '**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'swcss.pusan.ac.kr',
+        pathname: '**',
+      },
+    ],
   },
 };
 
