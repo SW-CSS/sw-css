@@ -9,7 +9,7 @@ import { useSignInMutation } from '@/lib/hooks/useApi';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 
-const InputUserInfo = () => {
+export default function AuthSignInForm() {
   const [userInfo, setUserInfo] = useState({
     email: '',
     password: '',
@@ -76,6 +76,4 @@ const InputUserInfo = () => {
       </form>
     </>
   );
-};
-
-export default InputUserInfo;
+}
