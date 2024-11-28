@@ -1,20 +1,17 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useEffect, useState } from 'react';
 
 import Dropdown, { DropdownProps } from '@/components/common/formik/Dropdown';
-import { useCollegeQuery } from '@/lib/hooks/useApi';
 import { getColleges } from '@/mocks/college';
 import { CollegeDto, MajorDto } from '@/types/common.dto';
 
-export interface MajorDropdownProps extends Omit<DropdownProps, 'options' | 'selectedId' | 'name'> {
+export interface AuthSignUpMajorDropdownProps extends Omit<DropdownProps, 'options' | 'selectedId' | 'name'> {
   collegeId: number;
   majorId: number;
   collegeName: string;
   majorName: string;
 }
 
-const MajorDropdown = ({ ...props }: MajorDropdownProps) => {
+export default function AuthSignUpMajorDropdown({ ...props }: AuthSignUpMajorDropdownProps) {
   const collegesData = getColleges;
   /* TODO: mocks 삭제 및 api 호출
   const { data: collegesData } = useCollegeQuery();
@@ -65,6 +62,4 @@ const MajorDropdown = ({ ...props }: MajorDropdownProps) => {
       />
     </div>
   );
-};
-
-export default MajorDropdown;
+}

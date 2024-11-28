@@ -1,5 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
-
 'use client';
 
 import { Formik, Form } from 'formik';
@@ -7,11 +5,11 @@ import * as Yup from 'yup';
 
 import { TextInput } from '@/components/common/formik/TextInputDdang';
 
-import EmailTextInput from './components/EmailTextInput';
 import { useState } from 'react';
 import { useSendAuthCodeMutation } from '@/lib/hooks/useApi';
 import { toast } from 'react-toastify';
 import { getValidationStudentId } from '@/lib/api/server.api';
+import EmailTextInput from '@/components/common/formik/EmailTextInput';
 
 export interface FirstInfo {
   email: string;
@@ -62,12 +60,12 @@ const validationSchema = Yup.object().shape({
     .matches(/^([0-9]{10,11})$/, '띄어쓰기나 특수기호 없이 숫자로만 입력해주세요.'),
 });
 
-interface SignUpFirstPageProps {
+interface AuthSignUpFirstProps {
   initialValues: FirstInfo;
   handleNextButtonClick: (value: FirstInfo) => void;
 }
 
-const SignUpSecondPage = ({ initialValues, handleNextButtonClick }: SignUpFirstPageProps) => {
+export default function AuthSignUpFirst({ initialValues, handleNextButtonClick }: AuthSignUpFirstProps) {
   const [isSendedMail, setIsSendedMail] = useState<boolean>(false);
   const { mutate: sendAuthCodeMutation } = useSendAuthCodeMutation();
 
@@ -75,10 +73,10 @@ const SignUpSecondPage = ({ initialValues, handleNextButtonClick }: SignUpFirstP
     setIsSendedMail(true);
 
     sendAuthCodeMutation(email + '@pusan.ac.kr', {
-      onSuccess(data, variables, context) {
+      onSuccess() {
         toast.info('메일이 정상 발송되었습니다.');
       },
-      onError(error, variables, context) {
+      onError(error) {
         toast.error(error.message);
       },
     });
@@ -205,6 +203,4 @@ const SignUpSecondPage = ({ initialValues, handleNextButtonClick }: SignUpFirstP
       )}
     </Formik>
   );
-};
-
-export default SignUpSecondPage;
+}
