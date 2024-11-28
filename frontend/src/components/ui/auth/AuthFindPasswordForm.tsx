@@ -1,12 +1,12 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
 import { Form, Formik } from 'formik';
+import { toast } from 'react-toastify';
 
 import EmailTextInput from '@/components/common/formik/EmailTextInput';
 import TextInput from '@/components/common/formik/TextInput';
 import { useResetPasswordMutation } from '@/lib/hooks/useApi';
-import { toast } from 'react-toastify';
-import { useRouter } from 'next/navigation';
 
 interface FormType {
   email: string;
@@ -18,7 +18,7 @@ const initialValues: FormType = {
   name: '',
 };
 
-const FindForm = () => {
+export default function AuthFindPasswordForm() {
   const { mutate: resetPasswordMutation } = useResetPasswordMutation();
   const router = useRouter();
 
@@ -82,6 +82,4 @@ const FindForm = () => {
       )}
     </Formik>
   );
-};
-
-export default FindForm;
+}
