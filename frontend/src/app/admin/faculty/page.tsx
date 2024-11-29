@@ -1,17 +1,19 @@
-/* eslint-disable max-len */
-
 import { headers } from 'next/headers';
 
 import AdminSearchBox from '@/components/common/admin/AdminSearchBox';
 import AdminPagination from '@/components/common/admin/AdminPagination';
+import FacultyMemberTable from '@/components/ui/admin/faculty/FacultyMemberTable';
 import { facultyFieldCategories, members } from '@/mocks/adminMember';
 
-import MemberTable from './components/MemberTable';
 import { getFacultyMembers } from '@/lib/api/server.api';
 import { AuthSliceState } from '@/store/auth.slice';
 import { getAuthFromCookie } from '@/lib/utils/auth';
 
-const Page = async ({ searchParams }: { searchParams?: { [key: string]: string | undefined } }) => {
+export interface FacultyListPageProps {
+  searchParams?: { [key: string]: string | undefined };
+}
+
+export default async function FacultyListPage({ searchParams }: FacultyListPageProps) {
   const headersList = headers();
   const pathname = headersList.get('x-pathname') || '';
 
@@ -32,14 +34,14 @@ const Page = async ({ searchParams }: { searchParams?: { [key: string]: string |
         <AdminSearchBox
           initialValues={{ field, keyword }}
           fieldCategories={facultyFieldCategories}
-          path="/admin/faculty/list"
+          path="/admin/faculty"
         />
       </div>
       {facultyMembers.content.length === 0 ? (
         <div className="p-20 text-center text-lg font-bold">조건에 부합하는 교직원이 없습니다.</div>
       ) : (
         <>
-          <MemberTable members={facultyMembers.content} />
+          <FacultyMemberTable members={facultyMembers.content} />
           <AdminPagination
             currentPage={page}
             totalItems={facultyMembers.totalElements}
@@ -50,6 +52,4 @@ const Page = async ({ searchParams }: { searchParams?: { [key: string]: string |
       )}
     </div>
   );
-};
-
-export default Page;
+}

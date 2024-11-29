@@ -1,5 +1,3 @@
-/* eslint-disable max-len */
-
 'use client';
 
 import { useAppSelector } from '@/lib/hooks/redux';
@@ -8,7 +6,7 @@ import { FacultyMemberDto } from '@/types/common.dto';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 
-const MemberTable = ({ members }: { members: FacultyMemberDto[] }) => {
+export default function FacultyMemberTable({ members }: { members: FacultyMemberDto[] }) {
   const { mutate: deleteFaculty } = useDeleteFacultyMutation();
   const auth = useAppSelector((state) => state.auth).value;
   const router = useRouter();
@@ -16,11 +14,11 @@ const MemberTable = ({ members }: { members: FacultyMemberDto[] }) => {
   const handleDeleteButtonClick = (member: FacultyMemberDto) => {
     window.confirm(`${member.name}을(를) 삭제하시겠습니까?`);
     deleteFaculty(member.facultyId, {
-      onSuccess(data, variables, context) {
+      onSuccess() {
         toast.info('교직원 삭제에 성공했습니다.');
         router.refresh();
       },
-      onError(error, variables, context) {
+      onError(error) {
         toast.error(error.message);
       },
     });
@@ -64,6 +62,4 @@ const MemberTable = ({ members }: { members: FacultyMemberDto[] }) => {
       </tbody>
     </table>
   );
-};
-
-export default MemberTable;
+}
