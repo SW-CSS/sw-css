@@ -1,25 +1,20 @@
-/* eslint-disable prettier/prettier */
-/* eslint-disable operator-linebreak */
-/* eslint-disable function-paren-newline */
-/* eslint-disable implicit-arrow-linebreak */
-/* eslint-disable @typescript-eslint/no-unused-expressions */
-
 'use client';
 
+import React from 'react';
+import { useMemo, useState } from 'react';
 import { DateTime } from 'luxon';
 import { usePathname, useSearchParams } from 'next/navigation';
-import { useMemo, useState } from 'react';
+import { toast } from 'react-toastify';
 
-import Pagination from '@/adminComponents/Pagination';
-import MilestonePeriodSearchForm from '@/components/MilestonePeriodSearchForm';
+import AdminPagination from '@/components/common/admin/AdminPagination';
+import PeriodSearchBox from '@/components/common/PeriodSearchBox';
 import { MilestoneGroup } from '@/data/milestone';
 import { useMilestoneHistoryScoreExcelFileQuery, useMilestoneScoresQuery } from '@/lib/hooks/useAdminApi';
 import { useMilestoneQuery } from '@/lib/hooks/useApi';
 import { convertMilestoneGroup } from '@/lib/utils/utils';
 import { Period } from '@/types/common';
-import { toast } from 'react-toastify';
 
-const Page = () => {
+export default function MilestoneRankPage() {
   const [filterPeriod, setFilterPeriod] = useState<Period>({
     startDate: DateTime.now().minus({ years: 1 }).toFormat('yyyy-MM-dd'),
     endDate: DateTime.now().toFormat('yyyy-MM-dd'),
@@ -28,7 +23,6 @@ const Page = () => {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const page = parseInt(searchParams.get('page') || '1', 10);
-  console.log(page);
 
   const { data: excelFile } = useMilestoneHistoryScoreExcelFileQuery(
     searchFilterPeriod.startDate,
@@ -62,11 +56,7 @@ const Page = () => {
   return (
     <div>
       <div className="mb-8 flex justify-end">
-        <MilestonePeriodSearchForm
-          filterPeriod={filterPeriod}
-          setFilterPeriod={setFilterPeriod}
-          setSearchFilterPeriod={setSearchFilterPeriod}
-        />
+        <PeriodSearchBox period={filterPeriod} setPeriod={setFilterPeriod} setSearchPeriod={setSearchFilterPeriod} />
       </div>
       <div className="mb-8 min-h-[426px] w-full overflow-x-scroll text-xs">
         <table className="border-collapse text-center">
@@ -77,9 +67,9 @@ const Page = () => {
               <th className="min-w-[10em] pb-2">학번</th>
               <th className="min-w-20 pb-2">총점</th>
               {Object.values(MilestoneGroup).map((group) => (
-                <>
+                <React.Fragment key={`All-${group}`}>
                   {milestones &&
-                    milestones[group]?.map((milestone) => (
+                    milestones[group].map((milestone) => (
                       <th key={milestone.id} className="min-w-20 break-keep p-2">
                         {milestone.name}
                       </th>
@@ -87,37 +77,38 @@ const Page = () => {
                   <th key={group} className="min-w-20 break-keep p-2">
                     {convertMilestoneGroup(group)} SW역량 소계
                   </th>
-                </>
+                </React.Fragment>
               ))}
             </tr>
           </thead>
           <tbody>
-            {milestoneScores?.content?.map((milestoneScore, index) => (
-              <tr key={milestoneScore.student.id} className="border-b border-border">
-                <td>{milestoneScores!.size * milestoneScores!.number + index + 1}</td>
-                <td>{milestoneScore.student.name}</td>
-                <td className="border-r-2 border-border">{milestoneScore.student.id}</td>
-                <td className="min-w-20 bg-admin-primary-main p-2 font-bold text-admin-white">
-                  {Object.values(milestoneScore.milestoneScores).reduce(
-                    (accumulator, currentValue) =>
-                      accumulator + currentValue.reduce((acc, curr) => acc + curr.score, 0),
-                    0,
-                  )}
-                </td>
-                {Object.values(MilestoneGroup).map((group) => (
-                  <>
-                    {milestoneScore.milestoneScores[group].map((score) => (
-                      <td key={score.id} className="min-w-20 border-r border-border p-2">
-                        {score.score}
+            {milestoneScores &&
+              milestoneScores.content.map((milestoneScore, index) => (
+                <tr key={milestoneScore.student.id} className="border-b border-border">
+                  <td>{milestoneScores!.size * milestoneScores!.number + index + 1}</td>
+                  <td>{milestoneScore.student.name}</td>
+                  <td className="border-r-2 border-border">{milestoneScore.student.id}</td>
+                  <td className="min-w-20 bg-admin-primary-main p-2 font-bold text-admin-white">
+                    {Object.values(milestoneScore.milestoneScores).reduce(
+                      (accumulator, currentValue) =>
+                        accumulator + currentValue.reduce((acc, curr) => acc + curr.score, 0),
+                      0,
+                    )}
+                  </td>
+                  {Object.values(MilestoneGroup).map((group) => (
+                    <React.Fragment key={`All-${group}`}>
+                      {milestoneScore.milestoneScores[group].map((score) => (
+                        <td key={score.id} className="min-w-20 border-r border-border p-2">
+                          {score.score}
+                        </td>
+                      ))}
+                      <td key={group} className="min-w-20 bg-admin-background-point p-2 font-bold">
+                        {milestoneScore.milestoneScores[group].reduce((acc, curr) => acc + curr.score, 0)}
                       </td>
-                    ))}
-                    <td key={group} className="min-w-20 bg-admin-background-point p-2 font-bold">
-                      {milestoneScore.milestoneScores[group].reduce((acc, curr) => acc + curr.score, 0)}
-                    </td>
-                  </>
-                ))}
-              </tr>
-            ))}
+                    </React.Fragment>
+                  ))}
+                </tr>
+              ))}
           </tbody>
         </table>
       </div>
@@ -130,9 +121,7 @@ const Page = () => {
           Excel로 다운로드
         </button>
       </div>
-      <Pagination currentPage={page} totalItems={milestoneScores?.totalElements ?? 0} pathname={pathname} />
+      <AdminPagination currentPage={page} totalItems={milestoneScores?.totalElements ?? 0} pathname={pathname} />
     </div>
   );
-};
-
-export default Page;
+}

@@ -1,26 +1,22 @@
-/* eslint-disable react-hooks/exhaustive-deps */
-
 'use client';
 
 import { useRouter } from 'next/navigation';
 
 import { useAppDispatch, useAppSelector } from '@/lib/hooks/redux';
 import { signOut } from '@/store/auth.slice';
+import { useEffect } from 'react';
 
-const Page = () => {
+export default function SignOutPage() {
   const router = useRouter();
   const dispatch = useAppDispatch();
-  const auth = useAppSelector((state) => state.auth).value;
+  const auth = useAppSelector((state) => state.auth.value);
 
-  if (!auth.isAuth) router.push('/');
+  useEffect(() => {
+    if (!auth.isAuth) router.push('/', { scroll: false });
 
-  // TODO: api 연결
-  dispatch(signOut());
-  setTimeout(() => {
-    router.refresh();
-  }, 0);
+    dispatch(signOut());
+    router.push('/sign-in', { scroll: false });
+  }, [auth, router, dispatch]);
 
   return null;
-};
-
-export default Page;
+}

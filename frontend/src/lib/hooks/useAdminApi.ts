@@ -1,4 +1,3 @@
-/* eslint-disable implicit-arrow-linebreak */
 import { QueryKeys } from '@/data/queryKey';
 import { client } from '@/lib/api/client.axios';
 import { useAxiosMutation, useAxiosQuery } from '@/lib/hooks/useAxios';

@@ -1,16 +1,12 @@
-/* eslint-disable max-len */
-/* eslint-disable operator-linebreak */
-/* eslint-disable implicit-arrow-linebreak */
-
 'use client';
 
-import { Form, Formik } from 'formik';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { Form, Formik } from 'formik';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 
-import { FileUploader } from '@/components/Formik/FileUploader';
+import { FileUploader } from '@/components/common/formik/FileUploader';
 import { useRegisterHistoryInBatchMutation } from '@/lib/hooks/useAdminApi';
 
 const validationSchema = Yup.object().shape({
@@ -35,7 +31,7 @@ const initialValues: HistoryRegisterFormProps = {
   file: undefined,
 };
 
-const Page = () => {
+export default function MilestoneRegisterPage() {
   const router = useRouter();
   const { mutate: registerHistories } = useRegisterHistoryInBatchMutation();
 
@@ -43,7 +39,8 @@ const Page = () => {
     <>
       <div className="flex items-center rounded-sm border-[1px] border-admin-border bg-admin-background-light px-5 py-3 text-sm">
         <p className="flex flex-1 justify-center gap-1">
-          점수 산정 기준 표 - <Image src="/images/admin/pdf_icon.svg" alt="pdf" width="16" height="16" />
+          점수 산정 기준 표 -{' '}
+          <Image src="/images/admin/pdf_icon.svg" alt="pdf" width="16" height="16" style={{ width: 16, height: 16 }} />
           <a
             className="pl-[0.5px] text-red-500 underline underline-offset-4"
             href={process.env.NEXT_PUBLIC_FILE_URL + '/history_standard.pdf'}
@@ -53,7 +50,14 @@ const Page = () => {
           </a>
         </p>
         <p className="flex flex-1 justify-center gap-1">
-          일괄등록 파일 예시 - <Image src="/images/admin/xlsx_icon.svg" alt="xlsx" width="16" height="16" />
+          일괄등록 파일 예시 -{' '}
+          <Image
+            src="/images/admin/xlsx_icon.svg"
+            alt="xlsx"
+            width="16"
+            height="16"
+            style={{ width: 16, height: 16 }}
+          />
           <a
             className="pl-[0.5px] text-green-500 underline underline-offset-4"
             href={process.env.NEXT_PUBLIC_FILE_URL + '/history_register_sample.xlsx'}
@@ -102,6 +106,4 @@ const Page = () => {
       </Formik>
     </>
   );
-};
-
-export default Page;
+}

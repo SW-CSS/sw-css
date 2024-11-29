@@ -1,9 +1,0 @@
-{
-  "plugins": ["@babel/plugin-proposal-class-properties", "@babel/plugin-proposal-private-methods"],
-  "overrides": [
-    {
-      "include": "./node_modules/linkifyjs",
-      "presets": ["@babel/preset-env"]
-    }
-  ]
-}
