@@ -20,7 +20,7 @@ interface CustomTextInputProps {
 export type TextInputProps = Omit<BuiltInTextInputProps, 'size'> & CustomTextInputProps;
 
 const TextInput = ({ isRequired = false, size = 'md', ...props }: TextInputProps) => {
-  const { value, label, errorText, isAdmin, tooltip, onKeyDownEnter, onChangeText, ...inputProps } = props;
+  const { label, errorText, isAdmin, tooltip, onKeyDownEnter, onChangeText, ...inputProps } = props;
   const hasError = errorText !== undefined;
 
   return (
