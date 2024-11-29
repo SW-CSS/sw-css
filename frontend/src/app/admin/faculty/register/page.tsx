@@ -1,15 +1,15 @@
 'use client';
 
-import { Form, Formik } from 'formik';
+import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { toast } from 'react-toastify';
+import { Form, Formik } from 'formik';
 import * as Yup from 'yup';
 
 import EmailTextInput from '@/components/common/formik/EmailTextInput';
 import TextInput from '@/components/common/formik/TextInput';
 import { useRegisterFacultiesByFileMutation, useRegisterFacultyMutation } from '@/lib/hooks/useAdminApi';
-import { useState } from 'react';
 
 interface FormType {
   email: string;
@@ -29,7 +29,7 @@ const validationSchema = Yup.object().shape({
   name: Yup.string().required('필수 입력란입니다. 이름을 입력해주세요.'),
 });
 
-const Page = () => {
+export default function FacultyRegisterPage() {
   const { mutate: registerFaculty } = useRegisterFacultyMutation();
   const { mutate: registerFacultiesByFile } = useRegisterFacultiesByFileMutation();
   const [errorMessage, setErrorMessage] = useState<String>();
@@ -189,6 +189,4 @@ const Page = () => {
       </div>
     </>
   );
-};
-
-export default Page;
+}
