@@ -9,7 +9,7 @@ import { useAppSelector } from '@/lib/hooks/redux';
 
 export default function AdminHeader() {
   return (
-    <div className="min-w-admin-max z-1 fixed flex w-[100vw] justify-center border-b-2 border-primary-main bg-white">
+    <div className="min-w-admin-max fixed z-10 flex w-[100vw] justify-center border-b-2 border-primary-main bg-white">
       <div className="flex h-full w-full items-center justify-between pr-2">
         <div className="flex">
           <Link className="w-admin-sidebar m-auto flex items-center justify-center pl-2" href="/admin">
