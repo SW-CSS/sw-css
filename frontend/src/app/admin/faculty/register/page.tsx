@@ -1,10 +1,3 @@
-/* eslint-disable import/no-unresolved */
-/* eslint-disable import/no-extraneous-dependencies */
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable max-len */
-
 'use client';
 
 import { Form, Formik } from 'formik';
@@ -13,7 +6,6 @@ import Link from 'next/link';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 
-import 'react-toastify/dist/ReactToastify.css';
 import EmailTextInput from '@/components/common/formik/EmailTextInput';
 import TextInput from '@/components/common/formik/TextInput';
 import { useRegisterFacultiesByFileMutation, useRegisterFacultyMutation } from '@/lib/hooks/useAdminApi';

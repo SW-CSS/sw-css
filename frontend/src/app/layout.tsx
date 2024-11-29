@@ -7,6 +7,7 @@ import ReduxProvider from '@/lib/utils/reduxProvider';
 import StyledComponentsRegistry from '@/theme/StyledComponentsRegistry';
 
 import './globals.css';
+import 'react-toastify/dist/ReactToastify.css';
 
 export const metadata: Metadata = {
   title: '부산대학교 SW역량지원시스템',

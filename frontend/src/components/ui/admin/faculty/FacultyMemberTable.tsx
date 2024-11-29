@@ -1,10 +1,11 @@
 'use client';
 
+import { useRouter } from 'next/navigation';
+import { toast } from 'react-toastify';
+
 import { useAppSelector } from '@/lib/hooks/redux';
 import { useDeleteFacultyMutation } from '@/lib/hooks/useAdminApi';
 import { FacultyMemberDto } from '@/types/common.dto';
-import { useRouter } from 'next/navigation';
-import { toast } from 'react-toastify';
 
 export default function FacultyMemberTable({ members }: { members: FacultyMemberDto[] }) {
   const { mutate: deleteFaculty } = useDeleteFacultyMutation();
@@ -23,8 +24,6 @@ export default function FacultyMemberTable({ members }: { members: FacultyMember
       },
     });
   };
-
-  console.log(auth);
 
   return (
     <table className="my-4 w-full table-fixed text-center text-sm [&_*]:cursor-default">
