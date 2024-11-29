@@ -1,15 +1,14 @@
-/* eslint-disable max-len */
 import { headers } from 'next/headers';
 
 import AdminPagination from '@/components/common/admin/AdminPagination';
 import AdminSearchBox from '@/components/common/admin/AdminSearchBox';
+import AdminMilestoneTable from '@/components/ui/admin/milestone/AdminMilestoneTable';
+import AdminMilestoneDownloadButton from '@/components/ui/admin/milestone/AdminMilestoneDownloadButton';
+
 import { milestoneHistorySearchField } from '@/data/milestone';
 import { getMilestoneHistories } from '@/lib/api/server.api';
-
-import MilestoneHistoryTable from './components/MilestoneHistoryTable';
-import MilestoneHistoryExcelFileDownloadButton from './components/MilestoneHistoryTable/MilestoneHistoryExcelFileDownloadButton.tsx';
-import { AuthSliceState } from '@/store/auth.slice';
 import { getAuthFromCookie } from '@/lib/utils/auth';
+import { AuthSliceState } from '@/store/auth.slice';
 
 const Page = async ({ searchParams }: { searchParams?: { [key: string]: string | undefined } }) => {
   const headersList = headers();
@@ -38,12 +37,12 @@ const Page = async ({ searchParams }: { searchParams?: { [key: string]: string |
         <AdminSearchBox
           initialValues={{ field, keyword }}
           fieldCategories={milestoneHistorySearchField}
-          path="/admin/milestone/list"
+          path="/admin/milestone"
         />
       </div>
-      <MilestoneHistoryTable histories={milestoneHistories?.content || []} />
+      <AdminMilestoneTable histories={milestoneHistories?.content || []} />
       <div className="flex justify-end">
-        <MilestoneHistoryExcelFileDownloadButton field={field} keyword={keyword} />
+        <AdminMilestoneDownloadButton field={field} keyword={keyword} />
       </div>
       <AdminPagination
         currentPage={page}

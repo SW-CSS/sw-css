@@ -4,12 +4,12 @@ import { useMilestoneHistoryExcelFileQuery } from '@/lib/hooks/useAdminApi';
 import { useMemo } from 'react';
 import { toast } from 'react-toastify';
 
-interface MilestoneHistoryExcelFileDownloadButtonProps {
+interface AdminMilestoneDownloadButtonProps {
   field: number | null;
   keyword: string | null;
 }
 
-const MilestoneHistoryExcelFileDownloadButton = ({ field, keyword }: MilestoneHistoryExcelFileDownloadButtonProps) => {
+export default function AdminMilestoneDownloadButton({ field, keyword }: AdminMilestoneDownloadButtonProps) {
   const { data: excelFile } = useMilestoneHistoryExcelFileQuery(field, keyword);
   const excelFileUrl = useMemo(() => {
     if (excelFile) {
@@ -38,6 +38,4 @@ const MilestoneHistoryExcelFileDownloadButton = ({ field, keyword }: MilestoneHi
       Excel로 다운로드
     </button>
   );
-};
-
-export default MilestoneHistoryExcelFileDownloadButton;
+}

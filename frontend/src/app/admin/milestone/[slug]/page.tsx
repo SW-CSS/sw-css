@@ -1,15 +1,15 @@
-/* eslint-disable max-len */
 import Link from 'next/link';
+import { notFound } from 'next/navigation';
 
 import MilestoneGroupLabel from '@/components/ui/milestone/MilestoneGroupLabel';
+import AdminMilestoneFilePreview from '@/components/ui/admin/milestone/AdminMilestoneFilePreview';
+import AdminMilestoneStatusChangeButton from '@/components/ui/admin/milestone/AdminMilestoneStatusChangeButton';
+
 import { getMilestoneHistory } from '@/lib/api/server.api';
 import { convertMilestoneHistoryStatus } from '@/lib/utils/utils';
-
-import FilePreview from './components/FilePreview';
-import MilestoneHistoryStatusChangeButton from './components/MilestoneHistoryStatusChangeButton';
-import { notFound } from 'next/navigation';
-import { AuthSliceState } from '@/store/auth.slice';
 import { getAuthFromCookie } from '@/lib/utils/auth';
+
+import { AuthSliceState } from '@/store/auth.slice';
 
 interface MilestoneHistoryDetailPageProps {
   params: {
@@ -103,20 +103,20 @@ const Page = async ({ params: { slug } }: MilestoneHistoryDetailPageProps) => {
                 <span className="flex-grow">{history.rejectReason}</span>
               </p>
             )}
-            <MilestoneHistoryStatusChangeButton historyId={history.id} status={history.status} />
+            <AdminMilestoneStatusChangeButton historyId={history.id} status={history.status} />
           </div>
         </div>
         <div className="flex flex-1 flex-col">
           <p className="text-lg font-bold">증빙자료 미리보기</p>
           <div className="my-4 flex flex-grow flex-col items-center justify-center gap-2 rounded-md border border-border p-2 px-4 text-center">
-            <FilePreview fileName={history.fileUrl} />
+            <AdminMilestoneFilePreview fileName={history.fileUrl} />
           </div>
         </div>
       </div>
 
       <div className="flex justify-end">
         <Link
-          href="/admin/milestone/list"
+          href="/admin/milestone"
           className="rounded-sm border-2 border-border px-4 py-2 hover:bg-admin-background-light"
         >
           목록으로

@@ -7,7 +7,7 @@ export default function NotFound() {
         <h2 className="text-xl font-semibold">404 Not Found</h2>
         <p>요청하신 리소스를 찾을 수 없습니다.</p>
         <Link
-          href="/admin/milestone/list"
+          href="/admin/milestone"
           className="mt-4 rounded-sm bg-admin-primary-main px-4 py-2 text-sm text-white hover:bg-admin-primary-dark"
         >
           목록으로
