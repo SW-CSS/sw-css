@@ -39,7 +39,8 @@ export default function MilestoneRegisterPage() {
     <>
       <div className="flex items-center rounded-sm border-[1px] border-admin-border bg-admin-background-light px-5 py-3 text-sm">
         <p className="flex flex-1 justify-center gap-1">
-          점수 산정 기준 표 - <Image src="/images/admin/pdf_icon.svg" alt="pdf" width="16" height="16" />
+          점수 산정 기준 표 -{' '}
+          <Image src="/images/admin/pdf_icon.svg" alt="pdf" width="16" height="16" style={{ width: 16, height: 16 }} />
           <a
             className="pl-[0.5px] text-red-500 underline underline-offset-4"
             href={process.env.NEXT_PUBLIC_FILE_URL + '/history_standard.pdf'}
@@ -49,7 +50,14 @@ export default function MilestoneRegisterPage() {
           </a>
         </p>
         <p className="flex flex-1 justify-center gap-1">
-          일괄등록 파일 예시 - <Image src="/images/admin/xlsx_icon.svg" alt="xlsx" width="16" height="16" />
+          일괄등록 파일 예시 -{' '}
+          <Image
+            src="/images/admin/xlsx_icon.svg"
+            alt="xlsx"
+            width="16"
+            height="16"
+            style={{ width: 16, height: 16 }}
+          />
           <a
             className="pl-[0.5px] text-green-500 underline underline-offset-4"
             href={process.env.NEXT_PUBLIC_FILE_URL + '/history_register_sample.xlsx'}

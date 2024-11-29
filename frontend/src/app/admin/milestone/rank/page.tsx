@@ -1,8 +1,9 @@
 'use client';
 
+import React from 'react';
+import { useMemo, useState } from 'react';
 import { DateTime } from 'luxon';
 import { usePathname, useSearchParams } from 'next/navigation';
-import { useMemo, useState } from 'react';
 import { toast } from 'react-toastify';
 
 import AdminPagination from '@/components/common/admin/AdminPagination';
@@ -22,7 +23,6 @@ export default function MilestoneRankPage() {
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const page = parseInt(searchParams.get('page') || '1', 10);
-  console.log(page);
 
   const { data: excelFile } = useMilestoneHistoryScoreExcelFileQuery(
     searchFilterPeriod.startDate,
@@ -67,9 +67,9 @@ export default function MilestoneRankPage() {
               <th className="min-w-[10em] pb-2">학번</th>
               <th className="min-w-20 pb-2">총점</th>
               {Object.values(MilestoneGroup).map((group) => (
-                <>
+                <React.Fragment key={`All-${group}`}>
                   {milestones &&
-                    milestones[group]?.map((milestone) => (
+                    milestones[group].map((milestone) => (
                       <th key={milestone.id} className="min-w-20 break-keep p-2">
                         {milestone.name}
                       </th>
@@ -77,37 +77,38 @@ export default function MilestoneRankPage() {
                   <th key={group} className="min-w-20 break-keep p-2">
                     {convertMilestoneGroup(group)} SW역량 소계
                   </th>
-                </>
+                </React.Fragment>
               ))}
             </tr>
           </thead>
           <tbody>
-            {milestoneScores?.content?.map((milestoneScore, index) => (
-              <tr key={milestoneScore.student.id} className="border-b border-border">
-                <td>{milestoneScores!.size * milestoneScores!.number + index + 1}</td>
-                <td>{milestoneScore.student.name}</td>
-                <td className="border-r-2 border-border">{milestoneScore.student.id}</td>
-                <td className="min-w-20 bg-admin-primary-main p-2 font-bold text-admin-white">
-                  {Object.values(milestoneScore.milestoneScores).reduce(
-                    (accumulator, currentValue) =>
-                      accumulator + currentValue.reduce((acc, curr) => acc + curr.score, 0),
-                    0,
-                  )}
-                </td>
-                {Object.values(MilestoneGroup).map((group) => (
-                  <>
-                    {milestoneScore.milestoneScores[group].map((score) => (
-                      <td key={score.id} className="min-w-20 border-r border-border p-2">
-                        {score.score}
+            {milestoneScores &&
+              milestoneScores.content.map((milestoneScore, index) => (
+                <tr key={milestoneScore.student.id} className="border-b border-border">
+                  <td>{milestoneScores!.size * milestoneScores!.number + index + 1}</td>
+                  <td>{milestoneScore.student.name}</td>
+                  <td className="border-r-2 border-border">{milestoneScore.student.id}</td>
+                  <td className="min-w-20 bg-admin-primary-main p-2 font-bold text-admin-white">
+                    {Object.values(milestoneScore.milestoneScores).reduce(
+                      (accumulator, currentValue) =>
+                        accumulator + currentValue.reduce((acc, curr) => acc + curr.score, 0),
+                      0,
+                    )}
+                  </td>
+                  {Object.values(MilestoneGroup).map((group) => (
+                    <React.Fragment key={`All-${group}`}>
+                      {milestoneScore.milestoneScores[group].map((score) => (
+                        <td key={score.id} className="min-w-20 border-r border-border p-2">
+                          {score.score}
+                        </td>
+                      ))}
+                      <td key={group} className="min-w-20 bg-admin-background-point p-2 font-bold">
+                        {milestoneScore.milestoneScores[group].reduce((acc, curr) => acc + curr.score, 0)}
                       </td>
-                    ))}
-                    <td key={group} className="min-w-20 bg-admin-background-point p-2 font-bold">
-                      {milestoneScore.milestoneScores[group].reduce((acc, curr) => acc + curr.score, 0)}
-                    </td>
-                  </>
-                ))}
-              </tr>
-            ))}
+                    </React.Fragment>
+                  ))}
+                </tr>
+              ))}
           </tbody>
         </table>
       </div>

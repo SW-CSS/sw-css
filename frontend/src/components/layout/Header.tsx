@@ -57,17 +57,17 @@ export function TabletLayoutHeader({ auth }: HeaderUIProps) {
         <div className="flex">
           {auth.isAuth && auth.isModerator && (
             <>
-              <IconButton icon={<VscSettingsGear />} title="관리" size="sm" link="/admin" />
-              <IconButton icon={<VscSignOut />} title="로그아웃" size="sm" link="/sign-out" />
+              <IconButton icon={<VscSettingsGear />} title="관리" link="/admin" />
+              <IconButton icon={<VscSignOut />} title="로그아웃" link="/sign-out" />
             </>
           )}
           {auth.isAuth && !auth.isModerator && (
             <>
-              <IconButton icon={<VscAccount />} title="마이페이지" size="sm" link="/my-page" />
-              <IconButton icon={<VscSignOut />} title="로그아웃" size="sm" link="/sign-out" />
+              <IconButton icon={<VscAccount />} title="마이페이지" link="/my-page" />
+              <IconButton icon={<VscSignOut />} title="로그아웃" link="/sign-out" />
             </>
           )}
-          {!auth.isAuth && <IconButton icon={<VscSignIn />} title="로그인" size="sm" link="/sign-in" />}
+          {!auth.isAuth && <IconButton icon={<VscSignIn />} title="로그인" link="/sign-in" />}
           <Sidebar open={isSidebarOpen} handleOpen={setIsSideBarOpen} />
         </div>
       </div>
@@ -103,14 +103,14 @@ export function DesktopLayoutHeader({ auth }: HeaderUIProps) {
       </div>
       {auth.isAuth && auth.isModerator && (
         <>
-          <IconButton icon={<VscSettingsGear />} title="관리" size="sm" link="/admin" />
-          <IconButton icon={<VscSignOut />} title="로그아웃" size="sm" link="/sign-out" />
+          <IconButton icon={<VscSettingsGear />} title="관리" link="/admin" />
+          <IconButton icon={<VscSignOut />} title="로그아웃" link="/sign-out" />
         </>
       )}
       {auth.isAuth && !auth.isModerator && (
         <>
-          <IconButton icon={<VscAccount />} title="마이페이지" size="sm" link="/my-page" />
-          <IconButton icon={<VscSignOut />} title="로그아웃" size="sm" link="/sign-out" />
+          <IconButton icon={<VscAccount />} title="마이페이지" link="/my-page" />
+          <IconButton icon={<VscSignOut />} title="로그아웃" link="/sign-out" />
         </>
       )}
       {!auth.isAuth && (

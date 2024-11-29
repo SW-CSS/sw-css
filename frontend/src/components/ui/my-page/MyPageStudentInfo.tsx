@@ -10,12 +10,7 @@ import { VscWarning } from '@react-icons/all-files/vsc/VscWarning';
 
 export default function MyPageStudentInfo() {
   const auth = useAppSelector((state) => state.auth).value;
-  let member;
-  try {
-    member = useStudentMemberQuery(auth.id).data;
-  } catch (err) {
-    // TODO: server api error handling
-  }
+  const member = useStudentMemberQuery(auth.id).data;
 
   return (
     <div className="relative flex-grow rounded-sm bg-white p-5">

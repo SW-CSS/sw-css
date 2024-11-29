@@ -103,7 +103,6 @@ export default function MilestoneRegisterPage() {
                   name="unitScore"
                   label="건당 점수"
                   type="text"
-                  defaultValue={0}
                   value={selectedMilestone?.score || 0}
                   disabled
                 />

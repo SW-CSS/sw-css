@@ -83,7 +83,13 @@ export default function FacultyRegisterPage() {
         <p className="text-lg font-semibold">교직원 일괄 등록 방법</p>
         <ul className="flex flex-col gap-2 px-4 pb-8 pt-4">
           <li className="flex text-base">
-            <Image src="/images/admin/xlsx_icon.svg" alt="xlsx" width="16" height="16" />
+            <Image
+              src="/images/admin/xlsx_icon.svg"
+              alt="xlsx"
+              width="16"
+              height="16"
+              style={{ width: 16, height: 16 }}
+            />
             <button
               type="button"
               className="pl-[0.5px] text-green-500 underline underline-offset-4"

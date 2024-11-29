@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { toast } from 'react-toastify';
 
@@ -20,8 +20,6 @@ export default function AuthSignInForm() {
 
   const dispatch = useAppDispatch();
   const auth = useAppSelector((state) => state.auth).value;
-
-  if (auth.isAuth) router.push('/');
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setUserInfo((prev) => {
@@ -52,6 +50,10 @@ export default function AuthSignInForm() {
       },
     });
   };
+
+  useEffect(() => {
+    if (auth.isAuth) router.push('/');
+  }, [auth, router]);
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-4">

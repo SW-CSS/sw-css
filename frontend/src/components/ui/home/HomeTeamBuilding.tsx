@@ -28,6 +28,7 @@ export default function HomeTeamBuilding() {
         )}
         {teamBuildingInfos.map((team) => (
           <TeamBuildingCard
+            key={team.id}
             id={team.id}
             category={team.category}
             status={team.status}

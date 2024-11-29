@@ -61,7 +61,14 @@ export default function HomePnuLink() {
         {pnuLinkInfos.map((link) => (
           <SwiperSlide key={link.url}>
             <Link className="block h-[52px] w-[162px] border border-border" href={link.url} target="_blank">
-              <Image width="160" height="50" src={link.img} alt={link.title} style={{ width: 'auto', height: 50 }} />
+              <Image
+                width="160"
+                height="50"
+                src={link.img}
+                alt={link.title}
+                style={{ width: 160, height: 50 }}
+                priority
+              />
             </Link>
           </SwiperSlide>
         ))}

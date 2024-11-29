@@ -1,12 +1,4 @@
 {
-  "parser": "@typescript-eslint/parser",
-  "plugins": ["@typescript-eslint"],
-  "extends": ["next/core-web-vitals", "plugin:@typescript-eslint/recommended", "plugin:prettier/recommended"],
-  "settings": {
-    "import/resolver": {
-      "node": true,
-      "typescript": true
-    },
-    "import/parsers": { "@typescript-eslint/parser": [".ts", ".tsx"] }
-  }
+  "extends": ["next/core-web-vitals"],
+  "rules": { "react-hooks/exhaustive-deps": "off", "@next/next/no-img-element": "off" }
 }

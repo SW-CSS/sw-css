@@ -21,7 +21,11 @@ export default function MilestonePage() {
         </Link>
       </div>
       <div className="flex w-full justify-center bg-[url('/images/milestone/milestone_img02_bg.png')] bg-center bg-no-repeat">
-        <img className="!relative h-full w-full max-w-[400px]" src="/images/milestone/milestone_img02.png" />
+        <img
+          alt="pattern"
+          className="!relative h-full w-full max-w-[400px]"
+          src="/images/milestone/milestone_img02.png"
+        />
       </div>
       <ul className="mx-2.5 mt-[70px] md:mx-5">
         <li className="mb-10 md:flex">
@@ -43,7 +47,11 @@ export default function MilestonePage() {
         </li>
       </ul>
       <div className="flex w-full justify-center">
-        <img className="!relative h-full w-full max-w-[800px]" src="/images/milestone/milestone_img03.png" />
+        <img
+          alt="마일스톤 역량 표"
+          className="!relative h-full w-full max-w-[800px]"
+          src="/images/milestone/milestone_img03.png"
+        />
       </div>
     </div>
   );

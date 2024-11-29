@@ -1,18 +1,15 @@
 import React from 'react';
-
-import { FONT_STYLE } from '@/constants';
 import Link from 'next/link';
 
 export interface IconButtonProps {
   icon: React.ReactElement;
   title: string;
-  size: 'sm' | 'md' | 'lg';
   link: string;
 }
 
-const IconButton = ({ icon, title, size, link }: IconButtonProps) => {
-  const width = size === 'sm' ? '24px' : size === 'md' ? '32px' : '80px';
-  const height = size === 'sm' ? '24px' : size === 'md' ? '32px' : '80px';
+export default function IconButton({ icon, title, link }: IconButtonProps) {
+  const width = '24px';
+  const height = '24px';
 
   const Icon = React.createElement(icon.type, {
     ...{
@@ -27,17 +24,7 @@ const IconButton = ({ icon, title, size, link }: IconButtonProps) => {
       href={link}
     >
       {Icon}
-      <span
-        style={{
-          font: `${
-            size === 'sm' ? FONT_STYLE.xs.normal : size === 'md' ? FONT_STYLE.base.normal : FONT_STYLE.lg.normal
-          }`,
-        }}
-      >
-        {title}
-      </span>
+      <span className="text-xs">{title}</span>
     </Link>
   );
-};
-
-export default IconButton;
+}
