@@ -2,7 +2,7 @@
 import { headers } from 'next/headers';
 
 import AdminPagination from '@/components/common/admin/AdminPagination';
-import SearchBox from '@/components/common/admin/SearchBox';
+import AdminSearchBox from '@/components/common/admin/AdminSearchBox';
 import { milestoneHistorySearchField } from '@/data/milestone';
 import { getMilestoneHistories } from '@/lib/api/server.api';
 
@@ -35,7 +35,7 @@ const Page = async ({ searchParams }: { searchParams?: { [key: string]: string |
           총 <span className="text-admin-primary-main">{milestoneHistories?.totalElements ?? 0}</span>건의 내역이
           있습니다.
         </span>
-        <SearchBox
+        <AdminSearchBox
           initialValues={{ field, keyword }}
           fieldCategories={milestoneHistorySearchField}
           path="/admin/milestone/list"

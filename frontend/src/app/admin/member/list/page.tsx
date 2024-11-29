@@ -4,7 +4,7 @@
 import { headers } from 'next/headers';
 
 import AdminPagination from '@/components/common/admin/AdminPagination';
-import SearchBox from '@/components/common/admin/SearchBox';
+import AdminSearchBox from '@/components/common/admin/AdminSearchBox';
 import { fieldCategories, members } from '@/mocks/adminMember';
 
 import MemberTable from './components/MemberTable';
@@ -27,7 +27,7 @@ const Page = ({ searchParams }: { searchParams?: { [key: string]: string | undef
         <span className="mr-20">
           총 <span className="text-admin-primary-main">{members.length}</span>명의 회원이 있습니다.
         </span>
-        <SearchBox initialValues={{ field, keyword }} fieldCategories={fieldCategories} path="/admin/member/list" />
+        <AdminSearchBox initialValues={{ field, keyword }} fieldCategories={fieldCategories} path="/admin/member/list" />
       </div>
       <MemberTable members={members.slice((page - 1) * 10, page * 10)} />
       <AdminPagination

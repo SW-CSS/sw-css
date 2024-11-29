@@ -9,21 +9,21 @@ import Dropdown from '@/components/common/formik/Dropdown';
 import TextInput from '@/components/common/formik/TextInput';
 import { FORM_SIZE } from '@/constants';
 
-interface SearchFormProps {
+interface AdminSearchFormProps {
   field: number;
   keyword: string;
 }
 
-export interface SearchBoxProps {
-  initialValues: SearchFormProps;
+export interface AdminSearchBoxProps {
+  initialValues: AdminSearchFormProps;
   fieldCategories: { id: number; name: string }[];
   path: string;
 }
 
-export default function SearchBox({ initialValues, fieldCategories, path }: SearchBoxProps) {
+export default function AdminSearchBox({ initialValues, fieldCategories, path }: AdminSearchBoxProps) {
   const router = useRouter();
 
-  const handleSearchButtonClick = (values: SearchFormProps) => {
+  const handleSearchButtonClick = (values: AdminSearchFormProps) => {
     router.push(`${path}?field=${values.field}&keyword=${values.keyword}`);
   };
 

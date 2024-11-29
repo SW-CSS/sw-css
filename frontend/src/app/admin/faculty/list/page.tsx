@@ -2,7 +2,7 @@
 
 import { headers } from 'next/headers';
 
-import SearchBox from '@/components/common/admin/SearchBox';
+import AdminSearchBox from '@/components/common/admin/AdminSearchBox';
 import AdminPagination from '@/components/common/admin/AdminPagination';
 import { facultyFieldCategories, members } from '@/mocks/adminMember';
 
@@ -29,7 +29,7 @@ const Page = async ({ searchParams }: { searchParams?: { [key: string]: string |
         <span className="mr-20">
           총 <span className="text-admin-primary-main">{members.length}</span>명의 회원이 있습니다.
         </span>
-        <SearchBox
+        <AdminSearchBox
           initialValues={{ field, keyword }}
           fieldCategories={facultyFieldCategories}
           path="/admin/faculty/list"
