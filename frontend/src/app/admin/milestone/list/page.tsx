@@ -1,7 +1,7 @@
 /* eslint-disable max-len */
 import { headers } from 'next/headers';
 
-import Pagination from '@/adminComponents/Pagination';
+import AdminPagination from '@/components/common/admin/AdminPagination';
 import SearchBox from '@/components/common/admin/SearchBox';
 import { milestoneHistorySearchField } from '@/data/milestone';
 import { getMilestoneHistories } from '@/lib/api/server.api';
@@ -45,7 +45,7 @@ const Page = async ({ searchParams }: { searchParams?: { [key: string]: string |
       <div className="flex justify-end">
         <MilestoneHistoryExcelFileDownloadButton field={field} keyword={keyword} />
       </div>
-      <Pagination
+      <AdminPagination
         currentPage={page}
         totalItems={milestoneHistories?.totalElements || 0}
         pathname={pathname}

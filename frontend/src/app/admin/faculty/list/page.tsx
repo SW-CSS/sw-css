@@ -2,8 +2,8 @@
 
 import { headers } from 'next/headers';
 
-import Pagination from '@/adminComponents/Pagination';
 import SearchBox from '@/components/common/admin/SearchBox';
+import AdminPagination from '@/components/common/admin/AdminPagination';
 import { facultyFieldCategories, members } from '@/mocks/adminMember';
 
 import MemberTable from './components/MemberTable';
@@ -40,7 +40,7 @@ const Page = async ({ searchParams }: { searchParams?: { [key: string]: string |
       ) : (
         <>
           <MemberTable members={facultyMembers.content} />
-          <Pagination
+          <AdminPagination
             currentPage={page}
             totalItems={facultyMembers.totalElements}
             pathname={pathname}

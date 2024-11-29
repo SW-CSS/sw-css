@@ -10,7 +10,7 @@ import { DateTime } from 'luxon';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { useMemo, useState } from 'react';
 
-import Pagination from '@/adminComponents/Pagination';
+import AdminPagination from '@/components/common/admin/AdminPagination';
 import PeriodSearchBox from '@/components/common/PeriodSearchBox';
 import { MilestoneGroup } from '@/data/milestone';
 import { useMilestoneHistoryScoreExcelFileQuery, useMilestoneScoresQuery } from '@/lib/hooks/useAdminApi';
@@ -126,7 +126,7 @@ const Page = () => {
           Excel로 다운로드
         </button>
       </div>
-      <Pagination currentPage={page} totalItems={milestoneScores?.totalElements ?? 0} pathname={pathname} />
+      <AdminPagination currentPage={page} totalItems={milestoneScores?.totalElements ?? 0} pathname={pathname} />
     </div>
   );
 };

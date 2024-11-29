@@ -1,19 +1,23 @@
-/* eslint-disable prettier/prettier */
-/* eslint-disable import/no-extraneous-dependencies */
-/* eslint-disable max-len */
-import { VscChevronLeft } from '@react-icons/all-files/vsc/VscChevronLeft';
-import { VscChevronRight } from '@react-icons/all-files/vsc/VscChevronRight';
 import Link from 'next/link';
 
-export interface PaginationProps {
+import { VscChevronLeft } from '@react-icons/all-files/vsc/VscChevronLeft';
+import { VscChevronRight } from '@react-icons/all-files/vsc/VscChevronRight';
+
+export interface AdminPaginationProps {
   currentPage: number;
   totalItems: number;
-  itemPerPage?: number;
   pathname: string;
+  itemPerPage?: number;
   query?: string;
 }
 
-const Pagination = ({ currentPage, totalItems, itemPerPage = 10, pathname, query }: PaginationProps) => {
+export default function AdminPagination({
+  currentPage,
+  pathname,
+  totalItems,
+  itemPerPage = 10,
+  query,
+}: AdminPaginationProps) {
   const buttonPerPage = 10;
 
   const totalPageCount = Math.ceil(totalItems / itemPerPage);
@@ -47,6 +51,4 @@ const Pagination = ({ currentPage, totalItems, itemPerPage = 10, pathname, query
       </Link>
     </div>
   );
-};
-
-export default Pagination;
+}

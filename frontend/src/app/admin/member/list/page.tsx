@@ -3,7 +3,7 @@
 
 import { headers } from 'next/headers';
 
-import Pagination from '@/adminComponents/Pagination';
+import AdminPagination from '@/components/common/admin/AdminPagination';
 import SearchBox from '@/components/common/admin/SearchBox';
 import { fieldCategories, members } from '@/mocks/adminMember';
 
@@ -30,7 +30,7 @@ const Page = ({ searchParams }: { searchParams?: { [key: string]: string | undef
         <SearchBox initialValues={{ field, keyword }} fieldCategories={fieldCategories} path="/admin/member/list" />
       </div>
       <MemberTable members={members.slice((page - 1) * 10, page * 10)} />
-      <Pagination
+      <AdminPagination
         currentPage={page}
         totalItems={members.length}
         pathname={pathname}
