@@ -1,15 +1,12 @@
-/* eslint-disable prettier/prettier */
-/* eslint-disable max-len */
-
 import { headers } from 'next/headers';
 
 import AdminPagination from '@/components/common/admin/AdminPagination';
 import AdminSearchBox from '@/components/common/admin/AdminSearchBox';
+import StudentMemberTable from '@/components/ui/admin/student/StudentMemberTable';
+
 import { fieldCategories, members } from '@/mocks/adminMember';
 
-import MemberTable from './components/MemberTable';
-
-const Page = ({ searchParams }: { searchParams?: { [key: string]: string | undefined } }) => {
+export default function StudentListPage({ searchParams }: { searchParams?: { [key: string]: string | undefined } }) {
   const headersList = headers();
   const pathname = headersList.get('x-pathname') || '';
 
@@ -27,9 +24,9 @@ const Page = ({ searchParams }: { searchParams?: { [key: string]: string | undef
         <span className="mr-20">
           총 <span className="text-admin-primary-main">{members.length}</span>명의 회원이 있습니다.
         </span>
-        <AdminSearchBox initialValues={{ field, keyword }} fieldCategories={fieldCategories} path="/admin/member/list" />
+        <AdminSearchBox initialValues={{ field, keyword }} fieldCategories={fieldCategories} path="/admin/student" />
       </div>
-      <MemberTable members={members.slice((page - 1) * 10, page * 10)} />
+      <StudentMemberTable members={members.slice((page - 1) * 10, page * 10)} />
       <AdminPagination
         currentPage={page}
         totalItems={members.length}
@@ -38,6 +35,4 @@ const Page = ({ searchParams }: { searchParams?: { [key: string]: string | undef
       /> */}
     </div>
   );
-};
-
-export default Page;
+}

@@ -21,8 +21,8 @@ export const adminCategories: CategoryDto[] = [
   },
   {
     title: '학생 관리',
-    url: '/admin/member',
-    sub: [{ title: '학생 목록', url: '/admin/member', key: 'member-list' }],
+    url: '/admin/student',
+    sub: [{ title: '학생 목록', url: '/admin/student', key: 'student-list' }],
   },
   {
     title: '팀빌딩 관리',
