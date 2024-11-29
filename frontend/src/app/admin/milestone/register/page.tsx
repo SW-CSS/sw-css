@@ -1,12 +1,8 @@
-/* eslint-disable max-len */
-/* eslint-disable operator-linebreak */
-/* eslint-disable implicit-arrow-linebreak */
-
 'use client';
 
-import { Form, Formik } from 'formik';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { Form, Formik } from 'formik';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
 
@@ -35,7 +31,7 @@ const initialValues: HistoryRegisterFormProps = {
   file: undefined,
 };
 
-const Page = () => {
+export default function MilestoneRegisterPage() {
   const router = useRouter();
   const { mutate: registerHistories } = useRegisterHistoryInBatchMutation();
 
@@ -102,6 +98,4 @@ const Page = () => {
       </Formik>
     </>
   );
-};
-
-export default Page;
+}

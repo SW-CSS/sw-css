@@ -1,14 +1,9 @@
-/* eslint-disable prettier/prettier */
-/* eslint-disable operator-linebreak */
-/* eslint-disable function-paren-newline */
-/* eslint-disable implicit-arrow-linebreak */
-/* eslint-disable @typescript-eslint/no-unused-expressions */
-
 'use client';
 
 import { DateTime } from 'luxon';
 import { usePathname, useSearchParams } from 'next/navigation';
 import { useMemo, useState } from 'react';
+import { toast } from 'react-toastify';
 
 import AdminPagination from '@/components/common/admin/AdminPagination';
 import PeriodSearchBox from '@/components/common/PeriodSearchBox';
@@ -17,9 +12,8 @@ import { useMilestoneHistoryScoreExcelFileQuery, useMilestoneScoresQuery } from 
 import { useMilestoneQuery } from '@/lib/hooks/useApi';
 import { convertMilestoneGroup } from '@/lib/utils/utils';
 import { Period } from '@/types/common';
-import { toast } from 'react-toastify';
 
-const Page = () => {
+export default function MilestoneRankPage() {
   const [filterPeriod, setFilterPeriod] = useState<Period>({
     startDate: DateTime.now().minus({ years: 1 }).toFormat('yyyy-MM-dd'),
     endDate: DateTime.now().toFormat('yyyy-MM-dd'),
@@ -129,6 +123,4 @@ const Page = () => {
       <AdminPagination currentPage={page} totalItems={milestoneScores?.totalElements ?? 0} pathname={pathname} />
     </div>
   );
-};
-
-export default Page;
+}
