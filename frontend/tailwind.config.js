@@ -105,6 +105,8 @@ module.exports = {
         'client-content': '970px',
         'client-sidebar': '50px',
         'client-sidebar-open': '200px',
+        'admin-max': '1200px',
+        'admin-sidebar': '220px',
       },
       maxWidth: {
         'client-max': '1200px',
@@ -112,10 +114,12 @@ module.exports = {
       },
       minWidth: {
         admin: '1150px',
+        'admin-max': '1200px',
       },
       height: {
         'client-header': '50px',
         'client-lg-header': '76px',
+        'admin-header': '55px',
       },
       lineHeight: {
         'client-lg-header': '76px',
