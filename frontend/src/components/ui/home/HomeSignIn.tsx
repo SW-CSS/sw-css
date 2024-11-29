@@ -58,14 +58,14 @@ export default function HomeSignIn() {
       <form onSubmit={handleSubmit} className="flex gap-5">
         <div className="relative flex grow flex-col">
           <input
-            className="min-w-[232px] rounded-sm rounded-b-none border border-border p-2 outline-none placeholder:italic placeholder:text-border"
+            className="min-w-[232px] rounded-sm rounded-b-none border border-border p-2 outline-none placeholder:italic"
             placeholder="아이디 입력"
             id="email"
             value={userInfo.email}
             onChange={handleInputChange}
           />
           <input
-            className='className="min-w-[232px] placeholder:text-border" rounded-sm rounded-t-none border border-border p-2 outline-none placeholder:italic'
+            className="min-w-[232px] rounded-sm rounded-t-none border border-border p-2 outline-none placeholder:italic"
             placeholder="비밀번호 입력"
             type="password"
             id="password"
