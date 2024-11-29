@@ -1,5 +1,3 @@
-/* eslint-disable implicit-arrow-linebreak */
-
 'use client';
 
 import { useRouter } from 'next/navigation';

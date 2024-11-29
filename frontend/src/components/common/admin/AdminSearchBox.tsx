@@ -1,5 +1,3 @@
-/* eslint-disable prettier/prettier */
-
 'use client';
 
 import { Form, Formik } from 'formik';

@@ -1,4 +1,3 @@
-/* eslint-disable @next/next/no-page-custom-font */
 import { Metadata } from 'next';
 import { ToastContainer } from 'react-toastify';
 

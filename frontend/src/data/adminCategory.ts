@@ -1,4 +1,3 @@
-/* eslint-disable import/prefer-default-export */
 import { CategoryDto } from '@/types/common.dto';
 
 export const adminCategories: CategoryDto[] = [

@@ -1,4 +1,3 @@
-/* eslint-disable implicit-arrow-linebreak */
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
 import { persistReducer, persistStore } from 'redux-persist';
 

@@ -1,4 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import { CgEye } from '@react-icons/all-files/cg/CgEye';
 import Image from 'next/image';
 
