@@ -1,7 +1,7 @@
 import AdminFooter from '@/adminComponents/Footer';
-import AdminSidebar from '@/adminComponents/Sidebar';
 import { ADMIN_HEADER_HEIGHT, ADMIN_SIDEBAR_WIDTH, COLOR } from '@/adminConstants';
 import AdminHeader from '@/components/layout/AdminHeader';
+import AdminSidebar from '@/components/layout/AdminSidebar';
 
 const Layout = ({ children }: Readonly<{ children: React.ReactNode }>) => (
   <>
