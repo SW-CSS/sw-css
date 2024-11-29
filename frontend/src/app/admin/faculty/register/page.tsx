@@ -1,23 +1,15 @@
-/* eslint-disable import/no-unresolved */
-/* eslint-disable import/no-extraneous-dependencies */
-/* eslint-disable jsx-a11y/label-has-associated-control */
-/* eslint-disable jsx-a11y/no-static-element-interactions */
-/* eslint-disable jsx-a11y/click-events-have-key-events */
-/* eslint-disable max-len */
-
 'use client';
 
-import { Form, Formik } from 'formik';
+import { useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { toast } from 'react-toastify';
+import { Form, Formik } from 'formik';
 import * as Yup from 'yup';
 
-import 'react-toastify/dist/ReactToastify.css';
-import EmailTextInput from '@/components/Formik/EmailTextInput';
-import TextInput from '@/components/Formik/TextInput';
+import EmailTextInput from '@/components/common/formik/EmailTextInput';
+import TextInput from '@/components/common/formik/TextInput';
 import { useRegisterFacultiesByFileMutation, useRegisterFacultyMutation } from '@/lib/hooks/useAdminApi';
-import { useState } from 'react';
 
 interface FormType {
   email: string;
@@ -37,7 +29,7 @@ const validationSchema = Yup.object().shape({
   name: Yup.string().required('필수 입력란입니다. 이름을 입력해주세요.'),
 });
 
-const Page = () => {
+export default function FacultyRegisterPage() {
   const { mutate: registerFaculty } = useRegisterFacultyMutation();
   const { mutate: registerFacultiesByFile } = useRegisterFacultiesByFileMutation();
   const [errorMessage, setErrorMessage] = useState<String>();
@@ -91,7 +83,13 @@ const Page = () => {
         <p className="text-lg font-semibold">교직원 일괄 등록 방법</p>
         <ul className="flex flex-col gap-2 px-4 pb-8 pt-4">
           <li className="flex text-base">
-            <Image src="/images/admin/xlsx_icon.svg" alt="xlsx" width="16" height="16" />
+            <Image
+              src="/images/admin/xlsx_icon.svg"
+              alt="xlsx"
+              width="16"
+              height="16"
+              style={{ width: 16, height: 16 }}
+            />
             <button
               type="button"
               className="pl-[0.5px] text-green-500 underline underline-offset-4"
@@ -197,6 +195,4 @@ const Page = () => {
       </div>
     </>
   );
-};
-
-export default Page;
+}

@@ -1,19 +1,19 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { toast } from 'react-toastify';
 
-import PageTitle from '@/app/(client)/components/PageTitle';
+import PageTitle from '@/components/common/PageTitle';
 import { SignUpPhase } from '@/data/signUp';
 
-import SignUpFirstPage, { FirstInfo } from './components/SignUpFirstPage';
-import SignUpSecondPage, { SecondInfo } from './components/SignUpSecondPage';
 import { useSignUpMutation } from '@/lib/hooks/useApi';
-import { toast } from 'react-toastify';
-import { useRouter } from 'next/navigation';
+import AuthSignUpFirst, { FirstInfo } from '@/components/ui/auth/AuthSignUpFirst';
+import AuthSignUpSecond, { SecondInfo } from '@/components/ui/auth/AuthSignUpSecond';
 
 type UserInformation = FirstInfo & SecondInfo;
 
-const Page = () => {
+export default function SignUpPage() {
   const [userInfo, setUserInfo] = useState<UserInformation>({
     email: '',
     authCode: '',
@@ -63,12 +63,12 @@ const Page = () => {
   return (
     <div className="mx-auto w-sign max-w-full pb-10 pt-14 lg:pt-20">
       <div className="flex w-full flex-col gap-10 p-5">
-        <PageTitle title="회원가입" description="PNU SW역량시스템 첫 사용시 회원가입이 필요합니다." urlText="" url="" />
+        <PageTitle title="회원가입" description="PNU SW역량시스템 첫 사용시 회원가입이 필요합니다." />
         {phase === SignUpPhase.one && (
-          <SignUpFirstPage initialValues={userInfo} handleNextButtonClick={handleNextButtonClick} />
+          <AuthSignUpFirst initialValues={userInfo} handleNextButtonClick={handleNextButtonClick} />
         )}
         {phase === SignUpPhase.two && (
-          <SignUpSecondPage
+          <AuthSignUpSecond
             initialValues={userInfo}
             handlePrevButtonClick={handlePrevButtonClick}
             handleSubmitButtonClick={handleSubmitButtonClick}
@@ -77,6 +77,4 @@ const Page = () => {
       </div>
     </div>
   );
-};
-
-export default Page;
+}

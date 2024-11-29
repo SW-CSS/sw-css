@@ -1,6 +1,3 @@
-/* eslint-disable react/jsx-no-useless-fragment */
-/* eslint-disable max-len */
-
 'use client';
 
 import { useServerInsertedHTML } from 'next/navigation';

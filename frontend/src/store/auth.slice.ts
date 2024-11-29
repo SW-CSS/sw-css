@@ -1,4 +1,3 @@
-/* eslint-disable import/no-extraneous-dependencies */
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import cookie from 'react-cookies';
 
