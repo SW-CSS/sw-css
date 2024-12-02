@@ -3,7 +3,7 @@
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 
-import { TextInput } from '@/components/common/formik/TextInputDdang';
+import TextInput from '@/components/common/formik/TextInput';
 
 import { useState } from 'react';
 import { useSendAuthCodeMutation } from '@/lib/hooks/useApi';
