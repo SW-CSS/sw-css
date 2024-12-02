@@ -9,6 +9,7 @@ import MyPageMilestoneOverview from '@/components/ui/my-page/MyPageMilestoneOver
 import MilestoneAcceptedTable from '@/components/ui/milestone/MilestoneAcceptedTable';
 
 import { Period } from '@/types/common';
+import PageTitle from '@/components/common/PageTitle';
 
 export default function MyPageMilestonePage() {
   const searchParams = useSearchParams();
@@ -29,7 +30,7 @@ export default function MyPageMilestonePage() {
   return (
     <div className="w-full rounded-sm bg-white p-5">
       <div className="mb-6 flex flex-wrap justify-between gap-4">
-        <p className="min-w-[10em] text-xl font-bold">마일스톤 획득 내역</p>
+        <PageTitle title="마일스톤 획득 내역" className="grow" />
         <PeriodSearchBox setPeriod={setFilterPeriod} period={filterPeriod} setSearchPeriod={setSearchFilterPeriod} />
       </div>
       <div className="mb-6 text-lg font-bold">전체 현황</div>

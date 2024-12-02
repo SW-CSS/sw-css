@@ -17,7 +17,7 @@ export default function PeriodSearchBox({ period, setPeriod, setSearchPeriod }: 
   };
 
   return (
-    <div className="flex flex-grow flex-col items-center justify-center gap-x-4 sm:flex-row">
+    <div className="flex flex-col items-center justify-center gap-x-4 sm:flex-row">
       <input
         className="rounded-md border-none bg-border p-2 text-center focus:outline-black"
         type="date"
