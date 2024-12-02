@@ -30,10 +30,10 @@ export const adminCategories: CategoryDto[] = [
   },
   {
     title: '대회 관리',
-    url: '/admin/contest',
+    url: '/admin/hackathon',
     sub: [
-      { title: '대회 목록', url: '/admin/contest', key: 'contest-list' },
-      { title: '대회 생성', url: '/admin/contest/create', key: 'contest-create' },
+      { title: '해커톤 목록', url: '/admin/hackathon', key: 'hackathon-list' },
+      { title: '해커톤 등록', url: '/admin/hackathon/register', key: 'hackathon-register' },
     ],
   },
 ];
