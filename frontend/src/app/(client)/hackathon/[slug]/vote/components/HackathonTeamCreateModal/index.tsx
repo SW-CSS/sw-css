@@ -55,7 +55,7 @@ const validationSchema = Yup.object().shape({
 });
 
 interface HackathonTeamFormProps {
-  image?: File;
+  image: File | null;
   name: string;
   work: string;
   githubUrl: string;
@@ -65,7 +65,7 @@ interface HackathonTeamFormProps {
 }
 
 const initialValues: HackathonTeamFormProps = {
-  image: undefined,
+  image: null,
   name: '',
   work: '',
   githubUrl: '',

@@ -211,7 +211,7 @@ export interface TeamMember {
 
 export interface HackathonTeamCreateDto {
   hackathonId: number;
-  image?: File;
+  image: File | null;
   name: string;
   work: string;
   githubUrl: string;

@@ -8,7 +8,7 @@ type BuiltInImageUploaderProps = React.DetailedHTMLProps<React.InputHTMLAttribut
 interface CustomImageUploaderProps {
   name: string;
   label?: string;
-  image: File | undefined;
+  image: File | null;
   setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void;
   errorText?: string;
 }
