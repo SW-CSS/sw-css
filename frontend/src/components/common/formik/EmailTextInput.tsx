@@ -4,14 +4,12 @@ interface CustomTextInputProps {
   name: string;
   label: string;
   errorText?: string;
-  onKeyDownEnter?(): void;
-  onChangeText?(text: string): void;
 }
 
 export type TextInputProps = BuiltInTextInputProps & CustomTextInputProps;
 
 const EmailTextInput = ({ ...props }: TextInputProps) => {
-  const { label, errorText, onKeyDownEnter, onChangeText, ...inputProps } = props;
+  const { label, errorText, ...inputProps } = props;
   const hasError = errorText !== undefined;
 
   return (
@@ -28,16 +26,6 @@ const EmailTextInput = ({ ...props }: TextInputProps) => {
       <div className="relative w-full">
         <input
           {...inputProps}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter') {
-              onKeyDownEnter?.();
-            }
-            inputProps.onKeyDown?.(e);
-          }}
-          onChange={(e) => {
-            inputProps.onChange?.(e);
-            onChangeText?.(e.target.value);
-          }}
           className={`m-0 w-full rounded-sm border-[1px] border-border p-3 text-base ${hasError && 'border-red-400'}`}
         />
         <p className="absolute right-4 top-1/2 -translate-y-1/2 text-sm text-comment">@pusan.ac.kr</p>

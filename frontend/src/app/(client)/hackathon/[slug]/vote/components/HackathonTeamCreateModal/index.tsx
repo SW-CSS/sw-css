@@ -144,7 +144,6 @@ const HackathonTeamCreateModal = ({ hackathonId, open, onClose }: HackathonTeamC
                   <div className="mx-auto h-[120px] w-[210px] md:m-0">
                     <ImageUploader
                       name="image"
-                      label=""
                       image={values.image}
                       setFieldValue={setFieldValue}
                       errorText={touched.image && errors.image ? errors.image : undefined}

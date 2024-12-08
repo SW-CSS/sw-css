@@ -142,7 +142,6 @@ export default function MilestoneRegisterPage() {
                 errorText={touched.description && errors.description ? errors.description : undefined}
               />
               <DatePicker
-                type="date"
                 name="activatedAt"
                 label="활동 인정일"
                 tooltip="마일스톤 실적이 공식적으로 인정된 날짜를 선택해주세요.\n ex) 대회 수상일, 자격증 취득일, 프로젝트 완료일."

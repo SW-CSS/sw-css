@@ -7,18 +7,17 @@ type BuiltInImageUploaderProps = React.DetailedHTMLProps<React.InputHTMLAttribut
 
 interface CustomImageUploaderProps {
   name: string;
-  label?: string;
   image: File | null;
+  fitStand?: 'width' | 'height';
   setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void;
   errorText?: string;
 }
 
-export type ImageUploader = Omit<BuiltInImageUploaderProps, 'size'> & CustomImageUploaderProps;
+export type ImageUploader = BuiltInImageUploaderProps & CustomImageUploaderProps;
 
-const ImageUploader = ({ name, label, image, setFieldValue, errorText }: ImageUploader) => {
+const ImageUploader = ({ name, image, fitStand = 'width', setFieldValue, errorText }: ImageUploader) => {
   const [imageUrl, setImageUrl] = useState<string>('');
   const onDrop = useCallback((acceptedFiles: File[]) => {
-    console.log(acceptedFiles);
     if (acceptedFiles.length > 0) {
       setFieldValue(name, acceptedFiles[0]);
       return;
@@ -46,18 +45,20 @@ const ImageUploader = ({ name, label, image, setFieldValue, errorText }: ImageUp
     <>
       <div
         {...getRootProps()}
-        className={`${hasError && 'border-red-400'} relative flex h-full w-full flex-col items-center justify-center gap-1 rounded-sm border border-border text-comment hover:bg-background-light`}
+        className={`${hasError && 'border-red-400'} relative flex h-full w-full flex-col items-center justify-center gap-1 overflow-hidden rounded-sm border border-border text-comment hover:bg-background-light`}
       >
         <input {...getInputProps()} />
         {imageUrl ? (
           <Image
             src={imageUrl}
             alt="미리보기 이미지"
-            layout="fill"
-            objectFit="cover"
-            objectPosition="center"
             quality={100}
-            className="rounded-sm"
+            width={0}
+            height={0}
+            style={{
+              width: `${fitStand === 'width' ? '100%' : 'auto'}`,
+              height: `${fitStand === 'height' ? '100%' : 'auto'}`,
+            }}
           />
         ) : isDragActive ? (
           <p>파일을 놓으세요</p>
