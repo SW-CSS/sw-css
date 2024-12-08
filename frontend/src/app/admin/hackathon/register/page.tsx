@@ -160,7 +160,7 @@ export default function HackathonCreatePage() {
 }
 
 export type HackathonInfo = Omit<HackathonDto, 'bannerImage' | 'id'> & { bannerImage: File | null };
-export const hackathonInfoInitialValue: HackathonInfo = {
+const hackathonInfoInitialValue: HackathonInfo = {
   name: '',
   content: '',
   bannerImage: null,
@@ -171,7 +171,7 @@ export const hackathonInfoInitialValue: HackathonInfo = {
   teamCode: '',
 };
 
-export const hackathonValidationSchema = Yup.object().shape({
+const hackathonValidationSchema = Yup.object().shape({
   name: Yup.string().max(15, '대회명을 50자 이내로 입력해주세요.').required('등록할 대회명을 입력해주세요.'),
   content: Yup.string().required('등록할 대회의 상세정보를 입력해주세요.'),
   bannerImage: Yup.mixed()
