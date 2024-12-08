@@ -29,11 +29,11 @@ export const adminCategories: CategoryDto[] = [
     sub: [{ title: '팀빌딩 목록', url: '/admin/team-building', key: 'team-building-list' }],
   },
   {
-    title: '대회 관리',
-    url: '/admin/contest',
+    title: '해커톤 관리',
+    url: '/admin/hackathon',
     sub: [
-      { title: '대회 목록', url: '/admin/contest', key: 'contest-list' },
-      { title: '대회 생성', url: '/admin/contest/create', key: 'contest-create' },
+      { title: '해커톤 목록', url: '/admin/hackathon', key: 'hackathon-list' },
+      { title: '해커톤 등록', url: '/admin/hackathon/register', key: 'hackathon-register' },
     ],
   },
 ];

@@ -5,13 +5,12 @@ interface CustomInputProps {
   label: string;
   isRequired?: boolean;
   errorText?: string;
-  onChangeText?(text: string): void;
 }
 
 export type FileUploaderProps = BuiltInInputProps & CustomInputProps;
 
 export const FileUploader = ({ isRequired = false, ...props }: FileUploaderProps) => {
-  const { label, errorText, onChangeText, ...inputProps } = props;
+  const { label, errorText, ...inputProps } = props;
   const hasError = errorText !== undefined;
 
   return (
@@ -21,10 +20,6 @@ export const FileUploader = ({ isRequired = false, ...props }: FileUploaderProps
       </label>
       <input
         {...inputProps}
-        onChange={(e) => {
-          inputProps.onChange?.(e);
-          onChangeText?.(e.target.value);
-        }}
         className={`m-0 rounded-sm border-[1px] border-border p-3 text-base ${hasError && 'border-red-400'}`}
       />
       {errorText && <span className="pl-1 text-xs text-red-400">{errorText}</span>}

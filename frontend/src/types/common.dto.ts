@@ -169,24 +169,24 @@ interface StudentMemberReferenceDto {
   name: string;
 }
 
-export interface HackathonOverviewDto {
+export interface HackathonDto {
   id: number;
   name: string;
+  content: string;
+  bannerImage: string;
   applyStartDate: string;
   applyEndDate: string;
   hackathonStartDate: string;
   hackathonEndDate: string;
-  bannerImageName: string;
+  teamCode: string;
 }
+
+export type HackathonInformationDto = Omit<HackathonDto, 'teamCode'>;
+
+export type HackathonOverviewDto = Omit<HackathonDto, 'content' | 'teamCode'>;
 
 export interface HackathonPageableDto extends Pageable {
   content: HackathonOverviewDto[];
-}
-
-export interface HackathonInformationDto {
-  name: string;
-  content: string;
-  bannerImageName: string;
 }
 
 interface TeamMemberDto {
@@ -211,7 +211,7 @@ export interface TeamMember {
 
 export interface HackathonTeamCreateDto {
   hackathonId: number;
-  image?: File;
+  image: File | null;
   name: string;
   work: string;
   githubUrl: string;

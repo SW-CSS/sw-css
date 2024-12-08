@@ -70,10 +70,7 @@ export default function MilestoneRegisterPage() {
 
   return (
     <div className="rounded-sm bg-white p-5">
-      <PageTitle title="실적 등록" />
-      <p className="mb-10 mt-6 flex items-center justify-between border-b border-black py-4 text-lg font-bold">
-        실적 등록하기
-      </p>
+      <PageTitle title="마일스톤 등록" className="pb-8" />
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
@@ -145,7 +142,6 @@ export default function MilestoneRegisterPage() {
                 errorText={touched.description && errors.description ? errors.description : undefined}
               />
               <DatePicker
-                type="date"
                 name="activatedAt"
                 label="활동 인정일"
                 tooltip="마일스톤 실적이 공식적으로 인정된 날짜를 선택해주세요.\n ex) 대회 수상일, 자격증 취득일, 프로젝트 완료일."

@@ -3,10 +3,10 @@
 import { Formik, Form } from 'formik';
 import * as Yup from 'yup';
 
-import { Dropdown } from '@/components/common/formik/DropdownDdang';
-import { TextInput } from '@/components/common/formik/TextInputDdang';
-import { careerCategory } from '@/data/signUp';
+import Dropdown from '@/components/common/formik/Dropdown';
+import TextInput from '@/components/common/formik/TextInput';
 import AuthSignUpMajorDropdown from '@/components/ui/auth/AuthSignUpMajorDropdown';
+import { careerCategory } from '@/data/signUp';
 
 export interface SecondInfo {
   majorCollegeId: number;
