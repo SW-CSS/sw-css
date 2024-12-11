@@ -22,7 +22,7 @@ export const headerInfos: CategoryDto[] = [
     inHeader: true,
     sub: [
       { title: '창의융합SW해커톤', url: '/hackathon', key: 'SWHackathon' },
-      { title: 'SW문제 해결 경진대회', url: '/hackathon/sw-contest', key: 'problemContest' },
+      { title: 'SW문제해결 경진대회', url: '/hackathon/sw-contest', key: 'problemContest' },
     ],
   },
   {
