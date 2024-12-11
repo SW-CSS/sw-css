@@ -1,28 +1,25 @@
 'use client';
 
-import { useState } from 'react';
 import * as Yup from 'yup';
 import { Form, Formik } from 'formik';
 
 import PageTitle from '@/components/common/PageTitle';
-import { HackathonDto } from '@/types/common.dto';
 import TextInput from '@/components/common/formik/TextInput';
+import ImageUploader from '@/components/common/formik/ImageUploader';
+import { DatePicker } from '@/components/common/formik/DatePicker';
+import MarkdownEditor from '@/components/common/formik/MarkdownEditor';
 import AdminHackathonInputSection from '@/components/ui/admin/hackathon/AdminHackathonInputSection';
 import { MdImage } from '@react-icons/all-files/md/MdImage';
-import ImageUploader from '@/components/common/formik/ImageUploader';
 import { MdTextFields } from '@react-icons/all-files/md/MdTextFields';
 import { MdDateRange } from '@react-icons/all-files/md/MdDateRange';
-import MarkdownEditor from '@/components/common/formik/MarkdownEditor';
-import { DatePicker } from '@/components/common/formik/DatePicker';
+import { HackathonDto } from '@/types/common.dto';
 
 export default function HackathonCreatePage() {
-  const [hackathonInfo, setHackathonInfo] = useState<HackathonInfo>(hackathonInfoInitialValue);
-
   return (
     <div className="w-full">
       <PageTitle title="해커톤 등록" />
       <Formik
-        initialValues={hackathonInfo}
+        initialValues={hackathonInfoInitialValue}
         validationSchema={hackathonValidationSchema}
         onSubmit={(values, { setSubmitting }) => {
           setSubmitting(false);
@@ -37,10 +34,10 @@ export default function HackathonCreatePage() {
               inputElement={
                 <TextInput
                   name="name"
-                  value={values.name}
+                  value={values.title}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  errorText={touched.name && errors.name ? errors.name : undefined}
+                  errorText={touched.title && errors.title ? errors.title : undefined}
                   placeholder="대회명을 입력해주세요."
                 />
               }
@@ -161,7 +158,7 @@ export default function HackathonCreatePage() {
 
 export type HackathonInfo = Omit<HackathonDto, 'bannerImage' | 'id'> & { bannerImage: File | null };
 const hackathonInfoInitialValue: HackathonInfo = {
-  name: '',
+  title: '',
   content: '',
   bannerImage: null,
   applyStartDate: '',

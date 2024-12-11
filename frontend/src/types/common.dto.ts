@@ -171,7 +171,7 @@ interface StudentMemberReferenceDto {
 
 export interface HackathonDto {
   id: number;
-  name: string;
+  title: string;
   content: string;
   bannerImage: string;
   applyStartDate: string;
