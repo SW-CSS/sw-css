@@ -1,10 +1,12 @@
+import { headers } from 'next/headers';
+
 import PageTitle from '@/components/common/PageTitle';
 import AdminHackathonManageTable from '@/components/ui/admin/hackathon/AdminHackathonManageTable';
 import AdminHackathonSearchBox from '@/components/ui/admin/hackathon/AdminHackathonSearchBox';
+
+import { HackathonManageDto } from '@/types/common.dto';
 import { getAuthFromCookie } from '@/lib/utils/auth';
 import { AuthSliceState } from '@/store/auth.slice';
-import { HackathonManageDto } from '@/types/common.dto';
-import { headers } from 'next/headers';
 
 export interface HackathonListPageProps {
   searchParams?: { [key: string]: string | undefined };
