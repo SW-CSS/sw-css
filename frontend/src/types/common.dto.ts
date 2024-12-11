@@ -181,6 +181,11 @@ export interface HackathonDto {
   teamCode: string;
 }
 
+export interface HackathonManageDto
+  extends Omit<HackathonDto, 'content' | 'bannerImage' | 'applyStartDate' | 'applyEndDate'> {
+  isActive: boolean;
+}
+
 export type HackathonInformationDto = Omit<HackathonDto, 'teamCode'>;
 
 export type HackathonOverviewDto = Omit<HackathonDto, 'content' | 'teamCode'>;
