@@ -43,6 +43,9 @@ const Dropdown = ({ isRequired = false, size = 'md', ...props }: DropdownProps) 
         <button
           className={`m-0 w-full rounded-sm border-[1px] ${isAdmin ? 'border-admin-border' : 'border-border'} bg-white ${FORM_SIZE[size].padding} text-left ${FORM_SIZE[size].textSize} ${hasError && 'border-red-400'} ${typeof selectedId === 'number' && selectedId <= 0 && 'text-comment'}`}
           type="button"
+          onBlur={() => {
+            setTimeout(() => setIsOpen(false), 200);
+          }}
           onClick={() => setIsOpen((prev) => !prev)}
         >
           {selectedValue[0]?.name ?? selectOptionText}
