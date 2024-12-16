@@ -3,23 +3,14 @@ import { MilestoneGroup } from '@/data/milestone';
 import { TeamMemberRole } from '@/data/hackathon';
 import { Milestone } from './milestone';
 
-interface PageSort {
-  empty: boolean;
-  sorted: boolean;
-  unsorted: boolean;
-}
-
 interface Pageable {
   totalPages: number;
   totalElements: number;
   size: number;
-  number: number;
-  sort: PageSort;
-  first: boolean;
-  last: boolean;
-  pageable: string;
-  numberOfElements: number;
-  empty: boolean;
+  number: number; // 현재 페이지 (1 기반 인덱스)
+  pageable: string; // 페이지 요청 정보 (JSON 형식) ex {"page":1,"size":10}
+  numberOfElements: number; // 현재 페이지의 항목 수
+  empty: boolean; // // 현재 페이지가 비어 있는지 여부
 }
 
 export interface CategoryDto {
@@ -184,6 +175,10 @@ export interface HackathonDto {
 export interface HackathonManageDto
   extends Omit<HackathonDto, 'content' | 'bannerImage' | 'applyStartDate' | 'applyEndDate'> {
   isActive: boolean;
+}
+
+export interface HackathonManagePageableDto extends Pageable {
+  content: HackathonManageDto[];
 }
 
 export type HackathonInformationDto = Omit<HackathonDto, 'teamCode'>;

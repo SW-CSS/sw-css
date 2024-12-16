@@ -14,7 +14,6 @@ import { MilestoneHistorySortCriteria, SortDirection } from '@/types/milestone';
 
 import { mockHackathonPrize } from '@/mocks/hackathon';
 import { removeEmptyField } from '../utils/utils';
-import { BusinessError } from '@/types/error';
 
 export async function getMilestoneHistoriesOfStudent(
   token: string,
@@ -164,13 +163,6 @@ export async function getHackathons(page: number = 0, size: number = 10) {
       },
     ],
     empty: false,
-    first: true,
-    last: false,
-    sort: {
-      empty: false,
-      sorted: false,
-      unsorted: true,
-    },
     number: 0,
     pageable: '',
     pageSize: 6,
