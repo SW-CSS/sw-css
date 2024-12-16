@@ -14,10 +14,28 @@ import { MdTextFields } from '@react-icons/all-files/md/MdTextFields';
 import { MdDateRange } from '@react-icons/all-files/md/MdDateRange';
 import { HackathonDto } from '@/types/common.dto';
 
-export default function AdminHackathonCreatePage() {
+export interface AdminHackathonEditPageProps {
+  slug: number;
+}
+
+export type HackathonInfo = Omit<HackathonDto, 'bannerImage' | 'id'> & { bannerImage: File | null };
+
+export default function AdminHackathonEditPage({ slug }: AdminHackathonEditPageProps) {
+  // TODO: API 연결
+  const hackathonInfoInitialValue: HackathonInfo = {
+    title: '',
+    content: '',
+    bannerImage: null,
+    applyStartDate: '',
+    applyEndDate: '',
+    hackathonStartDate: '',
+    hackathonEndDate: '',
+    teamCode: '',
+  };
+
   return (
     <div className="w-full">
-      <PageTitle title="해커톤 등록" />
+      <PageTitle title="해커톤 수정" />
       <Formik
         initialValues={hackathonInfoInitialValue}
         validationSchema={hackathonValidationSchema}
@@ -146,7 +164,7 @@ export default function AdminHackathonCreatePage() {
                 className="rounded-sm bg-admin-primary-main px-8 py-2 text-lg font-bold text-white transition-colors hover:bg-admin-primary-dark"
                 disabled={isSubmitting}
               >
-                등록하기
+                수정하기
               </button>
             </div>
           </Form>
@@ -155,18 +173,6 @@ export default function AdminHackathonCreatePage() {
     </div>
   );
 }
-
-export type HackathonInfo = Omit<HackathonDto, 'bannerImage' | 'id'> & { bannerImage: File | null };
-const hackathonInfoInitialValue: HackathonInfo = {
-  title: '',
-  content: '',
-  bannerImage: null,
-  applyStartDate: '',
-  applyEndDate: '',
-  hackathonStartDate: '',
-  hackathonEndDate: '',
-  teamCode: '',
-};
 
 const hackathonValidationSchema = Yup.object().shape({
   name: Yup.string().max(15, '대회명을 50자 이내로 입력해주세요.').required('등록할 대회명을 입력해주세요.'),

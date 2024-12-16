@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { MdDeleteForever } from '@react-icons/all-files/md/MdDeleteForever';
 import { MdFileDownload } from '@react-icons/all-files/md/MdFileDownload';
 import { MdEdit } from '@react-icons/all-files/md/MdEdit';
+import { MdSettings } from '@react-icons/all-files/md/MdSettings';
 
 import { HackathonManageDto } from '@/types/common.dto';
 
@@ -27,8 +28,12 @@ export default function AdminHackathonManageTable({ hackathonInfos }: AdminHacka
     );
   }
 
+  function handleManageContestClick(hackathonId: number) {
+    router.push(`/admin/hackathon/manage/${hackathonId}`);
+  }
+
   function handleEditContestClick(hackathonId: number) {
-    router.push(`/admin/hackathon/${hackathonId}`);
+    router.push(`/admin/hackathon/edit/${hackathonId}`);
   }
 
   function handleDeleteContestClick(selectedHackathon: HackathonManageDto) {
@@ -59,6 +64,7 @@ export default function AdminHackathonManageTable({ hackathonInfos }: AdminHacka
             <th>대회명</th>
             <th className="w-60">대회기간</th>
             <th className="w-32">활성 여부</th>
+            <th className="w-20">대회 관리</th>
             <th className="w-20">대회 수정</th>
             <th className="w-20">대회 삭제</th>
             <th className="w-20">투표 결과</th>
@@ -81,6 +87,14 @@ export default function AdminHackathonManageTable({ hackathonInfos }: AdminHacka
                     <div
                       className={`absolute top-1 h-4 w-4 rounded-full bg-white transition-all ${hackathon.isActive ? 'left-7' : 'left-1'}`}
                     />
+                  </button>
+                </td>
+                <td>
+                  <button
+                    onClick={() => handleManageContestClick(hackathon.id)}
+                    className="rounded-sm px-3 py-2 text-lg text-admin-secondary-main hover:bg-gray-200 hover:text-admin-primary-main"
+                  >
+                    <MdSettings />
                   </button>
                 </td>
                 <td>
