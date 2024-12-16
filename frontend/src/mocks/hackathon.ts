@@ -5,13 +5,6 @@ export const mockHackathonTeamPageableData: HackathonTeamPageableDto = {
   totalElements: 25,
   size: 10,
   number: 1, // 현재 페이지 (1 기반 인덱스)
-  sort: {
-    empty: false,
-    sorted: true,
-    unsorted: false,
-  },
-  first: false, // 현재 페이지가 첫 페이지인지 여부
-  last: false, // 현재 페이지가 마지막 페이지인지 여부
   pageable: '{"page":1,"size":10}', // 페이지 요청 정보 (JSON 형식)
   numberOfElements: 10, // 현재 페이지의 항목 수
   empty: false, // 현재 페이지가 비어 있는지 여부
