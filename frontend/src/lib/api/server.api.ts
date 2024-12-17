@@ -101,12 +101,12 @@ export async function getMyMilestoneHistory(token: string, studentId: number, st
 }
 
 export async function getHackathons(page: number = 0, size: number = 10) {
-  const response = await server.get<HackathonPageableDto>('/hackathons', {
-    params: removeEmptyField({
-      page,
-      size,
-    }),
-  });
+  // const response = await server.get<HackathonPageableDto>('/hackathons', {
+  //   params: removeEmptyField({
+  //     page,
+  //     size,
+  //   }),
+  // });
   // TODO : API 구현
   //return response?.data;
   return {
@@ -119,7 +119,8 @@ export async function getHackathons(page: number = 0, size: number = 10) {
         applyEndDate: '2022-01-31',
         hackathonStartDate: '2022-01-01',
         hackathonEndDate: '2022-01-31',
-        bannerImageName: 'test1.jpeg',
+        bannerImageName:
+          'https://www.google.com/url?sa=i&url=https%3A%2F%2Fnamu.wiki%2Fw%2F%25EA%25B3%25A0%25EC%2596%2591%25EC%259D%25B4&psig=AOvVaw3B-ulgoJXam-5fTUvEPGSY&ust=1734485784474000&source=images&cd=vfe&opi=89978449&ved=0CBQQjRxqFwoTCMCozZrVrYoDFQAAAAAdAAAAABAE',
       },
       {
         id: 2,
@@ -129,7 +130,7 @@ export async function getHackathons(page: number = 0, size: number = 10) {
         applyEndDate: '2022-01-31',
         hackathonStartDate: '2022-01-01',
         hackathonEndDate: '2022-01-31',
-        bannerImageName: 'test2.jpeg',
+        bannerImageName: 'https://www.pusan.ac.kr/_contents/eng/_Img/Content/sym_pic1.png',
       },
       {
         id: 3,
@@ -139,7 +140,7 @@ export async function getHackathons(page: number = 0, size: number = 10) {
         applyEndDate: '2022-01-31',
         hackathonStartDate: '2022-01-01',
         hackathonEndDate: '2022-01-31',
-        bannerImageName: 'test3.png',
+        bannerImageName: 'https://www.pusan.ac.kr/_contents/eng/_Img/Content/sym_pic1.png',
       },
       {
         id: 4,
@@ -149,7 +150,7 @@ export async function getHackathons(page: number = 0, size: number = 10) {
         applyEndDate: '2022-01-31',
         hackathonStartDate: '2022-01-01',
         hackathonEndDate: '2022-01-31',
-        bannerImageName: 'test1.jpeg',
+        bannerImageName: 'https://www.pusan.ac.kr/_contents/eng/_Img/Content/sym_pic1.png',
       },
       {
         id: 5,
@@ -159,7 +160,7 @@ export async function getHackathons(page: number = 0, size: number = 10) {
         applyEndDate: '2022-01-31',
         hackathonStartDate: '2022-01-01',
         hackathonEndDate: '2022-01-31',
-        bannerImageName: 'test2.jpeg',
+        bannerImageName: 'https://www.pusan.ac.kr/_contents/eng/_Img/Content/sym_pic1.png',
       },
     ],
     empty: false,
@@ -173,7 +174,7 @@ export async function getHackathons(page: number = 0, size: number = 10) {
 }
 
 export async function getHackathonInformation(hackathonId: number) {
-  const response = await server.get<HackathonInformationDto>(`/hackathons/${hackathonId}`);
+  // const response = await server.get<HackathonInformationDto>(`/hackathons/${hackathonId}`);
   // TODO : API 구현
   //return response?.data;
   return {
@@ -187,12 +188,12 @@ This is a **bold** text with some *italic* and [a link](https://example.com).
 - ㅁ렁ㄹㄴㄹ
 1. ㄹㄴㅇㄹㅁㄹ
 `,
-    bannerImageName: 'test1.jpeg',
+    bannerImageName: 'https://www.pusan.ac.kr/_contents/eng/_Img/Content/sym_pic1.png',
   };
 }
 
 export async function getHackathonPrize(hackathonId: number) {
-  const response = await server.get<HackathonPrizeDto[]>(`/hackathons/${hackathonId}/prizes`);
+  // const response = await server.get<HackathonPrizeDto[]>(`/hackathons/${hackathonId}/prizes`);
   //TODO : API 구현
   // return response?.data;
   return mockHackathonPrize;

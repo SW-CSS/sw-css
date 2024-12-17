@@ -10,6 +10,11 @@ const nextConfig = {
       },
       {
         protocol: 'https',
+        hostname: 'www.pusan.ac.kr',
+        pathname: '**',
+      },
+      {
+        protocol: 'https',
         hostname: 'swcss.pusan.ac.kr',
         pathname: '**',
       },

@@ -50,9 +50,9 @@ const Page = async ({ searchParams }: { searchParams?: { [key: string]: string |
       />
       <div className="h-0 w-full border border-border" />
 
-      <div className="flex h-40 w-full items-center justify-center text-comment">개발 중인 기능입니다.</div>
+      {/* <div className="flex h-40 w-full items-center justify-center text-comment">개발 중인 기능입니다.</div> */}
 
-      {/* {hackathons?.content && hackathons.content.length > 0 ? (
+      {hackathons?.content && hackathons.content.length > 0 ? (
         <div className="grid grid-cols-1 gap-6 py-4 sm:grid-cols-2 md:grid-cols-3">
           {hackathons.content.map((hackathon) => (
             <Link
@@ -104,7 +104,7 @@ const Page = async ({ searchParams }: { searchParams?: { [key: string]: string |
         <div className="flex h-40 w-full items-center justify-center text-comment">해커톤 정보가 없습니다.</div>
       )}
 
-      <Pagination currentPage={page} totalItems={hackathons?.totalElements ?? 0} pathname={pathname} pageSize={6} /> */}
+      <Pagination currentPage={page} totalItems={hackathons?.totalElements ?? 0} pathname={pathname} pageSize={6} />
     </div>
   );
 };

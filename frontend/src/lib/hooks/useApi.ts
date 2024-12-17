@@ -228,10 +228,18 @@ export function useMilestoneHistoryDeleteMutation() {
 
 export function useRegisterTeamMutation() {
   return useAxiosMutation({
-    mutationFn: async ({ hackathonId, image, name, work, githubUrl, members, password }: HackathonTeamCreateDto) => {
+    mutationFn: async ({
+      hackathonId,
+      thumbnailImage,
+      teamName,
+      projectTitle,
+      githubUrl,
+      members,
+      password,
+    }: HackathonTeamCreateDto) => {
       const formData = new FormData();
-      formData.append('image', image!);
-      const blob = new Blob([JSON.stringify({ name, work, githubUrl, members, password })], {
+      formData.append('thumbnailImage', thumbnailImage!);
+      const blob = new Blob([JSON.stringify({ teamName, projectTitle, githubUrl, members, password })], {
         type: 'application/json',
       });
       formData.append('request', blob);

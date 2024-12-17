@@ -9,11 +9,11 @@ import { getAuthFromCookie } from '@/lib/utils/auth';
 import { AuthSliceState } from '@/store/auth.slice';
 import Pagination from '@/components/common/Pagination';
 
-export interface HackathonListPageProps {
+export interface AdminHackathonListPageProps {
   searchParams?: { [key: string]: string | undefined };
 }
 
-export default function HackathonListPage({ searchParams }: HackathonListPageProps) {
+export default function AdminHackathonListPage({ searchParams }: AdminHackathonListPageProps) {
   const headersList = headers();
   const pathname = headersList.get('x-pathname') || '';
 

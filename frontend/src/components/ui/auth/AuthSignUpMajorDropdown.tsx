@@ -7,8 +7,8 @@ import { CollegeDto, MajorDto } from '@/types/common.dto';
 export interface AuthSignUpMajorDropdownProps extends Omit<DropdownProps, 'options' | 'selectedId' | 'name'> {
   collegeId: number;
   majorId: number;
-  collegeName: string;
-  majorName: string;
+  collegeType: string;
+  majorType: string;
 }
 
 export default function AuthSignUpMajorDropdown({ ...props }: AuthSignUpMajorDropdownProps) {
@@ -25,7 +25,7 @@ export default function AuthSignUpMajorDropdown({ ...props }: AuthSignUpMajorDro
       setMajors(filteredMajors[0].majors);
     }
     if (props.collegeId === 0) {
-      props.setFieldValue(props.majorName, 0);
+      props.setFieldValue(props.majorType, 0);
       setMajors([{ id: 0, name: `이수 중인 ${props.label}이 없습니다.`, createdAt: '' }]);
     }
   }, [colleges, props.collegeId]);
@@ -43,7 +43,7 @@ export default function AuthSignUpMajorDropdown({ ...props }: AuthSignUpMajorDro
   return (
     <div className="">
       <Dropdown
-        name={props.collegeName}
+        name={props.collegeType}
         label={props.label}
         options={colleges}
         selectOptionText="단과대학을 선택해주세요."
@@ -53,7 +53,7 @@ export default function AuthSignUpMajorDropdown({ ...props }: AuthSignUpMajorDro
         errorText={props.errorText ? '' : undefined}
       />
       <Dropdown
-        name={props.majorName}
+        name={props.majorType}
         options={majors}
         selectOptionText={props.selectOptionText}
         selectedId={props.majorId}

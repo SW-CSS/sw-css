@@ -50,8 +50,8 @@ export default function AuthSignUpSecond({
       {({ isSubmitting, values, touched, handleChange, handleBlur, setFieldValue, errors }) => (
         <Form className="flex flex-col gap-6" autoComplete="off">
           <AuthSignUpMajorDropdown
-            collegeName="majorCollegeId"
-            majorName="majorId"
+            collegeType="majorCollegeId"
+            majorType="majorId"
             label="주전공"
             selectOptionText="주전공을 선택해주세요."
             collegeId={values.majorCollegeId}
@@ -61,8 +61,8 @@ export default function AuthSignUpSecond({
             errorText={touched.majorId && errors.majorId ? errors.majorId : undefined}
           />
           <AuthSignUpMajorDropdown
-            collegeName="minorCollegeId"
-            majorName="minorId"
+            collegeType="minorCollegeId"
+            majorType="minorId"
             label="부전공"
             selectOptionText="부전공을 선택해주세요."
             collegeId={values.minorCollegeId}
@@ -71,8 +71,8 @@ export default function AuthSignUpSecond({
             errorText={touched.minorId && errors.minorId ? errors.minorId : undefined}
           />
           <AuthSignUpMajorDropdown
-            collegeName="doubleMajorCollegeId"
-            majorName="doubleMajorId"
+            collegeType="doubleMajorCollegeId"
+            majorType="doubleMajorId"
             label="복수전공"
             selectOptionText="복수전공을 선택해주세요."
             collegeId={values.doubleMajorCollegeId}
