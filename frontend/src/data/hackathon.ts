@@ -30,3 +30,41 @@ export enum HackathonState {
   IN_PROGRESS = '진행중',
   COMPLETED = '종료',
 }
+
+export enum HackathonPrizeType {
+  GRAND_PRIZE = 'GRAND_PRIZE',
+  EXCELLENCE_PRIZE = 'EXCELLENCE_PRIZE',
+  MERIT_PRIZE = 'MERIT_PRIZE',
+  ENCOURAGEMENT_PRIZE = 'ENCOURAGEMENT_PRIZE',
+  NONE_PRIZE = 'NONE',
+}
+
+export const hackathonPrizeType = [
+  { id: HackathonPrizeType.NONE_PRIZE, name: '' },
+  { id: HackathonPrizeType.GRAND_PRIZE, name: '대상' },
+  { id: HackathonPrizeType.EXCELLENCE_PRIZE, name: '최우수상' },
+  { id: HackathonPrizeType.MERIT_PRIZE, name: '우수상' },
+  { id: HackathonPrizeType.ENCOURAGEMENT_PRIZE, name: '장려상' },
+];
+
+export const hackathonPrizeCategories = [
+  { id: -1, prize: HackathonPrizeType.NONE_PRIZE, name: 'X' },
+  { id: 1, prize: HackathonPrizeType.GRAND_PRIZE, name: '대상' },
+  { id: 2, prize: HackathonPrizeType.EXCELLENCE_PRIZE, name: '최우수상' },
+  { id: 3, prize: HackathonPrizeType.MERIT_PRIZE, name: '우수상' },
+  { id: 4, prize: HackathonPrizeType.ENCOURAGEMENT_PRIZE, name: '장려상' },
+];
+
+export function prizeNumberToString(prizeId: number) {
+  for (const { id, prize, name } of hackathonPrizeCategories) {
+    if (id === prizeId) return prize;
+  }
+  return 'NONE';
+}
+
+export function prizeStringToNumber(selectedPrize: string) {
+  for (const { id, prize, name } of hackathonPrizeCategories) {
+    if (prize === selectedPrize) return id;
+  }
+  return -1;
+}
