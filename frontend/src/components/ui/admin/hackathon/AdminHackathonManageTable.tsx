@@ -92,7 +92,7 @@ export default function AdminHackathonManageTable({ hackathonInfos }: AdminHacka
                 <td>
                   <button
                     onClick={() => handleManageContestClick(hackathon.id)}
-                    className="rounded-sm px-3 py-2 text-lg text-admin-secondary-main hover:bg-gray-200 hover:text-admin-primary-main"
+                    className="rounded-sm px-3 py-2 text-lg text-admin-secondary-main hover:bg-gray-200 hover:text-lime-700"
                   >
                     <MdSettings />
                   </button>
