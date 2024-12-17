@@ -15,12 +15,12 @@ import { MdDateRange } from '@react-icons/all-files/md/MdDateRange';
 import { HackathonDto } from '@/types/common.dto';
 
 export interface AdminHackathonEditPageProps {
-  slug: number;
+  params: { slug: number };
 }
 
 export type HackathonInfo = Omit<HackathonDto, 'bannerImage' | 'id'> & { bannerImage: File | null };
 
-export default function AdminHackathonEditPage({ slug }: AdminHackathonEditPageProps) {
+export default function AdminHackathonEditPage({ params: { slug } }: AdminHackathonEditPageProps) {
   // TODO: API 연결
   const hackathonInfoInitialValue: HackathonInfo = {
     title: '',
