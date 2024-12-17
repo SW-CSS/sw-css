@@ -172,13 +172,13 @@ export interface HackathonDto {
   teamCode: string;
 }
 
+export interface HackathonManagePageableDto extends Pageable {
+  content: HackathonManageDto[];
+}
+
 export interface HackathonManageDto
   extends Omit<HackathonDto, 'content' | 'bannerImage' | 'applyStartDate' | 'applyEndDate'> {
   isActive: boolean;
-}
-
-export interface HackathonManagePageableDto extends Pageable {
-  content: HackathonManageDto[];
 }
 
 export type HackathonInformationDto = Omit<HackathonDto, 'teamCode'>;
@@ -189,18 +189,8 @@ export interface HackathonPageableDto extends Pageable {
   content: HackathonOverviewDto[];
 }
 
-interface TeamMemberDto {
-  [key: string]: { id: number; name: string; majorName: string; isLeader: boolean }[];
-}
-
-export interface HackathonTeamDto {
-  id: number;
-  name: string;
-  work: string;
-  githubUrl: string;
-  teamMembers: TeamMemberDto;
-  thumbnailImageName: string;
-  voteCount: number;
+export interface TeamMemberDto {
+  [key: string]: { id: number; name: string; major: string; isLeader: boolean }[];
 }
 
 export interface TeamMember {
@@ -209,12 +199,23 @@ export interface TeamMember {
   isLeader: boolean;
 }
 
+export interface HackathonTeamDto {
+  id: number;
+  teamName: string;
+  projectTitle: string;
+  githubUrl: string;
+  thumbnailImage: string;
+  teamMembers: TeamMemberDto;
+  voteCount: number;
+  prize: string;
+}
+
 export interface HackathonTeamCreateDto {
   hackathonId: number;
-  image: File | null;
-  name: string;
-  work: string;
+  teamName: string;
+  projectTitle: string;
   githubUrl: string;
+  thumbnailImage: File | null;
   members: TeamMember[];
   password: string;
 }

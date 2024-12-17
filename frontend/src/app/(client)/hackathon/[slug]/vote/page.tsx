@@ -7,6 +7,7 @@ import Image from 'next/image';
 import { useState } from 'react';
 import HackathonTeamCreateModal from './components/HackathonTeamCreateModal';
 import HackathonTeamReadModal from './components/HackathonTeamReadModal';
+import { mockHackathonTeamPageableData } from '@/mocks/hackathon';
 
 interface HackathonVotePageProps {
   params: {
@@ -20,7 +21,9 @@ const Page = ({ params: { slug }, searchParams }: HackathonVotePageProps) => {
   const [teamCreateModalOpen, setTeamCreateModalOpen] = useState<boolean>(false);
 
   const page = searchParams?.page ? parseInt(searchParams.page, 10) : 1;
-  const { data: teams } = useHackathonTeamsQuery(slug, page, 8);
+  // const { data: teams } = useHackathonTeamsQuery(slug, page, 8);
+  const teams = mockHackathonTeamPageableData;
+
   return (
     <div className="flex flex-col gap-4">
       <HackathonTeamReadModal selectedTeam={selectedTeam} onClose={() => setSelectedTeam(null)} />
@@ -48,7 +51,7 @@ const Page = ({ params: { slug }, searchParams }: HackathonVotePageProps) => {
           >
             <div className="relative h-28 w-full">
               <Image
-                src={process.env.NEXT_PUBLIC_FILE_URL + '/' + team.thumbnailImageName}
+                src={process.env.NEXT_PUBLIC_FILE_URL + '/' + team.thumbnailImage}
                 alt="팀 섬네일"
                 className="rounded-t-sm"
                 layout="fill"
@@ -57,7 +60,7 @@ const Page = ({ params: { slug }, searchParams }: HackathonVotePageProps) => {
                 quality={100}
               />
             </div>
-            <p className="m-2 font-bold">{team.name}</p>
+            <p className="m-2 font-bold">{team.teamName}</p>
             <div className="flex justify-end">
               <span className="ml-4 flex-grow rounded-l-2xl border border-r-0 border-primary-main p-2 text-left text-lg text-primary-main">
                 {team.voteCount}표 득표

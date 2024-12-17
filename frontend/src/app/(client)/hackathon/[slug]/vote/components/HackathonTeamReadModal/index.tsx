@@ -40,7 +40,7 @@ const HackathonTeamReadModal = ({ selectedTeam, onClose }: HackathonTeamReadModa
         className="flex h-[600px] w-full max-w-[900px] flex-col items-center gap-2 rounded bg-white p-5 sm:h-[700px]"
       >
         <div className="flex w-full flex-wrap items-center justify-between gap-y-2">
-          <PageTitle title={selectedTeam.name} />
+          <PageTitle title={selectedTeam.teamName} description={selectedTeam.projectTitle} />
           <div className="flex flex-grow justify-end gap-2">
             <span className="flex items-center gap-1 font-bold text-primary-main">
               <VscHeart />
@@ -67,7 +67,7 @@ const HackathonTeamReadModal = ({ selectedTeam, onClose }: HackathonTeamReadModa
                         <tr key={member.id} className={classNames(member.isLeader && 'font-bold')}>
                           <td className="min-w-[4em]">{member.name}</td>
                           <td className="min-w-[10em]">{member.id}</td>
-                          <td className="hidden min-w-[10em] md:table-cell">{member.majorName}</td>
+                          <td className="hidden min-w-[10em] md:table-cell">{member.major}</td>
                           {member.isLeader && <td className="min-w-[4em]">(팀장)</td>}
                         </tr>
                       ))}

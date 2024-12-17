@@ -115,9 +115,9 @@ const HackathonTeamCreateModal = ({ hackathonId, open, onClose }: HackathonTeamC
             registerTeam(
               {
                 hackathonId: hackathonId,
-                image: values.image,
-                name: values.name,
-                work: values.work,
+                thumbnailImage: values.image,
+                teamName: values.name,
+                projectTitle: values.work,
                 githubUrl: values.githubUrl,
                 members: [values.leader, ...values.members],
                 password: values.password,
