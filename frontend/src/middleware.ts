@@ -14,9 +14,6 @@ export const middleware = (request: NextRequest) => {
   if ((!auth || !auth.isModerator) && request.nextUrl.pathname.startsWith('/admin')) {
     return Response.redirect(new URL('/', request.url));
   }
-  if (request.nextUrl.pathname === '/admin') {
-    return Response.redirect(new URL('/admin/milestone', request.url));
-  }
 
   const requestHeaders = new Headers(request.headers);
   requestHeaders.set('x-pathname', request.nextUrl.pathname);
