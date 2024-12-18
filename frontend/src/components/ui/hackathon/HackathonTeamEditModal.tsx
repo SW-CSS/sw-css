@@ -5,20 +5,17 @@ import { Form, Formik } from 'formik';
 
 import TextInput from '@/components/common/formik/TextInput';
 import ActionModal from '@/components/common/modal/ActionModal';
-import ImageUploader from '@/components/common/formik/ImageUploader';
 import HackathonTeamMemberInput from '@/components/ui/hackathon/HackathonTeamMemberInput';
-import HackathonTeamInputSection from '@/components/ui/hackathon/HackathonTeamInputSection';
+import InputSection from '@/components/common/InputSection';
 
 import { TeamMemberRole } from '@/data/hackathon';
 import { HackathonTeamCreateDto, HackathonTeamDto, TeamMember, TeamMemberDto } from '@/types/common.dto';
 
 import { CgMathPlus } from '@react-icons/all-files/cg/CgMathPlus';
-import { MdImage } from '@react-icons/all-files/md/MdImage';
 import { MdPerson } from '@react-icons/all-files/md/MdPerson';
 import { MdTextFields } from '@react-icons/all-files/md/MdTextFields';
 import { VscClose } from '@react-icons/all-files/vsc/VscClose';
 import { VscGithubInverted } from '@react-icons/all-files/vsc/VscGithubInverted';
-import Image from 'next/image';
 
 type HackathonEditTeamFormProps = Omit<HackathonTeamCreateDto, 'hackathonId' | 'password' | 'thumbnailImage'> & {
   leader: TeamMember;
@@ -62,7 +59,7 @@ export default function HackathonTeamEditModal({
       >
         {({ isSubmitting, touched, values, handleBlur, handleChange, setFieldValue, errors }) => (
           <Form className="flex max-h-[462px] w-full flex-col gap-5 overflow-auto px-10">
-            <HackathonTeamInputSection
+            <InputSection
               icon={MdTextFields}
               label="팀 이름"
               inputElement={
@@ -76,7 +73,7 @@ export default function HackathonTeamEditModal({
                 />
               }
             />
-            <HackathonTeamInputSection
+            <InputSection
               icon={MdTextFields}
               label="서비스 이름"
               inputElement={
@@ -90,7 +87,7 @@ export default function HackathonTeamEditModal({
                 />
               }
             />
-            <HackathonTeamInputSection
+            <InputSection
               icon={VscGithubInverted}
               label="Github URL"
               inputElement={
@@ -104,7 +101,7 @@ export default function HackathonTeamEditModal({
                 />
               }
             />
-            <HackathonTeamInputSection
+            <InputSection
               icon={MdPerson}
               label="팀원 구성"
               inputElement={
