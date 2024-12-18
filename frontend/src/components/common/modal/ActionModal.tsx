@@ -43,7 +43,7 @@ export default function ActionModal({
           e.stopPropagation();
         }}
         {...props}
-        className={`flex max-h-[80vh] flex-col items-center gap-5 rounded bg-white p-5 ${widthSize()}`}
+        className={`flex max-h-[80vh] max-w-[90vw] flex-col items-center gap-5 rounded bg-white p-5 ${widthSize()}`}
       >
         <div className="flex w-full items-start justify-between">
           <PageTitle title={title} description={description} />
