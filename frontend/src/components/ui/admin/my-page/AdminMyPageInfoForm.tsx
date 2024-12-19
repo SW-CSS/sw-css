@@ -76,7 +76,7 @@ export default function AdminMyPageInfoForm({ info }: AdminMyPageInfoFormProps) 
             className="rounded-md bg-primary-main px-4 py-2 font-bold text-white transition-colors hover:bg-primary-dark"
             disabled={isSubmitting}
           >
-            변경
+            내 정보 수정
           </button>
         </Form>
       )}

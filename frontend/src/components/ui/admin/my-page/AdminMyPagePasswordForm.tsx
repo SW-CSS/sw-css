@@ -97,7 +97,7 @@ export default function AdminMyPagePasswordForm() {
             className="rounded-md bg-primary-main px-4 py-2 font-bold text-white transition-colors hover:bg-primary-dark"
             disabled={isSubmitting}
           >
-            변경
+            비밀번호 변경
           </button>
         </Form>
       )}
