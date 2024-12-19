@@ -52,6 +52,7 @@ export function TabletLayoutHeader({ auth }: HeaderUIProps) {
             width="125"
             height="40"
             style={{ width: 125, height: 40 }}
+            priority
           />
         </Link>
         <div className="flex">
@@ -85,6 +86,7 @@ export function DesktopLayoutHeader({ auth }: HeaderUIProps) {
           width="160"
           height="50"
           style={{ width: 160, height: 50 }}
+          priority
         />
       </Link>
       <div style={{ display: 'flex', justifyContent: 'center', flexGrow: 1 }}>

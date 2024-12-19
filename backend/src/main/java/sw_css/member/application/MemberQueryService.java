@@ -34,8 +34,6 @@ public class MemberQueryService {
         me.setPassword(encodedPassword);
 
         memberRepository.save(me);
-
-
     }
 }
 

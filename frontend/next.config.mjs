@@ -20,6 +20,15 @@ const nextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: '/admin',
+        destination: '/admin/milestone',
+        permanent: true,
+      },
+    ];
+  },
 };
 
 if (process.env.NEXT_PUBLIC_NODE_ENV === 'prod') {

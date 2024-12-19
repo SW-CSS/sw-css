@@ -18,8 +18,8 @@ import { useRouter } from 'next/navigation';
 import { useEffect, useRef } from 'react';
 import { toast } from 'react-toastify';
 import * as Yup from 'yup';
-import TeamCreateInputSection from '../TeamCreateInputSection';
 import TeamMemberInput from '../TeamMemberInput';
+import InputSection from '@/components/common/InputSection';
 
 const validationSchema = Yup.object().shape({
   image: Yup.mixed()
@@ -137,7 +137,7 @@ const HackathonTeamCreateModal = ({ hackathonId, open, onClose }: HackathonTeamC
         >
           {({ isSubmitting, touched, values, handleBlur, handleChange, setFieldValue, errors }) => (
             <Form className="flex max-h-[462px] w-full flex-col gap-5 overflow-auto px-10">
-              <TeamCreateInputSection
+              <InputSection
                 icon={MdImage}
                 label="대표 이미지"
                 inputElement={
@@ -151,7 +151,7 @@ const HackathonTeamCreateModal = ({ hackathonId, open, onClose }: HackathonTeamC
                   </div>
                 }
               />
-              <TeamCreateInputSection
+              <InputSection
                 icon={MdTextFields}
                 label="팀 이름"
                 inputElement={
@@ -167,7 +167,7 @@ const HackathonTeamCreateModal = ({ hackathonId, open, onClose }: HackathonTeamC
                   />
                 }
               />
-              <TeamCreateInputSection
+              <InputSection
                 icon={MdTextFields}
                 label="서비스 이름"
                 inputElement={
@@ -184,7 +184,7 @@ const HackathonTeamCreateModal = ({ hackathonId, open, onClose }: HackathonTeamC
                 }
               />
 
-              <TeamCreateInputSection
+              <InputSection
                 icon={VscGithubInverted}
                 label="Github URL"
                 inputElement={
@@ -200,7 +200,7 @@ const HackathonTeamCreateModal = ({ hackathonId, open, onClose }: HackathonTeamC
                   />
                 }
               />
-              <TeamCreateInputSection
+              <InputSection
                 icon={MdPerson}
                 label="팀원 구성"
                 inputElement={
@@ -277,7 +277,7 @@ const HackathonTeamCreateModal = ({ hackathonId, open, onClose }: HackathonTeamC
                   </div>
                 }
               />
-              <TeamCreateInputSection
+              <InputSection
                 icon={MdLock}
                 label="팀 등록 코드"
                 inputElement={

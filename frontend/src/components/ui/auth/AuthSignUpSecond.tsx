@@ -52,6 +52,7 @@ export default function AuthSignUpSecond({
           <AuthSignUpMajorDropdown
             collegeType="majorCollegeId"
             majorType="majorId"
+            majorText="주전공"
             label="주전공"
             selectOptionText="주전공을 선택해주세요."
             collegeId={values.majorCollegeId}
@@ -63,6 +64,7 @@ export default function AuthSignUpSecond({
           <AuthSignUpMajorDropdown
             collegeType="minorCollegeId"
             majorType="minorId"
+            majorText="부전공"
             label="부전공"
             selectOptionText="부전공을 선택해주세요."
             collegeId={values.minorCollegeId}
@@ -73,6 +75,7 @@ export default function AuthSignUpSecond({
           <AuthSignUpMajorDropdown
             collegeType="doubleMajorCollegeId"
             majorType="doubleMajorId"
+            majorText="복수전공"
             label="복수전공"
             selectOptionText="복수전공을 선택해주세요."
             collegeId={values.doubleMajorCollegeId}

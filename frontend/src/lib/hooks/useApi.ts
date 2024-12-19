@@ -105,13 +105,14 @@ export function useMilestoneQuery() {
   });
 }
 
-export function useStudentMemberQuery(memberId: number, options?: { enabled?: boolean }) {
+export function useStudentMemberQuery(memberId?: number, options?: { enabled?: boolean }) {
+  const auth = useAppSelector((state) => state.auth).value;
   return useAxiosQuery({
     ...options,
-    queryKey: QueryKeys.STUDENT(memberId),
+    queryKey: QueryKeys.STUDENT(memberId || auth.id),
     queryFn: async (): Promise<StudentMemberDto> =>
       await client
-        .get(`/members/${memberId}`)
+        .get(`/members/${memberId || auth.id}`)
         .then((res) => res.data)
         .catch((err) => Promise.reject(err)),
   });
@@ -304,6 +305,17 @@ export function useResetPasswordMutation() {
     mutationFn: async ({ email, name }: { email: string; name: string }) =>
       await client
         .patch(`/sign-in/reset-password`, { email: email + '@pusan.ac.kr', name })
+        .then((res) => res.data)
+        .catch((err) => Promise.reject(err)),
+  });
+}
+
+export function useChangePasswordMutation() {
+  const auth = useAppSelector((state) => state.auth).value;
+  return useAxiosMutation({
+    mutationFn: async ({ oldPassword, newPassword }: { oldPassword: string; newPassword: string }) =>
+      await client
+        .patch('/members/change-password', { oldPassword, newPassword }, { headers: { Authorization: auth.token } })
         .then((res) => res.data)
         .catch((err) => Promise.reject(err)),
   });

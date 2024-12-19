@@ -4,15 +4,17 @@ import * as Yup from 'yup';
 import { Form, Formik } from 'formik';
 
 import PageTitle from '@/components/common/PageTitle';
+import InputSection from '@/components/common/InputSection';
 import TextInput from '@/components/common/formik/TextInput';
 import ImageUploader from '@/components/common/formik/ImageUploader';
 import { DatePicker } from '@/components/common/formik/DatePicker';
 import MarkdownEditor from '@/components/common/formik/MarkdownEditor';
-import AdminHackathonInputSection from '@/components/ui/admin/hackathon/AdminHackathonInputSection';
+
+import { HackathonDto } from '@/types/common.dto';
+
 import { MdImage } from '@react-icons/all-files/md/MdImage';
 import { MdTextFields } from '@react-icons/all-files/md/MdTextFields';
 import { MdDateRange } from '@react-icons/all-files/md/MdDateRange';
-import { HackathonDto } from '@/types/common.dto';
 
 export interface AdminHackathonEditPageProps {
   params: { slug: number };
@@ -46,7 +48,7 @@ export default function AdminHackathonEditPage({ params: { slug } }: AdminHackat
       >
         {({ isSubmitting, values, touched, handleChange, handleBlur, setFieldValue, errors }) => (
           <Form className="m-5 flex flex-col gap-6" autoComplete="off">
-            <AdminHackathonInputSection
+            <InputSection
               icon={MdTextFields}
               label="대회명"
               inputElement={
@@ -60,7 +62,7 @@ export default function AdminHackathonEditPage({ params: { slug } }: AdminHackat
                 />
               }
             />
-            <AdminHackathonInputSection
+            <InputSection
               icon={MdImage}
               label="배너 이미지"
               inputElement={
@@ -75,7 +77,7 @@ export default function AdminHackathonEditPage({ params: { slug } }: AdminHackat
                 </div>
               }
             />
-            <AdminHackathonInputSection
+            <InputSection
               icon={MdTextFields}
               label="대회명"
               inputElement={
@@ -89,7 +91,7 @@ export default function AdminHackathonEditPage({ params: { slug } }: AdminHackat
                 />
               }
             />
-            <AdminHackathonInputSection
+            <InputSection
               icon={MdDateRange}
               label="신청 기간"
               inputElement={
@@ -114,7 +116,7 @@ export default function AdminHackathonEditPage({ params: { slug } }: AdminHackat
                 </div>
               }
             />
-            <AdminHackathonInputSection
+            <InputSection
               icon={MdDateRange}
               label="대회 기간"
               inputElement={
@@ -143,7 +145,7 @@ export default function AdminHackathonEditPage({ params: { slug } }: AdminHackat
                 </div>
               }
             />
-            <AdminHackathonInputSection
+            <InputSection
               icon={MdTextFields}
               label="팀 등록 코드"
               tooltip="대회에 팀을 등록할 때 필요한 비밀번호입니다."

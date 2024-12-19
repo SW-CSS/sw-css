@@ -9,7 +9,7 @@ import TextInput from '@/components/common/formik/TextInput';
 import ActionModal from '@/components/common/modal/ActionModal';
 import ImageUploader from '@/components/common/formik/ImageUploader';
 import HackathonTeamMemberInput from '@/components/ui/hackathon/HackathonTeamMemberInput';
-import HackathonTeamInputSection from '@/components/ui/hackathon/HackathonTeamInputSection';
+import InputSection from '@/components/common/InputSection';
 
 import { useRegisterTeamMutation } from '@/lib/hooks/useApi';
 import { TeamMemberRole } from '@/data/hackathon';
@@ -70,7 +70,7 @@ export default function HackathonTeamCreateModal({ hackathonId, isOpen, onClose 
       >
         {({ isSubmitting, touched, values, handleBlur, handleChange, setFieldValue, errors }) => (
           <Form className="flex max-h-[462px] w-full flex-col gap-5 overflow-auto px-10">
-            <HackathonTeamInputSection
+            <InputSection
               icon={MdImage}
               label="대표 이미지"
               inputElement={
@@ -84,7 +84,7 @@ export default function HackathonTeamCreateModal({ hackathonId, isOpen, onClose 
                 </div>
               }
             />
-            <HackathonTeamInputSection
+            <InputSection
               icon={MdTextFields}
               label="팀 이름"
               inputElement={
@@ -98,7 +98,7 @@ export default function HackathonTeamCreateModal({ hackathonId, isOpen, onClose 
                 />
               }
             />
-            <HackathonTeamInputSection
+            <InputSection
               icon={MdTextFields}
               label="서비스 이름"
               inputElement={
@@ -113,7 +113,7 @@ export default function HackathonTeamCreateModal({ hackathonId, isOpen, onClose 
               }
             />
 
-            <HackathonTeamInputSection
+            <InputSection
               icon={VscGithubInverted}
               label="Github URL"
               inputElement={
@@ -129,7 +129,7 @@ export default function HackathonTeamCreateModal({ hackathonId, isOpen, onClose 
                 />
               }
             />
-            <HackathonTeamInputSection
+            <InputSection
               icon={MdPerson}
               label="팀원 구성"
               inputElement={
@@ -206,7 +206,7 @@ export default function HackathonTeamCreateModal({ hackathonId, isOpen, onClose 
                 </div>
               }
             />
-            <HackathonTeamInputSection
+            <InputSection
               icon={MdLock}
               label="팀 등록 코드"
               inputElement={

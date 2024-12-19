@@ -3,6 +3,7 @@ package sw_css.member.api;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -20,6 +21,7 @@ import sw_css.utils.annotation.MemberInterface;
 @RequestMapping("/members")
 @RestController
 @RequiredArgsConstructor
+@Transactional
 public class MemberController {
     private final MemberQueryService memberQueryService;
 

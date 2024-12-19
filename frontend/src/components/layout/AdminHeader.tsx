@@ -71,7 +71,11 @@ export function AdminGreetingUser() {
 
   return (
     <span className="flex cursor-default items-center text-xs text-admin-comment">
-      반갑습니다! <span className="text-admin-primary-main">{auth.name}</span>님
+      반갑습니다!
+      <Link href="/admin/my-page" className="ml-1 text-admin-primary-main">
+        {auth.name}
+      </Link>
+      님
     </span>
   );
 }
