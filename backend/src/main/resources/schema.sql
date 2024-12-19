@@ -6,6 +6,9 @@ drop table if exists sw_css.college;
 drop table if exists sw_css.milestone;
 drop table if exists sw_css.milestone_category;
 drop table if exists sw_css.milestone_history;
+drop table if exists sw_css.hackathon;
+drop table if exists sw_css.hackathon_team;
+drop table if exists sw_css.hackathon_team_member;
 
 create table member
 (
@@ -84,4 +87,44 @@ create table milestone_history
     activated_at  date,
     is_deleted    boolean      not null,
     created_at    datetime(6)  not null default current_timestamp(6)
+);
+
+create table hackathon
+(
+    id                      bigint auto_increment primary key,
+    name                    varchar(255) not null,
+    description             text not null,
+    password                varchar(255) not null,
+    apply_start_date        date         not null,
+    apply_end_date          date         not null,
+    hackathon_start_date    date         not null,
+    hackathon_end_date      date         not null,
+    image_url               varchar(255) not null,
+    visible_status          boolean      not null,
+    is_deleted              boolean      not null,
+    created_at              datetime(6)  not null default current_timestamp(6)
+);
+
+create table hackathon_team
+(
+    id              bigint auto_increment primary key,
+    hackathon_id    bigint       not null,
+    name            varchar(255) not null,
+    image_url       varchar(255) not null,
+    work            varchar(255) not null,
+    github_url      varchar(255) not null,
+    vote            int          not null,
+    prize           varchar(255),
+    is_deleted      boolean      not null,
+    created_at      datetime(6)  not null default current_timestamp(6)
+);
+
+create table hackathon_team_member
+(
+    id          bigint auto_increment primary key,
+    team_id     bigint       not null,
+    student_id  bigint       not null,
+    role        varchar(255) not null,
+    is_deleted  boolean      not null,
+    created_at  datetime(6)  not null default current_timestamp(6)
 );
