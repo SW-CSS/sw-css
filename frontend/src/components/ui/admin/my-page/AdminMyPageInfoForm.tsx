@@ -1,5 +1,6 @@
 'use client';
 
+import { useMemo } from 'react';
 import * as Yup from 'yup';
 import { Formik, Form } from 'formik';
 
@@ -17,6 +18,13 @@ interface AdminMyPageInfoFormProps {
 }
 
 export default function AdminMyPageInfoForm({ info }: AdminMyPageInfoFormProps) {
+  const initialInfoValues: AdminInfoFormProps = useMemo(() => {
+    return {
+      name: info.name,
+      phoneNumber: info.phoneNumber,
+    };
+  }, [info]);
+
   function handleChangeInformationButtonClick(values: AdminInfoFormProps) {
     // TODO: API 연결
   }
@@ -83,12 +91,4 @@ const validationSchema = Yup.object().shape({
     .matches(/^([0-9]{10,11})$/, '띄어쓰기나 특수기호 없이 숫자로만 입력해주세요.'),
 });
 
-interface AdminInfoFormProps {
-  name: string;
-  phoneNumber: string;
-}
-
-const initialInfoValues: AdminInfoFormProps = {
-  name: '',
-  phoneNumber: '',
-};
+interface AdminInfoFormProps extends Omit<FacultyMemberDto, 'id' | 'facultyId' | 'email'> {}
