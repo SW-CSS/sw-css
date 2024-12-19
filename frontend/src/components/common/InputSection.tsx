@@ -30,7 +30,7 @@ export default function InputSection({
           {tooltip}
         </div>
       )}
-      <div className="border border-border md:w-0" />
+      <div className="hidden border border-border md:block" />
       {inputElement}
     </div>
   );
