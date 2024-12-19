@@ -308,3 +308,14 @@ export function useResetPasswordMutation() {
         .catch((err) => Promise.reject(err)),
   });
 }
+
+export function useChangePasswordMutation() {
+  const auth = useAppSelector((state) => state.auth).value;
+  return useAxiosMutation({
+    mutationFn: async ({ oldPassword, newPassword }: { oldPassword: string; newPassword: string }) =>
+      await client
+        .patch('/members/change-password', { oldPassword, newPassword }, { headers: { Authorization: auth.token } })
+        .then((res) => res.data)
+        .catch((err) => Promise.reject(err)),
+  });
+}
