@@ -1,7 +1,8 @@
 import { IconType } from '@react-icons/all-files/lib';
 import { VscInfo } from '@react-icons/all-files/vsc/VscInfo';
 
-interface InputSectionProps {
+type DivProps = React.DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement>;
+export interface InputSectionProps {
   icon: IconType;
   label: string;
   inputElement: JSX.Element;
@@ -9,9 +10,16 @@ interface InputSectionProps {
   iconProps?: React.DetailedHTMLProps<React.HTMLAttributes<HTMLParagraphElement>, HTMLParagraphElement>;
 }
 
-export default function InputSection({ icon: Icon, label, tooltip, inputElement, iconProps }: InputSectionProps) {
+export default function InputSection({
+  icon: Icon,
+  label,
+  tooltip,
+  inputElement,
+  iconProps,
+  ...props
+}: InputSectionProps & DivProps) {
   return (
-    <div className="relative flex flex-col gap-2 md:flex-row md:gap-4">
+    <div {...props} className="relative flex flex-col gap-2 md:flex-row md:gap-4">
       <p {...iconProps} className="peer flex min-w-[120px] cursor-default items-center gap-3 font-bold">
         <Icon className="h-5 w-5" />
         {label}
