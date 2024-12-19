@@ -237,14 +237,6 @@ export interface HackathonPrizeDto {
   teams: HackathonTeamReferenceDto[];
 }
 
-export interface FacultyMemberDto {
-  id: number;
-  facultyId: number;
-  name: string;
-  email: string;
-  phoneNumber: string;
-}
-
 export interface FacultyMemberPageableDto extends Pageable {
   content: FacultyMemberDto[];
 }
