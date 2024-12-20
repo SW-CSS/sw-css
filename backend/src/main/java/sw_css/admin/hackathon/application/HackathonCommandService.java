@@ -7,18 +7,24 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
+import java.util.Arrays;
+import java.util.List;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+import sw_css.admin.hackathon.application.dto.request.AdminHackathonPrizeRequest;
 import sw_css.admin.hackathon.application.dto.request.AdminHackathonRequest;
 import sw_css.admin.hackathon.domain.HackathonStatus;
 import sw_css.admin.hackathon.exception.HackathonException;
 import sw_css.admin.hackathon.exception.HackathonExceptionType;
 import sw_css.hackathon.domain.Hackathon;
+import sw_css.hackathon.domain.HackathonPrize;
+import sw_css.hackathon.domain.HackathonTeam;
 import sw_css.hackathon.domain.repository.HackathonRepository;
+import sw_css.hackathon.domain.repository.HackathonTeamRepository;
 import sw_css.milestone.exception.MilestoneHistoryException;
 import sw_css.milestone.exception.MilestoneHistoryExceptionType;
 
@@ -27,6 +33,7 @@ import sw_css.milestone.exception.MilestoneHistoryExceptionType;
 @Transactional
 public class HackathonCommandService {
 
+    private final HackathonTeamRepository hackathonTeamRepository;
     @Value("${data.file-path-prefix}")
     private String filePathPrefix;
 
@@ -84,6 +91,31 @@ public class HackathonCommandService {
         else throw new HackathonException(HackathonExceptionType.INVALID_ACTIVE_STATUS);
 
         hackathonRepository.save(hackathon);
+    }
+
+    public void hackathonChangePrize(final Long hackathonId, List<AdminHackathonPrizeRequest.AdminTeam> teams) {
+        final Hackathon hackathon = hackathonRepository.findById(hackathonId).orElseThrow(
+                () -> new HackathonException(HackathonExceptionType.NOT_FOUND_HACKATHON));
+
+        List<HackathonTeam> hackathonTeams = hackathonTeamRepository.findByHackathonId(hackathon.getId());
+
+        for(AdminHackathonPrizeRequest.AdminTeam team : teams) {
+            for(HackathonTeam hackathonTeam : hackathonTeams) {
+                if( !hackathonTeam.getId().equals(team.id()) ) continue;
+
+                validatePrize(team.prize());
+                hackathonTeam.setPrize(team.prize());
+                hackathonTeamRepository.save(hackathonTeam);
+            }
+        }
+    }
+
+    private void validatePrize(String prize){
+        try {
+            HackathonPrize.valueOf(prize);
+        } catch (IllegalArgumentException e) {
+            throw new HackathonException(HackathonExceptionType.INVALID_PRIZE_STATUS);
+        }
     }
 
     private void validateDate(LocalDate startDate, LocalDate endDate, HackathonExceptionType exceptionType) {

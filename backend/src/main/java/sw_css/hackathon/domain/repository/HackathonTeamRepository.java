@@ -20,4 +20,6 @@ public interface HackathonTeamRepository extends JpaRepository<HackathonTeam, Lo
             "END, " +
             "h.vote DESC")
     List<HackathonTeam> findByHackathonIdSorted(@Param("hackathonId") Long hackathonId);
+
+    List<HackathonTeam> findByHackathonId(Long hackathonId);
 }

@@ -25,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 import sw_css.admin.hackathon.application.HackathonCommandService;
 import sw_css.admin.hackathon.application.HackathonQueryService;
 import sw_css.admin.hackathon.application.dto.request.AdminHackathonActiveRequest;
+import sw_css.admin.hackathon.application.dto.request.AdminHackathonPrizeRequest;
 import sw_css.admin.hackathon.application.dto.request.AdminHackathonRequest;
 import sw_css.admin.hackathon.application.dto.response.AdminHackathonDetailResponse;
 import sw_css.admin.hackathon.application.dto.response.AdminHackathonResponse;
@@ -113,5 +114,13 @@ public class HackathonController {
         return ResponseEntity.noContent().build();
     }
 
-    // TODO: 해커톤 등수 수정
+    @PatchMapping("/{hackathonId}/prize")
+    public ResponseEntity<Void> patchHackathonPrize(
+            @AdminInterface FacultyMember facultyMember,
+            @PathVariable final Long hackathonId,
+            @RequestBody @Valid AdminHackathonPrizeRequest request
+    ){
+        hackathonCommandService.hackathonChangePrize(hackathonId, request.teams());
+        return ResponseEntity.noContent().build();
+    }
 }
