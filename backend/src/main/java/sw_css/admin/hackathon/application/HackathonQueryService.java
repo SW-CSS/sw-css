@@ -23,6 +23,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sw_css.admin.hackathon.application.dto.response.AdminHackathonDetailResponse;
 import sw_css.admin.hackathon.application.dto.response.AdminHackathonResponse;
+import sw_css.admin.hackathon.domain.HackathonStatus;
 import sw_css.admin.hackathon.exception.HackathonException;
 import sw_css.admin.hackathon.exception.HackathonExceptionType;
 import sw_css.hackathon.application.dto.response.HackathonTeamResponse;
@@ -52,7 +53,7 @@ public class HackathonQueryService {
             return AdminHackathonResponse.from(hackathons);
         }
         if(visibleStatus != null) {
-            Page<Hackathon> hackathons =  hackathonRepository.findByVisibleStatus(visibleStatus.equals("ACTIVE"), pageable);
+            Page<Hackathon> hackathons =  hackathonRepository.findByVisibleStatus(visibleStatus.equals(HackathonStatus.ACTIVE.toString()), pageable);
             return AdminHackathonResponse.from(hackathons);
         }
 

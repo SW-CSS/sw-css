@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import sw_css.admin.hackathon.application.dto.request.AdminHackathonRequest;
+import sw_css.admin.hackathon.domain.HackathonStatus;
 import sw_css.admin.hackathon.exception.HackathonException;
 import sw_css.admin.hackathon.exception.HackathonExceptionType;
 import sw_css.hackathon.domain.Hackathon;
@@ -71,6 +72,17 @@ public class HackathonCommandService {
         final Hackathon hackathon = hackathonRepository.findById(hackathonId).orElseThrow(
                 () -> new HackathonException(HackathonExceptionType.NOT_FOUND_HACKATHON));
         hackathon.delete();
+        hackathonRepository.save(hackathon);
+    }
+
+    public void activeHackathon(final Long hackathonId, final String visibleStatus) {
+        final Hackathon hackathon = hackathonRepository.findById(hackathonId).orElseThrow(
+                () -> new HackathonException(HackathonExceptionType.NOT_FOUND_HACKATHON));
+
+        if(visibleStatus.equals(HackathonStatus.ACTIVE.toString())) hackathon.setVisibleStatus(true);
+        else if(visibleStatus.equals(HackathonStatus.INACTIVE.toString())) hackathon.setVisibleStatus(false);
+        else throw new HackathonException(HackathonExceptionType.INVALID_ACTIVE_STATUS);
+
         hackathonRepository.save(hackathon);
     }
 
