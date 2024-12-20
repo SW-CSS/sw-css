@@ -6,7 +6,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import sw_css.hackathon.domain.Hackathon;
 
-public record HackathonResponse(
+public record AdminHackathonResponse(
         Long id,
         String name,
         @JsonFormat(pattern = "yyyy-MM-dd")
@@ -16,9 +16,9 @@ public record HackathonResponse(
         String password,
         Boolean visibleStatus
 ) {
-    public static Page<HackathonResponse> from(Page<Hackathon> hackathons) {
+    public static Page<AdminHackathonResponse> from(Page<Hackathon> hackathons) {
         return new PageImpl<>(hackathons.stream()
-                .map(hackathon -> new HackathonResponse(
+                .map(hackathon -> new AdminHackathonResponse(
                         hackathon.getId(),
                         hackathon.getName(),
                         hackathon.getHackathonStartDate(),

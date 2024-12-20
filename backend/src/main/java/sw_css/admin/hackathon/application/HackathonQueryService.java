@@ -1,48 +1,159 @@
 package sw_css.admin.hackathon.application;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.apache.poi.ss.usermodel.BorderStyle;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.FillPatternType;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.xssf.usermodel.XSSFCellStyle;
+import org.apache.poi.xssf.usermodel.XSSFColor;
+import org.apache.poi.xssf.usermodel.XSSFFont;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import sw_css.admin.hackathon.application.dto.response.HackathonDetailResponse;
-import sw_css.admin.hackathon.application.dto.response.HackathonResponse;
+import sw_css.admin.hackathon.application.dto.response.AdminHackathonDetailResponse;
+import sw_css.admin.hackathon.application.dto.response.AdminHackathonResponse;
 import sw_css.admin.hackathon.exception.HackathonException;
 import sw_css.admin.hackathon.exception.HackathonExceptionType;
+import sw_css.hackathon.application.dto.response.HackathonTeamResponse;
 import sw_css.hackathon.domain.Hackathon;
+import sw_css.hackathon.domain.HackathonTeam;
 import sw_css.hackathon.domain.repository.HackathonRepository;
+import sw_css.hackathon.domain.repository.HackathonTeamRepository;
+import sw_css.milestone.exception.MilestoneHistoryException;
+import sw_css.milestone.exception.MilestoneHistoryExceptionType;
 
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class HackathonQueryService {
     private final HackathonRepository hackathonRepository;
+    private final HackathonTeamRepository hackathonTeamRepository;
 
-    public Page<HackathonResponse> findAllHackathons(final Pageable pageable,
-                                                     final String name,
-                                                     final String visibleStatus) {
+    public Page<AdminHackathonResponse> findAllHackathons(final Pageable pageable,
+                                                          final String name,
+                                                          final String visibleStatus) {
         if(name != null && visibleStatus != null) {
             Page<Hackathon> hackathons =  hackathonRepository.findByNameContainingAndVisibleStatus(name, visibleStatus.equals("ACTIVE"), pageable);
-            return HackathonResponse.from(hackathons);
+            return AdminHackathonResponse.from(hackathons);
         }
         if(name != null) {
             Page<Hackathon> hackathons = hackathonRepository.findByNameContaining(name, pageable);
-            return HackathonResponse.from(hackathons);
+            return AdminHackathonResponse.from(hackathons);
         }
         if(visibleStatus != null) {
             Page<Hackathon> hackathons =  hackathonRepository.findByVisibleStatus(visibleStatus.equals("ACTIVE"), pageable);
-            return HackathonResponse.from(hackathons);
+            return AdminHackathonResponse.from(hackathons);
         }
 
         Page<Hackathon> hackathons = hackathonRepository.findAll(pageable);
-        return HackathonResponse.from(hackathons);
+        return AdminHackathonResponse.from(hackathons);
     }
 
-    public HackathonDetailResponse findHackathonById(final Long id) {
+    public AdminHackathonDetailResponse findHackathonById(final Long id) {
         Hackathon hackathon = hackathonRepository.findById(id).orElseThrow(
                 () -> new HackathonException(HackathonExceptionType.NOT_FOUND_HACKATHON));
 
-        return HackathonDetailResponse.of(hackathon);
+        return AdminHackathonDetailResponse.of(hackathon);
+    }
+
+    public byte[] downloadHackathonVotesById(final Long id) {
+        Hackathon hackathon = hackathonRepository.findById(id).orElseThrow(
+                () -> new HackathonException(HackathonExceptionType.NOT_FOUND_HACKATHON));
+
+        final List<HackathonTeam> hackathonTeams = hackathonTeamRepository.findByHackathonIdSorted(hackathon.getId());
+        hackathonTeams.stream().forEach(team -> {
+            System.out.println(team.getName());
+        });
+
+        return generateHackathonVoteExcelFile(hackathonTeams);
+    }
+
+    private byte[] generateHackathonVoteExcelFile(final List<HackathonTeam> hackathonTeams){
+        Workbook workbook = new XSSFWorkbook();
+        Sheet sheet = workbook.createSheet("해커톤 투표 현황");
+        sheet.setDefaultColumnWidth(20);
+
+        XSSFFont headerXSSFFont = createHeaderFont(workbook);
+        XSSFCellStyle headerXssfCellStyle = createHeaderStyle(workbook, headerXSSFFont);
+        XSSFCellStyle bodyXssfCellStyle = createBodyStyle(workbook);
+
+        int rowCount = 0; // 데이터가 저장될 행
+        List<String> headerNames = new ArrayList<>(List.of("순위", "득표수", "팀명", "서비스명"));
+
+        Row headerRow = sheet.createRow(rowCount++);
+        Cell headerCell;
+        for (int i = 0; i < headerNames.size(); i++) {
+            headerCell = headerRow.createCell(i);
+            headerCell.setCellValue(headerNames.get(i)); // 데이터 추가
+            headerCell.setCellStyle(headerXssfCellStyle); // 스타일 추가
+        }
+
+        Row bodyRow;
+        Cell bodyCell;
+        for (int i = 0; i < hackathonTeams.size(); i++) {
+            bodyRow = sheet.createRow(rowCount++);
+
+            for (int j = 0; j < headerNames.size(); j++) {
+                bodyCell = bodyRow.createCell(j);
+                bodyCell.setCellStyle(bodyXssfCellStyle);
+            }
+            bodyRow.getCell(0).setCellValue(i+1);
+            bodyRow.getCell(1).setCellValue(hackathonTeams.get(i).getVote());
+            bodyRow.getCell(2).setCellValue(hackathonTeams.get(i).getName());
+            bodyRow.getCell(3).setCellValue(hackathonTeams.get(i).getWork());
+        }
+
+        try (ByteArrayOutputStream bos = new ByteArrayOutputStream()) {
+            workbook.write(bos);
+            workbook.close();
+            return bos.toByteArray();
+        } catch (IOException e) {
+            throw new HackathonException(HackathonExceptionType.CANNOT_OPEN_FILE);
+        }
+    }
+
+    private XSSFFont createHeaderFont(Workbook workbook) {
+        XSSFFont headerXSSFFont = (XSSFFont) workbook.createFont();
+        headerXSSFFont.setColor(new XSSFColor(new byte[]{(byte) 255, (byte) 255, (byte) 255}));
+        return headerXSSFFont;
+    }
+
+    private XSSFCellStyle createHeaderStyle(Workbook workbook, XSSFFont headerXSSFFont) {
+        XSSFCellStyle headerXssfCellStyle = (XSSFCellStyle) workbook.createCellStyle();
+
+        // 테두리 설정
+        headerXssfCellStyle.setBorderLeft(BorderStyle.THIN);
+        headerXssfCellStyle.setBorderRight(BorderStyle.THIN);
+        headerXssfCellStyle.setBorderTop(BorderStyle.THIN);
+        headerXssfCellStyle.setBorderBottom(BorderStyle.THIN);
+
+        headerXssfCellStyle.setFillForegroundColor(new XSSFColor(new byte[]{(byte) 34, (byte) 37, (byte) 41}));
+        headerXssfCellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+        headerXssfCellStyle.setFont(headerXSSFFont);
+
+        return headerXssfCellStyle;
+    }
+
+    private XSSFCellStyle createBodyStyle(Workbook workbook) {
+        XSSFCellStyle bodyXssfCellStyle = (XSSFCellStyle) workbook.createCellStyle();
+
+        // 테두리 설정
+        bodyXssfCellStyle.setBorderLeft(BorderStyle.THIN);
+        bodyXssfCellStyle.setBorderRight(BorderStyle.THIN);
+        bodyXssfCellStyle.setBorderTop(BorderStyle.THIN);
+        bodyXssfCellStyle.setBorderBottom(BorderStyle.THIN);
+        return bodyXssfCellStyle;
     }
 
 }

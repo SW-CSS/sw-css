@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-import sw_css.admin.hackathon.application.dto.request.HackathonRequest;
+import sw_css.admin.hackathon.application.dto.request.AdminHackathonRequest;
 import sw_css.admin.hackathon.exception.HackathonException;
 import sw_css.admin.hackathon.exception.HackathonExceptionType;
 import sw_css.hackathon.domain.Hackathon;
@@ -31,7 +31,7 @@ public class HackathonCommandService {
 
     private final HackathonRepository hackathonRepository;
 
-    public Long registerHackathon(final MultipartFile file, final HackathonRequest request) {
+    public Long registerHackathon(final MultipartFile file, final AdminHackathonRequest request) {
         validateFileType(file);
         validateDate(request.applyStartDate(), request.applyEndDate(), HackathonExceptionType.INVALID_APPLY_DATE);
         validateDate(request.hackathonStartDate(), request.hackathonEndDate(), HackathonExceptionType.INVALID_HACKATHON_DATE);
@@ -44,7 +44,7 @@ public class HackathonCommandService {
         return newHackathonId;
     }
 
-    public void updateHackathon(final Long hackathonId, final MultipartFile file, final HackathonRequest request) {
+    public void updateHackathon(final Long hackathonId, final MultipartFile file, final AdminHackathonRequest request) {
         final Hackathon hackathon = hackathonRepository.findById(hackathonId).orElseThrow(
                 () -> new HackathonException(HackathonExceptionType.NOT_FOUND_HACKATHON));
 

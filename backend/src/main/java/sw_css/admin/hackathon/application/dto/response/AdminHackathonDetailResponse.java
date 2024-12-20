@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDate;
 import sw_css.hackathon.domain.Hackathon;
 
-public record HackathonDetailResponse(
+public record AdminHackathonDetailResponse(
         Long id,
         String name,
         String description,
@@ -19,8 +19,8 @@ public record HackathonDetailResponse(
         LocalDate hackathonEndDate,
         String password,
         Boolean visibleStatus) {
-    public static HackathonDetailResponse of(Hackathon hackathon) {
-        return new HackathonDetailResponse(
+    public static AdminHackathonDetailResponse of(Hackathon hackathon) {
+        return new AdminHackathonDetailResponse(
                 hackathon.getId(),
                 hackathon.getName(),
                 hackathon.getDescription(),
