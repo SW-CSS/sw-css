@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import sw_css.admin.hackathon.application.HackathonCommandService;
 import sw_css.admin.hackathon.application.HackathonQueryService;
 import sw_css.admin.hackathon.application.dto.request.HackathonCreateRequest;
+import sw_css.admin.hackathon.application.dto.response.HackathonDetailResponse;
 import sw_css.admin.hackathon.application.dto.response.HackathonResponse;
 import sw_css.member.domain.FacultyMember;
 import sw_css.utils.annotation.AdminInterface;
@@ -30,7 +32,6 @@ public class HackathonController {
     private final HackathonCommandService hackathonCommandService;
     private final HackathonQueryService hackathonQueryService;
 
-    // TODO: 목록 조회
     @GetMapping
     public ResponseEntity<Page<HackathonResponse>> findAllHackathons(
             final Pageable pageable,
@@ -44,8 +45,15 @@ public class HackathonController {
     }
 
     // TODO: 상세 조회
+    @GetMapping("/{hackathonId}")
+    public ResponseEntity<HackathonDetailResponse> findHackathonById(
+            @AdminInterface FacultyMember facultyMember,
+            @PathVariable final Long hackathonId
+    ){
+        return ResponseEntity.ok(
+                hackathonQueryService.findHackathonById(hackathonId));
+    }
 
-    // TODO: 해커톤 등록
     @PostMapping
     public ResponseEntity<Void> registerHackathon(
         @AdminInterface FacultyMember facultyMember,

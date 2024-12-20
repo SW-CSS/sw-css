@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 import sw_css.base.BaseExceptionType;
 
 public enum HackathonExceptionType implements BaseExceptionType {
+    NOT_FOUND_HACKATHON(HttpStatus.NOT_FOUND, "해당 해커톤이 존재하지 않습니다."),
     NOT_EXIST_FILE(HttpStatus.BAD_REQUEST, "파일을 첨부해야 합니다."),
     INVALID_APPLY_DATE(HttpStatus.BAD_REQUEST, "신청 시작일이 신청 마지막날 보다 이후일 수 없습니다."),
     INVALID_HACKATHON_DATE(HttpStatus.BAD_REQUEST, "대회 시작일이 대회 마지막날 보다 이후일 수 없습니다."),
