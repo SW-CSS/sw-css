@@ -13,7 +13,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-import sw_css.admin.hackathon.application.dto.request.HackathonCreateRequest;
+import sw_css.admin.hackathon.application.dto.request.HackathonRequest;
 import sw_css.admin.hackathon.exception.HackathonException;
 import sw_css.admin.hackathon.exception.HackathonExceptionType;
 import sw_css.hackathon.domain.Hackathon;
@@ -31,7 +31,7 @@ public class HackathonCommandService {
 
     private final HackathonRepository hackathonRepository;
 
-    public Long registerHackathon(final MultipartFile file, final HackathonCreateRequest request) {
+    public Long registerHackathon(final MultipartFile file, final HackathonRequest request) {
         validateFileType(file);
         validateDate(request.applyStartDate(), request.applyEndDate(), HackathonExceptionType.INVALID_APPLY_DATE);
         validateDate(request.hackathonStartDate(), request.hackathonEndDate(), HackathonExceptionType.INVALID_HACKATHON_DATE);
@@ -42,6 +42,29 @@ public class HackathonCommandService {
         final Long newHackathonId = hackathonRepository.save(newHackathon).getId();
         uploadFile(file, newFilePath);
         return newHackathonId;
+    }
+
+    public void updateHackathon(final Long hackathonId, final MultipartFile file, final HackathonRequest request) {
+        final Hackathon hackathon = hackathonRepository.findById(hackathonId).orElseThrow(
+                () -> new HackathonException(HackathonExceptionType.NOT_FOUND_HACKATHON));
+
+        if(file != null) {
+            validateFileType(file);
+            final String newFilePath = generateFilePath(file);
+            uploadFile(file, newFilePath);
+            hackathon.setImageUrl(newFilePath);
+        }
+        validateDate(request.applyStartDate(), request.applyEndDate(), HackathonExceptionType.INVALID_APPLY_DATE);
+        validateDate(request.hackathonStartDate(), request.hackathonEndDate(), HackathonExceptionType.INVALID_HACKATHON_DATE);
+
+        hackathon.setName(request.name());
+        hackathon.setDescription(request.description());
+        hackathon.setPassword(request.password());
+        hackathon.setApplyStartDate(request.applyStartDate());
+        hackathon.setApplyEndDate(request.applyEndDate());
+        hackathon.setHackathonStartDate(request.hackathonStartDate());
+        hackathon.setHackathonEndDate(request.hackathonEndDate());
+        hackathonRepository.save(hackathon);
     }
 
     private void validateDate(LocalDate startDate, LocalDate endDate, HackathonExceptionType exceptionType) {

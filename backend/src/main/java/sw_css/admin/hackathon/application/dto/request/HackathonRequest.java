@@ -5,7 +5,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import java.time.LocalDate;
 
-public record HackathonCreateRequest(
+public record HackathonRequest(
         @NotBlank(message = "해커톤 명을 기재해주세요.")
         String name,
         @NotBlank(message = "해커톤 상세 내용를 기재해주세요.")

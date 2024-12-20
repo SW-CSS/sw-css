@@ -8,6 +8,7 @@ public record HackathonDetailResponse(
         Long id,
         String name,
         String description,
+        String imageUrl,
         @JsonFormat(pattern = "yyyy-MM-dd")
         LocalDate applyStartDate,
         @JsonFormat(pattern = "yyyy-MM-dd")
@@ -23,6 +24,7 @@ public record HackathonDetailResponse(
                 hackathon.getId(),
                 hackathon.getName(),
                 hackathon.getDescription(),
+                hackathon.getImageUrl(),
                 hackathon.getApplyStartDate(),
                 hackathon.getApplyEndDate(),
                 hackathon.getHackathonStartDate(),
