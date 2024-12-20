@@ -44,20 +44,20 @@ public class HackathonQueryService {
     public Page<AdminHackathonResponse> findAllHackathons(final Pageable pageable,
                                                           final String name,
                                                           final String visibleStatus) {
+        Sort sort = Sort.by(Sort.Order.desc("hackathonStartDate"));
         if(name != null && visibleStatus != null) {
-            Page<Hackathon> hackathons =  hackathonRepository.findByNameContainingAndVisibleStatus(name, visibleStatus.equals("ACTIVE"), pageable);
+            Page<Hackathon> hackathons =  hackathonRepository.findByNameContainingAndVisibleStatus(name, visibleStatus.equals("ACTIVE"), pageable, sort);
             return AdminHackathonResponse.from(hackathons);
         }
         if(name != null) {
-            Page<Hackathon> hackathons = hackathonRepository.findByNameContaining(name, pageable);
+            Page<Hackathon> hackathons = hackathonRepository.findByNameContaining(name, pageable, sort);
             return AdminHackathonResponse.from(hackathons);
         }
         if(visibleStatus != null) {
-            Page<Hackathon> hackathons =  hackathonRepository.findByVisibleStatus(visibleStatus.equals(HackathonStatus.ACTIVE.toString()), pageable);
+            Page<Hackathon> hackathons =  hackathonRepository.findByVisibleStatus(visibleStatus.equals(HackathonStatus.ACTIVE.toString()), pageable, sort);
             return AdminHackathonResponse.from(hackathons);
         }
-
-        Page<Hackathon> hackathons = hackathonRepository.findAll(pageable);
+        Page<Hackathon> hackathons = hackathonRepository.findAll(pageable, sort);
         return AdminHackathonResponse.from(hackathons);
     }
 
