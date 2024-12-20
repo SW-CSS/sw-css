@@ -67,6 +67,13 @@ public class HackathonCommandService {
         hackathonRepository.save(hackathon);
     }
 
+    public void deleteHackathon(final Long hackathonId) {
+        final Hackathon hackathon = hackathonRepository.findById(hackathonId).orElseThrow(
+                () -> new HackathonException(HackathonExceptionType.NOT_FOUND_HACKATHON));
+        hackathon.delete();
+        hackathonRepository.save(hackathon);
+    }
+
     private void validateDate(LocalDate startDate, LocalDate endDate, HackathonExceptionType exceptionType) {
         if (startDate.isAfter(endDate)) throw new HackathonException(exceptionType);
     }

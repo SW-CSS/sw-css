@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -63,7 +64,6 @@ public class HackathonController {
             return ResponseEntity.created(URI.create("/admin/hackathon/" + registeredHackathonId)).build();
     }
 
-    // TODO: 해커톤 수정
     @PatchMapping("/{hackathonId}")
     public ResponseEntity<Void> updateHackathon(
             @AdminInterface FacultyMember facultyMember,
@@ -76,6 +76,14 @@ public class HackathonController {
     }
 
     // TODO: 해커톤 삭제
+    @DeleteMapping("/{hackathonId}")
+    public ResponseEntity<Void> deleteHackathon(
+            @AdminInterface FacultyMember facultyMember,
+            @PathVariable final Long hackathonId
+    ){
+        hackathonCommandService.deleteHackathon(hackathonId);
+        return ResponseEntity.noContent().build();
+    }
 
     // TODO: 해커톤 투표 결과 다운로드
 
