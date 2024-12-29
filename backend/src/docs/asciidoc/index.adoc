@@ -374,6 +374,9 @@ include::{snippets}/admin-hackathon-find/http-request.adoc[]
 .HTTP Response
 include::{snippets}/admin-hackathon-find/http-response.adoc[]
 
+.Path Parameters
+include::{snippets}/admin-hackathon-find/path-parameters.adoc[]
+
 .Response Body
 include::{snippets}/admin-hackathon-find/response-fields.adoc[]
 
@@ -396,5 +399,19 @@ include::{snippets}/admin-hackathon-update/http-request.adoc[]
 .Request Body
 include::{snippets}/admin-hackathon-update/request-parts.adoc[]
 
+.Path Parameters
+include::{snippets}/admin-hackathon-update/path-parameters.adoc[]
+
 .HTTP Response
 include::{snippets}/admin-hackathon-update/http-response.adoc[]
+
+=== `DELETE`: 관리자의 해커톤 삭제
+
+.HTTP Request
+include::{snippets}/admin-hackathon-delete/http-request.adoc[]
+
+.Path Parameters
+include::{snippets}/admin-hackathon-delete/path-parameters.adoc[]
+
+.HTTP Response
+include::{snippets}/admin-hackathon-delete/http-response.adoc[]

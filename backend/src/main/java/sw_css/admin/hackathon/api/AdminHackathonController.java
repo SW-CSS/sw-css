@@ -64,7 +64,7 @@ public class AdminHackathonController {
     @PostMapping
     public ResponseEntity<Void> registerHackathon(
         @AdminInterface FacultyMember facultyMember,
-        @RequestPart(value = "file", required = false) final MultipartFile file,
+        @RequestPart(value = "file") final MultipartFile file,
         @RequestPart(value = "request") @Valid final AdminHackathonRequest request) {
             final Long registeredHackathonId = adminHackathonCommandService.registerHackathon(file, request);
             return ResponseEntity.created(URI.create("/admin/hackathon/" + registeredHackathonId)).build();

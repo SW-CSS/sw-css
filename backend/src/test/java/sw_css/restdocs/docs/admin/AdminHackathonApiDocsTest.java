@@ -9,6 +9,7 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWit
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.restdocs.request.RequestDocumentation.partWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.restdocs.request.RequestDocumentation.queryParameters;
 import static org.springframework.restdocs.request.RequestDocumentation.requestParts;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -31,6 +32,7 @@ import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.restdocs.payload.RequestFieldsSnippet;
 import org.springframework.restdocs.payload.ResponseFieldsSnippet;
+import org.springframework.restdocs.request.PathParametersSnippet;
 import org.springframework.restdocs.request.QueryParametersSnippet;
 import org.springframework.restdocs.request.RequestPartsSnippet;
 import sw_css.admin.hackathon.api.AdminHackathonController;
@@ -45,7 +47,7 @@ import sw_css.restdocs.RestDocsTest;
 public class AdminHackathonApiDocsTest extends RestDocsTest {
 
     @Test
-    @DisplayName("[성공] 관리자가 해커톤 전체 목록 조회 가능")
+    @DisplayName("[성공] 관리자가 해커톤 전체 목록을 조회할 수 있다.")
     public void findAllHackathons() throws Exception {
         // given
         final QueryParametersSnippet queryParameters = queryParameters(
@@ -113,9 +115,12 @@ public class AdminHackathonApiDocsTest extends RestDocsTest {
     }
 
     @Test
-    @DisplayName("[성공] 관리자가 해커톤 상세 조회 가능")
+    @DisplayName("[성공] 관리자가 해커톤 상세 조회할 수 있다.")
     public void findHackathon() throws Exception {
         // given
+        final PathParametersSnippet pathParameters = pathParameters(
+                parameterWithName("hackathonId").description("해커톤 id")
+        );
         final ResponseFieldsSnippet responseBodySnippet = responseFields(
                 fieldWithPath("id").type(JsonFieldType.NUMBER).description("해커톤 id"),
                 fieldWithPath("name").type(JsonFieldType.STRING).description("해커톤 명"),
@@ -143,11 +148,11 @@ public class AdminHackathonApiDocsTest extends RestDocsTest {
                 RestDocumentationRequestBuilders.get("/admin/hackathons/{hackathonId}", hackathonId)
                         .header(HttpHeaders.AUTHORIZATION, token))
                 .andExpect(status().isOk())
-                .andDo(document("admin-hackathon-find", responseBodySnippet));
+                .andDo(document("admin-hackathon-find", pathParameters, responseBodySnippet));
     }
 
     @Test
-    @DisplayName("[성공] 관리자의 해커톤 생성")
+    @DisplayName("[성공] 관리자의 해커톤 생성할 수 있다.")
     public void registerHackathon() throws Exception {
         // given
         final RequestPartsSnippet requestPartsSnippet = requestParts(
@@ -177,9 +182,13 @@ public class AdminHackathonApiDocsTest extends RestDocsTest {
     }
 
     @Test
-    @DisplayName("[성공] 관리자의 해커톤 수정")
+    @DisplayName("[성공] 관리자의 해커톤 수정할 수 있다.")
     public void updateHackathon() throws Exception {
         // given
+        final PathParametersSnippet pathParameters = pathParameters(
+                parameterWithName("hackathonId").description("해커톤 id")
+        );
+
         final RequestPartsSnippet requestPartsSnippet = requestParts(
                 partWithName("request").description(
                         "해커톤 정보( name: 해커톤 명, description: 해커톤 내용, password: 해커톤 비밀번호, applyStartDate: 해커톤 지원 시작일(yyy-MM-dd), applyEndDate: 해커톤 지원 미자믹일(yyy-MM-dd), hackathonStartDate: 해커돈 대회 시작일(yyy-MM-dd), hackathonEndDate: 해커톤 대회 마지막일(yyy-MM-dd))"),
@@ -207,11 +216,30 @@ public class AdminHackathonApiDocsTest extends RestDocsTest {
                                 return request1;
                             }))
                 .andExpect(status().isNoContent())
-                .andDo(document("admin-hackathon-update", requestPartsSnippet));
+                .andDo(document("admin-hackathon-update", pathParameters, requestPartsSnippet));
     }
 
-
     // 해커톤 삭제
+    @Test
+    @DisplayName("[성공] 관리자는 해커톤을 삭제할 수 있다.")
+    public void deleteHackathon() throws Exception {
+        // given
+        final PathParametersSnippet pathParameters = pathParameters(
+                parameterWithName("hackathonId").description("해커톤 id")
+        );
+
+        final Long hackathonId = 1L;
+        final String token = "Bearer AccessToken";
+
+        // when
+        doNothing().when(adminHackathonCommandService).deleteHackathon(hackathonId);
+
+        // then
+        mockMvc.perform(RestDocumentationRequestBuilders.delete("/admin/hackathons/{hackathonId}", hackathonId)
+                        .header(HttpHeaders.AUTHORIZATION, token))
+                .andExpect(status().isNoContent())
+                .andDo(document("admin-hackathon-delete", pathParameters));
+    }
 
     // 해커톤 투표 결과 다운로드
 
