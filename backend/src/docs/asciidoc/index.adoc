@@ -426,3 +426,17 @@ include::{snippets}/admin-hackathon-download-vote/path-parameters.adoc[]
 
 .HTTP Response
 include::{snippets}/admin-hackathon-download-vote/http-response.adoc[]
+
+=== `PATCH`: 관리자의 해커톤 활성화 수정
+
+.HTTP Request
+include::{snippets}/admin-hackathon-update-active/http-request.adoc[]
+
+.Path Parameters
+include::{snippets}/admin-hackathon-update-active/path-parameters.adoc[]
+
+.Request Body
+include::{snippets}/admin-hackathon-update-active/request-fields.adoc[]
+
+.HTTP Response
+include::{snippets}/admin-hackathon-update-active/http-response.adoc[]

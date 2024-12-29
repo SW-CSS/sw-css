@@ -3,9 +3,11 @@ package sw_css.restdocs.docs.admin;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
+import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.multipart;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
+import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
 import static org.springframework.restdocs.request.RequestDocumentation.partWithName;
@@ -37,6 +39,7 @@ import org.springframework.restdocs.request.QueryParametersSnippet;
 import org.springframework.restdocs.request.RequestPartsSnippet;
 import sw_css.admin.hackathon.api.AdminHackathonController;
 import sw_css.admin.hackathon.application.AdminHackathonQueryService;
+import sw_css.admin.hackathon.application.dto.request.AdminHackathonActiveRequest;
 import sw_css.admin.hackathon.application.dto.request.AdminHackathonRequest;
 import sw_css.admin.hackathon.application.dto.response.AdminHackathonDetailResponse;
 import sw_css.admin.hackathon.application.dto.response.AdminHackathonResponse;
@@ -240,7 +243,6 @@ public class AdminHackathonApiDocsTest extends RestDocsTest {
                 .andDo(document("admin-hackathon-delete", pathParameters));
     }
 
-    // 해커톤 투표 결과 다운로드
     @Test
     @DisplayName("[성공] 관리자는 해커톤 투표 결과를 다운로드 받을 수 있다.")
     public void downloadHackathonVote() throws Exception {
@@ -258,13 +260,36 @@ public class AdminHackathonApiDocsTest extends RestDocsTest {
 
         // then
         mockMvc.perform(
-                RestDocumentationRequestBuilders.get("/admin/hackathons/{hackathonId}", hackathonId)
-                        .header(HttpHeaders.AUTHORIZATION, token))
+                        RestDocumentationRequestBuilders.get("/admin/hackathons/{hackathonId}/download/votes", hackathonId)
+                                .header(HttpHeaders.AUTHORIZATION, token))
                 .andExpect(status().isOk())
                 .andDo(document("admin-hackathon-download-vote", pathParameters));
     }
 
-    // 해커톤 활성화 수정
+    @Test
+    @DisplayName("[성공] 관리자는 해커톤의 활성화를 수정할 수 있다.")
+    public void updateHackathonActive() throws Exception {
+        // given
+        final PathParametersSnippet pathParameters = pathParameters(parameterWithName("hackathonId").description("해커톤 id"));
+        final RequestFieldsSnippet requestFieldsSnippet = requestFields(fieldWithPath("visibleStatus").type(JsonFieldType.STRING).description("해커톤 활성화 상태 (ACTIVE / INACTIVE)"));
+
+        final AdminHackathonActiveRequest request = new AdminHackathonActiveRequest("ACTIVE");
+        final Long hackathonId = 1L;
+        final String token = "Bearer AccessToken";
+
+        // when
+        doNothing().when(adminHackathonCommandService).activeHackathon(hackathonId, request.visibleStatus());
+
+        // then
+        mockMvc.perform(
+                RestDocumentationRequestBuilders.patch("/admin/hackathons/{hackathonId}/active", hackathonId)
+                        .contentType(APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request))
+                        .header(HttpHeaders.AUTHORIZATION, token))
+                .andExpect(status().isNoContent())
+                .andDo(document("admin-hackathon-update-active", pathParameters, requestFieldsSnippet));
+    }
+
 
     // 해커톤 상장 수정
 
