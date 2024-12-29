@@ -5,7 +5,10 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.delete;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.multipart;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.patch;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
@@ -40,10 +43,13 @@ import org.springframework.restdocs.request.RequestPartsSnippet;
 import sw_css.admin.hackathon.api.AdminHackathonController;
 import sw_css.admin.hackathon.application.AdminHackathonQueryService;
 import sw_css.admin.hackathon.application.dto.request.AdminHackathonActiveRequest;
+import sw_css.admin.hackathon.application.dto.request.AdminHackathonPrizeRequest;
+import sw_css.admin.hackathon.application.dto.request.AdminHackathonPrizeRequest.AdminTeam;
 import sw_css.admin.hackathon.application.dto.request.AdminHackathonRequest;
 import sw_css.admin.hackathon.application.dto.response.AdminHackathonDetailResponse;
 import sw_css.admin.hackathon.application.dto.response.AdminHackathonResponse;
 import sw_css.hackathon.domain.Hackathon;
+import sw_css.hackathon.domain.HackathonPrize;
 import sw_css.restdocs.RestDocsTest;
 
 @WebMvcTest(AdminHackathonController.class)
@@ -237,7 +243,7 @@ public class AdminHackathonApiDocsTest extends RestDocsTest {
         doNothing().when(adminHackathonCommandService).deleteHackathon(hackathonId);
 
         // then
-        mockMvc.perform(RestDocumentationRequestBuilders.delete("/admin/hackathons/{hackathonId}", hackathonId)
+        mockMvc.perform(delete("/admin/hackathons/{hackathonId}", hackathonId)
                         .header(HttpHeaders.AUTHORIZATION, token))
                 .andExpect(status().isNoContent())
                 .andDo(document("admin-hackathon-delete", pathParameters));
@@ -282,7 +288,7 @@ public class AdminHackathonApiDocsTest extends RestDocsTest {
 
         // then
         mockMvc.perform(
-                RestDocumentationRequestBuilders.patch("/admin/hackathons/{hackathonId}/active", hackathonId)
+                patch("/admin/hackathons/{hackathonId}/active", hackathonId)
                         .contentType(APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request))
                         .header(HttpHeaders.AUTHORIZATION, token))
@@ -290,8 +296,36 @@ public class AdminHackathonApiDocsTest extends RestDocsTest {
                 .andDo(document("admin-hackathon-update-active", pathParameters, requestFieldsSnippet));
     }
 
+    @Test
+    @DisplayName("[성공] 관리자는 해커톤 팀에게 상을 부여할 수 있다.")
+    public void updateHackathonTeamPrize() throws Exception {
+        // given
+        final PathParametersSnippet pathParameters = pathParameters(parameterWithName("hackathonId").description("해커톤 id"));
+        final RequestFieldsSnippet requestFieldsSnippet = requestFields(
+                fieldWithPath("teams[].id").type(JsonFieldType.NUMBER).description("해커톤 팀의 id"),
+                fieldWithPath("teams[].prize").type(JsonFieldType.STRING).description("해커톤 팀의 상 (GRAND_PRIZE: 대상, EXCELLENCE_PRIZE: 최우수상, MERIT_PRIZE: 우수상, ENCOURAGEMENT_PRIZE: 장려상, NONE_PRIZE: 상없음)")
+        );
 
-    // 해커톤 상장 수정
+        final List<AdminTeam> AdminTeams = List.of(
+                new AdminTeam(1L, HackathonPrize.GRAND_PRIZE.toString()),
+                new AdminTeam(2L, HackathonPrize.NONE_PRIZE.toString())
+        );
+        final AdminHackathonPrizeRequest request = new AdminHackathonPrizeRequest(AdminTeams);
+        final Long hackathonId = 1L;
+        final String token = "Bearer AccessToken";
+
+        // when
+        doNothing().when(adminHackathonCommandService).hackathonChangePrize(hackathonId, request.teams());
+
+        // then
+        mockMvc.perform(
+                patch("/admin/hackathons/{hackathonId}/prize", hackathonId)
+                        .contentType(APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request))
+                        .header(HttpHeaders.AUTHORIZATION, token))
+                .andExpect(status().isNoContent())
+                .andDo(document("admin-hackathon-change-prize", pathParameters, requestFieldsSnippet));
+    }
 
 
 }
