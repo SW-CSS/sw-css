@@ -45,4 +45,7 @@ public class HackathonTeam {
 
     @Column(nullable = false)
     private String prize;
+
+    @Column(nullable = false)
+    private boolean isDeleted;
 }

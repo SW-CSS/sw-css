@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,15 +17,14 @@ import sw_css.member.domain.FacultyMember;
 import sw_css.utils.annotation.AdminInterface;
 
 @Validated
-@RequestMapping("admin/hackathons/{hackathonId}/teams")
+@RequestMapping("admin/hackathons/{hackathonId}/teams/{teamId}")
 @RestController
 @RequiredArgsConstructor
 @Transactional
 public class AdminHackathonTeamController {
     private final AdminHackathonTeamCommandService adminHackathonTeamCommandService;
 
-    // TODO: 팀 수정
-    @PatchMapping("{teamId}")
+    @PatchMapping()
     public ResponseEntity<Void> updateHackathonTeam(
                 @AdminInterface FacultyMember facultyMember,
                 @PathVariable Long hackathonId,
@@ -35,5 +35,13 @@ public class AdminHackathonTeamController {
         return ResponseEntity.noContent().build();
     }
 
-    // TODO: 팀 삭제
+    @DeleteMapping()
+    public ResponseEntity<Void> deleteHackathonTeam(
+            @AdminInterface FacultyMember facultyMember,
+            @PathVariable Long hackathonId,
+            @PathVariable Long teamId
+    ) {
+        adminHackathonTeamCommandService.deleteHackathonTeam(hackathonId, teamId);
+        return ResponseEntity.noContent().build();
+    }
 }

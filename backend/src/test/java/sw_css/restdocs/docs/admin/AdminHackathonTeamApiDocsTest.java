@@ -3,6 +3,7 @@ package sw_css.restdocs.docs.admin;
 import static org.mockito.Mockito.doNothing;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.delete;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.patch;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
@@ -20,16 +21,12 @@ import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.restdocs.payload.RequestFieldsSnippet;
 import org.springframework.restdocs.request.PathParametersSnippet;
 import sw_css.admin.hackathon.api.AdminHackathonTeamController;
-import sw_css.admin.hackathon.application.AdminHackathonTeamCommandService;
 import sw_css.admin.hackathon.application.dto.request.AdminHackathonTeamRequest;
 import sw_css.admin.hackathon.application.dto.request.AdminHackathonTeamRequest.TeamMember;
 import sw_css.restdocs.RestDocsTest;
 
 @WebMvcTest(AdminHackathonTeamController.class)
 public class AdminHackathonTeamApiDocsTest  extends RestDocsTest {
-
-    @Autowired
-    private AdminHackathonTeamCommandService adminHackathonTeamCommandService;
 
     @Test
     @DisplayName("[성공] 관리자는 해커톤 팀의 정보를 수정할 수 있다.")
@@ -59,7 +56,6 @@ public class AdminHackathonTeamApiDocsTest  extends RestDocsTest {
         doNothing().when(adminHackathonTeamCommandService).updateHackathonTeam(hackathonId, teamId, request);
 
         // then
-
         mockMvc.perform(
                         patch("/admin/hackathons/{hackathonId}/teams/{teamId}", hackathonId, teamId)
                                 .contentType(APPLICATION_JSON)
@@ -67,5 +63,28 @@ public class AdminHackathonTeamApiDocsTest  extends RestDocsTest {
                                 .header(HttpHeaders.AUTHORIZATION, token))
                 .andExpect(status().isNoContent())
                 .andDo(document("admin-hackathon-team-update", pathParameters, requestFieldsSnippet));
+    }
+
+    @Test
+    @DisplayName("[성공] 관리자는 해커톤의 팀을 삭제할 수 있다.")
+    public void deleteHackathonTeam() throws Exception {
+        // given
+        final PathParametersSnippet pathParameters = pathParameters(
+                parameterWithName("hackathonId").description("해커톤의 id"),
+                parameterWithName("teamId").description("팀의 id")
+        );
+        final Long hackathonId = 1L;
+        final Long teamId = 1L;
+        final String token = "Bearer AccessToken";
+
+        // when
+        doNothing().when(adminHackathonTeamCommandService).deleteHackathonTeam(hackathonId, teamId);
+
+        // then
+        mockMvc.perform(
+                delete("/admin/hackathons/{hackathonId}/teams/{teamId}", hackathonId, teamId)
+                        .header(HttpHeaders.AUTHORIZATION, token))
+                .andExpect(status().isNoContent())
+                .andDo(document("admin-hackathon-team-delete", pathParameters));
     }
 }

@@ -470,3 +470,14 @@ include::{snippets}/admin-hackathon-team-update/request-fields.adoc[]
 
 .HTTP Response
 include::{snippets}/admin-hackathon-team-update/http-response.adoc[]
+
+=== `DELETE`: 관리자의 해커톤 팀 삭제
+
+.HTTP Request
+include::{snippets}/admin-hackathon-team-delete/http-request.adoc[]
+
+.Path Parameters
+include::{snippets}/admin-hackathon-team-delete/path-parameters.adoc[]
+
+.HTTP Response
+include::{snippets}/admin-hackathon-team-delete/http-response.adoc[]

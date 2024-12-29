@@ -40,9 +40,6 @@ public class AdminHackathonTeamCommandService {
 
         hackathonTeamRepository.save(hackathonTeam);
 
-        System.out.println("\n\n\n\n" + request.leader().toString() + "\n\n\n\n");
-        System.out.println(request.members().toString() + "\n\n\n\n");
-
         final HackathonTeamMember teamLeader = hackathonTeamMemberRepository.findAllByHackathonIdAndTeamIdAndIsLeaderTrue(hackathonId, teamId);
         final List<HackathonTeamMember> teamMembers = hackathonTeamMemberRepository.findAllByHackathonIdAndTeamIdAndIsLeaderFalseOrderByStudentIdAsc(hackathonId, teamId);
 
@@ -79,6 +76,16 @@ public class AdminHackathonTeamCommandService {
             HackathonTeamMember newMember = new HackathonTeamMember(hackathon, hackathonTeam, member.id(), member.role());
             hackathonTeamMemberRepository.save(newMember);
         }
+    }
+
+    public void deleteHackathonTeam(Long hackathonId, Long teamId) {
+        hackathonRepository.findById(hackathonId).orElseThrow(
+                () -> new HackathonException(HackathonExceptionType.NOT_FOUND_HACKATHON));
+        final HackathonTeam hackathonTeam = hackathonTeamRepository.findByHackathonIdAndId(hackathonId, teamId).orElseThrow(
+                () -> new HackathonException(HackathonExceptionType.NOT_FOUND_HACKATHON_TEAM));
+
+        hackathonTeam.setDeleted(true);
+        hackathonTeamRepository.save(hackathonTeam);
     }
 
     private void checkMemberAndUpdate(HackathonTeamMember originMember, TeamMember member) {
