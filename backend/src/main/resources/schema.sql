@@ -8,6 +8,7 @@ drop table if exists sw_css.milestone_category;
 drop table if exists sw_css.milestone_history;
 drop table if exists sw_css.hackathon;
 drop table if exists sw_css.hackathon_team;
+drop table if exists sw_css.hackathon_team_vote;
 drop table if exists sw_css.hackathon_team_member;
 
 create table member
@@ -113,18 +114,28 @@ create table hackathon_team
     image_url       varchar(255) not null,
     work            varchar(255) not null,
     github_url      varchar(255) not null,
-    vote            int          not null,
     prize           varchar(255),
     is_deleted      boolean      not null,
     created_at      datetime(6)  not null default current_timestamp(6)
 );
 
+create table hackathon_team_vote
+(
+    id              bigint auto_increment primary key,
+    hackathon_id    bigint       not null,
+    team_id         bigint       not null,
+    student_id      bigint       not null,
+    is_deleted      boolean      not null,
+    created_at datetime(6) not null default current_timestamp(6)
+);
+
 create table hackathon_team_member
 (
-    id          bigint auto_increment primary key,
-    team_id     bigint       not null,
-    student_id  bigint       not null,
-    role        varchar(255) not null,
-    is_deleted  boolean      not null,
-    created_at  datetime(6)  not null default current_timestamp(6)
+    id              bigint auto_increment primary key,
+    hackathon_id    bigint       not null,
+    team_id         bigint       not null,
+    student_id      bigint       not null,
+    role            varchar(255) not null,
+    is_deleted      boolean      not null,
+    created_at      datetime(6)  not null default current_timestamp(6)
 );

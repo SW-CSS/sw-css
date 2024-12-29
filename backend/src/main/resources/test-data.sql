@@ -31,19 +31,32 @@ values('제4회 PNU 창의융합 소프트웨어해커톤', '
 1. qwer', '1234', '2022-03-22', '2022-05-29', '2022-12-22', '2023-03-07', '1.png', true, false);
 
 ## hackathon team
-insert into hackathon_team (hackathon_id, name, image_url, work, github_url, vote, prize, is_deleted)
-values(1, '두레', '1.png', '두레 두레 두레 두레 두레', 'https://github.com/BDD-CLUB/01-doo-re-front', '28', 'NONE_PRIZE', false);
-insert into hackathon_team (hackathon_id, name, image_url, work, github_url, vote, prize, is_deleted)
-values(1, '키퍼', '1.png', '키퍼 키퍼 키퍼 키퍼 키퍼', 'https://github.com/KEEPER31337/Homepage-Front-R2', '52', 'EXCELLENCE_PRIZE', false);
-insert into hackathon_team (hackathon_id, name, image_url, work, github_url, vote, prize, is_deleted)
-values(1, '코드플레이스', '1.png', '코드 플레이스 코드 플레이스', 'https://github.com/pnu-code-place/code-place', '92', 'NONE_PRIZE', false);
-insert into hackathon_team (hackathon_id, name, image_url, work, github_url, vote, prize, is_deleted)
-values(1, 'Next JS', '1.png', '암어 넥스트 레블 절대로', 'https://github.com/vercel/next.js', '18', 'NONE_PRIZE', false);
-insert into hackathon_team (hackathon_id, name, image_url, work, github_url, vote, prize, is_deleted)
-values(1, 'React', '1.png', '리액트 리액트 리액트', 'https://github.com/facebook/react', '22', 'NONE_PRIZE', false);
-insert into hackathon_team (hackathon_id, name, image_url, work, github_url, vote, prize, is_deleted)
-values(2, 'React', '1.png', '리액트 리액트 리액트', 'https://github.com/facebook/react', '22', 'NONE_PRIZE', false);
+insert into hackathon_team (hackathon_id, name, image_url, work, github_url, prize, is_deleted)
+values(1, '두레', '1.png', '두레 두레 두레 두레 두레', 'https://github.com/BDD-CLUB/01-doo-re-front',  'NONE_PRIZE', false);
+insert into hackathon_team (hackathon_id, name, image_url, work, github_url, prize, is_deleted)
+values(1, '키퍼', '1.png', '키퍼 키퍼 키퍼 키퍼 키퍼', 'https://github.com/KEEPER31337/Homepage-Front-R2',  'NONE_PRIZE', false);
+insert into hackathon_team (hackathon_id, name, image_url, work, github_url, prize, is_deleted)
+values(1, '코드플레이스', '1.png', '코드 플레이스 코드 플레이스', 'https://github.com/pnu-code-place/code-place',  'NONE_PRIZE', false);
+insert into hackathon_team (hackathon_id, name, image_url, work, github_url, prize, is_deleted)
+values(1, 'Next JS', '1.png', '암어 넥스트 레블 절대로', 'https://github.com/vercel/next.js',  'NONE_PRIZE', false);
+insert into hackathon_team (hackathon_id, name, image_url, work, github_url, prize, is_deleted)
+values(1, 'React', '1.png', '리액트 리액트 리액트', 'https://github.com/facebook/react', 'NONE_PRIZE', false);
+insert into hackathon_team (hackathon_id, name, image_url, work, github_url, prize, is_deleted)
+values(2, 'React', '1.png', '리액트 리액트 리액트', 'https://github.com/facebook/react',  'NONE_PRIZE', false);
 
+## hackathon team vote
+insert into hackathon_team_vote (hackathon_id, team_id, student_id)
+values(1, 2, 202012341);
+insert into hackathon_team_vote (hackathon_id, team_id, student_id)
+values(1, 2, 202012342);
+insert into hackathon_team_vote (hackathon_id, team_id, student_id)
+values(1, 2, 202012343);
+insert into hackathon_team_vote (hackathon_id, team_id, student_id)
+values(1, 3, 202012344);
+insert into hackathon_team_vote (hackathon_id, team_id, student_id)
+values(1, 3, 202012343);
+insert into hackathon_team_vote (hackathon_id, team_id, student_id)
+values(1, 1, 202012345);
 
 
 ## milestone histories

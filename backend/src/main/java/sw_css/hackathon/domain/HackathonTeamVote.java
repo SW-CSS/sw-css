@@ -1,6 +1,5 @@
 package sw_css.hackathon.domain;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -19,8 +18,7 @@ import sw_css.member.domain.StudentMember;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@SQLRestriction("is_deleted = false")
-public class HackathonTeamMember {
+public class HackathonTeamVote {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -36,7 +34,4 @@ public class HackathonTeamMember {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "student_id", nullable = false)
     private StudentMember studentMember;
-
-    @Column(nullable = false)
-    private String role;
 }

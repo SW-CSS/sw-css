@@ -2,7 +2,6 @@ package sw_css.admin.hackathon.application;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -17,6 +16,7 @@ import org.apache.poi.xssf.usermodel.XSSFColor;
 import org.apache.poi.xssf.usermodel.XSSFFont;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -26,38 +26,38 @@ import sw_css.admin.hackathon.application.dto.response.AdminHackathonResponse;
 import sw_css.admin.hackathon.domain.HackathonStatus;
 import sw_css.admin.hackathon.exception.HackathonException;
 import sw_css.admin.hackathon.exception.HackathonExceptionType;
-import sw_css.hackathon.application.dto.response.HackathonTeamResponse;
 import sw_css.hackathon.domain.Hackathon;
 import sw_css.hackathon.domain.HackathonTeam;
 import sw_css.hackathon.domain.repository.HackathonRepository;
 import sw_css.hackathon.domain.repository.HackathonTeamRepository;
-import sw_css.milestone.exception.MilestoneHistoryException;
-import sw_css.milestone.exception.MilestoneHistoryExceptionType;
+import sw_css.hackathon.domain.repository.HackathonTeamVoteRepository;
 
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-public class HackathonQueryService {
+public class AdminHackathonQueryService {
     private final HackathonRepository hackathonRepository;
     private final HackathonTeamRepository hackathonTeamRepository;
+    private final HackathonTeamVoteRepository hackathonTeamVoteRepository;
 
-    public Page<AdminHackathonResponse> findAllHackathons(final Pageable pageable,
+    public Page<AdminHackathonResponse> findAllHackathons(Pageable pageable,
                                                           final String name,
                                                           final String visibleStatus) {
         Sort sort = Sort.by(Sort.Order.desc("hackathonStartDate"));
+        Pageable pageableWithSort = PageRequest.of(pageable.getPageNumber(), pageable.getPageSize(), sort);
         if(name != null && visibleStatus != null) {
-            Page<Hackathon> hackathons =  hackathonRepository.findByNameContainingAndVisibleStatus(name, visibleStatus.equals("ACTIVE"), pageable, sort);
+            Page<Hackathon> hackathons =  hackathonRepository.findByNameContainingAndVisibleStatus(name, visibleStatus.equals(HackathonStatus.ACTIVE.toString()), pageableWithSort);
             return AdminHackathonResponse.from(hackathons);
         }
         if(name != null) {
-            Page<Hackathon> hackathons = hackathonRepository.findByNameContaining(name, pageable, sort);
+            Page<Hackathon> hackathons = hackathonRepository.findByNameContaining(name, pageableWithSort);
             return AdminHackathonResponse.from(hackathons);
         }
         if(visibleStatus != null) {
-            Page<Hackathon> hackathons =  hackathonRepository.findByVisibleStatus(visibleStatus.equals(HackathonStatus.ACTIVE.toString()), pageable, sort);
+            Page<Hackathon> hackathons =  hackathonRepository.findByVisibleStatus(visibleStatus.equals(HackathonStatus.ACTIVE.toString()), pageableWithSort);
             return AdminHackathonResponse.from(hackathons);
         }
-        Page<Hackathon> hackathons = hackathonRepository.findAll(pageable, sort);
+        Page<Hackathon> hackathons = hackathonRepository.findAll(pageableWithSort);
         return AdminHackathonResponse.from(hackathons);
     }
 
@@ -110,7 +110,9 @@ public class HackathonQueryService {
                 bodyCell.setCellStyle(bodyXssfCellStyle);
             }
             bodyRow.getCell(0).setCellValue(i+1);
-            bodyRow.getCell(1).setCellValue(hackathonTeams.get(i).getVote());
+            Long voteCount = hackathonTeamVoteRepository.countByHackathonIdAndTeamId(
+                    hackathonTeams.get(i).getHackathon().getId(), hackathonTeams.get(i).getId());
+            bodyRow.getCell(1).setCellValue(voteCount);
             bodyRow.getCell(2).setCellValue(hackathonTeams.get(i).getName());
             bodyRow.getCell(3).setCellValue(hackathonTeams.get(i).getWork());
         }

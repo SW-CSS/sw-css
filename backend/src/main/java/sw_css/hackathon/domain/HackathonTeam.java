@@ -44,8 +44,5 @@ public class HackathonTeam {
     private String githubUrl;
 
     @Column(nullable = false)
-    private int vote;
-
-    @Column(nullable = false)
     private String prize;
 }

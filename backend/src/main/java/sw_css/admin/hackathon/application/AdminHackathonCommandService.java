@@ -7,7 +7,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.time.LocalDate;
-import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 import lombok.RequiredArgsConstructor;
@@ -31,7 +30,7 @@ import sw_css.milestone.exception.MilestoneHistoryExceptionType;
 @Service
 @RequiredArgsConstructor
 @Transactional
-public class HackathonCommandService {
+public class AdminHackathonCommandService {
 
     private final HackathonTeamRepository hackathonTeamRepository;
     @Value("${data.file-path-prefix}")

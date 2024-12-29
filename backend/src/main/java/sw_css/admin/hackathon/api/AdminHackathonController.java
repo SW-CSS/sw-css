@@ -22,8 +22,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import sw_css.admin.hackathon.application.HackathonCommandService;
-import sw_css.admin.hackathon.application.HackathonQueryService;
+import sw_css.admin.hackathon.application.AdminHackathonCommandService;
+import sw_css.admin.hackathon.application.AdminHackathonQueryService;
 import sw_css.admin.hackathon.application.dto.request.AdminHackathonActiveRequest;
 import sw_css.admin.hackathon.application.dto.request.AdminHackathonPrizeRequest;
 import sw_css.admin.hackathon.application.dto.request.AdminHackathonRequest;
@@ -36,9 +36,9 @@ import sw_css.utils.annotation.AdminInterface;
 @RequestMapping("/admin/hackathons")
 @RestController
 @RequiredArgsConstructor
-public class HackathonController {
-    private final HackathonCommandService hackathonCommandService;
-    private final HackathonQueryService hackathonQueryService;
+public class AdminHackathonController {
+    private final AdminHackathonCommandService adminHackathonCommandService;
+    private final AdminHackathonQueryService adminHackathonQueryService;
 
     @GetMapping
     public ResponseEntity<Page<AdminHackathonResponse>> findAllHackathons(
@@ -48,7 +48,7 @@ public class HackathonController {
             @RequestParam(value = "visibleStatus", required = false) final String visibleStatus
     ) {
         return ResponseEntity.ok(
-                hackathonQueryService.findAllHackathons(pageable, name, visibleStatus)
+                adminHackathonQueryService.findAllHackathons(pageable, name, visibleStatus)
         );
     }
 
@@ -58,7 +58,7 @@ public class HackathonController {
             @PathVariable final Long hackathonId
     ){
         return ResponseEntity.ok(
-                hackathonQueryService.findHackathonById(hackathonId));
+                adminHackathonQueryService.findHackathonById(hackathonId));
     }
 
     @PostMapping
@@ -66,7 +66,7 @@ public class HackathonController {
         @AdminInterface FacultyMember facultyMember,
         @RequestPart(value = "file", required = false) final MultipartFile file,
         @RequestPart(value = "request") @Valid final AdminHackathonRequest request) {
-            final Long registeredHackathonId = hackathonCommandService.registerHackathon(file, request);
+            final Long registeredHackathonId = adminHackathonCommandService.registerHackathon(file, request);
             return ResponseEntity.created(URI.create("/admin/hackathon/" + registeredHackathonId)).build();
     }
 
@@ -77,7 +77,7 @@ public class HackathonController {
             @RequestPart(value = "request") @Valid final AdminHackathonRequest request,
             @PathVariable final Long hackathonId
     ) {
-        hackathonCommandService.updateHackathon(hackathonId, file, request);
+        adminHackathonCommandService.updateHackathon(hackathonId, file, request);
         return ResponseEntity.noContent().build();
     }
 
@@ -86,7 +86,7 @@ public class HackathonController {
             @AdminInterface FacultyMember facultyMember,
             @PathVariable final Long hackathonId
     ){
-        hackathonCommandService.deleteHackathon(hackathonId);
+        adminHackathonCommandService.deleteHackathon(hackathonId);
         return ResponseEntity.noContent().build();
     }
 
@@ -100,7 +100,7 @@ public class HackathonController {
         return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION,
                         "attachment; filename=\"" + encodedFilename + "\"; filename*=UTF-8''" + encodedFilename)
                 .contentType(MediaType.APPLICATION_OCTET_STREAM)
-                .body(hackathonQueryService.downloadHackathonVotesById(hackathonId));
+                .body(adminHackathonQueryService.downloadHackathonVotesById(hackathonId));
 
     }
 
@@ -110,7 +110,7 @@ public class HackathonController {
             @PathVariable final Long hackathonId,
             @RequestBody @Valid AdminHackathonActiveRequest request
     ){
-        hackathonCommandService.activeHackathon(hackathonId, request.visibleStatus());
+        adminHackathonCommandService.activeHackathon(hackathonId, request.visibleStatus());
         return ResponseEntity.noContent().build();
     }
 
@@ -120,7 +120,7 @@ public class HackathonController {
             @PathVariable final Long hackathonId,
             @RequestBody @Valid AdminHackathonPrizeRequest request
     ){
-        hackathonCommandService.hackathonChangePrize(hackathonId, request.teams());
+        adminHackathonCommandService.hackathonChangePrize(hackathonId, request.teams());
         return ResponseEntity.noContent().build();
     }
 }
