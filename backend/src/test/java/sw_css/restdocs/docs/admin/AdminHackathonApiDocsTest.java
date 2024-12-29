@@ -1,12 +1,16 @@
 package sw_css.restdocs.docs.admin;
 
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.multipart;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.partWithName;
 import static org.springframework.restdocs.request.RequestDocumentation.queryParameters;
+import static org.springframework.restdocs.request.RequestDocumentation.requestParts;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
@@ -21,12 +25,17 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.restdocs.payload.JsonFieldType;
+import org.springframework.restdocs.payload.RequestFieldsSnippet;
 import org.springframework.restdocs.payload.ResponseFieldsSnippet;
 import org.springframework.restdocs.request.QueryParametersSnippet;
+import org.springframework.restdocs.request.RequestPartsSnippet;
 import sw_css.admin.hackathon.api.AdminHackathonController;
 import sw_css.admin.hackathon.application.AdminHackathonQueryService;
+import sw_css.admin.hackathon.application.dto.request.AdminHackathonRequest;
 import sw_css.admin.hackathon.application.dto.response.AdminHackathonDetailResponse;
 import sw_css.admin.hackathon.application.dto.response.AdminHackathonResponse;
 import sw_css.hackathon.domain.Hackathon;
@@ -103,7 +112,6 @@ public class AdminHackathonApiDocsTest extends RestDocsTest {
                 .andDo(document("admin-hackathon-find-all",queryParameters, responseBodySnippet));
     }
 
-    // 해커톤 상세 조회
     @Test
     @DisplayName("[성공] 관리자가 해커톤 상세 조회 가능")
     public void findHackathon() throws Exception {
@@ -138,7 +146,35 @@ public class AdminHackathonApiDocsTest extends RestDocsTest {
                 .andDo(document("admin-hackathon-find", responseBodySnippet));
     }
 
-    // 해커톤 생성
+    @Test
+    @DisplayName("[성공] 관리자의 해커톤 생성")
+    public void registerHackathon() throws Exception {
+        // given
+        final RequestPartsSnippet requestPartsSnippet = requestParts(
+                partWithName("request").description(
+                        "해커톤 정보( name: 해커톤 명, description: 해커톤 내용, password: 해커톤 비밀번호, applyStartDate: 해커톤 지원 시작일(yyy-MM-dd), applyEndDate: 해커톤 지원 미자믹일(yyy-MM-dd), hackathonStartDate: 해커돈 대회 시작일(yyy-MM-dd), hackathonEndDate: 해커톤 대회 마지막일(yyy-MM-dd))"),
+                partWithName("file").description("해커톤 배너 이미지"));
+
+        final MockMultipartFile file = new MockMultipartFile("file", "test.png", "multipart/form-data", "example".getBytes());
+        final AdminHackathonRequest request = new AdminHackathonRequest("제5회 PNU 창의융합 소프트웨어해커톤", "# 해커톤 설명 **bold**", "1234", LocalDate.parse("2024-05-22"), LocalDate.parse("2024-05-29"), LocalDate.parse("2024-05-22"), LocalDate.parse("2024-09-07"));
+        final MockMultipartFile requestFile = new MockMultipartFile("request", null, "application/json", objectMapper.writeValueAsString(request).getBytes());
+        final String token = "Bearer AccessToken";
+        final Long hackathonId = 1L;
+
+        // when
+        when(adminHackathonCommandService.registerHackathon(file, request)).thenReturn(hackathonId);
+
+        // then
+        mockMvc.perform(
+                multipart("/admin/hackathons")
+                        .file(file)
+                        .file(requestFile)
+                        .contentType(MediaType.MULTIPART_MIXED)
+                        .content(objectMapper.writeValueAsString(request))
+                        .header(HttpHeaders.AUTHORIZATION, token))
+                .andExpect(status().isCreated())
+                .andDo(document("admin-hackathon-register", requestPartsSnippet));
+    }
 
     // 해커톤 수정
 

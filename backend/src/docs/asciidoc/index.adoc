@@ -376,3 +376,14 @@ include::{snippets}/admin-hackathon-find/http-response.adoc[]
 
 .Response Body
 include::{snippets}/admin-hackathon-find/response-fields.adoc[]
+
+=== `POST`: 관리자의 해커톤 생성
+
+.HTTP Request
+include::{snippets}/admin-hackathon-register/http-request.adoc[]
+
+.Request Body
+include::{snippets}/admin-hackathon-register/request-parts.adoc[]
+
+.HTTP Response
+include::{snippets}/admin-hackathon-register/http-response.adoc[]
