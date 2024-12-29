@@ -15,6 +15,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import sw_css.admin.auth.application.AdminAuthCommandService;
+import sw_css.admin.hackathon.application.AdminHackathonCommandService;
+import sw_css.admin.hackathon.application.AdminHackathonQueryService;
 import sw_css.admin.member.application.MemberAdminQueryService;
 import sw_css.admin.milestone.application.MilestoneHistoryAdminCommandService;
 import sw_css.admin.milestone.application.MilestoneHistoryAdminQueryService;
@@ -62,6 +64,12 @@ public abstract class RestDocsTest extends ApiTestHelper {
 
     @MockBean
     protected MemberAdminQueryService memberAdminQueryService;
+
+    @MockBean
+    protected AdminHackathonQueryService adminHackathonQueryService;
+
+    @MockBean
+    protected AdminHackathonCommandService adminHackathonCommandService;
 
     @MockBean
     protected FileService fileService;

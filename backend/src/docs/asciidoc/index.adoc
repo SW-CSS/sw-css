@@ -349,3 +349,16 @@ include::{snippets}/admin-auth-delete/request-body.adoc[]
 
 .HTTP Response
 include::{snippets}/admin-auth-delete/http-response.adoc[]
+
+== 관리자 - 해커톤
+
+=== `GET`: 관리자의 해커톤 전체 목록 조회
+
+.HTTP Request
+include::{snippets}/admin-hackathon-find-all/http-request.adoc[]
+
+.Path Parameters
+include::{snippets}/admin-hackathon-find-all/query-parameters.adoc[]
+
+.HTTP Response
+include::{snippets}/admin-hackathon-find-all/http-response.adoc[]
