@@ -387,3 +387,14 @@ include::{snippets}/admin-hackathon-register/request-parts.adoc[]
 
 .HTTP Response
 include::{snippets}/admin-hackathon-register/http-response.adoc[]
+
+=== `PATCH`: 관리자의 해커톤 수정
+
+.HTTP Request
+include::{snippets}/admin-hackathon-update/http-request.adoc[]
+
+.Request Body
+include::{snippets}/admin-hackathon-update/request-parts.adoc[]
+
+.HTTP Response
+include::{snippets}/admin-hackathon-update/http-response.adoc[]
