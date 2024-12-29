@@ -415,3 +415,14 @@ include::{snippets}/admin-hackathon-delete/path-parameters.adoc[]
 
 .HTTP Response
 include::{snippets}/admin-hackathon-delete/http-response.adoc[]
+
+=== `GET`: 관리자의 해커톤 투표 결과 다운로드
+
+.HTTP Request
+include::{snippets}/admin-hackathon-download-vote/http-request.adoc[]
+
+.Path Parameters
+include::{snippets}/admin-hackathon-download-vote/path-parameters.adoc[]
+
+.HTTP Response
+include::{snippets}/admin-hackathon-download-vote/http-response.adoc[]

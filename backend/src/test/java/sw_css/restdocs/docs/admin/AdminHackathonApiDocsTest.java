@@ -219,7 +219,6 @@ public class AdminHackathonApiDocsTest extends RestDocsTest {
                 .andDo(document("admin-hackathon-update", pathParameters, requestPartsSnippet));
     }
 
-    // 해커톤 삭제
     @Test
     @DisplayName("[성공] 관리자는 해커톤을 삭제할 수 있다.")
     public void deleteHackathon() throws Exception {
@@ -242,6 +241,28 @@ public class AdminHackathonApiDocsTest extends RestDocsTest {
     }
 
     // 해커톤 투표 결과 다운로드
+    @Test
+    @DisplayName("[성공] 관리자는 해커톤 투표 결과를 다운로드 받을 수 있다.")
+    public void downloadHackathonVote() throws Exception {
+        // given
+        final PathParametersSnippet pathParameters = pathParameters(
+                parameterWithName("hackathonId").description("해커톤 id")
+        );
+
+        final byte[] response = new byte[]{};
+        final Long hackathonId = 1L;
+        final String token = "Bearer AccessToken";
+
+        // when
+        when(adminHackathonQueryService.downloadHackathonVotesById(hackathonId)).thenReturn(response);
+
+        // then
+        mockMvc.perform(
+                RestDocumentationRequestBuilders.get("/admin/hackathons/{hackathonId}", hackathonId)
+                        .header(HttpHeaders.AUTHORIZATION, token))
+                .andExpect(status().isOk())
+                .andDo(document("admin-hackathon-download-vote", pathParameters));
+    }
 
     // 해커톤 활성화 수정
 
