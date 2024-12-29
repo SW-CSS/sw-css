@@ -27,6 +27,7 @@ import org.springframework.restdocs.payload.ResponseFieldsSnippet;
 import org.springframework.restdocs.request.QueryParametersSnippet;
 import sw_css.admin.hackathon.api.AdminHackathonController;
 import sw_css.admin.hackathon.application.AdminHackathonQueryService;
+import sw_css.admin.hackathon.application.dto.response.AdminHackathonDetailResponse;
 import sw_css.admin.hackathon.application.dto.response.AdminHackathonResponse;
 import sw_css.hackathon.domain.Hackathon;
 import sw_css.restdocs.RestDocsTest;
@@ -103,6 +104,39 @@ public class AdminHackathonApiDocsTest extends RestDocsTest {
     }
 
     // 해커톤 상세 조회
+    @Test
+    @DisplayName("[성공] 관리자가 해커톤 상세 조회 가능")
+    public void findHackathon() throws Exception {
+        // given
+        final ResponseFieldsSnippet responseBodySnippet = responseFields(
+                fieldWithPath("id").type(JsonFieldType.NUMBER).description("해커톤 id"),
+                fieldWithPath("name").type(JsonFieldType.STRING).description("해커톤 명"),
+                fieldWithPath("description").type(JsonFieldType.STRING).description("해커톤 내용"),
+                fieldWithPath("imageUrl").type(JsonFieldType.STRING).description("해커톤 배너 이미지"),
+                fieldWithPath("applyStartDate").type(JsonFieldType.STRING).description("해커톤 지원 시작일"),
+                fieldWithPath("applyEndDate").type(JsonFieldType.STRING).description("해커톤 지원 마지막날"),
+                fieldWithPath("hackathonStartDate").type(JsonFieldType.STRING).description("해커톤 대회 시작일"),
+                fieldWithPath("hackathonEndDate").type(JsonFieldType.STRING).description("해커톤 대회 마지막날"),
+                fieldWithPath("password").type(JsonFieldType.STRING).description("해커톤 비밀번호"),
+                fieldWithPath("visibleStatus").type(JsonFieldType.BOOLEAN).description("해커톤 활성화 상태")
+        );
+
+        final AdminHackathonDetailResponse response = new AdminHackathonDetailResponse(
+                1L, "제5회 PNU 창의융합 소프트웨어해커톤", "# 해커톤 설명 **bold**", "1.png", LocalDate.parse("2024-05-22"), LocalDate.parse("2024-05-29"), LocalDate.parse("2024-05-22"), LocalDate.parse("2024-09-07"), "1234", true
+        );
+        final Long hackathonId = 1L;
+        final String token = "Bearer AccessToken";
+
+        // when
+        when(adminHackathonQueryService.findHackathonById(hackathonId)).thenReturn(response);
+
+        // then
+        mockMvc.perform(
+                RestDocumentationRequestBuilders.get("/admin/hackathons/{hackathonId}", hackathonId)
+                        .header(HttpHeaders.AUTHORIZATION, token))
+                .andExpect(status().isOk())
+                .andDo(document("admin-hackathon-find", responseBodySnippet));
+    }
 
     // 해커톤 생성
 

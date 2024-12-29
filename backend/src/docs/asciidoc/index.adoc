@@ -362,3 +362,17 @@ include::{snippets}/admin-hackathon-find-all/query-parameters.adoc[]
 
 .HTTP Response
 include::{snippets}/admin-hackathon-find-all/http-response.adoc[]
+
+.Response Body
+include::{snippets}/admin-hackathon-find-all/response-fields.adoc[]
+
+=== `GET`: 관리자의 특정 해커톤 조회
+
+.HTTP Request
+include::{snippets}/admin-hackathon-find/http-request.adoc[]
+
+.HTTP Response
+include::{snippets}/admin-hackathon-find/http-response.adoc[]
+
+.Response Body
+include::{snippets}/admin-hackathon-find/response-fields.adoc[]
