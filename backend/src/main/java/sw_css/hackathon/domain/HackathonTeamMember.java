@@ -8,10 +8,12 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import java.time.LocalDate;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.SQLRestriction;
 import sw_css.member.domain.StudentMember;
 
@@ -33,10 +35,25 @@ public class HackathonTeamMember {
     @JoinColumn(name = "team_id", nullable = false)
     private HackathonTeam team;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "student_id", nullable = false)
-    private StudentMember studentMember;
+    @Column(nullable = false)
+    private Long studentId;
 
     @Column(nullable = false)
+    @Setter(AccessLevel.PUBLIC)
     private String role;
+
+    @Column(nullable = false)
+    private Boolean isLeader;
+
+    @Column(nullable = false)
+    @Setter(AccessLevel.PUBLIC)
+    private Boolean isDeleted;
+
+    public HackathonTeamMember(Hackathon hackathon, HackathonTeam team, Long studentId, String role, Boolean isLeader) {
+        this(null, hackathon, team, studentId, role, isLeader, false);
+    }
+
+    public HackathonTeamMember(Hackathon hackathon, HackathonTeam team, Long studentId, String role) {
+        this(null, hackathon, team, studentId, role, false, false);
+    }
 }

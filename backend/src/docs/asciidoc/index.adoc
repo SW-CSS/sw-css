@@ -454,3 +454,19 @@ include::{snippets}/admin-hackathon-change-prize/request-fields.adoc[]
 
 .HTTP Response
 include::{snippets}/admin-hackathon-change-prize/http-response.adoc[]
+
+
+== 관리자 - 해커톤 팀
+=== `PATCH`: 관리자의 해커톤 팀 수정
+
+.HTTP Request
+include::{snippets}/admin-hackathon-team-update/http-request.adoc[]
+
+.Path Parameters
+include::{snippets}/admin-hackathon-team-update/path-parameters.adoc[]
+
+.Request Body
+include::{snippets}/admin-hackathon-team-update/request-fields.adoc[]
+
+.HTTP Response
+include::{snippets}/admin-hackathon-team-update/http-response.adoc[]

@@ -136,6 +136,7 @@ create table hackathon_team_member
     team_id         bigint       not null,
     student_id      bigint       not null,
     role            varchar(255) not null,
+    is_leader       boolean      not null,
     is_deleted      boolean      not null,
     created_at      datetime(6)  not null default current_timestamp(6)
 );

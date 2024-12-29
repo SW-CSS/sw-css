@@ -2,6 +2,7 @@ package sw_css.hackathon.domain.repository;
 
 import io.lettuce.core.dynamic.annotation.Param;
 import java.util.List;
+import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import sw_css.hackathon.domain.HackathonTeam;
@@ -23,4 +24,6 @@ public interface HackathonTeamRepository extends JpaRepository<HackathonTeam, Lo
     List<HackathonTeam> findByHackathonIdSorted(@Param("hackathonId") Long hackathonId);
 
     List<HackathonTeam> findByHackathonId(Long hackathonId);
+
+    Optional<HackathonTeam> findByHackathonIdAndId(Long hackathonId, Long teamId);
 }

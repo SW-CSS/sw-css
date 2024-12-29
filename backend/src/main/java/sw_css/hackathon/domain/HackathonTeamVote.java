@@ -18,6 +18,7 @@ import sw_css.member.domain.StudentMember;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@SQLRestriction("is_deleted = false")
 public class HackathonTeamVote {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
