@@ -481,3 +481,20 @@ include::{snippets}/admin-hackathon-team-delete/path-parameters.adoc[]
 
 .HTTP Response
 include::{snippets}/admin-hackathon-team-delete/http-response.adoc[]
+
+== 일반 - 해커톤
+
+=== `GET`: 해커톤 전체 조회
+
+.HTTP Request
+include::{snippets}/hackathon-find-all/http-request.adoc[]
+
+.Path Parameters
+include::{snippets}/hackathon-find-all/query-parameters.adoc[]
+
+.HTTP Response
+include::{snippets}/hackathon-find-all/http-response.adoc[]
+
+.Response Body
+include::{snippets}/hackathon-find-all/response-fields.adoc[]
+

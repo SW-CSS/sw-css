@@ -8,7 +8,6 @@ import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.docu
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.delete;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.multipart;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.patch;
-import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.post;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
@@ -24,12 +23,10 @@ import java.time.LocalDate;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.mock.web.MockMultipartFile;
@@ -41,7 +38,6 @@ import org.springframework.restdocs.request.PathParametersSnippet;
 import org.springframework.restdocs.request.QueryParametersSnippet;
 import org.springframework.restdocs.request.RequestPartsSnippet;
 import sw_css.admin.hackathon.api.AdminHackathonController;
-import sw_css.admin.hackathon.application.AdminHackathonQueryService;
 import sw_css.admin.hackathon.application.dto.request.AdminHackathonActiveRequest;
 import sw_css.admin.hackathon.application.dto.request.AdminHackathonPrizeRequest;
 import sw_css.admin.hackathon.application.dto.request.AdminHackathonPrizeRequest.AdminTeam;
@@ -59,7 +55,7 @@ public class AdminHackathonApiDocsTest extends RestDocsTest {
     @DisplayName("[성공] 관리자가 해커톤 전체 목록을 조회할 수 있다.")
     public void findAllHackathons() throws Exception {
         // given
-        final QueryParametersSnippet queryParameters = queryParameters(
+        final QueryParametersSnippet queryParametersSnippet = queryParameters(
                 parameterWithName("page").optional().description("조회할 해커톤의 페이지 번호"),
                 parameterWithName("size").optional().description("조회할 해커톤의 페이지 당 데이터 수"),
                 parameterWithName("name").optional().description("조죄할 해커톤 명"),
@@ -120,7 +116,7 @@ public class AdminHackathonApiDocsTest extends RestDocsTest {
                         .param("size", "10")
                         .header(HttpHeaders.AUTHORIZATION, token))
                 .andExpect(status().isOk())
-                .andDo(document("admin-hackathon-find-all",queryParameters, responseBodySnippet));
+                .andDo(document("admin-hackathon-find-all", queryParametersSnippet, responseBodySnippet));
     }
 
     @Test

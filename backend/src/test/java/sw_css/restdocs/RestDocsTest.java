@@ -26,6 +26,7 @@ import sw_css.auth.application.AuthEmailService;
 import sw_css.auth.application.AuthSignInService;
 import sw_css.auth.application.AuthSignUpService;
 import sw_css.file.application.FileService;
+import sw_css.hackathon.application.HackathonQueryService;
 import sw_css.helper.ApiTestHelper;
 import sw_css.major.application.MajorQueryService;
 import sw_css.member.application.MemberQueryService;
@@ -74,6 +75,9 @@ public abstract class RestDocsTest extends ApiTestHelper {
 
     @MockBean
     protected AdminHackathonTeamCommandService adminHackathonTeamCommandService;
+
+    @MockBean
+    protected HackathonQueryService hackathonQueryService;
 
     @MockBean
     protected FileService fileService;
