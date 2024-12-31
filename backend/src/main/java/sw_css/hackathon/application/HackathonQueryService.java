@@ -7,11 +7,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import sw_css.admin.hackathon.application.dto.response.AdminHackathonResponse;
-import sw_css.admin.hackathon.domain.HackathonStatus;
+import sw_css.admin.hackathon.application.dto.response.AdminHackathonDetailResponse;
+import sw_css.hackathon.application.dto.response.HackathonDetailResponse;
 import sw_css.hackathon.application.dto.response.HackathonResponse;
 import sw_css.hackathon.domain.Hackathon;
 import sw_css.hackathon.domain.repository.HackathonRepository;
+import sw_css.hackathon.exception.HackathonException;
+import sw_css.hackathon.exception.HackathonExceptionType;
 
 @Service
 @RequiredArgsConstructor
@@ -30,5 +32,12 @@ public class HackathonQueryService {
         }
         Page<Hackathon> hackathons = hackathonRepository.findAllByVisibleStatusIsTrue(pageableWithSort);
         return HackathonResponse.from(hackathons);
+    }
+
+    public HackathonDetailResponse findHackathon(final Long id) {
+        Hackathon hackathon = hackathonRepository.findByIdAndVisibleStatusIsTrue(id).orElseThrow(
+                () -> new HackathonException(HackathonExceptionType.NOT_FOUND_HACKATHON));
+
+        return HackathonDetailResponse.of(hackathon);
     }
 }

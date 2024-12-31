@@ -6,10 +6,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import sw_css.hackathon.application.HackathonQueryService;
+import sw_css.hackathon.application.dto.response.HackathonDetailResponse;
 import sw_css.hackathon.application.dto.response.HackathonResponse;
 
 @Validated
@@ -30,7 +32,14 @@ public class HackathonController {
         );
     }
 
-    // TODO: 해커톤 상세 조회
+    @GetMapping("{hackathonId}")
+    public ResponseEntity<HackathonDetailResponse> findHackathonById(
+            final @PathVariable Long hackathonId
+    ) {
+        return ResponseEntity.ok(
+                hackathonQueryService.findHackathon(hackathonId)
+        );
+    }
 
     // TODO: 수상 내역 조회
 }

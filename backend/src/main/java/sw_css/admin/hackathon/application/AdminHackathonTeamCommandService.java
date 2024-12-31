@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import sw_css.admin.hackathon.application.dto.request.AdminHackathonTeamRequest;
 import sw_css.admin.hackathon.application.dto.request.AdminHackathonTeamRequest.TeamMember;
-import sw_css.admin.hackathon.exception.HackathonException;
-import sw_css.admin.hackathon.exception.HackathonExceptionType;
+import sw_css.admin.hackathon.exception.AdminHackathonException;
+import sw_css.admin.hackathon.exception.AdminHackathonExceptionType;
 import sw_css.hackathon.domain.Hackathon;
 import sw_css.hackathon.domain.HackathonRole;
 import sw_css.hackathon.domain.HackathonTeam;
@@ -30,9 +30,9 @@ public class AdminHackathonTeamCommandService {
 
     public void updateHackathonTeam(Long hackathonId, Long teamId, AdminHackathonTeamRequest request) {
         final Hackathon hackathon = hackathonRepository.findById(hackathonId).orElseThrow(
-                () -> new HackathonException(HackathonExceptionType.NOT_FOUND_HACKATHON));
+                () -> new AdminHackathonException(AdminHackathonExceptionType.NOT_FOUND_HACKATHON));
         final HackathonTeam hackathonTeam = hackathonTeamRepository.findByHackathonIdAndId(hackathonId, teamId).orElseThrow(
-                () -> new HackathonException(HackathonExceptionType.NOT_FOUND_HACKATHON_TEAM));
+                () -> new AdminHackathonException(AdminHackathonExceptionType.NOT_FOUND_HACKATHON_TEAM));
 
         hackathonTeam.setName(request.name());
         hackathonTeam.setWork(request.work());
@@ -80,9 +80,9 @@ public class AdminHackathonTeamCommandService {
 
     public void deleteHackathonTeam(Long hackathonId, Long teamId) {
         hackathonRepository.findById(hackathonId).orElseThrow(
-                () -> new HackathonException(HackathonExceptionType.NOT_FOUND_HACKATHON));
+                () -> new AdminHackathonException(AdminHackathonExceptionType.NOT_FOUND_HACKATHON));
         final HackathonTeam hackathonTeam = hackathonTeamRepository.findByHackathonIdAndId(hackathonId, teamId).orElseThrow(
-                () -> new HackathonException(HackathonExceptionType.NOT_FOUND_HACKATHON_TEAM));
+                () -> new AdminHackathonException(AdminHackathonExceptionType.NOT_FOUND_HACKATHON_TEAM));
 
         hackathonTeam.setDeleted(true);
         hackathonTeamRepository.save(hackathonTeam);
@@ -118,13 +118,13 @@ public class AdminHackathonTeamCommandService {
         try {
             HackathonRole.valueOf(role);
         } catch (IllegalArgumentException e) {
-            throw new HackathonException(HackathonExceptionType.INVALID_ROLE_STATUS);
+            throw new AdminHackathonException(AdminHackathonExceptionType.INVALID_ROLE_STATUS);
         }
     }
 
     private void validateStudentId(Long studentId){
         if ( !studentId.toString().matches(StudentId.STUDENT_ID_REGEX) )
-            throw new HackathonException(HackathonExceptionType.INVALID_STUDENT_ID);
+            throw new AdminHackathonException(AdminHackathonExceptionType.INVALID_STUDENT_ID);
     }
 
 }

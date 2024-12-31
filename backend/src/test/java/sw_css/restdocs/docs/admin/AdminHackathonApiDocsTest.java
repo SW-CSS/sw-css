@@ -123,7 +123,7 @@ public class AdminHackathonApiDocsTest extends RestDocsTest {
     @DisplayName("[성공] 관리자가 해커톤 상세 조회할 수 있다.")
     public void findHackathon() throws Exception {
         // given
-        final PathParametersSnippet pathParameters = pathParameters(
+        final PathParametersSnippet pathParameterSnippet = pathParameters(
                 parameterWithName("hackathonId").description("해커톤 id")
         );
         final ResponseFieldsSnippet responseBodySnippet = responseFields(
@@ -153,7 +153,7 @@ public class AdminHackathonApiDocsTest extends RestDocsTest {
                 RestDocumentationRequestBuilders.get("/admin/hackathons/{hackathonId}", hackathonId)
                         .header(HttpHeaders.AUTHORIZATION, token))
                 .andExpect(status().isOk())
-                .andDo(document("admin-hackathon-find", pathParameters, responseBodySnippet));
+                .andDo(document("admin-hackathon-find", pathParameterSnippet, responseBodySnippet));
     }
 
     @Test

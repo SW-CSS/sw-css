@@ -371,11 +371,11 @@ include::{snippets}/admin-hackathon-find-all/response-fields.adoc[]
 .HTTP Request
 include::{snippets}/admin-hackathon-find/http-request.adoc[]
 
-.HTTP Response
-include::{snippets}/admin-hackathon-find/http-response.adoc[]
-
 .Path Parameters
 include::{snippets}/admin-hackathon-find/path-parameters.adoc[]
+
+.HTTP Response
+include::{snippets}/admin-hackathon-find/http-response.adoc[]
 
 .Response Body
 include::{snippets}/admin-hackathon-find/response-fields.adoc[]
@@ -497,4 +497,18 @@ include::{snippets}/hackathon-find-all/http-response.adoc[]
 
 .Response Body
 include::{snippets}/hackathon-find-all/response-fields.adoc[]
+
+=== `GET`: 해커톤 상세 조회
+
+.HTTP Request
+include::{snippets}/hackathon-find/http-request.adoc[]
+
+.Path Parameters
+include::{snippets}/hackathon-find/path-parameters.adoc[]
+
+.HTTP Response
+include::{snippets}/hackathon-find/http-response.adoc[]
+
+.Response Body
+include::{snippets}/hackathon-find/response-fields.adoc[]
 

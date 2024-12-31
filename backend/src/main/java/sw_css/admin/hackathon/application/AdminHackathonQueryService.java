@@ -24,8 +24,8 @@ import org.springframework.transaction.annotation.Transactional;
 import sw_css.admin.hackathon.application.dto.response.AdminHackathonDetailResponse;
 import sw_css.admin.hackathon.application.dto.response.AdminHackathonResponse;
 import sw_css.admin.hackathon.domain.HackathonStatus;
-import sw_css.admin.hackathon.exception.HackathonException;
-import sw_css.admin.hackathon.exception.HackathonExceptionType;
+import sw_css.admin.hackathon.exception.AdminHackathonException;
+import sw_css.admin.hackathon.exception.AdminHackathonExceptionType;
 import sw_css.hackathon.domain.Hackathon;
 import sw_css.hackathon.domain.HackathonTeam;
 import sw_css.hackathon.domain.repository.HackathonRepository;
@@ -63,14 +63,14 @@ public class AdminHackathonQueryService {
 
     public AdminHackathonDetailResponse findHackathonById(final Long id) {
         Hackathon hackathon = hackathonRepository.findById(id).orElseThrow(
-                () -> new HackathonException(HackathonExceptionType.NOT_FOUND_HACKATHON));
+                () -> new AdminHackathonException(AdminHackathonExceptionType.NOT_FOUND_HACKATHON));
 
         return AdminHackathonDetailResponse.of(hackathon);
     }
 
     public byte[] downloadHackathonVotesById(final Long id) {
         Hackathon hackathon = hackathonRepository.findById(id).orElseThrow(
-                () -> new HackathonException(HackathonExceptionType.NOT_FOUND_HACKATHON));
+                () -> new AdminHackathonException(AdminHackathonExceptionType.NOT_FOUND_HACKATHON));
 
         final List<HackathonTeam> hackathonTeams = hackathonTeamRepository.findByHackathonIdSorted(hackathon.getId());
         hackathonTeams.stream().forEach(team -> {
@@ -122,7 +122,7 @@ public class AdminHackathonQueryService {
             workbook.close();
             return bos.toByteArray();
         } catch (IOException e) {
-            throw new HackathonException(HackathonExceptionType.CANNOT_OPEN_FILE);
+            throw new AdminHackathonException(AdminHackathonExceptionType.CANNOT_OPEN_FILE);
         }
     }
 

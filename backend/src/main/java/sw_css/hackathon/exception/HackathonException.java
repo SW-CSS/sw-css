@@ -1,4 +1,5 @@
-package sw_css.admin.hackathon.exception;
+package sw_css.hackathon.exception;
+
 
 import sw_css.base.BaseException;
 import sw_css.base.BaseExceptionType;

@@ -17,8 +17,8 @@ import org.springframework.web.multipart.MultipartFile;
 import sw_css.admin.hackathon.application.dto.request.AdminHackathonPrizeRequest;
 import sw_css.admin.hackathon.application.dto.request.AdminHackathonRequest;
 import sw_css.admin.hackathon.domain.HackathonStatus;
-import sw_css.admin.hackathon.exception.HackathonException;
-import sw_css.admin.hackathon.exception.HackathonExceptionType;
+import sw_css.admin.hackathon.exception.AdminHackathonException;
+import sw_css.admin.hackathon.exception.AdminHackathonExceptionType;
 import sw_css.hackathon.domain.Hackathon;
 import sw_css.hackathon.domain.HackathonPrize;
 import sw_css.hackathon.domain.HackathonTeam;
@@ -40,8 +40,8 @@ public class AdminHackathonCommandService {
 
     public Long registerHackathon(final MultipartFile file, final AdminHackathonRequest request) {
         validateFileType(file);
-        validateDate(request.applyStartDate(), request.applyEndDate(), HackathonExceptionType.INVALID_APPLY_DATE);
-        validateDate(request.hackathonStartDate(), request.hackathonEndDate(), HackathonExceptionType.INVALID_HACKATHON_DATE);
+        validateDate(request.applyStartDate(), request.applyEndDate(), AdminHackathonExceptionType.INVALID_APPLY_DATE);
+        validateDate(request.hackathonStartDate(), request.hackathonEndDate(), AdminHackathonExceptionType.INVALID_HACKATHON_DATE);
 
         final String newFilePath = generateFilePath(file);
         final Hackathon newHackathon = new Hackathon(request.name(), request.description(), request.password(), request.applyStartDate(), request.applyEndDate(), request.hackathonStartDate(), request.hackathonEndDate(), newFilePath);
@@ -53,7 +53,7 @@ public class AdminHackathonCommandService {
 
     public void updateHackathon(final Long hackathonId, final MultipartFile file, final AdminHackathonRequest request) {
         final Hackathon hackathon = hackathonRepository.findById(hackathonId).orElseThrow(
-                () -> new HackathonException(HackathonExceptionType.NOT_FOUND_HACKATHON));
+                () -> new AdminHackathonException(AdminHackathonExceptionType.NOT_FOUND_HACKATHON));
 
         if(file != null) {
             validateFileType(file);
@@ -61,8 +61,8 @@ public class AdminHackathonCommandService {
             uploadFile(file, newFilePath);
             hackathon.setImageUrl(newFilePath);
         }
-        validateDate(request.applyStartDate(), request.applyEndDate(), HackathonExceptionType.INVALID_APPLY_DATE);
-        validateDate(request.hackathonStartDate(), request.hackathonEndDate(), HackathonExceptionType.INVALID_HACKATHON_DATE);
+        validateDate(request.applyStartDate(), request.applyEndDate(), AdminHackathonExceptionType.INVALID_APPLY_DATE);
+        validateDate(request.hackathonStartDate(), request.hackathonEndDate(), AdminHackathonExceptionType.INVALID_HACKATHON_DATE);
 
         hackathon.setName(request.name());
         hackathon.setDescription(request.description());
@@ -76,25 +76,25 @@ public class AdminHackathonCommandService {
 
     public void deleteHackathon(final Long hackathonId) {
         final Hackathon hackathon = hackathonRepository.findById(hackathonId).orElseThrow(
-                () -> new HackathonException(HackathonExceptionType.NOT_FOUND_HACKATHON));
+                () -> new AdminHackathonException(AdminHackathonExceptionType.NOT_FOUND_HACKATHON));
         hackathon.delete();
         hackathonRepository.save(hackathon);
     }
 
     public void activeHackathon(final Long hackathonId, final String visibleStatus) {
         final Hackathon hackathon = hackathonRepository.findById(hackathonId).orElseThrow(
-                () -> new HackathonException(HackathonExceptionType.NOT_FOUND_HACKATHON));
+                () -> new AdminHackathonException(AdminHackathonExceptionType.NOT_FOUND_HACKATHON));
 
         if(visibleStatus.equals(HackathonStatus.ACTIVE.toString())) hackathon.setVisibleStatus(true);
         else if(visibleStatus.equals(HackathonStatus.INACTIVE.toString())) hackathon.setVisibleStatus(false);
-        else throw new HackathonException(HackathonExceptionType.INVALID_ACTIVE_STATUS);
+        else throw new AdminHackathonException(AdminHackathonExceptionType.INVALID_ACTIVE_STATUS);
 
         hackathonRepository.save(hackathon);
     }
 
     public void hackathonChangePrize(final Long hackathonId, List<AdminHackathonPrizeRequest.AdminTeam> teams) {
         final Hackathon hackathon = hackathonRepository.findById(hackathonId).orElseThrow(
-                () -> new HackathonException(HackathonExceptionType.NOT_FOUND_HACKATHON));
+                () -> new AdminHackathonException(AdminHackathonExceptionType.NOT_FOUND_HACKATHON));
 
         List<HackathonTeam> hackathonTeams = hackathonTeamRepository.findByHackathonId(hackathon.getId());
 
@@ -113,22 +113,22 @@ public class AdminHackathonCommandService {
         try {
             HackathonPrize.valueOf(prize);
         } catch (IllegalArgumentException e) {
-            throw new HackathonException(HackathonExceptionType.INVALID_PRIZE_STATUS);
+            throw new AdminHackathonException(AdminHackathonExceptionType.INVALID_PRIZE_STATUS);
         }
     }
 
-    private void validateDate(LocalDate startDate, LocalDate endDate, HackathonExceptionType exceptionType) {
-        if (startDate.isAfter(endDate)) throw new HackathonException(exceptionType);
+    private void validateDate(LocalDate startDate, LocalDate endDate, AdminHackathonExceptionType exceptionType) {
+        if (startDate.isAfter(endDate)) throw new AdminHackathonException(exceptionType);
     }
 
     private void validateFileType(final MultipartFile file) {
         System.out.println(file.getOriginalFilename());
         if (file == null) {
-            throw new HackathonException(HackathonExceptionType.NOT_EXIST_FILE);
+            throw new AdminHackathonException(AdminHackathonExceptionType.NOT_EXIST_FILE);
         }
         final String contentType = file.getContentType();
         if (!isSupportedContentType(contentType)) {
-            throw new HackathonException(HackathonExceptionType.UNSUPPORTED_FILE_TYPE);
+            throw new AdminHackathonException(AdminHackathonExceptionType.UNSUPPORTED_FILE_TYPE);
         }
     }
 

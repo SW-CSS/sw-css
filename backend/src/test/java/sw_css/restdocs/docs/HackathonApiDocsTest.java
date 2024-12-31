@@ -6,6 +6,7 @@ import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.docu
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.restdocs.request.RequestDocumentation.queryParameters;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -21,9 +22,12 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.restdocs.payload.ResponseFieldsSnippet;
+import org.springframework.restdocs.request.PathParametersSnippet;
 import org.springframework.restdocs.request.QueryParametersSnippet;
+import sw_css.admin.hackathon.application.dto.response.AdminHackathonDetailResponse;
 import sw_css.admin.hackathon.application.dto.response.AdminHackathonResponse;
 import sw_css.hackathon.api.HackathonController;
+import sw_css.hackathon.application.dto.response.HackathonDetailResponse;
 import sw_css.hackathon.application.dto.response.HackathonResponse;
 import sw_css.hackathon.domain.Hackathon;
 import sw_css.restdocs.RestDocsTest;
@@ -91,5 +95,41 @@ public class HackathonApiDocsTest extends RestDocsTest {
                                 .param("size", "10"))
                 .andExpect(status().isOk())
                 .andDo(document("hackathon-find-all", queryParametersSnippet, responseBodySnippet));
+    }
+
+    @Test
+    @DisplayName("[성공] 모든 사람은 해커톤 상세 조회를 할 수 있다.")
+    public void findHackathonById() throws Exception {
+        // given
+        final PathParametersSnippet pathParameterSnippet = pathParameters(
+                parameterWithName("hackathonId").description("해커톤 id")
+        );
+
+        final ResponseFieldsSnippet responseBodySnippet = responseFields(
+                fieldWithPath("id").type(JsonFieldType.NUMBER).description("해커톤 id"),
+                fieldWithPath("name").type(JsonFieldType.STRING).description("해커톤 명"),
+                fieldWithPath("description").type(JsonFieldType.STRING).description("해커톤 내용"),
+                fieldWithPath("imageUrl").type(JsonFieldType.STRING).description("해커톤 배너 이미지"),
+                fieldWithPath("applyStartDate").type(JsonFieldType.STRING).description("해커톤 지원 시작일"),
+                fieldWithPath("applyEndDate").type(JsonFieldType.STRING).description("해커톤 지원 마지막날"),
+                fieldWithPath("hackathonStartDate").type(JsonFieldType.STRING).description("해커톤 대회 시작일"),
+                fieldWithPath("hackathonEndDate").type(JsonFieldType.STRING).description("해커톤 대회 마지막날")
+        );
+
+
+        final HackathonDetailResponse response = new HackathonDetailResponse(
+                1L, "제5회 PNU 창의융합 소프트웨어해커톤", "# 해커톤 설명 **bold**",  LocalDate.parse("2024-05-22"), LocalDate.parse("2024-05-29"), LocalDate.parse("2024-05-22"), LocalDate.parse("2024-09-07"), "1.png"
+        );
+        final Long hackathonId = 1L;
+
+        // when
+        when(hackathonQueryService.findHackathon(hackathonId)).thenReturn(response);
+
+        // then
+        mockMvc.perform(
+                        RestDocumentationRequestBuilders.get("/hackathons/{hackathonId}", hackathonId))
+                .andExpect(status().isOk())
+                .andDo(document("hackathon-find", pathParameterSnippet, responseBodySnippet));
+
     }
 }

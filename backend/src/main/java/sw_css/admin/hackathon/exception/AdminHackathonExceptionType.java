@@ -3,7 +3,7 @@ package sw_css.admin.hackathon.exception;
 import org.springframework.http.HttpStatus;
 import sw_css.base.BaseExceptionType;
 
-public enum HackathonExceptionType implements BaseExceptionType {
+public enum AdminHackathonExceptionType implements BaseExceptionType {
     NOT_FOUND_HACKATHON(HttpStatus.NOT_FOUND, "해당 해커톤이 존재하지 않습니다."),
     NOT_FOUND_HACKATHON_TEAM(HttpStatus.NOT_FOUND, "해당 해커톤 팀이 존재하지 않습니다."),
     NOT_EXIST_FILE(HttpStatus.BAD_REQUEST, "파일을 첨부해야 합니다."),
@@ -19,7 +19,7 @@ public enum HackathonExceptionType implements BaseExceptionType {
     private final HttpStatus httpStatus;
     private final String errorMessage;
 
-    HackathonExceptionType(final HttpStatus httpStatus, final String errorMessage) {
+    AdminHackathonExceptionType(final HttpStatus httpStatus, final String errorMessage) {
         this.httpStatus = httpStatus;
         this.errorMessage = errorMessage;
     }
