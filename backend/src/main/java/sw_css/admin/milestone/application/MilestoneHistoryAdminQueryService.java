@@ -179,8 +179,6 @@ public class MilestoneHistoryAdminQueryService {
         final List<StudentAndMilestoneTotalScoreInfoMapping> milestoneHistoryInfos = milestoneScoreRepository.findMilestoneScoresWithStudentInfoByPeriod(
                 parsedStartDate, parsedEndDate, pageable.getPageNumber() * pageable.getPageSize() * 1L, pageable.getPageSize() * 1L);
 
-        System.out.println(milestoneHistoryInfos);
-
         final Long totalMilestoneHistoryInfoCount = milestoneScoreRepository.countAllMilestoneScoresWithStudentInfoByPeriod();
 
         final List<MilestoneScoreResponse> content = milestoneHistoryInfos.stream().map(entry -> {
@@ -198,8 +196,6 @@ public class MilestoneHistoryAdminQueryService {
                             .collect(groupingBy(MilestoneScoreOfStudentResponse::group))
             );
         }).toList();
-
-        System.out.println(content);
 
         return new PageImpl<>(content, pageable, totalMilestoneHistoryInfoCount);
     }

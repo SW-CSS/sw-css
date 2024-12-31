@@ -26,4 +26,6 @@ public interface HackathonTeamRepository extends JpaRepository<HackathonTeam, Lo
     List<HackathonTeam> findByHackathonId(Long hackathonId);
 
     Optional<HackathonTeam> findByHackathonIdAndId(Long hackathonId, Long teamId);
+
+    List<HackathonTeam> findByHackathonIdAndPrizeEquals(Long hackathonId, String prize);
 }

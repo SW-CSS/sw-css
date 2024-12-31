@@ -122,7 +122,6 @@ public class AdminHackathonCommandService {
     }
 
     private void validateFileType(final MultipartFile file) {
-        System.out.println(file.getOriginalFilename());
         if (file == null) {
             throw new AdminHackathonException(AdminHackathonExceptionType.NOT_EXIST_FILE);
         }

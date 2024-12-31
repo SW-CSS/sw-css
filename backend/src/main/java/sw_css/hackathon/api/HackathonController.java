@@ -1,5 +1,6 @@
 package sw_css.hackathon.api;
 
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import sw_css.hackathon.application.HackathonQueryService;
 import sw_css.hackathon.application.dto.response.HackathonDetailResponse;
+import sw_css.hackathon.application.dto.response.HackathonPrizeResponse;
 import sw_css.hackathon.application.dto.response.HackathonResponse;
 
 @Validated
@@ -41,5 +43,12 @@ public class HackathonController {
         );
     }
 
-    // TODO: 수상 내역 조회
+    @GetMapping("{hackathonId}/prize")
+    public ResponseEntity<List<HackathonPrizeResponse>> findHackathonPrize(
+            final @PathVariable Long hackathonId
+    ) {
+        return ResponseEntity.ok(
+                hackathonQueryService.findHackathonPrizes(hackathonId)
+        );
+    }
 }

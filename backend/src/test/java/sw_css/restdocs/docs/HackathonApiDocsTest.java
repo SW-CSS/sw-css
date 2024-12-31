@@ -11,6 +11,7 @@ import static org.springframework.restdocs.request.RequestDocumentation.queryPar
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -28,6 +29,8 @@ import sw_css.admin.hackathon.application.dto.response.AdminHackathonDetailRespo
 import sw_css.admin.hackathon.application.dto.response.AdminHackathonResponse;
 import sw_css.hackathon.api.HackathonController;
 import sw_css.hackathon.application.dto.response.HackathonDetailResponse;
+import sw_css.hackathon.application.dto.response.HackathonPrizeResponse;
+import sw_css.hackathon.application.dto.response.HackathonPrizeResponse.HackathonTeamPrize;
 import sw_css.hackathon.application.dto.response.HackathonResponse;
 import sw_css.hackathon.domain.Hackathon;
 import sw_css.restdocs.RestDocsTest;
@@ -130,6 +133,44 @@ public class HackathonApiDocsTest extends RestDocsTest {
                         RestDocumentationRequestBuilders.get("/hackathons/{hackathonId}", hackathonId))
                 .andExpect(status().isOk())
                 .andDo(document("hackathon-find", pathParameterSnippet, responseBodySnippet));
+    }
 
+    @Test
+    @DisplayName("[성공] 모든 사용자는 해커톤의 수상 내역을 조회할 수 있다.")
+    public void findHackathonPrize() throws Exception {
+        // given
+        PathParametersSnippet pathParameterSnippet = pathParameters(
+                parameterWithName("hackathonId").description("해커톤 id")
+        );
+
+        final ResponseFieldsSnippet responseBodySnippet = responseFields(
+                fieldWithPath("[].prize").type(JsonFieldType.STRING).description("상장 타입 (GRAND_PRIZE, EXCELLENCE_PRIZE, MERIT_PRIZE, ENCOURAGEMENT_PRIZE)"),
+                fieldWithPath("[].teams[].id").type(JsonFieldType.NUMBER).description("해커톤 팀 id"),
+                fieldWithPath("[].teams[].name").type(JsonFieldType.STRING).description("해커톤 팀명"),
+                fieldWithPath("[].teams[].work").type(JsonFieldType.STRING).description("해커톤 팀의 프로젝트 명"),
+                fieldWithPath("[].teams[].memberCount").type(JsonFieldType.NUMBER).description("해커톤 팀의 팀원 수")
+        );
+
+        final List<HackathonTeamPrize> teams = List.of(
+                new HackathonTeamPrize(1L, "팀명입니다", 4L, "프로젝트명입니다"),
+                new HackathonTeamPrize(2L, "팀명2입니다", 4L, "프로젝트명2입니다")
+        );
+        final List<HackathonPrizeResponse> response = List.of(
+                new HackathonPrizeResponse("GRAND_PRIZE", teams),
+                new HackathonPrizeResponse("EXCELLENCE_PRIZE", teams),
+                new HackathonPrizeResponse("MERIT_PRIZE", teams),
+                new HackathonPrizeResponse("ENCOURAGEMENT_PRIZE", teams)
+        );
+
+        final Long hackathonId = 1L;
+
+        // when
+        when(hackathonQueryService.findHackathonPrizes(hackathonId)).thenReturn(response);
+
+        // then
+        mockMvc.perform(
+                        RestDocumentationRequestBuilders.get("/hackathons/{hackathonId}/prize", hackathonId))
+                .andExpect(status().isOk())
+                .andDo(document("hackathon-find-prize", pathParameterSnippet, responseBodySnippet));
     }
 }

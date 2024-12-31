@@ -32,9 +32,9 @@ values('제4회 PNU 창의융합 소프트웨어해커톤', '
 
 ## hackathon team
 insert into hackathon_team (hackathon_id, name, image_url, work, github_url, prize, is_deleted)
-values(1, '두레', '1.png', '두레 두레 두레 두레 두레', 'https://github.com/BDD-CLUB/01-doo-re-front',  'NONE_PRIZE', false);
+values(1, '두레', '1.png', '두레 두레 두레 두레 두레', 'https://github.com/BDD-CLUB/01-doo-re-front',  'GRAND_PRIZE', false);
 insert into hackathon_team (hackathon_id, name, image_url, work, github_url, prize, is_deleted)
-values(1, '키퍼', '1.png', '키퍼 키퍼 키퍼 키퍼 키퍼', 'https://github.com/KEEPER31337/Homepage-Front-R2',  'NONE_PRIZE', false);
+values(1, '키퍼', '1.png', '키퍼 키퍼 키퍼 키퍼 키퍼', 'https://github.com/KEEPER31337/Homepage-Front-R2',  'EXCELLENCE_PRIZE', false);
 
 ## hackathon team vote
 insert into hackathon_team_vote (hackathon_id, team_id, student_id, is_deleted)

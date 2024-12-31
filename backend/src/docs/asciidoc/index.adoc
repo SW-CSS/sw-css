@@ -512,3 +512,17 @@ include::{snippets}/hackathon-find/http-response.adoc[]
 .Response Body
 include::{snippets}/hackathon-find/response-fields.adoc[]
 
+
+=== `GET`: 해커톤 상장 조회
+
+.HTTP Request
+include::{snippets}/hackathon-find-prize/http-request.adoc[]
+
+.Path Parameters
+include::{snippets}/hackathon-find-prize/path-parameters.adoc[]
+
+.HTTP Response
+include::{snippets}/hackathon-find-prize/http-response.adoc[]
+
+.Response Body
+include::{snippets}/hackathon-find-prize/response-fields.adoc[]

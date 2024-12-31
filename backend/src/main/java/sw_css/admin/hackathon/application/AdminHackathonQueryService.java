@@ -73,9 +73,6 @@ public class AdminHackathonQueryService {
                 () -> new AdminHackathonException(AdminHackathonExceptionType.NOT_FOUND_HACKATHON));
 
         final List<HackathonTeam> hackathonTeams = hackathonTeamRepository.findByHackathonIdSorted(hackathon.getId());
-        hackathonTeams.stream().forEach(team -> {
-            System.out.println(team.getName());
-        });
 
         return generateHackathonVoteExcelFile(hackathonTeams);
     }
