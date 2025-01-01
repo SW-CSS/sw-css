@@ -125,7 +125,7 @@ create table hackathon_team_vote
     id              bigint auto_increment primary key,
     hackathon_id    bigint       not null,
     team_id         bigint       not null,
-    student_id      bigint       not null,
+    member_id       bigint       not null,
     is_deleted      boolean      not null,
     created_at datetime(6) not null default current_timestamp(6)
 );

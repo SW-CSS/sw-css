@@ -81,7 +81,4 @@ public class HackathonTeamController {
         hackathonTeamCommandService.deleteHackathonTeam(me, hackathonId, teamId);
         return ResponseEntity.noContent().build();
     }
-
-    // TODO: 해커톤 투표
-
 }

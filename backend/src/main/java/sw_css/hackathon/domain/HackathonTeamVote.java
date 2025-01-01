@@ -1,5 +1,6 @@
 package sw_css.hackathon.domain;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -11,8 +12,9 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.SQLRestriction;
-import sw_css.member.domain.StudentMember;
+import sw_css.member.domain.Member;
 
 @Entity
 @Getter
@@ -33,6 +35,16 @@ public class HackathonTeamVote {
     private HackathonTeam team;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "student_id", nullable = false)
-    private StudentMember studentMember;
+    @JoinColumn(name = "member_id", nullable = false)
+    private Member member;
+
+    @Column(nullable = false)
+    @Setter(AccessLevel.PUBLIC)
+    private Boolean isDeleted;
+
+    public HackathonTeamVote(Hackathon hackathon, HackathonTeam team, Member member) {
+        this(null, hackathon, team, member, false);
+    }
+
+    public void delete() { this.isDeleted = true; }
 }
