@@ -11,7 +11,9 @@ import static org.springframework.restdocs.request.RequestDocumentation.queryPar
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,11 +26,12 @@ import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.restdocs.payload.ResponseFieldsSnippet;
 import org.springframework.restdocs.request.PathParametersSnippet;
-import org.springframework.restdocs.request.QueryParametersSnippet;
 import sw_css.hackathon.api.HackathonTeamController;
 import sw_css.hackathon.application.HackathonTeamQueryService;
 import sw_css.hackathon.application.dto.response.HackathonTeamResponse;
+import sw_css.hackathon.application.dto.response.HackathonTeamResponse.HackathonTeamMemberResponse;
 import sw_css.hackathon.domain.HackathonPrize;
+import sw_css.hackathon.domain.HackathonRole;
 import sw_css.restdocs.RestDocsTest;
 
 @WebMvcTest(HackathonTeamController.class)
@@ -73,16 +76,43 @@ public class HackathonTeamApiDocsTest  extends RestDocsTest {
                 fieldWithPath("content[].githubUrl").type(JsonFieldType.STRING).description("팀의 깃헙 레포 url"),
                 fieldWithPath("content[].imageUrl").type(JsonFieldType.STRING).description("팀의 썸네일 이미지"),
                 fieldWithPath("content[].prize").type(JsonFieldType.STRING).description("팀의 상장 타입 (GRAND_PRIZE, EXCELLENCE_PRIZE, MERIT_PRIZE, ENCOURAGEMENT_PRIZE, NONE_PRIZE)"),
-                fieldWithPath("content[].vote").type(JsonFieldType.NUMBER).description("팀의 투표 득표수")
+                fieldWithPath("content[].vote").type(JsonFieldType.NUMBER).description("팀의 투표 득표수"),
+                fieldWithPath("content[].members.DEVELOPER[].id").type(JsonFieldType.NUMBER).description("팀원 중 개발자의 학번"),
+                fieldWithPath("content[].members.DEVELOPER[].name").type(JsonFieldType.STRING).description("팀원 중 개발자의 이름"),
+                fieldWithPath("content[].members.DEVELOPER[].major").type(JsonFieldType.STRING).description("팀원 중 개발자의 전공"),
+                fieldWithPath("content[].members.DEVELOPER[].isLeader").type(JsonFieldType.BOOLEAN).description("팀이 팀장 여부"),
+                fieldWithPath("content[].members.DESIGNER[].id").type(JsonFieldType.NUMBER).description("팀원 중 개발자의 학번"),
+                fieldWithPath("content[].members.DESIGNER[].name").type(JsonFieldType.STRING).description("팀원 중 개발자의 이름"),
+                fieldWithPath("content[].members.DESIGNER[].major").type(JsonFieldType.STRING).description("팀원 중 개발자의 전공"),
+                fieldWithPath("content[].members.DESIGNER[].isLeader").type(JsonFieldType.BOOLEAN).description("팀이 팀장 여부"),
+                fieldWithPath("content[].members.PLANNER[].id").type(JsonFieldType.NUMBER).description("팀원 중 개발자의 학번"),
+                fieldWithPath("content[].members.PLANNER[].name").type(JsonFieldType.STRING).description("팀원 중 개발자의 이름"),
+                fieldWithPath("content[].members.PLANNER[].major").type(JsonFieldType.STRING).description("팀원 중 개발자의 전공"),
+                fieldWithPath("content[].members.PLANNER[].isLeader").type(JsonFieldType.BOOLEAN).description("팀이 팀장 여부"),
+                fieldWithPath("content[].members.OTHER[].id").type(JsonFieldType.NUMBER).description("팀원 중 개발자의 학번"),
+                fieldWithPath("content[].members.OTHER[].name").type(JsonFieldType.STRING).description("팀원 중 개발자의 이름"),
+                fieldWithPath("content[].members.OTHER[].major").type(JsonFieldType.STRING).description("팀원 중 개발자의 전공"),
+                fieldWithPath("content[].members.OTHER[].isLeader").type(JsonFieldType.BOOLEAN).description("팀이 팀장 여부")
         );
 
         final Long hackathonId = 1L;
         final Pageable pageable = PageRequest.of(0, 10);
+
+        final List<HackathonTeamMemberResponse> members = List.of(
+                new HackathonTeamMemberResponse(202012345L, "학생 이름", "학생 전공", true),
+                new HackathonTeamMemberResponse(202012345L, "학생 이름", "학생 전공", false));
+        final Map<String, List<HackathonTeamMemberResponse>> memberMap =  new HashMap<>();
+        memberMap.put(HackathonRole.DEVELOPER.toString(), members);
+        memberMap.put(HackathonRole.DESIGNER.toString(), members);
+        memberMap.put(HackathonRole.PLANNER.toString(), members);
+        memberMap.put(HackathonRole.OTHER.toString(), members);
+
         Page<HackathonTeamResponse> response = new PageImpl<>(
                 List.of(
-                        new HackathonTeamResponse(1L, "팀명1", "프로젝트명1", "https://github.com/SW-CSS/sw-css", "1.png", 98L, HackathonPrize.GRAND_PRIZE.toString()),
-                        new HackathonTeamResponse(2L, "팀명2", "프로젝트명2", "https://github.com/SW-CSS/sw-css", "1.png", 78L, HackathonPrize.EXCELLENCE_PRIZE.toString())),
-                pageable, 2);
+                        new HackathonTeamResponse(1L, "팀명1", "프로젝트명1", "https://github.com/SW-CSS/sw-css", "1.png", 98L, HackathonPrize.GRAND_PRIZE.toString(), memberMap),
+                        new HackathonTeamResponse(2L, "팀명2", "프로젝트명2", "https://github.com/SW-CSS/sw-css", "2.png", 60L, HackathonPrize.GRAND_PRIZE.toString(), memberMap)),
+                pageable, 2
+        );
 
         // when
         when(hackathonTeamQueryService.findAllHackathonTeam(pageable, hackathonId)).thenReturn(response);

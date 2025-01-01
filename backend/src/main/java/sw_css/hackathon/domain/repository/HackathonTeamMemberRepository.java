@@ -10,4 +10,6 @@ public interface HackathonTeamMemberRepository extends JpaRepository<HackathonTe
     HackathonTeamMember findAllByHackathonIdAndTeamIdAndIsLeaderTrue(Long hackathonId, Long teamId);
 
     Long countByHackathonIdAndTeamId(Long hackathonId, Long teamId);
+
+    List<HackathonTeamMember> findAllByHackathonIdAndTeamIdAndRole(Long hackathonId, Long teamId, String role);
 }

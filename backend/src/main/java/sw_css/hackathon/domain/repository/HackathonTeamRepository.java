@@ -9,6 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import sw_css.hackathon.application.dto.response.HackathonTeamResponse;
 import sw_css.hackathon.domain.HackathonTeam;
+import sw_css.hackathon.domain.HackathonTeamWithVote;
 
 public interface HackathonTeamRepository extends JpaRepository<HackathonTeam, Long> {
     @Query("SELECT ht.id AS team_id, ht.name, ht.imageUrl, ht.work, ht.githubUrl, ht.prize, COUNT(htv.id) AS vote " +
@@ -26,7 +27,7 @@ public interface HackathonTeamRepository extends JpaRepository<HackathonTeam, Lo
             "COUNT(htv.id) DESC")
     List<HackathonTeam> findByHackathonIdSorted(@Param("hackathonId") Long hackathonId);
 
-    @Query("SELECT new sw_css.hackathon.application.dto.response.HackathonTeamResponse(" +
+    @Query("SELECT new sw_css.hackathon.domain.HackathonTeamWithVote(" +
             "ht.id, ht.name, ht.imageUrl, ht.work, ht.githubUrl, COUNT(htv.id), ht.prize) " +
             "FROM HackathonTeam ht " +
             "LEFT JOIN HackathonTeamVote htv ON ht.id = htv.team.id AND ht.hackathon.id = htv.hackathon.id " +
@@ -40,7 +41,7 @@ public interface HackathonTeamRepository extends JpaRepository<HackathonTeam, Lo
             "WHEN 'NONE_PRIZE' THEN 5 " +
             "ELSE 6 END, " +
             "COUNT(htv.id) DESC")
-    Page<HackathonTeamResponse> findByHackathonIdWithPageable(@Param("hackathonId") Long hackathonId, Pageable pageable);
+    Page<HackathonTeamWithVote> findByHackathonIdWithPageable(@Param("hackathonId") Long hackathonId, Pageable pageable);
 
     List<HackathonTeam> findByHackathonId(Long hackathonId);
 

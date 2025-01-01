@@ -20,7 +20,6 @@ public class HackathonTeamController {
 
     private final HackathonTeamQueryService hackathonTeamQueryService;
 
-    // TODO: 해커톤 팀 목록 조회
     @GetMapping
     public ResponseEntity<Page<HackathonTeamResponse>> findAllTeams(
             Pageable pageable,
