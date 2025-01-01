@@ -9,6 +9,11 @@ values ( 'ddang@pusan.ac.kr', '이다은', '$2a$10$YyiOL/E5WjKrZPkB6eQSK.PwZtAO.
        , false);
 insert into student_member (id, member_id, major_id, minor_id, double_major_id, career, career_detail)
 values (202055555, 2, 1, null, null, 'GRADUATE_SCHOOL', 'IT 기업 개발자');
+insert into member (email, name, password, phone_number, is_deleted)
+values ( 'asdf@pusan.ac.kr', '이다은2', '$2a$10$YyiOL/E5WjKrZPkB6eQSK.PwZtAO.z3JimFbq/Ky3u3rFf3XTGrWK', '01000000000'
+       , false);
+insert into student_member (id, member_id, major_id, minor_id, double_major_id, career, career_detail)
+values (202055574, 3, 1, null, null, 'GRADUATE_SCHOOL', 'IT 기업 개발자');
 
 
 ## hackathon
@@ -31,18 +36,18 @@ values('제4회 PNU 창의융합 소프트웨어해커톤', '
 1. qwer', '1234', '2022-03-22', '2022-05-29', '2022-12-22', '2023-03-07', '1.png', true, false);
 
 ## hackathon team
-insert into hackathon_team (hackathon_id, name, image_url, work, github_url, prize, is_deleted)
-values(1, '두레', '1.png', '두레 두레 두레 두레 두레', 'https://github.com/BDD-CLUB/01-doo-re-front',  'GRAND_PRIZE', false);
-insert into hackathon_team (hackathon_id, name, image_url, work, github_url, prize, is_deleted)
-values(1, '키퍼', '1.png', '키퍼 키퍼 키퍼 키퍼 키퍼', 'https://github.com/KEEPER31337/Homepage-Front-R2',  'EXCELLENCE_PRIZE', false);
-insert into hackathon_team (hackathon_id, name, image_url, work, github_url, prize, is_deleted)
-values(1, '팀명1', '1.png', '프로젝트명1', 'https://www.naver.com',  'NONE_PRIZE', false);
-insert into hackathon_team (hackathon_id, name, image_url, work, github_url, prize, is_deleted)
-values(1, '팀명2', '1.png', '프로젝트명2', 'https://www.naver.com',  'NONE_PRIZE', false);
-insert into hackathon_team (hackathon_id, name, image_url, work, github_url, prize, is_deleted)
-values(1, '팀명3', '1.png', '프로젝트명3', 'https://www.naver.com',  'NONE_PRIZE', false);
-insert into hackathon_team (hackathon_id, name, image_url, work, github_url, prize, is_deleted)
-values(1, '팀명4', '1.png', '프로젝트명4', 'https://www.naver.com',  'NONE_PRIZE', false);
+insert into hackathon_team (hackathon_id, name, image_url, work, github_url, prize, created_by, is_deleted)
+values(1, '두레', '1.png', '두레 두레 두레 두레 두레', 'https://github.com/BDD-CLUB/01-doo-re-front',  'GRAND_PRIZE', 2, false);
+insert into hackathon_team (hackathon_id, name, image_url, work, github_url, prize, created_by, is_deleted)
+values(1, '키퍼', '1.png', '키퍼 키퍼 키퍼 키퍼 키퍼', 'https://github.com/KEEPER31337/Homepage-Front-R2',  'EXCELLENCE_PRIZE', 2, false);
+insert into hackathon_team (hackathon_id, name, image_url, work, github_url, prize, created_by, is_deleted)
+values(1, '팀명1', '1.png', '프로젝트명1', 'https://www.naver.com',  'NONE_PRIZE', 2, false);
+insert into hackathon_team (hackathon_id, name, image_url, work, github_url, prize, created_by, is_deleted)
+values(1, '팀명2', '1.png', '프로젝트명2', 'https://www.naver.com',  'NONE_PRIZE', 2, false);
+insert into hackathon_team (hackathon_id, name, image_url, work, github_url, prize, created_by, is_deleted)
+values(1, '팀명3', '1.png', '프로젝트명3', 'https://www.naver.com',  'NONE_PRIZE', 2, false);
+insert into hackathon_team (hackathon_id, name, image_url, work, github_url, prize, created_by, is_deleted)
+values(1, '팀명4', '1.png', '프로젝트명4', 'https://www.naver.com',  'NONE_PRIZE', 2, false);
 
 ## hackathon team vote
 insert into hackathon_team_vote (hackathon_id, team_id, student_id, is_deleted)

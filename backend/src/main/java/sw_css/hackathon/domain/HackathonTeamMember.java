@@ -8,14 +8,12 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
-import java.time.LocalDate;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.SQLRestriction;
-import sw_css.member.domain.StudentMember;
 
 @Entity
 @Getter
@@ -56,4 +54,6 @@ public class HackathonTeamMember {
     public HackathonTeamMember(Hackathon hackathon, HackathonTeam team, Long studentId, String role) {
         this(null, hackathon, team, studentId, role, false, false);
     }
+
+    public void delete() { this.isDeleted = true; }
 }

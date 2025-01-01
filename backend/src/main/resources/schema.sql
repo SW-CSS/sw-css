@@ -115,6 +115,7 @@ create table hackathon_team
     work            varchar(255) not null,
     github_url      varchar(255) not null,
     prize           varchar(255),
+    created_by      bigint       not null,
     is_deleted      boolean      not null,
     created_at      datetime(6)  not null default current_timestamp(6)
 );

@@ -14,6 +14,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.SQLRestriction;
+import sw_css.member.domain.Member;
 
 
 @Entity
@@ -46,11 +47,15 @@ public class HackathonTeam {
     @Column(nullable = false)
     private String prize;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "created_by", nullable = false)
+    private Member createdBy;
+
     @Column(nullable = false)
     private boolean isDeleted;
 
-    public HackathonTeam(Hackathon hackathon, String name, String work, String githubUrl, String imageUrl) {
-        this(null, hackathon, name, work, githubUrl, imageUrl, HackathonPrize.NONE_PRIZE.toString(), false);
+    public HackathonTeam(Hackathon hackathon, String name, String work, String githubUrl, String imageUrl, Member createdBy) {
+        this(null, hackathon, name, work, githubUrl, imageUrl, HackathonPrize.NONE_PRIZE.toString(), createdBy, false);
     }
 
     public void delete() {

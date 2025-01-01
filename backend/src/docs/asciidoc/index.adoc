@@ -573,3 +573,18 @@ include::{snippets}/hackathon-team-register/request-parts.adoc[]
 
 .HTTP Response
 include::{snippets}/hackathon-team-register/http-response.adoc[]
+
+
+=== `PATCH`: 해커톤 팀 수정
+
+.HTTP Request
+include::{snippets}/hackathon-team-update/http-request.adoc[]
+
+.Path Parameters
+include::{snippets}/hackathon-team-update/path-parameters.adoc[]
+
+.Request Body
+include::{snippets}/hackathon-team-update/request-fields.adoc[]
+
+.HTTP Response
+include::{snippets}/hackathon-team-update/http-response.adoc[]

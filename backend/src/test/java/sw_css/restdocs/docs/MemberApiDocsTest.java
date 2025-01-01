@@ -72,7 +72,7 @@ public class MemberApiDocsTest extends RestDocsTest {
                 fieldWithPath("newPassword").type(JsonFieldType.STRING).description("새로운 비밀번호")
         );
 
-        final Member me = new Member(1L, "ddang@pusan.ac.kr", "ddang", "qwer1234!", "01012341234", false);
+        final Member me = new Member(1L, "ddang@pusan.ac.kr", "ddang", "qwer1234!", "01012341234");
         final String oldPassword = "qwer1234!";
         final String newPassword = "asdf1234!";
         final String token = "Bearer AccessToken";
