@@ -35,12 +35,32 @@ insert into hackathon_team (hackathon_id, name, image_url, work, github_url, pri
 values(1, '두레', '1.png', '두레 두레 두레 두레 두레', 'https://github.com/BDD-CLUB/01-doo-re-front',  'GRAND_PRIZE', false);
 insert into hackathon_team (hackathon_id, name, image_url, work, github_url, prize, is_deleted)
 values(1, '키퍼', '1.png', '키퍼 키퍼 키퍼 키퍼 키퍼', 'https://github.com/KEEPER31337/Homepage-Front-R2',  'EXCELLENCE_PRIZE', false);
+insert into hackathon_team (hackathon_id, name, image_url, work, github_url, prize, is_deleted)
+values(1, '팀명1', '1.png', '프로젝트명1', 'https://www.naver.com',  'NONE_PRIZE', false);
+insert into hackathon_team (hackathon_id, name, image_url, work, github_url, prize, is_deleted)
+values(1, '팀명2', '1.png', '프로젝트명2', 'https://www.naver.com',  'NONE_PRIZE', false);
+insert into hackathon_team (hackathon_id, name, image_url, work, github_url, prize, is_deleted)
+values(1, '팀명3', '1.png', '프로젝트명3', 'https://www.naver.com',  'NONE_PRIZE', false);
+insert into hackathon_team (hackathon_id, name, image_url, work, github_url, prize, is_deleted)
+values(1, '팀명4', '1.png', '프로젝트명4', 'https://www.naver.com',  'NONE_PRIZE', false);
 
 ## hackathon team vote
 insert into hackathon_team_vote (hackathon_id, team_id, student_id, is_deleted)
 values(1, 2, 202012341, false);
 insert into hackathon_team_vote (hackathon_id, team_id, student_id, is_deleted)
 values(1, 2, 202012342, false);
+insert into hackathon_team_vote (hackathon_id, team_id, student_id, is_deleted)
+values(1, 2, 202012341, false);
+insert into hackathon_team_vote (hackathon_id, team_id, student_id, is_deleted)
+values(1, 2, 202012342, false);
+insert into hackathon_team_vote (hackathon_id, team_id, student_id, is_deleted)
+values(1, 3, 202012341, false);
+insert into hackathon_team_vote (hackathon_id, team_id, student_id, is_deleted)
+values(1, 3, 202012342, false);
+insert into hackathon_team_vote (hackathon_id, team_id, student_id, is_deleted)
+values(1, 6, 202012341, false);
+insert into hackathon_team_vote (hackathon_id, team_id, student_id, is_deleted)
+values(1, 5, 202012342, false);
 
 ## hackathon team member
 insert into hackathon_team_member (hackathon_id, team_id, student_id, role, is_leader, is_deleted)
