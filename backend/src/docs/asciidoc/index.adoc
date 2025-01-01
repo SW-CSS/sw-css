@@ -543,3 +543,18 @@ include::{snippets}/hackathon-team-find-all/http-response.adoc[]
 
 .Response Body
 include::{snippets}/hackathon-team-find-all/response-fields.adoc[]
+
+
+=== `GET`: 해커톤 팀 상세 조회
+
+.HTTP Request
+include::{snippets}/hackathon-team-find/http-request.adoc[]
+
+.Path Parameters
+include::{snippets}/hackathon-team-find/path-parameters.adoc[]
+
+.HTTP Response
+include::{snippets}/hackathon-team-find/http-response.adoc[]
+
+.Response Body
+include::{snippets}/hackathon-team-find/response-fields.adoc[]

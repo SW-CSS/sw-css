@@ -28,7 +28,13 @@ public class HackathonTeamController {
         return ResponseEntity.ok(hackathonTeamQueryService.findAllHackathonTeam(pageable, hackathonId));
     }
 
-    // TODO: 해커톤 팀 상세 조회
+    @GetMapping("{teamId}")
+    public ResponseEntity<HackathonTeamResponse> findTeamById(
+            @PathVariable Long hackathonId,
+            @PathVariable Long teamId
+    ) {
+        return ResponseEntity.ok(hackathonTeamQueryService.findHackathonTeam(hackathonId, teamId));
+    }
 
     // TODO: 해커톤 팀 등록
 

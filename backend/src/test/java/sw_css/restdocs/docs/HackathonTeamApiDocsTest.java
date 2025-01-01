@@ -24,6 +24,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.restdocs.payload.JsonFieldType;
+import org.springframework.restdocs.payload.ResponseBodySnippet;
 import org.springframework.restdocs.payload.ResponseFieldsSnippet;
 import org.springframework.restdocs.request.PathParametersSnippet;
 import sw_css.hackathon.api.HackathonTeamController;
@@ -32,6 +33,7 @@ import sw_css.hackathon.application.dto.response.HackathonTeamResponse;
 import sw_css.hackathon.application.dto.response.HackathonTeamResponse.HackathonTeamMemberResponse;
 import sw_css.hackathon.domain.HackathonPrize;
 import sw_css.hackathon.domain.HackathonRole;
+import sw_css.hackathon.domain.HackathonTeam;
 import sw_css.restdocs.RestDocsTest;
 
 @WebMvcTest(HackathonTeamController.class)
@@ -99,7 +101,7 @@ public class HackathonTeamApiDocsTest  extends RestDocsTest {
         final Pageable pageable = PageRequest.of(0, 10);
 
         final List<HackathonTeamMemberResponse> members = List.of(
-                new HackathonTeamMemberResponse(202012345L, "학생 이름", "학생 전공", true),
+                new HackathonTeamMemberResponse(202012345L, "학생 이름", "학생 전공", false),
                 new HackathonTeamMemberResponse(202012345L, "학생 이름", "학생 전공", false));
         final Map<String, List<HackathonTeamMemberResponse>> memberMap =  new HashMap<>();
         memberMap.put(HackathonRole.DEVELOPER.toString(), members);
@@ -124,6 +126,65 @@ public class HackathonTeamApiDocsTest  extends RestDocsTest {
                                 .param("size", "10"))
                 .andExpect(status().isOk())
                 .andDo(document("hackathon-team-find-all", pathParameterSnippet, responseBodySnippet));
+    }
+
+    @Test
+    @DisplayName("[성공] 모든 사용자는 해커톤 팀의 상세 조회할 수 있다.")
+    public void findHackathonTeam() throws Exception {
+        // given
+        final PathParametersSnippet pathParameterSnippet = pathParameters(
+                parameterWithName("hackathonId").description("해커톤 id"),
+                parameterWithName("teamId").description("해커톤 팀 id")
+        );
+
+        final ResponseFieldsSnippet responseBodySnippet = responseFields(
+                fieldWithPath("id").type(JsonFieldType.NUMBER).description("팀의 id"),
+                fieldWithPath("name").type(JsonFieldType.STRING).description("팀의 이름"),
+                fieldWithPath("work").type(JsonFieldType.STRING).description("팀의 프로젝트 명"),
+                fieldWithPath("githubUrl").type(JsonFieldType.STRING).description("팀의 깃헙 레포 url"),
+                fieldWithPath("imageUrl").type(JsonFieldType.STRING).description("팀의 썸네일 이미지"),
+                fieldWithPath("prize").type(JsonFieldType.STRING).description("팀의 상장 타입 (GRAND_PRIZE, EXCELLENCE_PRIZE, MERIT_PRIZE, ENCOURAGEMENT_PRIZE, NONE_PRIZE)"),
+                fieldWithPath("vote").type(JsonFieldType.NUMBER).description("팀의 투표 득표수"),
+                fieldWithPath("members.DEVELOPER[].id").type(JsonFieldType.NUMBER).description("팀원 중 개발자의 학번"),
+                fieldWithPath("members.DEVELOPER[].name").type(JsonFieldType.STRING).description("팀원 중 개발자의 이름"),
+                fieldWithPath("members.DEVELOPER[].major").type(JsonFieldType.STRING).description("팀원 중 개발자의 전공"),
+                fieldWithPath("members.DEVELOPER[].isLeader").type(JsonFieldType.BOOLEAN).description("팀이 팀장 여부"),
+                fieldWithPath("members.DESIGNER[].id").type(JsonFieldType.NUMBER).description("팀원 중 개발자의 학번"),
+                fieldWithPath("members.DESIGNER[].name").type(JsonFieldType.STRING).description("팀원 중 개발자의 이름"),
+                fieldWithPath("members.DESIGNER[].major").type(JsonFieldType.STRING).description("팀원 중 개발자의 전공"),
+                fieldWithPath("members.DESIGNER[].isLeader").type(JsonFieldType.BOOLEAN).description("팀이 팀장 여부"),
+                fieldWithPath("members.PLANNER[].id").type(JsonFieldType.NUMBER).description("팀원 중 개발자의 학번"),
+                fieldWithPath("members.PLANNER[].name").type(JsonFieldType.STRING).description("팀원 중 개발자의 이름"),
+                fieldWithPath("members.PLANNER[].major").type(JsonFieldType.STRING).description("팀원 중 개발자의 전공"),
+                fieldWithPath("members.PLANNER[].isLeader").type(JsonFieldType.BOOLEAN).description("팀이 팀장 여부"),
+                fieldWithPath("members.OTHER[].id").type(JsonFieldType.NUMBER).description("팀원 중 개발자의 학번"),
+                fieldWithPath("members.OTHER[].name").type(JsonFieldType.STRING).description("팀원 중 개발자의 이름"),
+                fieldWithPath("members.OTHER[].major").type(JsonFieldType.STRING).description("팀원 중 개발자의 전공"),
+                fieldWithPath("members.OTHER[].isLeader").type(JsonFieldType.BOOLEAN).description("팀이 팀장 여부")
+        );
+
+        final Long hackathonId = 1L;
+        final Long teamId = 2L;
+
+        final List<HackathonTeamMemberResponse> members = List.of(
+                new HackathonTeamMemberResponse(202012345L, "학생 이름", "학생 전공", false),
+                new HackathonTeamMemberResponse(202012345L, "학생 이름", "학생 전공", false));
+        final Map<String, List<HackathonTeamMemberResponse>> memberMap =  new HashMap<>();
+        memberMap.put(HackathonRole.DEVELOPER.toString(), members);
+        memberMap.put(HackathonRole.DESIGNER.toString(), members);
+        memberMap.put(HackathonRole.PLANNER.toString(), members);
+        memberMap.put(HackathonRole.OTHER.toString(), members);
+
+        HackathonTeamResponse response = new HackathonTeamResponse(1L, "팀명1", "프로젝트명1", "https://github.com/SW-CSS/sw-css", "1.png", 98L, HackathonPrize.GRAND_PRIZE.toString(), memberMap);
+
+        // when
+        when(hackathonTeamQueryService.findHackathonTeam(hackathonId, teamId)).thenReturn(response);
+
+        // then
+        mockMvc.perform(
+                        RestDocumentationRequestBuilders.get("/hackathons/{hackathonId}/teams/{teamId}", hackathonId, teamId))
+                .andExpect(status().isOk())
+                .andDo(document("hackathon-team-find", pathParameterSnippet, responseBodySnippet));
     }
 
 }

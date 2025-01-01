@@ -28,7 +28,7 @@ public interface HackathonTeamRepository extends JpaRepository<HackathonTeam, Lo
     List<HackathonTeam> findByHackathonIdSorted(@Param("hackathonId") Long hackathonId);
 
     @Query("SELECT new sw_css.hackathon.domain.HackathonTeamWithVote(" +
-            "ht.id, ht.name, ht.imageUrl, ht.work, ht.githubUrl, COUNT(htv.id), ht.prize) " +
+            "ht.id, ht.hackathon.id, ht.name, ht.imageUrl, ht.work, ht.githubUrl, COUNT(htv.id), ht.prize) " +
             "FROM HackathonTeam ht " +
             "LEFT JOIN HackathonTeamVote htv ON ht.id = htv.team.id AND ht.hackathon.id = htv.hackathon.id " +
             "GROUP BY ht.id, ht.name, ht.imageUrl, ht.work, ht.githubUrl, ht.prize, ht.hackathon.id " +
