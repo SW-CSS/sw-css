@@ -15,6 +15,9 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.filter.CharacterEncodingFilter;
 import sw_css.admin.auth.application.AdminAuthCommandService;
+import sw_css.admin.hackathon.application.AdminHackathonCommandService;
+import sw_css.admin.hackathon.application.AdminHackathonQueryService;
+import sw_css.admin.hackathon.application.AdminHackathonTeamCommandService;
 import sw_css.admin.member.application.MemberAdminQueryService;
 import sw_css.admin.milestone.application.MilestoneHistoryAdminCommandService;
 import sw_css.admin.milestone.application.MilestoneHistoryAdminQueryService;
@@ -23,6 +26,11 @@ import sw_css.auth.application.AuthEmailService;
 import sw_css.auth.application.AuthSignInService;
 import sw_css.auth.application.AuthSignUpService;
 import sw_css.file.application.FileService;
+import sw_css.hackathon.application.HackathonQueryService;
+import sw_css.hackathon.application.HackathonTeamCommandService;
+import sw_css.hackathon.application.HackathonTeamQueryService;
+import sw_css.hackathon.application.HackathonTeamVoteCommandService;
+import sw_css.hackathon.application.HackathonTeamVoteQueryService;
 import sw_css.helper.ApiTestHelper;
 import sw_css.major.application.MajorQueryService;
 import sw_css.member.application.MemberQueryService;
@@ -62,6 +70,30 @@ public abstract class RestDocsTest extends ApiTestHelper {
 
     @MockBean
     protected MemberAdminQueryService memberAdminQueryService;
+
+    @MockBean
+    protected AdminHackathonQueryService adminHackathonQueryService;
+
+    @MockBean
+    protected AdminHackathonCommandService adminHackathonCommandService;
+
+    @MockBean
+    protected AdminHackathonTeamCommandService adminHackathonTeamCommandService;
+
+    @MockBean
+    protected HackathonQueryService hackathonQueryService;
+
+    @MockBean
+    protected HackathonTeamQueryService hackathonTeamQueryService;
+
+    @MockBean
+    protected HackathonTeamCommandService hackathonTeamCommandService;
+
+    @MockBean
+    protected HackathonTeamVoteQueryService hackathonTeamVoteQueryService;
+
+    @MockBean
+    protected HackathonTeamVoteCommandService hackathonTeamVoteCommandService;
 
     @MockBean
     protected FileService fileService;

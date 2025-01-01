@@ -38,11 +38,11 @@ public record SignUpRequest(
         String auth_code) {
 
     public Member toMember() {
-        return new Member(this.email, this.name, Password.encode(this.password), this.phone_number, false);
+        return new Member(this.email, this.name, Password.encode(this.password), this.phone_number);
     }
 
     public Member toMember(Long memberId) {
-        return new Member(memberId, this.email, this.name, Password.encode(this.password), this.phone_number, false);
+        return new Member(memberId, this.email, this.name, Password.encode(this.password), this.phone_number);
     }
 
     public StudentMember toStudentMember(Long memberId, Major major, Major minor, Major doubleMajor) {

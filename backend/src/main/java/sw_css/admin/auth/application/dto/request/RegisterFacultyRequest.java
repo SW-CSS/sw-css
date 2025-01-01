@@ -15,11 +15,11 @@ public record RegisterFacultyRequest(
         String name) {
 
     public Member toMember(String password) {
-        return new Member(email, name, password, "01000000000", false);
+        return new Member(email, name, password, "01000000000");
     }
 
     public Member toMember(Long memberId, String password) {
-        return new Member(memberId, email, name, password, "01000000000", false);
+        return new Member(memberId, email, name, password, "01000000000");
     }
 
     public FacultyMember toFacultyMember(Long memberId, String password) {

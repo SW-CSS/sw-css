@@ -41,8 +41,12 @@ public class Member extends BaseEntity {
     @Column(nullable = false)
     private boolean isDeleted;
 
-    public Member(String email, String name, String password, String phoneNumber, boolean isDeleted) {
-        this(null, email, name, password, phoneNumber, isDeleted);
+    public Member(String email, String name, String password, String phoneNumber) {
+        this(null, email, name, password, phoneNumber, false);
+    }
+
+    public Member(Long id, String email, String name, String password, String phoneNumber) {
+        this(id, email, name, password, phoneNumber, false);
     }
 
     public boolean isWrongPassword(String rawPassword) {
