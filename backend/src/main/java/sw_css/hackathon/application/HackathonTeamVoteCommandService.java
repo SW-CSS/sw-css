@@ -23,7 +23,7 @@ public class HackathonTeamVoteCommandService {
     private final HackathonRepository hackathonRepository;
     private final HackathonTeamRepository hackathonTeamRepository;
 
-    public void voteHackathonTeam(final Member me, final Long hackathonId, final Long teamId) {
+    public void registerHackathonTeamVote(final Member me, final Long hackathonId, final Long teamId) {
         final Hackathon hackathon = hackathonRepository.findById(hackathonId).orElseThrow(
                 () -> new HackathonException(HackathonExceptionType.NOT_FOUND_HACKATHON));
         final HackathonTeam team = hackathonTeamRepository.findByHackathonIdAndId(hackathonId, teamId).orElseThrow(
@@ -38,7 +38,7 @@ public class HackathonTeamVoteCommandService {
         }
     }
 
-    public void cancelHackathonTeamVote(final Member me, final Long hackathonId, final Long teamId) {
+    public void deleteHackathonTeamVote(final Member me, final Long hackathonId, final Long teamId) {
         final Hackathon hackathon = hackathonRepository.findById(hackathonId).orElseThrow(
                 () -> new HackathonException(HackathonExceptionType.NOT_FOUND_HACKATHON));
         final HackathonTeam team = hackathonTeamRepository.findByHackathonIdAndId(hackathonId, teamId).orElseThrow(

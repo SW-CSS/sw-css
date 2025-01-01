@@ -604,7 +604,7 @@ include::{snippets}/hackathon-team-delete/http-response.adoc[]
 
 == 일반 - 해커톤 팀 투표
 
-=== `POST`: 헤커톤 팀 투표
+=== `GET`: 헤커톤 팀 투표 조회
 .HTTP Request
 include::{snippets}/hackathon-team-vote/http-request.adoc[]
 
@@ -613,6 +613,20 @@ include::{snippets}/hackathon-team-vote/path-parameters.adoc[]
 
 .HTTP Response
 include::{snippets}/hackathon-team-vote/http-response.adoc[]
+
+.Response Body
+include::{snippets}/hackathon-team-vote/response-fields.adoc[]
+
+
+=== `POST`: 헤커톤 팀 투표 등록
+.HTTP Request
+include::{snippets}/hackathon-team-vote-register/http-request.adoc[]
+
+.Path Parameters
+include::{snippets}/hackathon-team-vote-register/path-parameters.adoc[]
+
+.HTTP Response
+include::{snippets}/hackathon-team-vote-register/http-response.adoc[]
 
 
 === `DELETE`: 헤커톤 팀 투표 취소
