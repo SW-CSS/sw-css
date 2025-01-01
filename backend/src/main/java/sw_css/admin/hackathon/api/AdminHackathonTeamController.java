@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import sw_css.admin.hackathon.application.AdminHackathonTeamCommandService;
-import sw_css.admin.hackathon.application.dto.request.AdminHackathonTeamRequest;
+import sw_css.hackathon.application.dto.request.HackathonTeamRequest;
 import sw_css.member.domain.FacultyMember;
 import sw_css.utils.annotation.AdminInterface;
 
@@ -29,7 +29,7 @@ public class AdminHackathonTeamController {
                 @AdminInterface FacultyMember facultyMember,
                 @PathVariable Long hackathonId,
                 @PathVariable Long teamId,
-                @RequestBody @Valid AdminHackathonTeamRequest request
+                @RequestBody @Valid HackathonTeamRequest request
         ) {
         adminHackathonTeamCommandService.updateHackathonTeam(hackathonId, teamId, request);
         return ResponseEntity.noContent().build();

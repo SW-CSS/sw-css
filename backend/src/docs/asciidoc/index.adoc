@@ -558,3 +558,18 @@ include::{snippets}/hackathon-team-find/http-response.adoc[]
 
 .Response Body
 include::{snippets}/hackathon-team-find/response-fields.adoc[]
+
+
+=== `POST`: 해커톤 팀 등록
+
+.HTTP Request
+include::{snippets}/hackathon-team-register/http-request.adoc[]
+
+.Path Parameters
+include::{snippets}/hackathon-team-register/path-parameters.adoc[]
+
+.Request Body
+include::{snippets}/hackathon-team-register/request-parts.adoc[]
+
+.HTTP Response
+include::{snippets}/hackathon-team-register/http-response.adoc[]

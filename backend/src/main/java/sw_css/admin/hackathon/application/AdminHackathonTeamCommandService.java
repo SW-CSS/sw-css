@@ -7,10 +7,10 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import sw_css.admin.hackathon.application.dto.request.AdminHackathonTeamRequest;
-import sw_css.admin.hackathon.application.dto.request.AdminHackathonTeamRequest.TeamMember;
 import sw_css.admin.hackathon.exception.AdminHackathonException;
 import sw_css.admin.hackathon.exception.AdminHackathonExceptionType;
+import sw_css.hackathon.application.dto.request.HackathonTeamRequest;
+import sw_css.hackathon.application.dto.request.HackathonTeamRequest.HackathonTeamMemberRequest;
 import sw_css.hackathon.domain.Hackathon;
 import sw_css.hackathon.domain.HackathonRole;
 import sw_css.hackathon.domain.HackathonTeam;
@@ -28,7 +28,7 @@ public class AdminHackathonTeamCommandService {
     private final HackathonTeamRepository hackathonTeamRepository;
     private final HackathonTeamMemberRepository hackathonTeamMemberRepository;
 
-    public void updateHackathonTeam(Long hackathonId, Long teamId, AdminHackathonTeamRequest request) {
+    public void updateHackathonTeam(Long hackathonId, Long teamId, HackathonTeamRequest request) {
         final Hackathon hackathon = hackathonRepository.findById(hackathonId).orElseThrow(
                 () -> new AdminHackathonException(AdminHackathonExceptionType.NOT_FOUND_HACKATHON));
         final HackathonTeam hackathonTeam = hackathonTeamRepository.findByHackathonIdAndId(hackathonId, teamId).orElseThrow(
@@ -43,9 +43,9 @@ public class AdminHackathonTeamCommandService {
         final HackathonTeamMember teamLeader = hackathonTeamMemberRepository.findAllByHackathonIdAndTeamIdAndIsLeaderTrue(hackathonId, teamId);
         final List<HackathonTeamMember> teamMembers = hackathonTeamMemberRepository.findAllByHackathonIdAndTeamIdAndIsLeaderFalseOrderByStudentIdAsc(hackathonId, teamId);
 
-        final TeamMember leader = request.leader();
-        final List<TeamMember> members = request.members().stream()
-                .sorted(Comparator.comparingLong(AdminHackathonTeamRequest.TeamMember::id))
+        final HackathonTeamMemberRequest leader = request.leader();
+        final List<HackathonTeamMemberRequest> members = request.members().stream()
+                .sorted(Comparator.comparingLong(HackathonTeamRequest.HackathonTeamMemberRequest::id))
                 .toList();
 
         checkLeaderAndUpdate(teamLeader, leader, hackathon, hackathonTeam);
@@ -53,9 +53,9 @@ public class AdminHackathonTeamCommandService {
         for (HackathonTeamMember originMember : teamMembers) {
             boolean found = false;
 
-            Iterator<TeamMember> iterator = members.iterator();
+            Iterator<HackathonTeamMemberRequest> iterator = members.iterator();
             while (iterator.hasNext()) {
-                TeamMember member = iterator.next();
+                HackathonTeamMemberRequest member = iterator.next();
 
                 if ( !originMember.getStudentId().equals(member.id()) ) continue;
 
@@ -71,7 +71,7 @@ public class AdminHackathonTeamCommandService {
             }
         }
 
-        for (TeamMember member : members) {
+        for (HackathonTeamMemberRequest member : members) {
             validateTeamMember(member);
             HackathonTeamMember newMember = new HackathonTeamMember(hackathon, hackathonTeam, member.id(), member.role());
             hackathonTeamMemberRepository.save(newMember);
@@ -84,11 +84,11 @@ public class AdminHackathonTeamCommandService {
         final HackathonTeam hackathonTeam = hackathonTeamRepository.findByHackathonIdAndId(hackathonId, teamId).orElseThrow(
                 () -> new AdminHackathonException(AdminHackathonExceptionType.NOT_FOUND_HACKATHON_TEAM));
 
-        hackathonTeam.setDeleted(true);
+        hackathonTeam.delete();
         hackathonTeamRepository.save(hackathonTeam);
     }
 
-    private void checkMemberAndUpdate(HackathonTeamMember originMember, TeamMember member) {
+    private void checkMemberAndUpdate(HackathonTeamMember originMember, HackathonTeamMemberRequest member) {
         validateTeamMember(member);
         if ( !originMember.getRole().equals(member.role()) ) {
             originMember.setRole(member.role());
@@ -96,7 +96,7 @@ public class AdminHackathonTeamCommandService {
         }
     }
 
-    private void checkLeaderAndUpdate(HackathonTeamMember originLeader, TeamMember leader, Hackathon hackathon, HackathonTeam team) {
+    private void checkLeaderAndUpdate(HackathonTeamMember originLeader, HackathonTeamMemberRequest leader, Hackathon hackathon, HackathonTeam team) {
         validateTeamMember(leader);
         if ( !originLeader.getStudentId().equals(leader.id()) ) {
             originLeader.setIsDeleted(true);
@@ -109,7 +109,7 @@ public class AdminHackathonTeamCommandService {
         }
     }
 
-    private void validateTeamMember(TeamMember teamMember) {
+    private void validateTeamMember(HackathonTeamMemberRequest teamMember) {
         validateStudentId(teamMember.id());
         validateRole(teamMember.role());
     }

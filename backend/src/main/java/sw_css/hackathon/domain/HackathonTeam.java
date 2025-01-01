@@ -35,17 +35,25 @@ public class HackathonTeam {
     private String name;
 
     @Column(nullable = false)
-    private String imageUrl;
-
-    @Column(nullable = false)
     private String work;
 
     @Column(nullable = false)
     private String githubUrl;
 
     @Column(nullable = false)
+    private String imageUrl;
+
+    @Column(nullable = false)
     private String prize;
 
     @Column(nullable = false)
     private boolean isDeleted;
+
+    public HackathonTeam(Hackathon hackathon, String name, String work, String githubUrl, String imageUrl) {
+        this(null, hackathon, name, work, githubUrl, imageUrl, HackathonPrize.NONE_PRIZE.toString(), false);
+    }
+
+    public void delete() {
+        isDeleted = true;
+    }
 }

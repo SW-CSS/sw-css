@@ -14,15 +14,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import java.util.List;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.restdocs.payload.RequestFieldsSnippet;
 import org.springframework.restdocs.request.PathParametersSnippet;
 import sw_css.admin.hackathon.api.AdminHackathonTeamController;
-import sw_css.admin.hackathon.application.dto.request.AdminHackathonTeamRequest;
-import sw_css.admin.hackathon.application.dto.request.AdminHackathonTeamRequest.TeamMember;
+import sw_css.hackathon.application.dto.request.HackathonTeamRequest;
+import sw_css.hackathon.application.dto.request.HackathonTeamRequest.HackathonTeamMemberRequest;
 import sw_css.restdocs.RestDocsTest;
 
 @WebMvcTest(AdminHackathonTeamController.class)
@@ -48,8 +47,8 @@ public class AdminHackathonTeamApiDocsTest  extends RestDocsTest {
 
         final Long hackathonId = 1L;
         final Long teamId = 1L;
-        final TeamMember leader = new TeamMember(202055555L, "DEVELOPER");
-        final AdminHackathonTeamRequest request = new AdminHackathonTeamRequest("팀명", "프로젝트명", "https://www.github.com", leader, List.of(new TeamMember(202012345L, "OTHER")));
+        final HackathonTeamMemberRequest leader = new HackathonTeamMemberRequest(202055555L, "DEVELOPER");
+        final HackathonTeamRequest request = new HackathonTeamRequest("팀명", "프로젝트명", "https://www.github.com", leader, List.of(new HackathonTeamMemberRequest(202012345L, "OTHER")));
         final String token = "Bearer AccessToken";
 
         // when

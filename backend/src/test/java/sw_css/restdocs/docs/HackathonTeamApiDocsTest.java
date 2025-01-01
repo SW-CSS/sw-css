@@ -3,14 +3,18 @@ package sw_css.restdocs.docs;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.multipart;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.restdocs.request.RequestDocumentation.parameterWithName;
+import static org.springframework.restdocs.request.RequestDocumentation.partWithName;
 import static org.springframework.restdocs.request.RequestDocumentation.pathParameters;
 import static org.springframework.restdocs.request.RequestDocumentation.queryParameters;
+import static org.springframework.restdocs.request.RequestDocumentation.requestParts;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,13 +26,20 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders;
 import org.springframework.restdocs.payload.JsonFieldType;
 import org.springframework.restdocs.payload.ResponseBodySnippet;
 import org.springframework.restdocs.payload.ResponseFieldsSnippet;
 import org.springframework.restdocs.request.PathParametersSnippet;
+import org.springframework.restdocs.request.RequestPartsSnippet;
+import sw_css.admin.hackathon.application.dto.request.AdminHackathonRequest;
 import sw_css.hackathon.api.HackathonTeamController;
 import sw_css.hackathon.application.HackathonTeamQueryService;
+import sw_css.hackathon.application.dto.request.HackathonTeamRequest;
+import sw_css.hackathon.application.dto.request.HackathonTeamRequest.HackathonTeamMemberRequest;
 import sw_css.hackathon.application.dto.response.HackathonTeamResponse;
 import sw_css.hackathon.application.dto.response.HackathonTeamResponse.HackathonTeamMemberResponse;
 import sw_css.hackathon.domain.HackathonPrize;
@@ -38,9 +49,6 @@ import sw_css.restdocs.RestDocsTest;
 
 @WebMvcTest(HackathonTeamController.class)
 public class HackathonTeamApiDocsTest  extends RestDocsTest {
-
-    @Autowired
-    private HackathonTeamQueryService hackathonTeamQueryService;
 
     @Test
     @DisplayName("[성공] 모든 사용자는 해커톤 팀 목록을 조회할 수 있다.")
@@ -185,6 +193,39 @@ public class HackathonTeamApiDocsTest  extends RestDocsTest {
                         RestDocumentationRequestBuilders.get("/hackathons/{hackathonId}/teams/{teamId}", hackathonId, teamId))
                 .andExpect(status().isOk())
                 .andDo(document("hackathon-team-find", pathParameterSnippet, responseBodySnippet));
+    }
+
+    @Test
+    @DisplayName("[성공] 회원은 해커톤의 팀을 등록할 수 있다.")
+    public void registerHackathonTeam() throws Exception {
+        // given
+        final PathParametersSnippet pathParameterSnippet = pathParameters(parameterWithName("hackathonId").description("해커톤 id"));
+        final RequestPartsSnippet requestPartsSnippet = requestParts(
+                partWithName("request").description(
+                        "해커톤 정보( name: 팀명, work: 프로젝트명, githubUrl: 프로젝트 레포, leader{id: 리더의 학번, role: 리더의 역할}, members[]{id: 팀원의 학번, role: 팀원의 역할}"),
+                partWithName("file").description("팀의 썸네일 이미지"));
+
+        final MockMultipartFile file = new MockMultipartFile("file", "test.png", "multipart/form-data", "example".getBytes());
+        final HackathonTeamRequest request = new HackathonTeamRequest("팀명", "프로젝트명", "깃헙 url", new HackathonTeamMemberRequest(202012345L, HackathonRole.DEVELOPER.toString()), List.of(new HackathonTeamMemberRequest(202012346L, HackathonRole.DESIGNER.toString())));
+        final MockMultipartFile requestJson = new MockMultipartFile("request", null, "application/json", objectMapper.writeValueAsString(request).getBytes());
+        final String token = "Bearer AccessToken";
+        final Long hackathonId = 1L;
+        final Long teamId = 1L;
+
+        // when
+        when(hackathonTeamCommandService.registerHackathonTeam(hackathonId, file, request)).thenReturn(teamId);
+
+        // then
+        mockMvc.perform(
+                        multipart("/hackathons/{hackathonId}/teams", hackathonId)
+                                .file(file)
+                                .file(requestJson)
+                                .contentType(MediaType.MULTIPART_MIXED)
+                                .content(objectMapper.writeValueAsString(request))
+                                .header(HttpHeaders.AUTHORIZATION, token))
+                .andExpect(status().isCreated())
+                .andDo(document("hackathon-team-register", pathParameterSnippet, requestPartsSnippet));
+
     }
 
 }
