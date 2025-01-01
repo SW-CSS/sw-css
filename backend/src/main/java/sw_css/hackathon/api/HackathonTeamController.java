@@ -7,6 +7,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -68,6 +69,16 @@ public class HackathonTeamController {
             @RequestBody @Valid final HackathonTeamRequest request
     ) {
         hackathonTeamCommandService.updateHackathonTeam(me, hackathonId, teamId, request);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping("{teamId}")
+    public ResponseEntity<Void> deleteHackathonTeam(
+            @MemberInterface Member me,
+            @PathVariable Long hackathonId,
+            @PathVariable Long teamId
+    ) {
+        hackathonTeamCommandService.deleteHackathonTeam(me, hackathonId, teamId);
         return ResponseEntity.noContent().build();
     }
 

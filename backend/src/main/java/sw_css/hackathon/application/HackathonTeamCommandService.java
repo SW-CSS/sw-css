@@ -6,7 +6,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
-import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
@@ -17,8 +16,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-import sw_css.admin.hackathon.exception.AdminHackathonException;
-import sw_css.admin.hackathon.exception.AdminHackathonExceptionType;
 import sw_css.hackathon.application.dto.request.HackathonTeamRequest;
 import sw_css.hackathon.application.dto.request.HackathonTeamRequest.HackathonTeamMemberRequest;
 import sw_css.hackathon.domain.Hackathon;
@@ -76,9 +73,9 @@ public class HackathonTeamCommandService {
 
     public void updateHackathonTeam(final Member me, final Long hackathonId, final Long teamId, final HackathonTeamRequest request) {
         final Hackathon hackathon = hackathonRepository.findById(hackathonId).orElseThrow(
-                () -> new AdminHackathonException(AdminHackathonExceptionType.NOT_FOUND_HACKATHON));
+                () -> new HackathonException(HackathonExceptionType.NOT_FOUND_HACKATHON));
         final HackathonTeam team = hackathonTeamRepository.findByHackathonIdAndId(hackathonId, teamId).orElseThrow(
-                () -> new AdminHackathonException(AdminHackathonExceptionType.NOT_FOUND_HACKATHON_TEAM));
+                () -> new HackathonException(HackathonExceptionType.NOT_FOUND_HACKATHON_TEAM));
 
         validateTeamUpdater(me, team);
 
@@ -125,6 +122,18 @@ public class HackathonTeamCommandService {
             HackathonTeamMember newMember = new HackathonTeamMember(hackathon, team, member.id(), member.role());
             hackathonTeamMemberRepository.save(newMember);
         }
+    }
+    
+    public void deleteHackathonTeam(final Member me, final Long hackathonId, final Long teamId) {
+        hackathonRepository.findById(hackathonId).orElseThrow(
+                () -> new HackathonException(HackathonExceptionType.NOT_FOUND_HACKATHON));
+        final HackathonTeam team = hackathonTeamRepository.findByHackathonIdAndId(hackathonId, teamId).orElseThrow(
+                () -> new HackathonException(HackathonExceptionType.NOT_FOUND_HACKATHON_TEAM));
+        
+        validateTeamUpdater(me, team);
+        
+        team.delete();
+        hackathonTeamRepository.save(team);
     }
 
     private void checkLeaderAndUpdate(HackathonTeamMember originLeader, HackathonTeamMemberRequest leader, Hackathon hackathon, HackathonTeam team) {
@@ -183,17 +192,17 @@ public class HackathonTeamCommandService {
         try {
             HackathonRole.valueOf(role);
         } catch (IllegalArgumentException e) {
-            throw new AdminHackathonException(AdminHackathonExceptionType.INVALID_ROLE_STATUS);
+            throw new HackathonException(HackathonExceptionType.INVALID_ROLE_STATUS);
         }
     }
 
     private void validateFileType(final MultipartFile file) {
         if (file == null) {
-            throw new AdminHackathonException(AdminHackathonExceptionType.NOT_EXIST_FILE);
+            throw new HackathonException(HackathonExceptionType.NOT_EXIST_FILE);
         }
         final String contentType = file.getContentType();
         if (!isSupportedContentType(contentType)) {
-            throw new AdminHackathonException(AdminHackathonExceptionType.UNSUPPORTED_FILE_TYPE);
+            throw new HackathonException(HackathonExceptionType.UNSUPPORTED_FILE_TYPE);
         }
     }
 

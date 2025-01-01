@@ -10,7 +10,10 @@ public enum HackathonExceptionType implements BaseExceptionType {
     INVALID_STUDENT_ID(HttpStatus.BAD_REQUEST,"올바르지 않는 형식의 팀원 학번입니다."),
     INVALID_TEAM_MEMBER(HttpStatus.BAD_REQUEST, "팀원이 중복으로 존재할 수 없습니다."),
     INVALID_TEAM_CREATOR(HttpStatus.BAD_REQUEST, "팀원이 아닌 사람이 팀을 만들 수 없습니다."),
-    INVALID_TEAM_UPDATER(HttpStatus.BAD_REQUEST, "해당 팀의 수정 권한이 없습니다.");
+    INVALID_TEAM_UPDATER(HttpStatus.BAD_REQUEST, "해당 팀의 수정 권한이 없습니다."),
+    NOT_EXIST_FILE(HttpStatus.BAD_REQUEST, "파일을 첨부해야 합니다."),
+    CANNOT_OPEN_FILE(HttpStatus.BAD_REQUEST, "파일을 열 수 없습니다."),
+    UNSUPPORTED_FILE_TYPE(HttpStatus.UNSUPPORTED_MEDIA_TYPE, "파일 유형이 png, jpg, jpeg 가 아닙니다.");
 
 
     private final HttpStatus httpStatus;

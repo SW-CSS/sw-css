@@ -4,6 +4,7 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.when;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
+import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.delete;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.multipart;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.patch;
 import static org.springframework.restdocs.payload.PayloadDocumentation.fieldWithPath;
@@ -261,6 +262,30 @@ public class HackathonTeamApiDocsTest  extends RestDocsTest {
                                 .header(HttpHeaders.AUTHORIZATION, token))
                 .andExpect(status().isNoContent())
                 .andDo(document("hackathon-team-update", pathParameterSnippet, requestFieldsSnippet));
+    }
+
+    @Test
+    @DisplayName("[성공] 팀을 생성했던 사람은 해커톤 팀을 삭제할 수 있다.")
+    public void deleteHackathonTeam() throws Exception {
+        // given
+        final PathParametersSnippet pathParameterSnippet = pathParameters(
+                parameterWithName("hackathonId").description("해당 팀이 속한 해커톤 id"),
+                parameterWithName("teamId").description("팀의 id"));
+
+        final Member me = new Member(1L, "ddang@pusan.ac.kr", "ddang", "qwer1234!", "01012341234");
+        final Long hackathonId = 1L;
+        final Long teamId = 1L;
+        final String token = "Bearer AccessToken";
+
+        // when
+        doNothing().when(hackathonTeamCommandService).deleteHackathonTeam(me, hackathonId, teamId);
+
+        // then
+        mockMvc.perform(
+                        delete("/hackathons/{hackathonId}/teams/{teamId}", hackathonId, teamId)
+                                .header(HttpHeaders.AUTHORIZATION, token))
+                .andExpect(status().isNoContent())
+                .andDo(document("hackathon-team-delete", pathParameterSnippet));
     }
 
 }

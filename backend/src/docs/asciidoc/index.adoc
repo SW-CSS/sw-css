@@ -588,3 +588,15 @@ include::{snippets}/hackathon-team-update/request-fields.adoc[]
 
 .HTTP Response
 include::{snippets}/hackathon-team-update/http-response.adoc[]
+
+
+=== `DELETE`: 해커톤 팀 삭제
+
+.HTTP Request
+include::{snippets}/hackathon-team-delete/http-request.adoc[]
+
+.Path Parameters
+include::{snippets}/hackathon-team-delete/path-parameters.adoc[]
+
+.HTTP Response
+include::{snippets}/hackathon-team-delete/http-response.adoc[]
