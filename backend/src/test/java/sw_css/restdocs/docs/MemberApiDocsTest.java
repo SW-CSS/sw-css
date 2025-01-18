@@ -153,6 +153,23 @@ public class MemberApiDocsTest extends RestDocsTest {
                         .header(HttpHeaders.AUTHORIZATION, token))
                 .andExpect(status().isNoContent())
                 .andDo(document("member-change-student-detail-info", requestFields));
+    }
 
+    @Test
+    @DisplayName("[성공] 회원은 서비스를 탈퇴할 수 있다..")
+    public void deleteMember() throws Exception {
+        // given
+        final Member me = new Member(1L, "ddang@pusan.ac.kr", "ddang", "qwer1234!", "01012341234");
+        final String token = "Bearer AccessToken";
+
+        // when
+        doNothing().when(memberCommandService).deleteMember(me);
+
+        // then
+        mockMvc.perform(RestDocumentationRequestBuilders.delete("/members")
+                        .contentType(APPLICATION_JSON)
+                        .header(HttpHeaders.AUTHORIZATION, token))
+                .andExpect(status().isNoContent())
+                .andDo(document("member-delete"));
     }
 }

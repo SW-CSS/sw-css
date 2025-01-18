@@ -63,4 +63,9 @@ public class MemberCommandService {
         me.setDetailInfo(major, minor, doubleMinor, careerType, request.careerDetail());
         studentMemberRepository.save(me);
     }
+
+    public void deleteMember(final Member me) {
+        me.delete();
+        memberRepository.save(me);
+    }
 }

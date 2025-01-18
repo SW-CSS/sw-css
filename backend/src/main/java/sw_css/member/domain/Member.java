@@ -55,4 +55,8 @@ public class Member extends BaseEntity {
         return !Password.matches(rawPassword, password);
     }
 
+    public void delete() {
+        this.isDeleted = true;
+    }
+
 }
