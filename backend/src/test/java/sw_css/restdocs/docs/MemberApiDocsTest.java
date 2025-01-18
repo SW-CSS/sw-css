@@ -21,11 +21,16 @@ import org.springframework.restdocs.payload.PayloadDocumentation;
 import org.springframework.restdocs.payload.RequestFieldsSnippet;
 import org.springframework.restdocs.payload.ResponseFieldsSnippet;
 import org.springframework.restdocs.request.PathParametersSnippet;
+import sw_css.major.domain.College;
+import sw_css.major.domain.Major;
 import sw_css.member.api.MemberController;
 import sw_css.member.application.dto.request.MemberChangePasswordRequest;
 import sw_css.member.application.dto.request.MemberChangeInfoRequest;
+import sw_css.member.application.dto.request.MemberChangeStudentDetailInfoRequest;
 import sw_css.member.application.dto.response.StudentMemberResponse;
+import sw_css.member.domain.CareerType;
 import sw_css.member.domain.Member;
+import sw_css.member.domain.StudentMember;
 import sw_css.restdocs.RestDocsTest;
 
 @WebMvcTest(MemberController.class)
@@ -116,5 +121,38 @@ public class MemberApiDocsTest extends RestDocsTest {
                         .header(HttpHeaders.AUTHORIZATION, token))
                 .andExpect(status().isNoContent())
                 .andDo(document("member-change-info", requestFields));
+    }
+
+    @Test
+    @DisplayName("[성공] 헉생의 자신의 전고 및 진로 계획을 수정할 수 있다.")
+    public void changeStudentDetailInfo() throws Exception {
+        // given
+        final RequestFieldsSnippet requestFields = requestFields(
+                fieldWithPath("majorId").type(JsonFieldType.NUMBER).description("회원의 전공 id"),
+                fieldWithPath("minorId").type(JsonFieldType.NUMBER).description("회원의 부전공 id"),
+                fieldWithPath("doubleMajorId").type(JsonFieldType.NUMBER).description("회원의 복수 전공 id"),
+                fieldWithPath("career").type(JsonFieldType.STRING).description("회원의 진로 계획 유형 - GRADUATE_SCHOOL, EMPLOYMENT_COMPANY, EMPLOYMENT_PUBLIC_INSTITUTION, FOUNDATION"),
+                fieldWithPath("careerDetail").type(JsonFieldType.STRING).description("회원의 진로 상세 계획")
+        );
+
+
+        final StudentMember student = new StudentMember(202055500L,
+                new Member(1L, "abc@naver.com", "홍길동", "password", "010-0000-0000", false),
+                new Major(1L, new College(1L, "인문대학"), "사회학과"), null, null, CareerType.EMPLOYMENT_COMPANY,
+                "IT 사기업 개발자로 취업");
+        final MemberChangeStudentDetailInfoRequest request = new MemberChangeStudentDetailInfoRequest(1L, 2L, 3L, "GRADUATE_SCHOOL", "AI 관련 연구실에서 석박사");
+        final String token = "Bearer AccessToken";
+
+        // when
+        doNothing().when(memberCommandService).changeStudentDetailInfo(student, request);
+
+        // then
+        mockMvc.perform(RestDocumentationRequestBuilders.patch("/members/change-student-detail-info")
+                        .contentType(APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request))
+                        .header(HttpHeaders.AUTHORIZATION, token))
+                .andExpect(status().isNoContent())
+                .andDo(document("member-change-student-detail-info", requestFields));
+
     }
 }

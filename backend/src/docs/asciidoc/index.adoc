@@ -77,6 +77,17 @@ include::{snippets}/member-change-info/request-fields.adoc[]
 .HTTP Response
 include::{snippets}/member-change-info/http-response.adoc[]
 
+=== `PATCH`: 학생의 전공 및 진로 계획 수정
+
+.HTTP Request
+include::{snippets}/member-change-student-detail-info/http-request.adoc[]
+
+.Request Body
+include::{snippets}/member-change-student-detail-info/request-fields.adoc[]
+
+.HTTP Response
+include::{snippets}/member-change-student-detail-info/http-response.adoc[]
+
 == 학과
 
 === `GET`: 단과대학 목록 조회
