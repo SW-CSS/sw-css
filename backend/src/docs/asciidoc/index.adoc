@@ -54,7 +54,7 @@ include::{snippets}/faculty-find-all/http-response.adoc[]
 include::{snippets}/faculty-find-all/response-fields.adoc[]
 
 
-=== `PATCH`: 비밀번호 수정
+=== `PATCH`: 자신의 비밀번호 수정
 
 .HTTP Request
 include::{snippets}/member-change-password/http-request.adoc[]
@@ -64,6 +64,18 @@ include::{snippets}/member-change-password/request-fields.adoc[]
 
 .HTTP Response
 include::{snippets}/member-change-password/http-response.adoc[]
+
+
+=== `PATCH`: 자신의 기본 정보 수정
+
+.HTTP Request
+include::{snippets}/member-change-info/http-request.adoc[]
+
+.Request Body
+include::{snippets}/member-change-info/request-fields.adoc[]
+
+.HTTP Response
+include::{snippets}/member-change-info/http-response.adoc[]
 
 == 학과
 

@@ -26,4 +26,11 @@ public class MemberCommandService {
 
         memberRepository.save(me);
     }
+
+    public void changeDefaultInfo(final Member me, final String name, final String phoneNumber) {
+        me.setName(name);
+        me.setPhoneNumber(phoneNumber);
+
+        memberRepository.save(me);
+    }
 }

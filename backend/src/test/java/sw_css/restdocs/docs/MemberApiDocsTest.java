@@ -23,6 +23,7 @@ import org.springframework.restdocs.payload.ResponseFieldsSnippet;
 import org.springframework.restdocs.request.PathParametersSnippet;
 import sw_css.member.api.MemberController;
 import sw_css.member.application.dto.request.ChangePasswordRequest;
+import sw_css.member.application.dto.request.MemberChangeInfoRequest;
 import sw_css.member.application.dto.response.StudentMemberResponse;
 import sw_css.member.domain.Member;
 import sw_css.restdocs.RestDocsTest;
@@ -89,5 +90,31 @@ public class MemberApiDocsTest extends RestDocsTest {
                         .header(HttpHeaders.AUTHORIZATION, token))
                 .andExpect(status().isNoContent())
                 .andDo(document("member-change-password", requestFields));
+    }
+
+    @Test
+    @DisplayName("[성공] 회원은 이름과 전화번호를 변경할 수 있다.")
+    public void changeDefaultInfo() throws Exception {
+        // given
+        final RequestFieldsSnippet requestFields = requestFields(
+                fieldWithPath("name").type(JsonFieldType.STRING).description("회원의 이름"),
+                fieldWithPath("phoneNumber").type(JsonFieldType.STRING).description("회원의 전화번호")
+        );
+
+        final Member me = new Member(1L, "ddang@pusan.ac.kr", "ddang", "qwer1234!", "01012341234");
+        final String token = "Bearer AccessToken";
+
+        final MemberChangeInfoRequest request = new MemberChangeInfoRequest("이다은", "01031315656");
+
+        // when
+        doNothing().when(memberCommandService).changePassword(me, request.name(), request.phoneNumber());
+
+        // then
+        mockMvc.perform(RestDocumentationRequestBuilders.patch("/members/change-info")
+                        .contentType(APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(request))
+                        .header(HttpHeaders.AUTHORIZATION, token))
+                .andExpect(status().isNoContent())
+                .andDo(document("member-change-info", requestFields));
     }
 }

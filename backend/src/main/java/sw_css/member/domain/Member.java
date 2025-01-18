@@ -27,6 +27,7 @@ public class Member extends BaseEntity {
     @Column(nullable = false)
     private String email;
 
+    @Setter(AccessLevel.PUBLIC)
     @Column(nullable = false)
     private String name;
 
@@ -34,6 +35,7 @@ public class Member extends BaseEntity {
     @Column(nullable = false)
     private String password;
 
+    @Setter(AccessLevel.PUBLIC)
     @Column(nullable = false)
     private String phoneNumber;
 
