@@ -53,34 +53,61 @@ public class MemberAdminApiDocsTest extends RestDocsTest {
     @DisplayName("[성공] 모든 학생들의 정보를 조회할 수 있다.")
     public void findStudents() throws Exception {
         // given
-        final ResponseFieldsSnippet responseFields = PayloadDocumentation.responseFields(
-                fieldWithPath("[].id").type(JsonFieldType.NUMBER).description("학생의 id(학번)"),
-                fieldWithPath("[].email").type(JsonFieldType.STRING).description("학생의 이메일"),
-                fieldWithPath("[].name").type(JsonFieldType.STRING).description("학생의 이름"),
-                fieldWithPath("[].major").type(JsonFieldType.STRING).description("학생의 주전공"),
-                fieldWithPath("[].minor").type(JsonFieldType.STRING).description("학생의 부전공"),
-                fieldWithPath("[].doubleMajor").type(JsonFieldType.STRING).description("학생의 복수전공"),
-                fieldWithPath("[].phoneNumber").type(JsonFieldType.STRING).description("학생의 전화번호"),
-                fieldWithPath("[].career").type(JsonFieldType.STRING).description("학생의 진로 구분"),
-                fieldWithPath("[].careerDetail").type(JsonFieldType.STRING).description("학생의 진로 상세")
+        final QueryParametersSnippet queryParameters = queryParameters(
+                parameterWithName("field").description("검색 필드 번호(option)").optional(),
+                parameterWithName("keyword").description("검색할 키워드(option)").optional()
         );
 
-        final List<StudentMemberResponse> response = List.of(
+        final ResponseFieldsSnippet responseBodySnippet = responseFields(
+                fieldWithPath("totalPages").type(JsonFieldType.NUMBER).description("총 페이지 수"),
+                fieldWithPath("totalElements").type(JsonFieldType.NUMBER).description("총 데이터 수"),
+                fieldWithPath("size").type(JsonFieldType.NUMBER).description("페이지 내 데이터 수"),
+                fieldWithPath("number").type(JsonFieldType.NUMBER).description("페이지 번호"),
+                fieldWithPath("sort.empty").type(JsonFieldType.BOOLEAN).description("정렬 속성의 존재 여부"),
+                fieldWithPath("sort.sorted").type(JsonFieldType.BOOLEAN).description("정렬 여부"),
+                fieldWithPath("sort.unsorted").type(JsonFieldType.BOOLEAN).description("정렬여부"),
+                fieldWithPath("first").type(JsonFieldType.BOOLEAN).description("첫 페이지인지 여부"),
+                fieldWithPath("last").type(JsonFieldType.BOOLEAN).description("마지막 페이지인지 여부"),
+                fieldWithPath("pageable.pageNumber").type(JsonFieldType.NUMBER).description("요청한 페이지번호"),
+                fieldWithPath("pageable.pageSize").type(JsonFieldType.NUMBER).description("요청한 페이지크기"),
+                fieldWithPath("pageable.sort.empty").type(JsonFieldType.BOOLEAN).description("요청한 데이터가 비었는지 여부"),
+                fieldWithPath("pageable.sort.sorted").type(JsonFieldType.BOOLEAN).description("요청한 데이터 정렬 기준 존재 여부"),
+                fieldWithPath("pageable.sort.unsorted").type(JsonFieldType.BOOLEAN).description("요청한 데이터 정렬 기준 존재 여부"),
+                fieldWithPath("pageable.offset").type(JsonFieldType.NUMBER).description("요청한 페이지오프셋"),
+                fieldWithPath("pageable.paged").type(JsonFieldType.BOOLEAN).description("페이징 여부"),
+                fieldWithPath("pageable.unpaged").type(JsonFieldType.BOOLEAN).description("페이징 여부"),
+                fieldWithPath("numberOfElements").type(JsonFieldType.NUMBER).description("총 데이터 수"),
+                fieldWithPath("empty").type(JsonFieldType.BOOLEAN).description("데이터의 존재 여부"),
+                fieldWithPath("content[].id").type(JsonFieldType.NUMBER).description("학생의 id(학번)"),
+                fieldWithPath("content[].email").type(JsonFieldType.STRING).description("학생의 이메일"),
+                fieldWithPath("content[].name").type(JsonFieldType.STRING).description("학생의 이름"),
+                fieldWithPath("content[].major").type(JsonFieldType.STRING).description("학생의 주전공"),
+                fieldWithPath("content[].minor").type(JsonFieldType.STRING).description("학생의 부전공"),
+                fieldWithPath("content[].doubleMajor").type(JsonFieldType.STRING).description("학생의 복수전공"),
+                fieldWithPath("content[].phoneNumber").type(JsonFieldType.STRING).description("학생의 전화번호"),
+                fieldWithPath("content[].career").type(JsonFieldType.STRING).description("학생의 진로 구분"),
+                fieldWithPath("content[].careerDetail").type(JsonFieldType.STRING).description("학생의 진로 상세")
+        );
+
+        final Pageable pageable = PageRequest.of(0, 10);
+        final Page<StudentMemberResponse> response = new PageImpl<>(List.of(
                 new StudentMemberResponse(202055558L, "songsy405@aaa.com", "홍길동",
                         "정보컴퓨터공학부", "", "", "01011111111", GRADUATE_SCHOOL, "대학원 진학"),
                 new StudentMemberResponse(202055555L, "abcdefg@aaa.com", "아무개",
-                        "사회학과", "", "", "01012345678", EMPLOYMENT_COMPANY, "네카라쿠배"));
-
+                        "사회학과", "", "", "01012345678", EMPLOYMENT_COMPANY, "네카라쿠배")),
+                PageRequest.of(0, 10),
+                2
+        );
         final String token = "Bearer AccessToken";
 
         // when
-        when(memberAdminQueryService.findStudentMembers()).thenReturn(response);
+        when(memberAdminQueryService.findStudentMembers(any(), any(), any())).thenReturn(response);
 
         // then
         mockMvc.perform(RestDocumentationRequestBuilders.get("/admin/member/students")
                         .header(HttpHeaders.AUTHORIZATION, token))
                 .andExpect(status().isOk())
-                .andDo(document("student-find-all", responseFields));
+                .andDo(document("student-find-all", responseBodySnippet));
     }
 
 

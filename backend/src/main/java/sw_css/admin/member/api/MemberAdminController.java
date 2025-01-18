@@ -4,6 +4,7 @@ import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,8 +25,12 @@ public class MemberAdminController {
     private final MemberAdminQueryService memberAdminQueryService;
 
     @GetMapping("/students")
-    public ResponseEntity<List<StudentMemberResponse>> findAllStudent(@AdminInterface FacultyMember facultyMember) {
-        return ResponseEntity.ok(memberAdminQueryService.findStudentMembers());
+    public ResponseEntity<Page<StudentMemberResponse>> findStudentByPage(
+            @AdminInterface FacultyMember facultyMember,
+            @RequestParam(value = "field", required = false) final Integer field,
+            @RequestParam(value = "keyword", required = false) final String keyword,
+            final Pageable pageable) {
+        return ResponseEntity.ok(memberAdminQueryService.findStudentMembers(field, keyword, pageable));
     }
 
     @GetMapping("/faculties")
