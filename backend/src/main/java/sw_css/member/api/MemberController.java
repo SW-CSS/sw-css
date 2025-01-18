@@ -5,19 +5,26 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import sw_css.admin.auth.application.dto.request.DeleteFacultyRequest;
 import sw_css.member.application.MemberCommandService;
 import sw_css.member.application.MemberQueryService;
 import sw_css.member.application.dto.request.MemberChangePasswordRequest;
 import sw_css.member.application.dto.request.MemberChangeInfoRequest;
+import sw_css.member.application.dto.request.MemberChangeStudentDetailInfoRequest;
 import sw_css.member.application.dto.response.StudentMemberResponse;
+import sw_css.member.domain.FacultyMember;
 import sw_css.member.domain.Member;
+import sw_css.member.domain.StudentMember;
 import sw_css.utils.annotation.MemberInterface;
+import sw_css.utils.annotation.StudentInterface;
+import sw_css.utils.annotation.SuperAdminInterface;
 
 @Validated
 @RequestMapping("/members")
@@ -44,6 +51,20 @@ public class MemberController {
     public ResponseEntity<Void> changeMemberInfo(@MemberInterface Member me,
                                                  @RequestBody @Valid MemberChangeInfoRequest request){
         memberCommandService.changeDefaultInfo(me, request.name(), request.phoneNumber());
+        return ResponseEntity.noContent().build();
+    }
+
+    @PatchMapping("/change-student-detail-info")
+    public ResponseEntity<Void> changeStudentDetailInfo(@StudentInterface StudentMember me,
+                                                        @RequestBody @Valid MemberChangeStudentDetailInfoRequest request){
+        memberCommandService.changeStudentDetailInfo(me, request);
+        return ResponseEntity.noContent().build();
+    }
+
+    @DeleteMapping()
+    public ResponseEntity<Void> deleteMember(
+            @MemberInterface Member me) {
+        memberCommandService.deleteMember(me);
         return ResponseEntity.noContent().build();
     }
 }

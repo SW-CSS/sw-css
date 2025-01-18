@@ -21,9 +21,10 @@ public class MemberAdminQueryService {
     private final StudentMemberRepository studentMemberRepository;
     private final FacultyMemberCustomRepository facultyMemberCustomRepository;
 
-    public List<StudentMemberResponse> findStudentMembers() {
-        final List<StudentMember> students = studentMemberRepository.findAll();
-        return students.stream().map(StudentMemberResponse::from).toList();
+    public Page<StudentMemberResponse> findStudentMembers(final Integer field, final String keyword, final Pageable pageable) {
+        final Page<StudentMember> students = studentMemberRepository.findStudentMembers(field, keyword, pageable);
+
+        return StudentMemberResponse.from(students, pageable);
     }
 
     public Page<FacultyMemberResponse> findFacultyMembers(final Integer field, final String keyword, final Pageable pageable) {
