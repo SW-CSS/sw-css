@@ -22,7 +22,7 @@ import org.springframework.restdocs.payload.RequestFieldsSnippet;
 import org.springframework.restdocs.payload.ResponseFieldsSnippet;
 import org.springframework.restdocs.request.PathParametersSnippet;
 import sw_css.member.api.MemberController;
-import sw_css.member.application.dto.request.ChangePasswordRequest;
+import sw_css.member.application.dto.request.MemberChangePasswordRequest;
 import sw_css.member.application.dto.request.MemberChangeInfoRequest;
 import sw_css.member.application.dto.response.StudentMemberResponse;
 import sw_css.member.domain.Member;
@@ -78,7 +78,7 @@ public class MemberApiDocsTest extends RestDocsTest {
         final String newPassword = "asdf1234!";
         final String token = "Bearer AccessToken";
 
-        final ChangePasswordRequest request = new ChangePasswordRequest(oldPassword, newPassword);
+        final MemberChangePasswordRequest request = new MemberChangePasswordRequest(oldPassword, newPassword);
 
         // when
         doNothing().when(memberCommandService).changePassword(me, oldPassword, newPassword);

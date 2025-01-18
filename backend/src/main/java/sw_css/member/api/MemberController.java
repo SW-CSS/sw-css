@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import sw_css.member.application.MemberCommandService;
 import sw_css.member.application.MemberQueryService;
-import sw_css.member.application.dto.request.ChangePasswordRequest;
+import sw_css.member.application.dto.request.MemberChangePasswordRequest;
 import sw_css.member.application.dto.request.MemberChangeInfoRequest;
 import sw_css.member.application.dto.response.StudentMemberResponse;
 import sw_css.member.domain.Member;
@@ -35,7 +35,7 @@ public class MemberController {
 
     @PatchMapping("/change-password")
     public ResponseEntity<Void> changeMemberPassword(@MemberInterface Member me,
-                                                     @RequestBody @Valid ChangePasswordRequest request) {
+                                                     @RequestBody @Valid MemberChangePasswordRequest request) {
         memberCommandService.changePassword(me, request.oldPassword(), request.newPassword());
         return ResponseEntity.noContent().build();
     }
