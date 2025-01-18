@@ -24,16 +24,5 @@ public class MemberQueryService {
                 .orElseThrow(() -> new MemberException(MemberExceptionType.NOT_FOUND_STUDENT));
         return StudentMemberResponse.from(student);
     }
-
-    public void changePassword(Member me, String oldPassword, String newPassword) {
-        if (me.isWrongPassword(oldPassword)) {
-            throw new MemberException(MemberExceptionType.MEMBER_WRONG_PASSWORD);
-        }
-
-        String encodedPassword = Password.encode(newPassword);
-        me.setPassword(encodedPassword);
-
-        memberRepository.save(me);
-    }
 }
 
