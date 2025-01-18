@@ -80,7 +80,7 @@ public class MemberApiDocsTest extends RestDocsTest {
         final ChangePasswordRequest request = new ChangePasswordRequest(oldPassword, newPassword);
 
         // when
-        doNothing().when(memberQueryService).changePassword(me, oldPassword, newPassword);
+        doNothing().when(memberCommandService).changePassword(me, oldPassword, newPassword);
 
         // then
         mockMvc.perform(RestDocumentationRequestBuilders.patch("/members/change-password")
